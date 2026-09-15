@@ -37,7 +37,7 @@
       [data-r="sectionTitle"] { font-size: 28px !important; }
       [data-r="grid3"] { grid-template-columns: 1fr !important; }
       [data-r="grid4"] { grid-template-columns: repeat(2, 1fr) !important; }
-      [data-r="productGrid"] { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+      [data-r="productGrid"] { grid-template-columns: 1fr !important; gap: 32px !important; }
       [data-r="checkoutGrid"] { grid-template-columns: 1fr !important; }
       [data-r="twoCol"] { grid-template-columns: 1fr !important; }
       [data-r="footer"] { padding-left: 24px !important; padding-right: 24px !important; flex-direction: column; gap: 8px; }
@@ -47,7 +47,7 @@
       [data-r="hero"] > div:first-child { align-items: center !important; }
     }
     @media (max-width: 480px) {
-      [data-r="grid4"], [data-r="productGrid"] { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; }
+      [data-r="grid4"], [data-r="productGrid"] { grid-template-columns: 1fr !important; }
       [data-r="navlinks"] { gap: 14px !important; font-size: 13px !important; }
     }
     @media (max-width: 900px) {
@@ -257,7 +257,7 @@
           <div onClick="{{ selected.add }}" style="cursor:pointer; flex:1; background:#d4b572; color:#191510; font-weight:700; text-align:center; padding:16px; border-radius:2px;">Add to Bag</div>
           <div onClick="{{ selected.toggleWish }}" style="cursor:pointer; border:1px solid #37301f; padding:16px 20px; border-radius:2px; color:{{ selected.heartColor }};">♡</div>
         </div>
-        <div style="margin-top:18px; padding-top:18px; border-top:1px solid #2a2318; font-size:13px; color:#b3ac9c; line-height:1.8;">Handcrafted in our Roman atelier from natural, carefully chosen gemstones — the piece you wear is unrepeatable, entirely yours.<br>Free shipping on orders over € 50 · € 8 below · 30-day satisfaction guarantee</div>
+        <div style="margin-top:18px; padding-top:18px; border-top:1px solid #2a2318; font-size:13px; color:#b3ac9c; line-height:1.8;">Handcrafted in our Roman atelier from natural, carefully chosen gemstones — the piece you wear is unrepeatable, entirely yours.<br>Free EU shipping · 30-day satisfaction guarantee</div>
       </div>
     </div>
   </sc-if>

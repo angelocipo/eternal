@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #15120d; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(198,166,103,0.28); border-radius: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    input::placeholder { opacity: 0.6; }
+    a { color: #d4b572; }
+    a:hover { color: #efe9dc; }
+
+    @media (max-width: 900px) {
+      [data-r="nav"] { padding: 16px 20px !important; flex-wrap: wrap; row-gap: 10px; }
+      [data-r="pdp"] { grid-template-columns: 1fr !important; padding: 32px 20px 24px !important; gap: 28px !important; }
+
+      [data-r="title"] { font-size: 32px !important; }
+      [data-r="section"] { padding-left: 20px !important; padding-right: 20px !important; }
+      [data-r="footer"] { padding-left: 20px !important; padding-right: 20px !important; flex-direction: column; gap: 8px; }
+      [data-r="cartDrawer"] { width: 100vw !important; }
+      [data-r="checkoutGrid"] { grid-template-columns: 1fr !important; padding: 32px 20px 60px !important; }
+      [data-r="checkoutNav"] { padding: 16px 20px !important; }
+    }
+    @media (max-width: 480px) {
+      [data-r="thumbs"] { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+  </style>
+
+  <script src="i18n.js"></script>
+<script src="chrome.js"></script>
+</helmet>
+
+<x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="0,0" style="position:absolute; top:0px; left:0px; width:0px; height:0px; overflow:hidden;"></x-import>
+<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
+
+  <!-- NAV -->
+  <div data-ecj-nav="bracelet"></div>
+
+  <!-- HERO / PDP -->
+  <div data-screen-label="Product" data-r="pdp" style="display:grid; grid-template-columns:1.1fr 1fr; gap:64px; padding:64px 56px 40px; max-width:1400px; margin:0 auto;">
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div data-r="heroImg" style="position:relative; width:100%; border-radius:6px; overflow:hidden; background:#1b1711;">
+        <div style="padding-top:100%;"></div>
+        <image-slot id="lemurian-hero" shape="rect" placeholder="Drop the Lemurian II product photo" src="https://www.eternalcity.jewelry/img/lemurian/Italian-Jewelry-Made-In-Rome-Lemurian-Quartz-Minimalist-Bracelet-Handmade-Luxury-600x600-1.jpg" style="position:absolute; top:0; left:0; width:100%; height:100%;"></image-slot>
+        <div style="position:absolute; top:20px; left:20px; background:#c6a667; color:#15120d; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:6px 12px; border-radius:2px;">Sale</div>
+      </div>
+      <div data-r="thumbs" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;">
+        <sc-for list="{{ thumbSlots }}" as="slot" hint-placeholder-count="2">
+          <div style="height:120px; border-radius:4px; overflow:hidden; background:#1b1711;">
+            <image-slot id="{{ slot.id }}" shape="rect" placeholder="{{ slot.label }}" src="{{ slot.src }}" style="width:100%; height:100%;"></image-slot>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:22px; padding-top:8px;">
+      <div style="color:#d4b572; font-size:13px; letter-spacing:.1em; text-transform:uppercase;">Lemurian Quartz · Onyx · Silver Cubes</div>
+      <div data-r="title" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:42px; line-height:1.1; font-weight:500;">Lemurian II Quartz Minimalist Bracelet</div>
+      <div style="font-size:22px; display:flex; align-items:baseline; gap:12px;">
+        <span style="text-decoration:line-through; opacity:.55; font-size:17px;">€224,00</span>
+        <span style="font-weight:700; color:#efe9dc;">€112,00</span>
+        <span style="font-size:12px; color:#c6a667; font-weight:700; letter-spacing:.04em;">−50%</span>
+      </div>
+      <div style="font-size:15px; line-height:1.7; color:#cabfa9; max-width:480px;">Handcrafted from natural Lemurian quartz, faceted black onyx, Swarovski beads and sterling silver accents — designed for understated elegance. Each stone is sourced directly from the mining company, untreated and authentic.</div>
+
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:6px;">
+        <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#b3ac9c;">Wrist Size</div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <sc-for list="{{ sizes }}" as="sz" hint-placeholder-count="6">
+            <div onClick="{{ sz.onClick }}" style="cursor:pointer; border-width:1px; border-style:solid; border-color:{{ sz.borderColor }}; color:{{ sz.textColor }}; padding:9px 14px; border-radius:20px; font-size:13px;">{{ sz.label }}</div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#b3ac9c;">Closing</div>
+        <div style="display:flex; gap:10px;">
+          <sc-for list="{{ closings }}" as="cl" hint-placeholder-count="3">
+            <div onClick="{{ cl.onClick }}" style="cursor:pointer; display:flex; align-items:center; gap:8px; border-width:1px; border-style:solid; border-color:{{ cl.borderColor }}; color:{{ cl.textColor }}; padding:7px 16px 7px 8px; border-radius:20px; font-size:13px;">
+              <sc-if value="{{ cl.icon }}" hint-placeholder-val="{{ false }}"><img src="{{ cl.icon }}" alt="{{ cl.label }}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;"></sc-if>
+              {{ cl.label }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:16px; margin-top:8px;">
+        <div style="display:flex; align-items:center; gap:12px; border:1px solid #37301f; border-radius:2px; padding:6px 8px;">
+          <div onClick="{{ decQty }}" style="cursor:pointer; width:24px; height:24px; text-align:center; font-size:15px;">−</div>
+          <div style="font-size:14px; min-width:16px; text-align:center;">{{ qty }}</div>
+          <div onClick="{{ incQty }}" style="cursor:pointer; width:24px; height:24px; text-align:center; font-size:15px;">+</div>
+        </div>
+        <div onClick="{{ addToCart }}" style="cursor:pointer; flex:1; background:#d4b572; color:#191510; font-weight:700; text-align:center; padding:16px; border-radius:2px; font-size:14px;">Add to Bag — €{{ lineTotalLabel }}</div>
+      </div>
+
+      <div style="margin-top:10px; padding-top:18px; border-top:1px solid #2a2318; font-size:13px; color:#b3ac9c; line-height:1.9;">
+        Free EU shipping · 30-day satisfaction guarantee · Handcrafted in our Roman atelier<br>
+        <a href="Lemurian-Category.dc.html">Shop Lemurian Bracelets</a> &nbsp;|&nbsp; <a href="Eternal-City-Size-Guide.dc.html">What bead size to choose</a> &nbsp;|&nbsp; <a href="Eternal-City-Care-Guide.dc.html">Maintenance &amp; Care Guide</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST TICKER -->
+  <div style="padding: 14px 0; background: #17130e; border-top: 1px solid #2a2318; border-bottom: 1px solid #2a2318; overflow: hidden; white-space: nowrap; color: #b3ac9c; font-size: 13px; letter-spacing: .04em; text-align: center">
+    Every piece comes in a luxury box &nbsp;•&nbsp; Made in Rome, worn forever &nbsp;•&nbsp; Natural stone, one-of-a-kind &nbsp;•&nbsp; 30-Day Satisfaction Guarantee &nbsp;•&nbsp; Free EU Shipping &nbsp;•&nbsp; Imperium Collection &nbsp;•
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div id="care" data-r="section" style="padding:80px 56px; max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:24px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; font-weight:500;">The Stone</div>
+    <div style="font-size:15px; line-height:1.85; color:#cabfa9;">
+      Elevate your style with a bracelet that speaks without shouting. Handcrafted from natural Lemurian quartz, faceted black onyx, Swarovski beads, and sterling silver accents, this piece is designed for understated elegance. Each stone is sourced directly from the mining company — untreated, authentic, and carefully selected for quality and visual depth.<br><br>
+      Minimalist and exclusive, this bracelet reflects light with every movement, creating a quiet statement of sophistication. Durable quartz (Mohs 7) ensures longevity, while the natural SiO₂ composition highlights the purity of the stone.<br><br>
+      Due to the special characteristics of natural stone, size and color of the beads can slightly vary.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div data-r="footer" style="padding:40px 56px; border-top:1px solid #2a2318; display:flex; justify-content:space-between; color:#8f8879; font-size:12px;">
+    <div>© 2026 Eternal City Jewelry · Rome, Italy</div>
+    <div>Handcrafted Natural Gemstone Bracelets</div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#17130e; border-left:1px solid #2a2318; transform:translateX(0%);transition:transform .3s ease; z-index:20; display:flex; flex-direction:column;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #2a2318;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Bag ({{ cartCount }})</div>
+      <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#b3ac9c;">✕</div>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:18px;">
+      <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your bag is empty.</div>
+      </sc-if>
+      <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; gap:14px;">
+          <div style="width:64px; height:64px; border-radius:4px; background:#1b1711; flex-shrink:0;"></div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:14px;">Lemurian II Quartz Bracelet</div>
+            <div style="font-size:12px; color:#b3ac9c;">€112,00 · {{ selectedSize }} · {{ selectedClosing }}</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-top:4px;">
+              <div onClick="{{ decQty }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">−</div>
+              <div style="font-size:13px;">{{ qty }}</div>
+              <div onClick="{{ incQty }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">+</div>
+              <div onClick="{{ clearCart }}" style="cursor:pointer; margin-left:auto; font-size:12px; color:#b3ac9c; text-decoration:underline;">Remove</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid #2a2318; display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; justify-content:space-between; font-size:15px; font-weight:700;"><div>Subtotal</div><div>€{{ lineTotalLabel }}</div></div>
+      <div onClick="{{ goCheckout }}" style="cursor:pointer; text-align:center; background:#d4b572; color:#191510; font-weight:700; padding:15px; border-radius:2px;">Checkout</div>
+    </div>
+  </div>
+  </sc-if>
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ toggleCart }}" style="position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:15;"></div>
+  </sc-if>
+
+  <!-- CHECKOUT OVERLAY -->
+  <sc-if value="{{ checkoutOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:30; background:#15120d; overflow-y:auto;">
+      <nav data-r="checkoutNav" style="display:flex; align-items:center; justify-content:space-between; padding:22px 56px; border-bottom:1px solid #2a2318;">
+        <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:24px; letter-spacing:.14em; font-weight:600; color:#efe9dc;">ETERNAL CITY</div>
+        <div onClick="{{ closeCheckout }}" style="cursor:pointer; font-size:14px; color:#b3ac9c;">✕ Close</div>
+      </nav>
+
+      <sc-if value="{{ placed }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:160px 64px; display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:40px;">Grazie. Your order is on its way.</div>
+          <div style="color:#b3ac9c; font-size:14px; max-width:420px;">A confirmation has been sent to your inbox. Your bracelet will be strung, boxed and shipped from our Roman atelier.</div>
+          <div onClick="{{ continueShopping }}" style="cursor:pointer; margin-top:14px; background:#d4b572; color:#191510; font-weight:700; padding:14px 28px; border-radius:2px;">Back to Store</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ checkoutNotPlaced }}" hint-placeholder-val="{{ true }}">
+        <div data-r="checkoutGrid" style="padding:56px 64px 90px; display:grid; grid-template-columns:1.3fr 1fr; gap:56px; max-width:1200px; margin:0 auto;">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px;">Checkout</div>
+            <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#b3ac9c;">Contact</div>
+            <input placeholder="Email address" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+            <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#b3ac9c; margin-top:10px;">Shipping</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <input placeholder="First name" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+              <input placeholder="Last name" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+            </div>
+            <input placeholder="Address" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <input placeholder="City" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+              <input placeholder="Postal code" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+            </div>
+            <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#b3ac9c; margin-top:10px;">Payment</div>
+            <input placeholder="Card number" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <input placeholder="MM / YY" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+              <input placeholder="CVC" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; padding:14px; border-radius:2px; font-size:14px;">
+            </div>
+          </div>
+          <div style="background:#17130e; border:1px solid #2a2318; border-radius:6px; padding:28px; display:flex; flex-direction:column; gap:18px; height:fit-content;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:22px;">Order Summary</div>
+            <div style="display:flex; justify-content:space-between; font-size:13px; color:#cabfa9;">
+              <div>Lemurian II Bracelet ({{ selectedSize }}) × {{ qty }}</div>
+              <div>€{{ lineTotalLabel }}</div>
+            </div>
+            <div style="border-top:1px solid #2a2318; padding-top:14px; display:flex; flex-direction:column; gap:8px; font-size:13px;">
+              <div style="display:flex; justify-content:space-between; color:#b3ac9c;"><div>Subtotal</div><div>€{{ lineTotalLabel }}</div></div>
+              <div style="display:flex; justify-content:space-between; color:#b3ac9c;"><div>Shipping</div><div>Free</div></div>
+              <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:700; margin-top:6px;"><div>Total</div><div>€{{ lineTotalLabel }}</div></div>
+            </div>
+            <div onClick="{{ placeOrder }}" style="cursor:pointer; text-align:center; background:#d4b572; color:#191510; font-weight:700; padding:15px; border-radius:2px;">Place Order</div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SIZE_OPTIONS = ['XSmall 15cm', 'Small 16cm', 'Medium 17cm', 'Large 19cm', 'XLarge 20cm', 'XXLarge 21cm'];
+const CLOSING_OPTIONS = [
+  { label: 'Elastic', icon: 'https://www.eternalcity.jewelry/wp-content/uploads/2025/10/elastic-copia.avif' },
+  { label: 'Clasp', icon: 'https://www.eternalcity.jewelry/wp-content/uploads/2025/10/clasp-copia.avif' },
+  { label: 'Hook Clasp', icon: 'https://www.eternalcity.jewelry/wp-content/uploads/2025/10/hook-copia.avif' },
+];
+const PRODUCT_PHOTO_BASE = 'https://www.eternalcity.jewelry/img/lemurian/Italian-Jewelry-Made-In-Rome-Lemurian-Quartz-Minimalist-Bracelet-Handmade-Luxury-600x600-';
+const PRODUCT_PHOTO = PRODUCT_PHOTO_BASE + '1.jpg';
+const UNIT_PRICE = 112;
+
+class Component extends DCLogic {
+  state = {
+    size: 'Large 19cm',
+    closing: 'Elastic',
+    qty: 1,
+    cart: false,
+    cartOpen: false,
+    checkoutOpen: false,
+    placed: false,
+    wishlisted: false,
+  };
+
+  setSize(s) { this.setState({ size: s }); }
+  setClosing(c) { this.setState({ closing: c }); }
+  incQty() { this.setState(s => ({ qty: s.qty + 1 })); }
+  decQty() { this.setState(s => ({ qty: Math.max(1, s.qty - 1) })); }
+  addToCart() { this.setState({ cart: true, cartOpen: true }); }
+  clearCart() { this.setState({ cart: false, qty: 1 }); }
+  toggleCart() { this.setState(s => ({ cartOpen: !s.cartOpen })); }
+
+  componentDidMount() { this.syncChrome(); }
+
+  componentDidUpdate() { this.syncChrome(); }
+  syncChrome() {
+    window.ecjCartHandler = () => this.toggleCart();
+    const s = this.state;
+    const n = Array.isArray(s.cart) ? s.cart.reduce((t, l) => t + (l.qty || 1), 0) : (s.cart ? (s.qty || 1) : 0);
+    if (window.ecjSetCartCount) window.ecjSetCartCount(n);
+  }
+  toggleWishlist() { this.setState(s => ({ wishlisted: !s.wishlisted })); }
+  goCheckout() { this.setState({ checkoutOpen: true, cartOpen: false }); }
+  closeCheckout() { this.setState({ checkoutOpen: false }); }
+  placeOrder() { this.setState({ placed: true }); }
+  continueShopping() { this.setState({ checkoutOpen: false, placed: false, cart: false, qty: 1 }); }
+
+  renderVals() {
+    const s = this.state;
+    const cartCount = s.cart ? s.qty : 0;
+    const sizes = SIZE_OPTIONS.map(label => ({
+      label,
+      borderColor: label === s.size ? '#d4b572' : '#37301f',
+      textColor: label === s.size ? '#d4b572' : '#c4bca9',
+      onClick: () => this.setSize(label),
+    }));
+    const closings = CLOSING_OPTIONS.map(opt => ({
+      label: opt.label,
+      icon: opt.icon,
+      borderColor: opt.label === s.closing ? '#d4b572' : '#37301f',
+      textColor: opt.label === s.closing ? '#d4b572' : '#c4bca9',
+      onClick: () => this.setClosing(opt.label),
+    }));
+    const thumbSlots = [2].map(n => ({ id: 'lemurian-thumb-' + n, label: 'Angle ' + n, src: PRODUCT_PHOTO_BASE + n + '.jpg' }));
+    return {
+      sizes: sizes,
+      closings: closings,
+      thumbSlots: thumbSlots,
+      qty: s.qty,
+      selectedSize: s.size,
+      selectedClosing: s.closing,
+      lineTotalLabel: (UNIT_PRICE * s.qty).toFixed(2).replace('.', ','),
+      cartCount: cartCount,
+      cartEmpty: !s.cart,
+      cartHasItems: !!s.cart,
+      checkoutNotPlaced: !s.placed,
+      cartOpen: s.cartOpen,
+      cartTransform: s.cartOpen ? 'translateX(0%)' : 'translateX(100%)',
+      checkoutOpen: s.checkoutOpen,
+      placed: s.placed,
+      heartColor: s.wishlisted ? '#d4b572' : '#c4bca9',
+      addToCart: () => this.addToCart(),
+      incQty: () => this.incQty(),
+      decQty: () => this.decQty(),
+      clearCart: () => this.clearCart(),
+      toggleCart: () => this.toggleCart(),
+      toggleWishlist: () => this.toggleWishlist(),
+      goCheckout: () => this.goCheckout(),
+      closeCheckout: () => this.closeCheckout(),
+      placeOrder: () => this.placeOrder(),
+      continueShopping: () => this.continueShopping(),
+    };
+  }
+}
+</script>
+</body>
+</html>

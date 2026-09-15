@@ -13,7 +13,7 @@
    i18n.js translates the injected markup on its own (it watches the DOM), so every
    label below carries data-en / data-it. */
 (function () {
-  var LOGO = 'img/logo-ecj-gold.webp';
+  var LOGO = 'img/logo-ecj-white.webp';
   var CART_HREF = 'checkout.dc.html';
 
   // ---- the menu: edit here only ------------------------------------------------
@@ -33,7 +33,6 @@
     { href: 'contact.dc.html', en: 'Contact', it: 'Contatti' },
     { href: 'Eternal-City-Size-Guide.dc.html', en: 'Size guide', it: 'Guida taglie' },
     { href: 'Eternal-City-Care-Guide.dc.html', en: 'Care guide', it: 'Cura' },
-    { href: 'selling-conditions.dc.html', en: 'Selling conditions', it: 'Condizioni di vendita' },
     { href: 'privacy-policy.dc.html', en: 'Privacy', it: 'Privacy' },
   ];
 
@@ -79,7 +78,7 @@
     }).join('');
 
     return '<div data-ecj-chrome="footer" style="border-top:1px solid rgba(198,166,103,.16);text-align:center;padding:56px 28px;">' +
-      '<img src="' + LOGO + '" alt="Eternal City Jewelry" style="width:100%;max-width:75px;height:auto;display:block;margin:0 auto;">' +
+      '<img src="' + LOGO + '" alt="Eternal City Jewelry" style="width:100%;max-width:300px;height:auto;display:block;margin:0 auto;">' +
       '<div data-en="' + esc(TAGLINE.en) + '" data-it="' + esc(TAGLINE.it) + '" style="font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:' + GOLD + ';margin-top:16px;">' + esc(TAGLINE.en) + '</div>' +
       '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;">' + links + '</div>' +
     '</div>';
