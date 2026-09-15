@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #15120d; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(198,166,103,0.28); border-radius: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    a { color: #d4b572; }
+    a:hover { color: #efe9dc; }
+    @media (max-width: 900px) {
+      [data-r="nav"] { padding: 16px 20px !important; flex-wrap: wrap; row-gap: 10px; }
+      [data-r="hero"] { padding: 48px 20px !important; }
+      [data-r="heroTitle"] { font-size: 34px !important; }
+      [data-r="section"] { padding-left: 20px !important; padding-right: 20px !important; }
+      [data-r="grid5"] { grid-template-columns: repeat(2,1fr) !important; }
+      [data-r="table"] { font-size: 13px !important; }
+      [data-r="footer"] { padding-left: 20px !important; padding-right: 20px !important; flex-direction: column; gap: 8px; }
+    }
+  
+    @media (max-width: 560px) { [data-r="grid5"], [data-r="grid3"] { grid-template-columns: 1fr !important; } [data-r="heroTitle"] { font-size: 28px !important; } [data-r="section"] { padding-top: 44px !important; padding-bottom: 44px !important; } [data-r="table"] { font-size: 12.5px !important; } }
+  </style>
+  <script src="i18n.js"></script>
+<script src="chrome.js"></script>
+</helmet>
+
+<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif;">
+
+  <!-- NAV -->
+  <div data-ecj-nav=""></div>
+
+  <!-- HERO -->
+  <div data-r="hero" style="padding:80px 64px 56px; display:flex; flex-direction:column; gap:20px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px);">
+    <div style="color:#d4b572; font-size:13px; letter-spacing:.1em; text-transform:uppercase;">Handcrafted in Rome · Made in Italy</div>
+    <div data-r="heroTitle" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:48px; line-height:1.1; font-weight:500; max-width:680px;">What Size to Choose?</div>
+    <div style="font-size:16px; line-height:1.6; color:#cabfa9; max-width:540px;">Bead size isn't cosmetic — it changes the presence and character of a bracelet entirely. Here's every size we offer, side by side.</div>
+    <div style="display:flex; gap:14px; margin-top:8px; flex-wrap:wrap;">
+      <sc-for list="{{ sizeChips }}" as="chip" hint-placeholder-count="5">
+        <div style="border:1px solid #37301f; color:#efe9dc; padding:8px 18px; border-radius:20px; font-size:13px;">{{ chip }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- SIZE BREAKDOWN -->
+  <div data-r="section" style="padding:70px 64px; display:flex; flex-direction:column; gap:36px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px;">How Each Size Speaks</div>
+    <div data-r="grid5" style="display:grid; grid-template-columns:repeat(5,1fr); gap:20px;">
+      <sc-for list="{{ sizeDetails }}" as="sz" hint-placeholder-count="5">
+        <div style="display:flex; flex-direction:column; gap:10px; padding:22px 18px; border:1px solid #2a2318; border-radius:6px;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:22px; color:#d4b572;">{{ sz.mm }}</div>
+          <div style="font-size:14px; font-weight:700;">{{ sz.title }}</div>
+          <div style="font-size:13px; line-height:1.6; color:#b3ac9c;">{{ sz.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- SIZE COMPARISON PHOTOS -->
+  <div data-r="section" style="padding:0 64px 70px; display:flex; flex-direction:column; gap:20px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:26px;">See It on the Wrist</div>
+    <div data-r="grid3" style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
+      <img src="https://www.eternalcity.jewelry/img/admin/Italian-Jewelry-Made-In-Rome-Lemurian-Quartz-Minimalist-Bracelet-Handmade-Luxury-Sizes-1.jpg" alt="Bead size comparison on wrist, view 1" style="width:100%; border-radius:6px; object-fit:cover;" />
+      <img src="https://www.eternalcity.jewelry/img/admin/Italian-Jewelry-Made-In-Rome-Lemurian-Quartz-Minimalist-Bracelet-Handmade-Luxury-Sizes-2.jpg" alt="Bead size comparison on wrist, view 2" style="width:100%; border-radius:6px; object-fit:cover;" />
+    </div>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div data-r="section" style="padding:0 64px 70px; max-width:820px; display:flex; flex-direction:column; gap:16px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:26px;">Why It Matters</div>
+    <div style="font-size:15px; line-height:1.85; color:#cabfa9;">A bracelet isn't just decoration — it's proportion, balance, identity. The right bead size elevates your presence; the wrong one flattens it. That's why every piece is handcrafted stone by stone in our Roman atelier, with real silver elements and stones chosen for quality, density and character.</div>
+  </div>
+
+  <!-- QUICK ADVICE TABLE -->
+  <div data-r="section" style="padding:0 64px 70px; max-width:820px; display:flex; flex-direction:column; gap:20px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:26px;">Quick Size Advice</div>
+    <div data-r="table" style="display:flex; flex-direction:column; border:1px solid #2a2318; border-radius:6px; overflow:hidden;">
+      <sc-for list="{{ adviceRows }}" as="row" hint-placeholder-count="4">
+        <div style="display:flex; justify-content:space-between; padding:16px 22px; border-bottom:1px solid #2a2318; font-size:14px;">
+          <div style="color:#cabfa9;">{{ row.style }}</div>
+          <div style="color:#d4b572; font-weight:700;">{{ row.sizes }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div data-r="section" style="padding:0 64px 90px; max-width:820px; display:flex; flex-direction:column; gap:16px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:26px;">Your Wrist, Your Signature</div>
+    <div style="font-size:15px; line-height:1.85; color:#cabfa9;">Try a few sizes, feel the weight, see how they sit against a watch or sleeve. The right one isn't a trend — it's personal character, in stone and silver. Made in Italy. Finished in Rome.</div>
+    <a href="index.dc.html" style="display:inline-block; margin-top:10px; cursor:pointer; background:#d4b572; color:#191510; font-weight:700; padding:14px 26px; border-radius:2px; text-decoration:none; width:fit-content;">Shop the Collection</a>
+  </div>
+
+  <div data-ecj-footer></div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SIZE_DETAILS = [
+  { mm: '4mm', title: 'Refined Minimalism', desc: 'Subtle and clean — a quiet whisper of style, perfect layered or worn alone.' },
+  { mm: '6mm', title: 'Italian Elegance', desc: 'Balanced and versatile — works effortlessly with suits, linen, or denim.' },
+  { mm: '8mm', title: 'Confident Presence', desc: 'Defined and noticeable, without shouting for attention.' },
+  { mm: '10mm', title: 'Executive Statement', desc: 'Weight and intention — for those who wear stone with authority.' },
+  { mm: '12mm', title: 'Commanding Power', desc: 'Bold and sculptural. Not for everyone — just the ones who know who they are.' },
+];
+
+const ADVICE_ROWS = [
+  { style: 'Minimal, refined', sizes: '4mm – 6mm' },
+  { style: 'Modern masculine', sizes: '6mm – 8mm' },
+  { style: 'Bold presence', sizes: '8mm – 10mm' },
+  { style: 'Collector / statement', sizes: '10mm – 12mm' },
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      sizeChips: SIZE_DETAILS.map(s => s.mm),
+      sizeDetails: SIZE_DETAILS,
+      adviceRows: ADVICE_ROWS,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

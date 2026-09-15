@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;text-decoration:none;}
+.cl{color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;line-height:1.45;}
+.cl *{box-sizing:border-box;}
+.cl-hero{text-align:center;padding:64px 24px 40px;background:radial-gradient(120% 80% at 50% -16%, rgba(198,166,103,.12), rgba(21,18,13,0) 62%);}
+.cl-eyebrow{font-weight:500;letter-spacing:.42em;font-size:11px;text-transform:uppercase;color:#d4b572;margin:0;}
+.cl-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(38px,6vw,68px);line-height:1;color:#f1e9d8;margin:20px 0 0;}
+.cl-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+.cl-tab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border:1px solid rgba(198,166,103,.28);border-radius:20px;color:#b3ac9c;}
+.cl-tab[aria-current]{background:#d4b572;color:#15120d;border-color:#d4b572;}
+.cl-body{max-width:1240px;margin:0 auto;padding:8px 28px 90px;}
+.cl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;}
+.cl-card{display:block;border:1px solid rgba(198,166,103,.16);border-radius:4px;overflow:hidden;background:#1b1711;transition:border-color .25s,transform .25s;}
+.cl-card:hover{border-color:rgba(198,166,103,.55);transform:translateY(-3px);}
+.cl-ph{position:relative;aspect-ratio:1;background:#1b1711;}
+.cl-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.cl-badge{position:absolute;top:10px;left:10px;background:#c6a667;color:#15120d;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:2px;}
+.cl-meta{padding:14px 16px 16px;}
+.cl-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;color:#ece5d6;line-height:1.2;}
+.cl-price{margin-top:8px;font-size:14px;display:flex;gap:8px;align-items:baseline;}
+.cl-price s{opacity:.5;font-size:12px;}
+.cl-price b{color:#efe9dc;}
+.cl-empty{text-align:center;padding:80px 24px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px;color:#a9a292;}
+.cl-empty a{color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);}
+@media(max-width:600px){.cl-grid{grid-template-columns:repeat(auto-fill,minmax(46%,1fr));gap:14px;}}
+
+@media(max-width:600px){.cl-body,.cl-hero{padding-left:16px !important;padding-right:16px !important;}}
+html,body{overflow-x:hidden;}
+img{max-width:100%;}
+</style>
+</helmet>
+<div class="cl">
+
+  <div data-ecj-nav="{{ navKey }}"></div>
+
+  <div class="cl-hero">
+    <p class="cl-eyebrow">The Collection</p>
+    <h1 class="cl-h1">{{ typeName }}</h1>
+    <div class="cl-tabs">
+      <a class="cl-tab" href="collection.dc.html?type=bracelet" aria-current="{{ curBracelet }}">Bracelets</a>
+      <a class="cl-tab" href="collection.dc.html?type=necklace" aria-current="{{ curNecklace }}">Necklaces</a>
+      <a class="cl-tab" href="collection.dc.html?type=pendant" aria-current="{{ curPendant }}">Pendants</a>
+      <a class="cl-tab" href="collection.dc.html?type=stone" aria-current="{{ curStone }}">Loose stones</a>
+    </div>
+  </div>
+
+  <div class="cl-body">
+    <sc-if value="{{ hasProducts }}" hint-placeholder-val="{{ false }}">
+      <div class="cl-grid">
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="4">
+          <a class="cl-card" href="{{ p.href }}">
+            <div class="cl-ph">
+              <img src="{{ p.img }}" alt="{{ p.name }}">
+              <sc-if value="{{ p.onSale }}" hint-placeholder-val="{{ false }}"><div class="cl-badge">Sale</div></sc-if>
+            </div>
+            <div class="cl-meta">
+              <div class="cl-name">{{ p.name }}</div>
+              <div class="cl-price">
+                <sc-if value="{{ p.onSale }}" hint-placeholder-val="{{ false }}"><s>{{ p.regularLabel }}</s></sc-if>
+                <b>{{ p.priceLabel }}</b>
+              </div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ hasNoProducts }}" hint-placeholder-val="{{ true }}">
+      <div class="cl-empty">More {{ typeNameLower }} are on their way.<br><a href="Compendium.dc.html">Browse the stone compendium</a></div>
+    </sc-if>
+  </div>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TYPE_NAMES = { bracelet: 'Bracelets', necklace: 'Necklaces', pendant: 'Pendants', stone: 'Loose stones' };
+
+class Component extends DCLogic {
+  state = { products: [], type: 'bracelet' };
+
+  componentDidMount() {
+    const type = new URLSearchParams(window.location.search).get('type') || 'bracelet';
+    this.setState({ type: TYPE_NAMES[type] ? type : 'bracelet' });
+    fetch('data/products.json').then(r => r.json()).then(products => this.setState({ products })).catch(() => {});
+    this.syncChrome();
+  }
+  componentDidUpdate() { this.syncChrome(); }
+  syncChrome() { if (window.ecjSetCartCount) window.ecjSetCartCount(0); }
+
+  fmt(n) { return '€ ' + Number(n).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+  matchesType(p, type) {
+    const hay = [p.name, ...(p.cats || []), ...(p.tags || [])].join(' ').toLowerCase();
+    if (type === 'necklace') return /necklace/.test(hay);
+    if (type === 'pendant') return /pendant/.test(hay);
+    if (type === 'stone') return /loose stone|raw stone|(^|\s)stone(\s|$)/.test(hay) && !/bracelet|necklace/.test(hay);
+    return !/necklace|pendant/.test(hay); // bracelet: default bucket
+  }
+
+  renderVals() {
+    const s = this.state;
+    const matches = s.products.filter(p => this.matchesType(p, s.type));
+    const products = matches.map(p => ({
+      href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
+      name: p.name,
+      img: (p.images && p.images[0]) || 'img/logo-ecj-white.webp',
+      onSale: !!(p.sale && p.sale < p.regular),
+      priceLabel: this.fmt(p.price),
+      regularLabel: this.fmt(p.regular),
+    }));
+    return {
+      navKey: s.type,
+      typeName: TYPE_NAMES[s.type],
+      typeNameLower: TYPE_NAMES[s.type].toLowerCase(),
+      curBracelet: s.type === 'bracelet', curNecklace: s.type === 'necklace',
+      curPendant: s.type === 'pendant', curStone: s.type === 'stone',
+      hasProducts: products.length > 0,
+      hasNoProducts: products.length === 0,
+      products,
+    };
+  }
+}
+</script>
+</body>
+</html>

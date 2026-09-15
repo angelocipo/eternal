@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tshirt-shop.online/sitemap.xml

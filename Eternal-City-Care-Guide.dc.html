@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #15120d; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(198,166,103,0.28); border-radius: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    a { color: #d4b572; }
+    a:hover { color: #efe9dc; }
+    @media (max-width: 900px) {
+      [data-r="nav"] { padding: 16px 20px !important; flex-wrap: wrap; row-gap: 10px; }
+      [data-r="hero"] { padding: 48px 20px !important; }
+      [data-r="heroTitle"] { font-size: 34px !important; }
+      [data-r="section"] { padding-left: 20px !important; padding-right: 20px !important; }
+      [data-r="grid3"] { grid-template-columns: 1fr !important; }
+      [data-r="footer"] { padding-left: 20px !important; padding-right: 20px !important; flex-direction: column; gap: 8px; }
+    }
+  
+    @media (max-width: 900px) { [data-r="grid4"] { grid-template-columns: repeat(2,1fr) !important; } }
+    @media (max-width: 560px) { [data-r="grid4"] { grid-template-columns: 1fr !important; } [data-r="heroTitle"] { font-size: 28px !important; } [data-r="section"] { padding-top: 44px !important; padding-bottom: 44px !important; } }
+  </style>
+  <script src="i18n.js"></script>
+<script src="chrome.js"></script>
+</helmet>
+
+<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif;">
+
+  <!-- NAV -->
+  <div data-ecj-nav=""></div>
+
+  <!-- HERO -->
+  <div data-r="hero" style="padding:80px 64px 56px; display:flex; flex-direction:column; gap:20px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px);">
+    <div style="color:#d4b572; font-size:13px; letter-spacing:.1em; text-transform:uppercase;">Maintenance Instructions</div>
+    <div data-r="heroTitle" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:48px; line-height:1.1; font-weight:500; max-width:680px;">Caring for Your Jewelry</div>
+    <div style="font-size:16px; line-height:1.6; color:#cabfa9; max-width:540px;">Each piece is crafted from precious metals and rare natural stones — with a little care, it's built to last a lifetime and beyond.</div>
+  </div>
+
+  <!-- CARE POINTS -->
+  <div data-r="section" style="padding:70px 64px; display:flex; flex-direction:column; gap:36px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px;">How to Keep It Pristine</div>
+    <div data-r="grid3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+      <sc-for list="{{ carePoints }}" as="pt" hint-placeholder-count="6">
+        <div style="display:flex; flex-direction:column; gap:10px; padding:24px 20px; border:1px solid #2a2318; border-radius:6px;">
+          <div style="font-size:14px; font-weight:700; color:#efe9dc;">{{ pt.title }}</div>
+          <div style="font-size:13px; line-height:1.7; color:#b3ac9c;">{{ pt.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- MATERIALS NOTE -->
+  <div data-r="section" style="padding:0 64px 70px; max-width:820px; display:flex; flex-direction:column; gap:16px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:26px;">Working With Precious Metals</div>
+    <div style="font-size:15px; line-height:1.85; color:#cabfa9;">Our pieces use 24k gold, 925 silver and rhodium accents. Water alone won't harm them, but soap and chlorinated pools can dull their finish over time — best to leave your bracelet at home before a swim.</div>
+  </div>
+
+  <!-- ALL PRODUCTS -->
+  <div data-r="section" style="padding:0 64px 70px; display:flex; flex-direction:column; gap:30px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px;">All Products</div>
+      <div style="display:flex; flex-direction:column; gap:8px; min-width:260px;">
+        <div style="font-size:13px; color:#b3ac9c;">Max Price: €{{ maxPriceLabel }}</div>
+        <input type="range" min="{{ priceFloor }}" max="{{ priceCeil }}" step="5" value="{{ maxPrice }}" onChange="{{ setMaxPrice }}" style="width:100%; accent-color:#d4b572;" />
+      </div>
+    </div>
+    <div data-r="grid4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+      <sc-for list="{{ allProducts }}" as="item" hint-placeholder-count="8">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="position:relative; height:180px; border-radius:4px; overflow:hidden; background:{{ item.stripeBg }};">
+            <sc-if value="{{ item.badge }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">{{ item.badge }}</div></sc-if>
+          </div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:16px;">{{ item.name }}</div>
+          <div style="font-size:13px; color:#b3ac9c;">
+            <sc-if value="{{ item.onSale }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
+            €{{ item.priceLabel }}
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+        <div style="grid-column:1/-1; color:#8f8879; font-size:14px; padding:20px 0;">No products under this price.</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div data-r="section" style="padding:0 64px 90px; max-width:820px; display:flex; flex-direction:column; gap:16px;">
+    <div style="font-size:15px; line-height:1.85; color:#cabfa9;">With the right care, a piece like this isn't just worn — it's passed down. Curious which stone suits you? <a href="Compendium.dc.html">Explore gemstone meanings</a>.</div>
+    <a href="index.dc.html" style="display:inline-block; margin-top:10px; cursor:pointer; background:#d4b572; color:#191510; font-weight:700; padding:14px 26px; border-radius:2px; text-decoration:none; width:fit-content;">Shop the Collection</a>
+  </div>
+
+  <div data-ecj-footer></div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PRODUCTS = [
+  { id: 'onyx', name: 'Black Onyx Bracelet', price: 120, badge: 'Bestseller', hue: 40, sat: 0.01, light: 0.22 },
+  { id: 'lapis', name: 'Lapis Lazuli Bracelet', price: 95, hue: 250, sat: 0.09, light: 0.32 },
+  { id: 'tigerseye', name: "Tiger's Eye Bracelet", price: 85, badge: 'New', hue: 55, sat: 0.1, light: 0.42 },
+  { id: 'turquoise8', name: 'Turquoise Bracelet 8mm', price: 55, hue: 195, sat: 0.09, light: 0.4 },
+  { id: 'topazmatte', name: 'Sky Blue Topaz & Black Matte Bracelet', price: 168, salePrice: 48, hue: 215, sat: 0.1, light: 0.36 },
+  { id: 'lemurian', name: 'Lemurian Quartz Minimalist Bracelet', price: 224, salePrice: 112, hue: 60, sat: 0.02, light: 0.5 },
+  { id: 'peridot', name: 'Peridot Bracelet', price: 75, hue: 120, sat: 0.09, light: 0.38 },
+  { id: 'garnet', name: 'Red Garnet Bracelet', price: 40, hue: 15, sat: 0.12, light: 0.34 },
+  { id: 'hematite', name: 'Hematite Bracelet', price: 65, hue: 220, sat: 0.01, light: 0.4 },
+  { id: 'turqnecklace', name: 'Turquoise Necklace', price: 40, hue: 195, sat: 0.09, light: 0.4 },
+  { id: 'diamondonyx', name: 'Raw Blue Diamonds & Black Onyx Bracelet', price: 500, salePrice: 275, badge: 'Sale', hue: 230, sat: 0.08, light: 0.3 },
+];
+const PRICE_FLOOR = Math.min(...PRODUCTS.map(p => p.salePrice || p.price));
+const PRICE_CEIL = Math.max(...PRODUCTS.map(p => p.price));
+
+const CARE_POINTS = [
+  { title: 'Before Water', desc: 'Take it off before swimming, bathing, or sports — even well-built jewelry lasts longer with a little caution.' },
+  { title: 'Cleaning', desc: 'Wipe with a soft cloth (a glasses-cleaning cloth works well) after each wear to keep the stones and metal bright.' },
+  { title: 'Storage', desc: 'Keep it in its velvet pouch inside the box, in a dry spot away from direct sunlight and heat.' },
+  { title: 'Metals', desc: 'Water alone is fine, but avoid soap contact with 24k gold, 925 silver and rhodium finishes.' },
+  { title: 'Chlorine', desc: 'Skip the pool — chloride compounds are corrosive to precious metal over time.' },
+  { title: 'Longevity', desc: 'Cared for properly, these pieces are made to be passed from one generation to the next.' },
+];
+
+class Component extends DCLogic {
+  state = { maxPrice: PRICE_CEIL };
+
+  renderVals() {
+    const s = this.state;
+    const visible = PRODUCTS.filter(p => (p.salePrice || p.price) <= s.maxPrice);
+    const allProducts = visible.map(p => {
+      const unit = p.salePrice || p.price;
+      return {
+        ...p,
+        onSale: !!p.salePrice,
+        priceLabel: unit.toFixed(2),
+        origPriceLabel: p.price.toFixed(2),
+        stripeBg: `oklch(${p.light} ${p.sat} ${p.hue})`,
+      };
+    });
+    return {
+      carePoints: CARE_POINTS,
+      allProducts,
+      noResults: allProducts.length === 0,
+      priceFloor: PRICE_FLOOR,
+      priceCeil: PRICE_CEIL,
+      maxPrice: s.maxPrice,
+      maxPriceLabel: s.maxPrice.toFixed(0),
+      setMaxPrice: (e) => this.setState({ maxPrice: parseFloat(e.target.value) }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

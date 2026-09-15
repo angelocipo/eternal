@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:#c6a667;}
+a:hover{color:#e2cb9c;}
+</style>
+</helmet>
+<div style="background:#15120d;color:#e8e1d2;font-family:Jost,Arial,sans-serif;line-height:1.5;min-height:100vh;">
+
+  <header style="max-width:1180px;margin:0 auto;padding:64px 32px 40px;">
+    <p style="font-size:11px;letter-spacing:.44em;text-transform:uppercase;color:#c6a667;margin:0 0 20px;">Eternal City Jewelry &middot; Rome</p>
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(38px,5.5vw,68px);line-height:1;margin:0 0 18px;color:#f1e9d8;">Site structure</h1>
+    <p style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:21px;color:#a9a292;max-width:60ch;margin:0;">Four pages, bilingual, cart and checkout. Approve or change this map and I build the pages on it.</p>
+  </header>
+
+  <div style="height:1px;background:rgba(198,166,103,.18);max-width:1180px;margin:0 auto;"></div>
+
+  <section style="max-width:1180px;margin:0 auto;padding:44px 32px 12px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(198,166,103,.18);">
+      <div style="background:#15120d;padding:22px 24px;">
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Catalogue</div>
+        <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#ece5d6;">Bracelets &middot; Necklaces<br>Pendants &middot; Loose stones</div>
+      </div>
+      <div style="background:#15120d;padding:22px 24px;">
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Languages</div>
+        <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#ece5d6;">English &middot; Italiano</div>
+        <div style="font-size:12px;color:#9a9384;margin-top:8px;">Same switcher as the old site (data-en attributes)</div>
+      </div>
+      <div style="background:#15120d;padding:22px 24px;">
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Commerce</div>
+        <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#ece5d6;">Cart &amp; Stripe checkout</div>
+        <div style="font-size:12px;color:#9a9384;margin-top:8px;">Reuses the api/ endpoints already in the project</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:34px 32px 60px;display:flex;flex-direction:column;gap:26px;">
+
+    <article style="border:1px solid rgba(198,166,103,.18);padding:28px 30px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px;">
+        <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;margin:0;color:#f1e9d8;">01 &nbsp;Homepage</h2>
+        <code style="font-family:monospace;font-size:12px;color:#c6a667;">/</code>
+      </div>
+      <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:#cfc8ba;">
+        <li>Full-bleed hero &mdash; one photograph, the promise, and a single button to the collection</li>
+        <li>Made in Rome strip &mdash; hand-assembled, natural stones, sterling silver</li>
+        <li>Four category tiles &mdash; bracelets, necklaces, pendants, loose stones</li>
+        <li>Featured pieces &mdash; six products pulled from the collection</li>
+        <li>The workshop &mdash; short story from About Us, photograph, link to the full page later</li>
+        <li>Gemstone Compendium teaser &mdash; a row of stone thumbnails linking into the compendium</li>
+        <li>Footer &mdash; catalogue, company, legal, language switcher</li>
+      </ol>
+    </article>
+
+    <article style="border:1px solid rgba(198,166,103,.18);padding:28px 30px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px;">
+        <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;margin:0;color:#f1e9d8;">02 &nbsp;Collection</h2>
+        <code style="font-family:monospace;font-size:12px;color:#c6a667;">/collection.html</code>
+      </div>
+      <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:#cfc8ba;">
+        <li>Page header with the piece count</li>
+        <li>Filter row &mdash; type, stone, price band, in stock; sort by newest or price</li>
+        <li>Product grid &mdash; photograph, name, stone, price, hover state</li>
+        <li>Empty state when the filters match nothing</li>
+        <li>Cross-link into the Compendium for anyone browsing by meaning rather than by piece</li>
+      </ol>
+      <p style="margin:16px 0 0;font-size:13px;color:#9a9384;">Runs off one product data file, so a new piece is a single entry, not a new page.</p>
+    </article>
+
+    <article style="border:1px solid rgba(198,166,103,.18);padding:28px 30px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px;">
+        <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;margin:0;color:#f1e9d8;">03 &nbsp;Product page</h2>
+        <code style="font-family:monospace;font-size:12px;color:#c6a667;">/product.html?id=&hellip;</code>
+      </div>
+      <p style="margin:0 0 18px;font-size:13.5px;color:#9a9384;">Section order follows the competitor's structure, with the stone detail carried further.</p>
+      <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:#cfc8ba;">
+        <li>Gallery &mdash; four to six photographs, thumbnails at the side, on-wrist shot included</li>
+        <li>Buy block &mdash; name, stone, price, wrist size selector, quantity, add to cart, stock line</li>
+        <li>Assurances &mdash; hand-assembled in Rome, tracked shipping, returns window</li>
+        <li>Description &mdash; two short paragraphs in your voice</li>
+        <li>Specification table &mdash; stone, bead diameter, hardness, origin, metal, clasp, length, weight</li>
+        <li>The stone &mdash; its meaning and properties, linked to its Compendium entry</li>
+        <li>How it is made &mdash; three or four steps of the actual process, with photographs</li>
+        <li>Care &mdash; how to keep the stone and the silver right</li>
+        <li>Shipping and returns &mdash; times and costs, collapsible</li>
+        <li>Related pieces &mdash; four, same stone or same family</li>
+      </ol>
+    </article>
+
+    <article style="border:1px solid rgba(198,166,103,.18);padding:28px 30px;opacity:.9;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px;">
+        <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;margin:0;color:#f1e9d8;">04 &nbsp;Gemstone Compendium</h2>
+        <code style="font-family:monospace;font-size:12px;color:#c6a667;">/compendium.html</code>
+      </div>
+      <p style="margin:0;font-size:14.5px;color:#cfc8ba;">Done &mdash; 54 stones, search, A&ndash;Z index. <a href="Compendium.dc.html">Open it</a></p>
+    </article>
+
+  </section>
+
+  <div style="height:1px;background:rgba(198,166,103,.18);max-width:1180px;margin:0 auto;"></div>
+
+  <section style="max-width:1180px;margin:0 auto;padding:40px 32px 80px;">
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:30px;margin:0 0 20px;color:#f1e9d8;">Carried over from every page</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;font-size:14px;color:#cfc8ba;">
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Header</div>
+        Logo &middot; Bracelets &middot; Necklaces &middot; Pendants &middot; Loose stones &middot; Compendium &middot; cart &middot; EN/IT
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Footer</div>
+        Catalogue &middot; About &middot; Contact &middot; Shipping &middot; Returns &middot; Privacy &middot; Terms &middot; VAT number
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Kept from the old project</div>
+        Cart, Stripe checkout, thank-you page, contact page, the four legal pages
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;margin-bottom:10px;">Still to decide</div>
+        About Us as its own page &middot; reviews &middot; blog &middot; wishlist
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>

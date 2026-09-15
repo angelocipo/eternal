@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta charset="utf-8">
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="consent.js" data-ga="G-4XJG8VZY6S" data-fbq="817112403879732"></script>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.tshirt-shop.online/checkout.html">
+<title>Checkout &mdash; Eternal City Jewelry</title>
+<meta name="robots" content="noindex, follow">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://www.paypal.com/sdk/js?client-id=AcfKh7__fZxzxaPOuwNjQqF3dvY1bUeLjfv7IoVp907QW3GrH_-6Vw8IdJ6EfjZ2Brokd6HF7_mtbAPI&currency=EUR"></script>
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:#d4b572;}
+a:hover{color:#efe9dc;}
+.co{color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;line-height:1.5;}
+.co *{box-sizing:border-box;}
+.co-wrap{max-width:900px;margin:0 auto;padding:0 28px;}
+.co-panel{border:1px solid rgba(198,166,103,.18);border-radius:3px;background:#1b1711;padding:28px 26px;margin-bottom:26px;}
+.co-h{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:23px;color:#f0e8d7;margin:0 0 20px;}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.co-label{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#8f8879;margin-bottom:7px;}
+.co-input{width:100%;background:#15120d;border:1px solid rgba(198,166,103,.22);border-radius:2px;color:#efe9dc;font-family:inherit;font-size:14.5px;font-weight:300;padding:11px 12px;outline:none;}
+.co-input:focus{border-color:#d4b572;}
+.co-input::placeholder{color:#6e6959;}
+.co-field{margin-bottom:0;}
+.co-seg{display:flex;border:1px solid rgba(198,166,103,.22);border-radius:2px;overflow:hidden;}
+.co-seg label{flex:1;text-align:center;font-size:12.5px;padding:11px 8px;cursor:pointer;color:#b3ac9c;}
+.co-seg input{position:absolute;opacity:0;pointer-events:none;}
+.co-seg label:has(input:checked){background:#d4b572;color:#15120d;font-weight:500;}
+.co-radio{display:flex;align-items:center;gap:10px;font-size:14px;color:#cfc8ba;cursor:pointer;margin-bottom:14px;}
+.co-radio input{accent-color:#d4b572;width:16px;height:16px;}
+.co-btn{width:100%;background:#d4b572;color:#191510;border:none;border-radius:2px;font-family:inherit;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:17px;cursor:pointer;}
+.co-btn:hover{background:#e6cd93;}
+.co-btn:disabled{opacity:.5;cursor:default;}
+@media(max-width:640px){.co-grid{grid-template-columns:1fr;}}
+
+@media(max-width:560px){.co-wrap{padding-left:16px;padding-right:16px;}.co-panel{padding:20px 16px;}.co-h{font-size:20px;}}
+html,body{overflow-x:hidden;}
+</style>
+</helmet>
+<div class="co">
+
+  <div data-ecj-nav=""></div>
+
+  <div style="background:#d4b572;color:#15120d;text-align:center;padding:9px 16px;font-weight:500;font-size:12.5px;letter-spacing:.06em;">Free worldwide shipping on orders over &euro; 50.</div>
+
+  <main class="co-wrap" style="padding-top:44px;padding-bottom:80px;">
+    <a href="index.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#b3ac9c;margin-bottom:20px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>Back
+    </a>
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:38px;margin:0 0 30px;color:#f4ecdb;">Checkout</h1>
+
+    <sc-if value="{{ hasProduct }}" hint-placeholder-val="{{ true }}">
+      <div class="co-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:{{ detailsMarginBottom }};flex-wrap:wrap;">
+          <div>
+            <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#d4b572;">Your order</div>
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:#f0e8d7;margin-top:4px;">{{ productName }}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#efe9dc;">&euro; {{ orderTotal }}</div>
+            <div style="font-size:12px;color:#8f8879;">Item &euro; {{ productPrice }} + shipping {{ shippingLabel }}</div>
+          </div>
+        </div>
+        <sc-if value="{{ hasDetails }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top:1px solid rgba(198,166,103,.16);padding-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;">
+            <sc-for list="{{ orderDetails }}" as="d" hint-placeholder-count="0">
+              <div>
+                <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8f8879;margin-bottom:3px;">{{ d.label }}</div>
+                <div style="font-size:13.5px;font-weight:500;color:#cfc8ba;">{{ d.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noProduct }}" hint-placeholder-val="{{ false }}">
+      <div class="co-panel">
+        <p style="margin:0;font-size:14.5px;color:#cfc8ba;">No product selected. Go back to a product page and click &ldquo;Add to Bag&rdquo;.</p>
+      </div>
+    </sc-if>
+
+    <form onSubmit="{{ handleSubmit }}">
+      <section class="co-panel">
+        <h2 class="co-h">Billing details</h2>
+
+        <div class="co-field" style="margin-bottom:18px;">
+          <span class="co-label">Customer type</span>
+          <div class="co-seg" role="radiogroup">
+            <label><input type="radio" name="invType" value="privato" checked="{{ isPrivato }}" onChange="{{ setInvType }}">Private</label>
+            <label><input type="radio" name="invType" value="azienda" checked="{{ isAzienda }}" onChange="{{ setInvType }}">Business</label>
+            <label><input type="radio" name="invType" value="estero" checked="{{ isEstero }}" onChange="{{ setInvType }}">Foreign</label>
+          </div>
+        </div>
+
+        <sc-if value="{{ isEstero }}" hint-placeholder-val="{{ false }}">
+          <div class="co-grid">
+            <div><label class="co-label" for="inv-name">Full name</label><input class="co-input" id="inv-name" value="{{ inv.name }}" onChange="{{ setInvName }}"></div>
+            <div><label class="co-label" for="inv-email">Email</label><input class="co-input" id="inv-email" type="email" value="{{ inv.email }}" onChange="{{ setInvEmail }}"></div>
+            <div><label class="co-label" for="inv-company">Company (optional)</label><input class="co-input" id="inv-company" value="{{ inv.company }}" onChange="{{ setInvCompany }}"></div>
+            <div><label class="co-label" for="inv-vat">VAT / Tax ID (optional)</label><input class="co-input" id="inv-vat" value="{{ inv.vat }}" onChange="{{ setInvVat }}"></div>
+            <div><label class="co-label" for="inv-address">Address</label><input class="co-input" id="inv-address" value="{{ inv.address }}" onChange="{{ setInvAddress }}"></div>
+            <div><label class="co-label" for="inv-city">City</label><input class="co-input" id="inv-city" value="{{ inv.city }}" onChange="{{ setInvCity }}"></div>
+            <div><label class="co-label" for="inv-cap">Postal code</label><input class="co-input" id="inv-cap" value="{{ inv.cap }}" onChange="{{ setInvCap }}"></div>
+            <div><label class="co-label" for="inv-country">Country</label><input class="co-input" id="inv-country" value="{{ inv.country }}" onChange="{{ setInvCountry }}"></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isPrivato }}" hint-placeholder-val="{{ true }}">
+          <div class="co-grid">
+            <div><label class="co-label" for="inv-name-p">Full name</label><input class="co-input" id="inv-name-p" value="{{ inv.name }}" onChange="{{ setInvName }}"></div>
+            <div><label class="co-label" for="inv-email-p">Email</label><input class="co-input" id="inv-email-p" type="email" value="{{ inv.email }}" onChange="{{ setInvEmail }}"></div>
+            <div><label class="co-label" for="inv-cf-p">Codice Fiscale</label><input class="co-input" id="inv-cf-p" value="{{ inv.cf }}" onChange="{{ setInvCf }}"></div>
+            <div><label class="co-label" for="inv-address-p">Address</label><input class="co-input" id="inv-address-p" value="{{ inv.address }}" onChange="{{ setInvAddress }}"></div>
+            <div><label class="co-label" for="inv-city-p">City</label><input class="co-input" id="inv-city-p" value="{{ inv.city }}" onChange="{{ setInvCity }}"></div>
+            <div><label class="co-label" for="inv-cap-p">Postal code</label><input class="co-input" id="inv-cap-p" value="{{ inv.cap }}" onChange="{{ setInvCap }}"></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isAzienda }}" hint-placeholder-val="{{ false }}">
+          <div class="co-grid">
+            <div><label class="co-label" for="inv-name-a">Contact person</label><input class="co-input" id="inv-name-a" value="{{ inv.name }}" onChange="{{ setInvName }}"></div>
+            <div><label class="co-label" for="inv-email-a">Email</label><input class="co-input" id="inv-email-a" type="email" value="{{ inv.email }}" onChange="{{ setInvEmail }}"></div>
+            <div><label class="co-label" for="inv-ragsoc">Company name</label><input class="co-input" id="inv-ragsoc" value="{{ inv.company }}" onChange="{{ setInvCompany }}"></div>
+            <div><label class="co-label" for="inv-piva">VAT / Tax ID</label><input class="co-input" id="inv-piva" value="{{ inv.vat }}" onChange="{{ setInvVat }}"></div>
+            <div><label class="co-label" for="inv-address-a">Registered address</label><input class="co-input" id="inv-address-a" value="{{ inv.address }}" onChange="{{ setInvAddress }}"></div>
+            <div><label class="co-label" for="inv-city-a">City</label><input class="co-input" id="inv-city-a" value="{{ inv.city }}" onChange="{{ setInvCity }}"></div>
+            <div><label class="co-label" for="inv-cap-a">Postal code</label><input class="co-input" id="inv-cap-a" value="{{ inv.cap }}" onChange="{{ setInvCap }}"></div>
+            <div><label class="co-label" for="inv-pec">PEC</label><input class="co-input" id="inv-pec" type="email" placeholder="optional if you enter SDI Code" value="{{ inv.pec }}" onChange="{{ setInvPec }}"></div>
+            <div><label class="co-label" for="inv-sdi">SDI Code</label><input class="co-input" id="inv-sdi" placeholder="optional if you enter PEC" value="{{ inv.sdi }}" onChange="{{ setInvSdi }}"></div>
+          </div>
+        </sc-if>
+      </section>
+
+      <section class="co-panel">
+        <h2 class="co-h">Shipping details</h2>
+        <label class="co-radio"><input type="radio" name="shipMode" checked="{{ shipSame }}" onChange="{{ setShipSameTrue }}">Ship to the same address as billing</label>
+        <label class="co-radio"><input type="radio" name="shipMode" checked="{{ shipDifferent }}" onChange="{{ setShipSameFalse }}">Use a different shipping address</label>
+
+        <div class="co-field" style="margin:18px 0;">
+          <span class="co-label">Delivery</span>
+          <div class="co-seg" role="radiogroup">
+            <label><input type="radio" name="shipZone" value="gratuita" checked="{{ isZoneGratuita }}" disabled="{{ notFreeByThreshold }}" onChange="{{ setShipZone }}">Free shipping</label>
+            <label><input type="radio" name="shipZone" value="standard" checked="{{ isZoneStandard }}" disabled="{{ freeByThreshold }}" onChange="{{ setShipZone }}">Standard &mdash; &euro; 8</label>
+          </div>
+          <sc-if value="{{ freeByThreshold }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:10px 0 0;font-size:13px;font-weight:500;color:#d4b572;">Free shipping applied &mdash; order over &euro; 50.</p>
+          </sc-if>
+          <p style="margin:10px 0 0;font-size:13px;color:#8f8879;">Shipped worldwide from Italy. Free shipping on orders over &euro; 50.</p>
+        </div>
+
+        <sc-if value="{{ shipDifferent }}" hint-placeholder-val="{{ false }}">
+          <div class="co-grid">
+            <div><label class="co-label" for="ship-name">Recipient name</label><input class="co-input" id="ship-name" value="{{ ship.name }}" onChange="{{ setShipName }}"></div>
+            <div><label class="co-label" for="ship-phone">Phone</label><input class="co-input" id="ship-phone" value="{{ ship.phone }}" onChange="{{ setShipPhone }}"></div>
+            <div><label class="co-label" for="ship-address">Address</label><input class="co-input" id="ship-address" value="{{ ship.address }}" onChange="{{ setShipAddress }}"></div>
+            <div><label class="co-label" for="ship-city">City</label><input class="co-input" id="ship-city" value="{{ ship.city }}" onChange="{{ setShipCity }}"></div>
+            <div><label class="co-label" for="ship-cap">Postal code</label><input class="co-input" id="ship-cap" value="{{ ship.cap }}" onChange="{{ setShipCap }}"></div>
+            <div style="grid-column:1/-1;"><label class="co-label" for="ship-notes">Delivery notes (optional)</label><input class="co-input" id="ship-notes" value="{{ ship.notes }}" onChange="{{ setShipNotes }}"></div>
+          </div>
+        </sc-if>
+      </section>
+
+      <section class="co-panel">
+        <h2 class="co-h">Sender details</h2>
+        <label class="co-radio"><input type="checkbox" checked="{{ useSender }}" onChange="{{ toggleSender }}">Use my company as the sender for this shipment</label>
+        <p style="margin:0 0 16px;font-size:13.5px;color:#8f8879;">Useful if you are gifting or reselling and want the parcel to carry your details instead of ours.</p>
+
+        <sc-if value="{{ useSender }}" hint-placeholder-val="{{ false }}">
+          <div class="co-grid">
+            <div><label class="co-label" for="send-company">Company / sender name</label><input class="co-input" id="send-company" value="{{ sender.company }}" onChange="{{ setSenderCompany }}"></div>
+            <div><label class="co-label" for="send-phone">Phone</label><input class="co-input" id="send-phone" value="{{ sender.phone }}" onChange="{{ setSenderPhone }}"></div>
+            <div><label class="co-label" for="send-address">Address</label><input class="co-input" id="send-address" value="{{ sender.address }}" onChange="{{ setSenderAddress }}"></div>
+            <div><label class="co-label" for="send-city">City</label><input class="co-input" id="send-city" value="{{ sender.city }}" onChange="{{ setSenderCity }}"></div>
+            <div><label class="co-label" for="send-cap">Postal code</label><input class="co-input" id="send-cap" value="{{ sender.cap }}" onChange="{{ setSenderCap }}"></div>
+          </div>
+        </sc-if>
+      </section>
+
+      <sc-if value="{{ errorMsg }}" hint-placeholder-val="{{ null }}">
+        <p style="color:#d99a86;font-size:14px;margin:0 0 18px;">{{ errorMsg }}</p>
+      </sc-if>
+
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;">
+        <span style="font-size:14px;color:#8f8879;">Total to pay</span>
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#efe9dc;">&euro; {{ orderTotal }}</span>
+      </div>
+      <button type="submit" class="co-btn" disabled="{{ submitting }}">{{ submitLabel }}</button>
+      <p style="text-align:center;font-size:12px;color:#8f8879;margin-top:16px;">Secure payment via Stripe. You will receive an invoice by email once the order is confirmed.</p>
+    </form>
+
+    <sc-if value="{{ hasProduct }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:14px;margin:34px 0;">
+        <div style="flex:1;height:1px;background:rgba(198,166,103,.16);"></div>
+        <span style="font-size:12px;color:#8f8879;">or</span>
+        <div style="flex:1;height:1px;background:rgba(198,166,103,.16);"></div>
+      </div>
+      <div id="paypal-checkout-slot" style="min-height:45px;"></div>
+    </sc-if>
+  </main>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    productId: null, productName: '', productPrice: null, productCollection: 'misura', orderBody: null,
+    invType: 'privato',
+    inv: { name: '', email: '', company: '', vat: '', cf: '', pec: '', sdi: '', address: '', city: '', cap: '', country: '' },
+    shipSame: true,
+    shipZone: 'roma_centro',
+    ship: { name: '', phone: '', address: '', city: '', cap: '', notes: '' },
+    useSender: false,
+    sender: { company: '', phone: '', address: '', city: '', cap: '' },
+    submitting: false,
+    errorMsg: null,
+  };
+
+  humanizeKey(key) {
+    const map = {
+      lato_lungo: 'Lato lungo', lato_corto: 'Lato corto', pagCol: 'Pagine a colori', pagBn: 'Pagine bianco/nero',
+      latiIdx: 'Lati', cartaIdx: 'Carta', misuraIdx: 'Misura', coloreIdx: 'Colore', qty: 'Quantit\u00e0',
+      formatIdx: 'Formato', soggettiIdx: 'Soggetti', larghezza: 'Larghezza', altezza: 'Altezza',
+      sagomaIdx: 'Forma', materialeIdx: 'Materiale', lavorazioneIdx: 'Lavorazione', altroColore: 'Altro colore',
+      base: 'Base', copie: 'Copie', swatchIdx: 'Variante', unit: 'Unit\u00e0', formato: 'Formato', pannelli: 'Pannelli',
+      creazione: 'Creazione file', creazione_file: 'Creazione file', spessore: 'Spessore', holder: 'Porta badge',
+      stampa: 'Stampa', plastificazione: 'Plastificazione', cordino: 'Cordino', colore_cordino: 'Colore cordino',
+      quantita: 'Quantit\u00e0', facciate: 'Facciate', tierIndex: 'Opzione', sizeIndex: 'Formato', deliveryIndex: 'Consegna',
+    };
+    return map[key] || key.replace(/Idx$/, '').replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase());
+  }
+
+  buildOrderDetails(orderBody) {
+    if (!orderBody) return [];
+    if (orderBody.human && typeof orderBody.human === 'object') {
+      return Object.entries(orderBody.human)
+        .filter(([, v]) => v !== undefined && v !== null && v !== '')
+        .map(([k, v]) => ({ label: k, value: String(v) }));
+    }
+    const skip = new Set(['productId']);
+    const src = orderBody.formula && typeof orderBody.formula === 'object' ? orderBody.formula : orderBody;
+    return Object.entries(src)
+      .filter(([k, v]) => !skip.has(k) && v !== undefined && v !== null && v !== '' && typeof v !== 'object')
+      .map(([k, v]) => ({ label: this.humanizeKey(k), value: String(v) }));
+  }
+
+  componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const name = params.get('name');
+    const price = params.get('price');
+    const cfg = params.get('cfg');
+    const col = params.get('col');
+    let orderBody = id ? { productId: id } : null;
+    if (cfg) {
+      try { orderBody = JSON.parse(decodeURIComponent(atob(cfg))); } catch (e) {}
+    }
+    const priceNum = parseFloat(price) || 0;
+    const autoFree = (col === 'strategici') || priceNum >= 50;
+    if (id) this.setState({ productId: id, productName: name || '', productPrice: price || '', productCollection: col || 'misura', orderBody, shipZone: autoFree ? 'gratuita' : this.state.shipZone });
+    if (id) this.mountPaypalWhenReady();
+    if (window.ecjSetCartCount) window.ecjSetCartCount(0);
+  }
+
+  mountPaypalWhenReady(attempts) {
+    attempts = attempts || 0;
+    if (typeof paypal === 'undefined') {
+      if (attempts > 40) return;
+      setTimeout(() => this.mountPaypalWhenReady(attempts + 1), 250);
+      return;
+    }
+    const el = document.getElementById('paypal-checkout-slot');
+    if (!el) { setTimeout(() => this.mountPaypalWhenReady(attempts + 1), 250); return; }
+    el.innerHTML = '';
+    paypal.Buttons({
+      style: { layout: 'horizontal', color: 'gold', shape: 'rect', height: 45, tagline: false },
+      createOrder: (data, actions) => {
+        const err = this.validate();
+        if (err) { this.setState({ errorMsg: err }); return Promise.reject(new Error(err)); }
+        const shippingFee = this.computeShippingFee();
+        const total = ((parseFloat(this.state.productPrice) || 0) + shippingFee).toFixed(2);
+        return actions.order.create({ purchase_units: [{ amount: { value: total, currency_code: 'EUR' }, description: this.state.productName }] });
+      },
+      onApprove: (data, actions) => actions.order.capture().then((details) => {
+        this.stashOrder(this.computeShippingFee());
+        window.location.href = '/grazie.dc.html?token=' + (details.id || '');
+      }),
+      onError: (err) => this.setState({ errorMsg: 'PayPal payment failed, please try again.' }),
+    }).render('#paypal-checkout-slot');
+  }
+
+  computeShippingFee() {
+    if (this.state.productCollection === 'strategici') return 0;
+    const price = parseFloat(this.state.productPrice) || 0;
+    if (price >= 50) return 0;
+    return 8;
+  }
+
+  validate() {
+    const { invType, inv } = this.state;
+    if (!inv.name || !inv.email) return 'Please enter name and email.';
+    if (!inv.address || !inv.city || !inv.cap) return 'Please enter a complete billing address.';
+    if (invType === 'privato' && !inv.cf) return 'Please enter your Codice Fiscale.';
+    if (invType === 'azienda' && (!inv.company || !inv.vat)) return 'Please enter Company name and VAT number.';
+    if (invType === 'azienda' && !inv.pec && !inv.sdi) return 'Please enter PEC or SDI Code.';
+    if (!this.state.productId) return 'No product selected.';
+    if (this.state.useSender) {
+      const sn = this.state.sender || {};
+      if (!sn.company || !sn.address || !sn.city || !sn.cap) return 'Complete the sender details: company, address, city and postal code.';
+    }
+    return null;
+  }
+
+  /* remember the order value so the thank-you page can report the sale to GA4 / Meta */
+  stashOrder(shippingFee) {
+    const value = +((parseFloat(this.state.productPrice) || 0) + shippingFee).toFixed(2);
+    try {
+      localStorage.setItem('ts_pending_order', JSON.stringify({
+        value, currency: 'EUR', name: this.state.productName, id: this.state.productId,
+      }));
+      localStorage.setItem('ts_last_order', JSON.stringify({
+        name: this.state.productName,
+        subtotal: +(parseFloat(this.state.productPrice) || 0).toFixed(2),
+        shippingFee: +shippingFee.toFixed(2),
+        total: value,
+        email: (this.state.inv || {}).email || '',
+        sender: this.state.useSender ? { ...(this.state.sender || {}) } : null,
+        details: this.buildOrderDetails(this.state.orderBody),
+      }));
+    } catch (_) {}
+    if (window.fbq) fbq('track', 'InitiateCheckout', { value, currency: 'EUR' });
+    if (window.gtag) gtag('event', 'begin_checkout', { currency: 'EUR', value });
+  }
+
+  async submit(e) {
+    e.preventDefault();
+    const err = this.validate();
+    if (err) { this.setState({ errorMsg: err }); return; }
+    this.setState({ submitting: true, errorMsg: null });
+    const { productId, invType, inv, shipSame, ship, shipZone, useSender, sender, orderBody } = this.state;
+    const shippingFee = this.computeShippingFee();
+    this.stashOrder(shippingFee);
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...(orderBody || { productId }),
+          shippingFee,
+          shippingZone: shipZone,
+          customer: { invType, ...inv },
+          shipping: shipSame ? { sameAsBilling: true } : { sameAsBilling: false, ...ship },
+          sender: useSender ? { use: true, ...sender } : { use: false },
+        }),
+      });
+      const ct = res.headers.get('content-type') || '';
+      if (!ct.includes('application/json')) {
+        const body = (await res.text()).slice(0, 300).replace(/\s+/g, ' ');
+        throw new Error(`Server error HTTP ${res.status} (${ct || 'no content-type'}): ${body}`);
+      }
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error');
+      window.location.href = data.url;
+    } catch (ex) {
+      this.setState({ submitting: false, errorMsg: ex.message || 'Payment error, please try again.' });
+    }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const shippingFee = this.computeShippingFee();
+    const orderTotal = (parseFloat(s.productPrice) || 0) + shippingFee;
+    const orderDetails = this.buildOrderDetails(s.orderBody);
+    return {
+      hasProduct: !!s.productId,
+      noProduct: !s.productId,
+      hasDetails: orderDetails.length > 0,
+      orderDetails,
+      detailsMarginBottom: orderDetails.length > 0 ? '16px' : '0',
+      productName: s.productName,
+      productPrice: s.productPrice,
+      orderTotal: orderTotal.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: true }).replace(/,00$/, ''),
+      shippingLabel: shippingFee === 0 ? 'free' : ('\u20ac ' + shippingFee),
+      isZoneGratuita: s.shipZone === 'gratuita' || shippingFee === 0,
+      freeByThreshold: (parseFloat(s.productPrice) || 0) >= 50,
+      notFreeByThreshold: (parseFloat(s.productPrice) || 0) < 50,
+      isZoneStandard: s.shipZone !== 'gratuita',
+      isZoneRomaCentro: s.shipZone === 'roma_centro',
+      isZoneRomaResto: s.shipZone === 'roma_resto',
+      isZoneItalia: s.shipZone === 'italia',
+      setShipZone: (e) => this.setState({ shipZone: e.target.value }),
+      isPrivato: s.invType === 'privato',
+      isAzienda: s.invType === 'azienda',
+      isEstero: s.invType === 'estero',
+      setInvType: (e) => this.setState({ invType: e.target.value }),
+      inv: s.inv,
+      setInvName: (e) => this.setState({ inv: { ...this.state.inv, name: e.target.value } }),
+      setInvEmail: (e) => this.setState({ inv: { ...this.state.inv, email: e.target.value } }),
+      setInvCompany: (e) => this.setState({ inv: { ...this.state.inv, company: e.target.value } }),
+      setInvVat: (e) => this.setState({ inv: { ...this.state.inv, vat: e.target.value } }),
+      setInvCf: (e) => this.setState({ inv: { ...this.state.inv, cf: e.target.value } }),
+      setInvPec: (e) => this.setState({ inv: { ...this.state.inv, pec: e.target.value } }),
+      setInvSdi: (e) => this.setState({ inv: { ...this.state.inv, sdi: e.target.value } }),
+      setInvAddress: (e) => this.setState({ inv: { ...this.state.inv, address: e.target.value } }),
+      setInvCity: (e) => this.setState({ inv: { ...this.state.inv, city: e.target.value } }),
+      setInvCap: (e) => this.setState({ inv: { ...this.state.inv, cap: e.target.value } }),
+      setInvCountry: (e) => this.setState({ inv: { ...this.state.inv, country: e.target.value } }),
+      shipSame: s.shipSame,
+      shipDifferent: !s.shipSame,
+      setShipSameTrue: () => this.setState({ shipSame: true }),
+      setShipSameFalse: () => this.setState({ shipSame: false }),
+      ship: s.ship,
+      setShipName: (e) => this.setState({ ship: { ...this.state.ship, name: e.target.value } }),
+      setShipPhone: (e) => this.setState({ ship: { ...this.state.ship, phone: e.target.value } }),
+      setShipAddress: (e) => this.setState({ ship: { ...this.state.ship, address: e.target.value } }),
+      setShipCity: (e) => this.setState({ ship: { ...this.state.ship, city: e.target.value } }),
+      setShipCap: (e) => this.setState({ ship: { ...this.state.ship, cap: e.target.value } }),
+      setShipNotes: (e) => this.setState({ ship: { ...this.state.ship, notes: e.target.value } }),
+      useSender: s.useSender,
+      toggleSender: () => this.setState({ useSender: !this.state.useSender }),
+      sender: s.sender,
+      setSenderCompany: (e) => this.setState({ sender: { ...this.state.sender, company: e.target.value } }),
+      setSenderPhone: (e) => this.setState({ sender: { ...this.state.sender, phone: e.target.value } }),
+      setSenderAddress: (e) => this.setState({ sender: { ...this.state.sender, address: e.target.value } }),
+      setSenderCity: (e) => this.setState({ sender: { ...this.state.sender, city: e.target.value } }),
+      setSenderCap: (e) => this.setState({ sender: { ...this.state.sender, cap: e.target.value } }),
+      errorMsg: s.errorMsg,
+      submitting: s.submitting,
+      submitLabel: s.submitting ? 'Please wait\u2026' : 'Proceed to payment',
+      handleSubmit: (e) => this.submit(e),
+    };
+  }
+}
+</script>
+</body>
+</html>

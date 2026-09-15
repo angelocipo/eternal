@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;}
+.ech{--gold:#d4b572;--color-accent:#d4b572;--color-bg:#15120d;--color-neutral-700:#b3ac9c;background:#15120d;color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;}
+.ech *{box-sizing:border-box;}
+.ech a{color:inherit;text-decoration:none;}
+.ech-nav{position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);}
+.ech-navin{max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.ech-navlinks{display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b3ac9c;}
+.ech-navlinks a:hover{color:var(--gold);}
+.ech-navlinks a[aria-current]{color:var(--gold);}
+.ech-btn,.ech a.ech-btn{display:inline-block;font-weight:400;letter-spacing:.24em;font-size:11px;text-transform:uppercase;color:#15120d;background:var(--gold);padding:15px 34px;border-radius:2px;transition:background .25s,transform .25s;}
+.ech-btn:hover{background:#d8bf8e;transform:translateY(-2px);}
+.ech-btn:focus-visible{outline:2px solid #d4b572;outline-offset:3px;}
+.ech-ghost,.ech a.ech-ghost{display:inline-block;font-weight:400;letter-spacing:.24em;font-size:11px;text-transform:uppercase;color:#ece5d6;border:1px solid rgba(198,166,103,.5);padding:15px 34px;border-radius:2px;}
+.ech-ghost:hover{background:rgba(198,166,103,.1);border-color:var(--gold);}
+.ech-body p{font-weight:300;font-size:16.5px;line-height:1.85;color:#cabfa9;margin:0 0 22px;white-space:pre-line;}
+.ech-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
+.ech-gal img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border:1px solid rgba(198,166,103,.16);border-radius:4px;}
+.ech-more a:hover{border-color:rgba(198,166,103,.55);}
+
+@media(max-width:640px){.ech article,.ech figure,.ech-more,.ech section{padding-left:18px !important;padding-right:18px !important;}.ech-body p{font-size:15.5px;}}
+.ech img{max-width:100%;}
+html,body{overflow-x:hidden;}
+</style>
+</helmet>
+<div class="ech">
+
+  <div data-ecj-nav=""></div>
+
+  <article style="max-width:1000px;margin:0 auto;padding:56px 28px 20px;">
+    <nav aria-label="Breadcrumb" style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7d7768;margin-bottom:34px;">
+      <a href="Journal.dc.html" style="color:#b3ac9c;" style-hover="color:#d4b572">Journal</a> &nbsp;/&nbsp; <span>{{ title }}</span>
+    </nav>
+
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:18px;">
+      <span style="font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#7d7768;">{{ dateLabel }}</span>
+      <span style="{{ mohsStyle }};font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#15120d;background:#d4b572;padding:5px 11px;border-radius:2px;">Mohs {{ mohs }}</span>
+    </div>
+
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(38px,6vw,72px);line-height:1.02;color:#f4ecdb;margin:0;">{{ title }}</h1>
+    <p style="{{ subtitleStyle }};font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(20px,2.6vw,28px);color:#d8bf8e;margin:16px 0 0;">{{ subtitle }}</p>
+    <p style="{{ leadStyle }};font-weight:300;font-size:19px;line-height:1.7;color:#ded6c4;max-width:60ch;margin:26px 0 0;">{{ lead }}</p>
+  </article>
+
+  <figure style="{{ heroStyle }};max-width:1000px;margin:38px auto 0;padding:0 28px;">
+    <img src="{{ image }}" alt="{{ title }}" style="width:100%;max-height:560px;object-fit:cover;display:block;border:1px solid rgba(198,166,103,.16);border-radius:4px;">
+  </figure>
+
+  <section class="ech-body" style="max-width:1000px;margin:0 auto;padding:44px 28px 10px;">
+    <div style="max-width:64ch;">
+      <sc-for list="{{ paras }}" as="para" hint-placeholder-count="3">
+        <p>{{ para }}</p>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="{{ galStyle }};max-width:1000px;margin:0 auto;padding:20px 28px 10px;">
+    <div class="ech-gal">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
+        <img src="{{ g }}" alt="{{ title }}" loading="lazy">
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1000px;margin:0 auto;padding:44px 28px 0;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a class="ech-btn" href="collection.dc.html">Shop the collection</a>
+      <a class="ech-ghost" href="Compendium.dc.html">All 54 stones</a>
+    </div>
+  </section>
+
+  <section class="ech-more" style="max-width:1240px;margin:0 auto;padding:80px 28px 90px;">
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:32px;color:#f1e9d8;margin:0 0 26px;">Keep reading</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">
+      <sc-for list="{{ more }}" as="m" hint-placeholder-count="3">
+        <a href="{{ m.href }}" style="display:block;border:1px solid rgba(198,166,103,.14);border-radius:4px;overflow:hidden;background:#1b1711;">
+          <img src="{{ m.image }}" alt="{{ m.title }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;">
+          <span style="display:block;padding:18px 20px 22px;">
+            <span style="display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;">{{ m.dateLabel }}</span>
+            <span style="display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:#ece5d6;margin-top:8px;line-height:1.15;">{{ m.title }}</span>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { posts: [], slug: '' };
+
+  componentDidMount() {
+    let slug = '';
+    try { slug = new URLSearchParams(window.location.search).get('slug') || ''; } catch (e) {}
+    fetch('data/posts.json')
+      .then(r => r.json())
+      .then(posts => this.setState({ posts, slug }))
+      .catch(() => this.setState({ posts: [], slug }));
+  }
+
+  fmt(d) {
+    return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  renderVals() {
+    const { posts, slug } = this.state;
+    const p = posts.find(x => x.slug === slug) || posts[0];
+    if (!p) return { title: '', paras: [], gallery: [], more: [] };
+    const gallery = (p.images || []).filter(u => u !== p.image).slice(0, 4);
+    const more = posts.filter(x => x.slug !== p.slug && x.image && x.kind === p.kind).slice(0, 3).map(x => ({
+      href: 'Post.dc.html?slug=' + x.slug,
+      title: x.title,
+      image: x.image,
+      dateLabel: this.fmt(x.date),
+    }));
+    return {
+      title: p.title,
+      subtitle: p.subtitle || '',
+      subtitleStyle: p.subtitle ? '' : 'display:none',
+      lead: p.lead || '',
+      leadStyle: p.lead ? '' : 'display:none',
+      mohs: p.mohs || '',
+      mohsStyle: p.mohs ? 'display:inline-block' : 'display:none',
+      dateLabel: this.fmt(p.date),
+      image: p.image || '',
+      heroStyle: p.image ? '' : 'display:none',
+      paras: p.paras || [],
+      gallery,
+      galStyle: gallery.length ? '' : 'display:none',
+      more,
+    };
+  }
+}
+</script>
+</body>
+</html>

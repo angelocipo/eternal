@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #15120d; overflow-x: hidden; }
+    a { color: #d4b572; }
+    a:hover { color: #efe9dc; }
+    img { max-width: 100%; }
+    @media (max-width: 900px) {
+      [data-r="pdp"] { grid-template-columns: 1fr !important; padding: 32px 20px 24px !important; gap: 28px !important; }
+      [data-r="title"] { font-size: 30px !important; }
+      [data-r="section"] { padding-left: 20px !important; padding-right: 20px !important; padding-top: 48px !important; padding-bottom: 48px !important; }
+      [data-r="cartDrawer"] { width: 100vw !important; }
+    }
+    @media (max-width: 600px) {
+      [data-r="priceRow"] { row-gap: 8px; }
+      [data-r="title"] { font-size: 24px !important; letter-spacing: .08em !important; }
+      [data-r="addRow"] { gap: 10px !important; }
+      [data-r="addBtn"] { padding: 20px 12px !important; font-size: 14px !important; letter-spacing: .16em !important; }
+      [data-r="ticker"] { white-space: normal !important; line-height: 1.7; padding-left: 20px; padding-right: 20px; }
+    }
+    @media (max-width: 480px) {
+      [data-r="thumbs"] { grid-template-columns: repeat(3, 1fr) !important; }
+      [data-r="clasps"] { gap: 10px !important; }
+      [data-r="clasps"] img { height: 66px !important; }
+    }
+  </style>
+  <script src="i18n.js"></script>
+  <script src="chrome.js"></script>
+</helmet>
+
+<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
+
+  <div data-ecj-nav="bracelet"></div>
+
+  <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:120px 28px; text-align:center;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; margin-bottom:14px;">Product not found</div>
+      <a href="index.dc.html">Back to the collection</a>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ found }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Product" data-r="pdp" style="display:grid; grid-template-columns:1.1fr 1fr; gap:64px; padding:64px 56px 40px; max-width:1400px; margin:0 auto;">
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div style="position:relative; width:100%; border-radius:6px; overflow:hidden; background:#1b1711;">
+        <div style="padding-top:100%;"></div>
+        <img src="{{ heroImg }}" alt="{{ name }}" draggable="false" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+        <sc-if value="{{ onSale }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; top:20px; left:20px; background:#c6a667; color:#15120d; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:6px 12px; border-radius:2px;">Sale</div>
+        </sc-if>
+      </div>
+      <div data-r="thumbs" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;">
+        <sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="0">
+          <div onClick="{{ th.onClick }}" style="cursor:pointer; aspect-ratio:1; border-radius:4px; overflow:hidden; background:#1b1711; border:1px solid {{ th.border }};">
+            <img src="{{ th.src }}" alt="" draggable="false" style="width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:0; padding-top:4px;">
+
+      <sc-if value="{{ hasBadge }}" hint-placeholder-val="{{ false }}">
+        <div style="align-self:flex-start; border:1px solid #b08d55; color:#d4b572; font-size:11px; letter-spacing:.22em; text-transform:uppercase; padding:7px 13px; margin-bottom:26px;">{{ badge }}</div>
+      </sc-if>
+
+      <div data-r="title" style="font-size:30px; line-height:1.28; font-weight:400; letter-spacing:.11em; text-transform:uppercase; color:#efe9dc; text-wrap:pretty;">{{ name }}</div>
+
+      <div data-r="priceRow" style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px 18px; margin-top:20px;">
+        <div style="display:flex; align-items:baseline; gap:12px; white-space:nowrap; flex-shrink:0;">
+          <div style="font-size:29px; color:#b8b1a3; letter-spacing:.01em;">{{ priceLabel }}</div>
+          <sc-if value="{{ onSale }}" hint-placeholder-val="{{ false }}">
+            <span style="text-decoration:line-through; color:#6f6a5e; font-size:16px;">{{ regularLabel }}</span>
+          </sc-if>
+          <sc-if value="{{ onSale }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:12px; color:#c6a667; letter-spacing:.1em; text-transform:uppercase;">{{ discountLabel }}</span>
+          </sc-if>
+        </div>
+        <div style="color:#d4b572; font-size:12px; letter-spacing:.14em; text-transform:uppercase; min-width:0;">{{ catLine }}</div>
+      </div>
+
+      <div style="height:1px; background:#2f2a20; margin:28px 0;"></div>
+
+      <sc-if value="{{ hasSizes }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+            <div style="font-size:16px; color:#efe9dc;">Bead size</div>
+            <a href="Eternal-City-Size-Guide.dc.html" style="font-size:15px; text-decoration:underline;">Measure &amp; Sizing</a>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <sc-for list="{{ sizes }}" as="sz" hint-placeholder-count="0">
+              <div onClick="{{ sz.onClick }}" style="cursor:pointer; border-width:1px; border-style:solid; border-color:{{ sz.borderColor }}; color:{{ sz.textColor }}; padding:13px 20px; font-size:14px; letter-spacing:.04em;">{{ sz.label }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasWristField }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+            <div style="font-size:16px; color:#efe9dc;">Enter wrist size (cm/in)</div>
+            <a href="Eternal-City-Size-Guide.dc.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+          </div>
+          <input type="text" value="{{ wrist }}" onChange="{{ setWrist }}" placeholder="for example: 8, tight fit" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; font-family:'Jost',sans-serif; font-size:15px; padding:14px 16px; max-width:420px; border-radius:0; outline:none;">
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasLengths }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+            <div style="font-size:16px; color:#efe9dc;">{{ sizeHeading }}</div>
+            <a href="Eternal-City-Size-Guide.dc.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <sc-for list="{{ lengths }}" as="ln" hint-placeholder-count="0">
+              <div onClick="{{ ln.onClick }}" style="cursor:pointer; border-width:1px; border-style:solid; border-color:{{ ln.borderColor }}; color:{{ ln.textColor }}; padding:13px 20px; font-size:14px; letter-spacing:.04em;">{{ ln.label }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasClasps }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
+          <div style="font-size:16px; color:#efe9dc;">{{ claspHeading }}</div>
+          <div data-r="clasps" style="display:grid; grid-template-columns:{{ claspCols }}; gap:14px; max-width:420px;">
+            <sc-for list="{{ clasps }}" as="cl" hint-placeholder-count="0">
+              <div onClick="{{ cl.onClick }}" style="cursor:pointer; border-width:1px; border-style:solid; border-color:{{ cl.borderColor }}; padding:8px 8px 12px; display:flex; flex-direction:column; gap:10px; background:#1b1711;">
+                <img src="{{ cl.img }}" alt="{{ cl.label }}" draggable="false" style="width:100%; height:88px; object-fit:cover; display:block; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+                <div style="font-size:14px; text-align:center; color:{{ cl.textColor }};">{{ cl.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="height:1px; background:#2f2a20; margin:0 0 28px;"></div>
+
+      <div data-r="addRow" style="display:flex; align-items:stretch; gap:14px;">
+        <div data-r="addBtn" onClick="{{ addToCart }}" style="cursor:pointer; flex:1; min-width:0; background:#c3a077; color:#1b1711; text-align:center; padding:24px 16px; font-size:16px; letter-spacing:.22em; text-transform:uppercase;">Add to cart</div>
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; border:1px solid #37301f; padding:0 14px; color:#cabfa9; flex-shrink:0;">
+          <div onClick="{{ incQty }}" style="cursor:pointer; font-size:16px; line-height:1; padding:8px 10px;">+</div>
+          <div style="font-size:14px; line-height:1; color:#efe9dc;">{{ qty }}</div>
+          <div onClick="{{ decQty }}" style="cursor:pointer; font-size:16px; line-height:1; padding:8px 10px;">−</div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; margin-top:34px;">
+        <sc-for list="{{ perks }}" as="pk" hint-placeholder-count="5">
+          <div style="border-bottom:1px solid #2a2318;">
+            <div onClick="{{ pk.onClick }}" style="cursor:pointer; display:flex; align-items:center; gap:18px; padding:17px 2px; color:#e3dccc;">
+              <span style="color:#c3a077; font-size:15px; width:20px; text-align:center; flex-shrink:0;">{{ pk.mark }}</span>
+              <span style="flex:1; font-size:15px;">{{ pk.label }}</span>
+              <span style="color:#8f8879; font-size:14px; transform:{{ pk.rotate }}; transition:transform .18s ease;">&rsaquo;</span>
+            </div>
+            <sc-if value="{{ pk.open }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:0 2px 20px 40px; font-size:14px; line-height:1.75; color:#a9a294; text-wrap:pretty;">{{ pk.body }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="font-size:16px; line-height:1.75; color:#cabfa9; white-space:pre-line; margin-top:34px; text-wrap:pretty;"><sc-for list="{{ shortParts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></div>
+
+      <div style="font-size:15px; line-height:1.75; color:#8f8879; font-style:italic; margin-top:22px; text-wrap:pretty;">Our pieces are made with natural gemstones; slight variations in color, size, and pattern may occur.</div>
+    </div>
+  </div>
+
+  <div data-r="ticker" style="padding: 14px 0; background: #17130e; border-top: 1px solid #2a2318; border-bottom: 1px solid #2a2318; overflow: hidden; white-space: nowrap; color: #b3ac9c; font-size: 13px; letter-spacing: .04em; text-align: center">
+    Every piece comes in a luxury box &nbsp;•&nbsp; Made in Rome, worn forever &nbsp;•&nbsp; Natural stone, one-of-a-kind &nbsp;•&nbsp; Shipped worldwide from Italy &nbsp;•
+  </div>
+
+  <sc-if value="{{ hasDesc }}" hint-placeholder-val="{{ false }}">
+    <div data-r="section" style="padding:80px 56px; max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:24px;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; font-weight:500;">The Piece</div>
+      <div style="font-size:15px; line-height:1.85; color:#cabfa9; white-space:pre-line;"><sc-for list="{{ descParts }}" as="dp" hint-placeholder-count="1"><sc-if value="{{ dp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ dp.t }}</span></sc-if><sc-if value="{{ dp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ dp.href }}" style="text-decoration:underline;">{{ dp.t }}</a></sc-if></sc-for></div>
+    </div>
+  </sc-if>
+  </sc-if>
+
+  <div data-ecj-footer></div>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#17130e; border-left:1px solid #2a2318; z-index:20; display:flex; flex-direction:column;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #2a2318;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Bag ({{ cartCount }})</div>
+      <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#b3ac9c;">✕</div>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:18px;">
+      <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your bag is empty.</div>
+      </sc-if>
+      <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; gap:14px;">
+          <img src="{{ heroImg }}" alt="" style="width:64px; height:64px; border-radius:4px; object-fit:cover; flex-shrink:0;">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:14px;">{{ name }}</div>
+            <div style="font-size:12px; color:#b3ac9c;">{{ priceLabel }}{{ optionsLine }}</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-top:4px;">
+              <div onClick="{{ decQty }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">−</div>
+              <div style="font-size:13px;">{{ qty }}</div>
+              <div onClick="{{ incQty }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">+</div>
+              <div onClick="{{ clearCart }}" style="cursor:pointer; margin-left:auto; font-size:12px; color:#b3ac9c; text-decoration:underline;">Remove</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid #2a2318; display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; justify-content:space-between; font-size:15px; font-weight:700;"><div>Subtotal</div><div>{{ lineTotalLabel }}</div></div>
+      <a href="{{ checkoutHref }}" style="text-align:center; background:#d4b572; color:#191510; font-weight:700; padding:15px; border-radius:2px; text-decoration:none;">Checkout</a>
+    </div>
+  </div>
+  </sc-if>
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ toggleCart }}" style="position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:15;"></div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SIZE_TAG_RE = /^(Bracelets? )?(\d+)\s*mm$/i;
+const BLANK = 'img/logo-ecj-white.webp';
+
+class Component extends DCLogic {
+  state = { products: [], slug: '', size: '', length: '', clasp: '', wrist: '', openPerk: -1, qty: 1, cart: false, cartOpen: false, thumbIdx: 0 };
+
+  componentDidMount() {
+    const slug = new URLSearchParams(window.location.search).get('slug') || '';
+    this.setState({ slug });
+    fetch('data/stones.json').then(r => r.json()).then(stones => this.setState({ stones })).catch(() => {});
+    fetch('data/products.json').then(r => r.json()).then(products => {
+      const p = products.find(x => x.slug === slug);
+      const sizeTag = p ? (p.tags || []).find(t => SIZE_TAG_RE.test(t)) : null;
+      const size = sizeTag ? sizeTag.match(SIZE_TAG_RE)[2] + ' mm' : '';
+      this.setState({ products, size });
+    }).catch(() => this.setState({ products: [] }));
+    this.syncChrome();
+  }
+  componentDidUpdate() { this.syncChrome(); }
+  syncChrome() {
+    window.ecjCartHandler = () => this.toggleCart();
+    if (window.ecjSetCartCount) window.ecjSetCartCount(this.state.cart ? this.state.qty : 0);
+  }
+
+  getProduct() { return this.state.products.find(p => p.slug === this.state.slug); }
+  incQty() { this.setState(s => ({ qty: s.qty + 1 })); }
+  decQty() { this.setState(s => ({ qty: Math.max(1, s.qty - 1) })); }
+  addToCart() { this.setState({ cart: true, cartOpen: true }); }
+  clearCart() { this.setState({ cart: false, qty: 1 }); }
+  toggleCart() { this.setState(s => ({ cartOpen: !s.cartOpen })); }
+  setThumb(i) { this.setState({ thumbIdx: i }); }
+
+  fmt(n) { return '€ ' + Number(n).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+  /* "What is Tridacna? More info here." -> "here" links to that stone in the Compendium.
+     "Check out our complete collection here." -> links to the collection.
+     Applies to every product automatically; no per-product editing needed. */
+  stoneHref(label) {
+    const stones = this.state.stones || [];
+    const key = String(label || '').toLowerCase().replace(/[^a-z]+/g, '');
+    if (!key) return '';
+    let hit = stones.find(s => s.name.toLowerCase().replace(/[^a-z]+/g, '') === key);
+    if (!hit) hit = stones.find(s => s.slug.replace(/[^a-z]+/g, '').replace(/jewelry$/, '') === key);
+    if (!hit) hit = stones.find(s => s.name.toLowerCase().replace(/[^a-z]+/g, '').indexOf(key) === 0);
+    return hit ? ('category.dc.html?stone=' + hit.slug) : '';
+  }
+
+  linkify(text) {
+    const parts = [];
+    const re = /(What is ([^?]{2,40})\?\s*More info )here\.?|(Check out our complete collection )here\.?|(More about ([^.]{2,40}?) )here\.?/g;
+    let last = 0, m;
+    while ((m = re.exec(text)) !== null) {
+      const lead = m[1] || m[3] || m[4] || '';
+      const label = m[2] || m[5] || '';
+      const href = m[3] ? 'collection.dc.html' : this.stoneHref(label);
+      if (!href) continue;
+      if (m.index > last) parts.push({ t: text.slice(last, m.index), isText: true, isLink: false, href: '' });
+      parts.push({ t: lead, isText: true, isLink: false, href: '' });
+      parts.push({ t: 'here', isText: false, isLink: true, href });
+      parts.push({ t: '.', isText: true, isLink: false, href: '' });
+      last = m.index + m[0].length;
+    }
+    if (!parts.length) return [{ t: text, isText: true, isLink: false, href: '' }];
+    if (last < text.length) parts.push({ t: text.slice(last), isText: true, isLink: false, href: '' });
+    return parts;
+  }
+
+  renderVals() {
+    const s = this.state;
+    if (!s.products.length && !s.slug) return { found: false, notFound: false, heroImg: BLANK, thumbs: [], sizes: [] };
+    const p = this.getProduct();
+    if (!p) return { found: false, notFound: true, heroImg: BLANK, thumbs: [], sizes: [] };
+
+    const images = p.images && p.images.length ? p.images : [BLANK];
+    const heroImg = images[Math.min(s.thumbIdx, images.length - 1)] || BLANK;
+    const thumbs = images.map((src, i) => ({ src: src || BLANK, border: i === s.thumbIdx ? '#d4b572' : 'transparent', onClick: () => this.setThumb(i) }));
+    const onSale = !!(p.sale && p.sale < p.regular);
+    const discount = onSale ? Math.round((1 - p.sale / p.regular) * 100) : 0;
+    const cats = (p.cats || []).filter(c => !/^bracelets?$/i.test(c));
+    const sizeOptions = ['8 mm', '10 mm', '12 mm'];
+    const isBracelet = /bracelet/i.test(p.name || '') || (p.cats || []).some(c => /bracelet/i.test(c)) || (p.tags || []).some(t => /bracelet/i.test(t));
+    const WRIST = ['XSmall 15 cm - 6 inch', 'Small 16 cm - 6.4 inch', 'Medium 17 cm - 6.8 inch', 'Medium+ 18 cm - 7.2 inch', 'Large 19 cm - 7.6 inch', 'XLarge 20 cm - 8 inch', 'XXLarge 21 cm - 8.4 inch'];
+    const CLOSINGS = [
+      { label: 'Elastic', img: 'img/options/italian-jewelry-closing-elastic.webp' },
+      { label: 'Clasp', img: 'img/options/italian-jewelry-closing-clasp.webp' },
+      { label: 'Hook Clasp', img: 'img/options/italian-jewelry-closing-hook-clasp.webp' },
+    ];
+    const wristField = isBracelet && !p.lengths;
+    const lengthOptions = p.lengths || [];
+    const claspOptions = p.clasps || (isBracelet ? CLOSINGS : []);
+    const sizeHeading = isBracelet && !p.lengths ? 'Bracelet Size:' : 'Necklace Size:';
+    const claspHeading = isBracelet && !p.clasps ? 'Closing' : 'Clasp';
+    const limited = (p.tags || []).some(t => /Imperium Collection/i.test(t));
+    const badge = limited ? 'Limited' : (onSale ? 'Sale' : '');
+    const chip = (on) => ({ borderColor: on ? '#d4b572' : '#37301f', textColor: on ? '#d4b572' : '#c4bca9' });
+    const perkData = [
+      { mark: '◈', label: 'Handcrafted in our Roman atelier',
+        body: 'Every Eternal City bracelet is assembled in our Roman atelier from natural, carefully chosen gemstones. We work with the stone as it is — its grain, its colour, its imperfections — so the piece you wear is unrepeatable, and entirely yours.' },
+      { mark: '↻', label: 'Ships worldwide from Italy',
+        body: 'Worldwide shipping, insured delivery. Free shipping on orders from € 50; below that, € 8 flat. From raw stones to your door in 1 week.' },
+      { mark: '⬡', label: 'Natural stone, one of a kind',
+        body: 'Every type of stone has its own character, history and cultural belief. Natural gemstones vary in colour, size and pattern — no two alike.' },
+      { mark: '✿', label: 'Presented in a luxury box',
+        body: 'Every piece comes in a luxury box. Made in Rome, worn forever.' },
+      { mark: '♡', label: '30-day satisfaction guarantee',
+        body: 'Not satisfied? Return the piece unworn in its box within 30 days of delivery and we refund the price of the goods. Return shipping is paid by the buyer.' },
+      { mark: '✓', label: 'Maintenance & care guide included',
+        body: 'Our pieces use 24k gold, 925 silver and rhodium accents. Water alone won\u2019t harm them, but soap and chlorinated pools can dull their finish over time — best to leave your bracelet at home before a swim.' },
+    ];
+    const perks = perkData.map((d, i) => Object.assign({}, d, {
+      open: s.openPerk === i,
+      rotate: s.openPerk === i ? 'rotate(90deg)' : 'none',
+      onClick: () => this.setState(st => ({ openPerk: st.openPerk === i ? -1 : i })),
+    }));
+
+    return {
+      badge, hasBadge: !!badge, perks,
+      sizeHeading, claspHeading,
+      hasWristField: wristField,
+      wrist: s.wrist || '',
+      setWrist: e => this.setState({ wrist: e.target.value }),
+      claspCols: 'repeat(' + Math.max(claspOptions.length, 1) + ', minmax(0, 1fr))',
+      hasLengths: lengthOptions.length > 0,
+      lengths: lengthOptions.map(label => Object.assign({ label, onClick: () => this.setState({ length: label }) }, chip(label === (s.length || lengthOptions[0])))),
+      hasClasps: claspOptions.length > 0,
+      clasps: claspOptions.map(c => Object.assign({ label: c.label, img: c.img, onClick: () => this.setState({ clasp: c.label }) }, chip(c.label === (s.clasp || claspOptions[0].label)))),
+      selectedLength: s.length || lengthOptions[0] || '',
+      selectedClasp: s.clasp || (claspOptions[0] && claspOptions[0].label) || '',
+      found: true, notFound: false,
+      name: p.name,
+      catLine: cats.join(' · ') || (p.cats || []).join(' · '),
+      shortParts: this.linkify((p.short || p.desc || '').replace(/\\n/g, '\n')),
+      short: (p.short || p.desc || '').replace(/\\n/g, '\n'),
+      desc: (p.desc || '').replace(/\\n/g, '\n'),
+      descParts: this.linkify((p.desc || '').replace(/\\n/g, '\n')),
+      hasDesc: !!(p.desc && p.short),
+      heroImg, thumbs,
+      onSale,
+      priceLabel: this.fmt(p.price * s.qty),
+      regularLabel: this.fmt(p.regular),
+      discountLabel: '−' + discount + '%',
+      hasSizes: !!s.size,
+      sizes: s.size ? sizeOptions.map(label => ({ label, borderColor: label === s.size ? '#d4b572' : '#37301f', textColor: label === s.size ? '#d4b572' : '#c4bca9', onClick: () => this.setState({ size: label }) })) : [],
+      selectedSize: s.size,
+      optionsLine: [s.size, wristField ? s.wrist : (s.length || lengthOptions[0]), s.clasp || (claspOptions[0] && claspOptions[0].label)].filter(Boolean).map(x => ' · ' + x).join(''),
+      qty: s.qty,
+      lineTotalLabel: this.fmt(p.price * s.qty),
+      checkoutHref: (() => {
+        const opts = [s.size, wristField ? s.wrist : (s.length || lengthOptions[0]), s.clasp || (claspOptions[0] && claspOptions[0].label)].filter(Boolean);
+        const label = p.name + (opts.length ? ' — ' + opts.join(', ') : '') + (s.qty > 1 ? ' ×' + s.qty : '');
+        return 'checkout.dc.html?id=' + encodeURIComponent(p.slug) +
+          '&name=' + encodeURIComponent(label) +
+          '&price=' + (p.price * s.qty).toFixed(2) +
+          '&col=' + encodeURIComponent((p.cats || [])[0] || 'misura');
+      })(),
+      incQty: () => this.incQty(), decQty: () => this.decQty(),
+      addToCart: () => this.addToCart(), clearCart: () => this.clearCart(),
+      toggleCart: () => this.toggleCart(),
+      cartOpen: s.cartOpen, cartCount: s.cart ? s.qty : 0,
+      cartEmpty: !s.cart, cartHasItems: !!s.cart,
+    };
+  }
+}
+</script>
+</body>
+</html>

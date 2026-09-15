@@ -1,0 +1,57 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.dc.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/index.dc.html"
+    },
+    {
+      "source": "/collection.html",
+      "destination": "/collection.dc.html"
+    },
+    {
+      "source": "/compendium.html",
+      "destination": "/Compendium.dc.html"
+    },
+    {
+      "source": "/journal.html",
+      "destination": "/Journal.dc.html"
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about.dc.html"
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about.dc.html"
+    },
+    {
+      "source": "/post.html",
+      "destination": "/Post.dc.html"
+    },
+    {
+      "source": "/checkout.html",
+      "destination": "/checkout.dc.html"
+    },
+    {
+      "source": "/thank-you.html",
+      "destination": "/grazie.dc.html"
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/privacy-policy.dc.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.dc.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy.dc.html"
+    }
+  ]
+}

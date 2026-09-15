@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;}
+.ech{--gold:#d4b572;--color-accent:#d4b572;--color-bg:#15120d;--color-neutral-700:#b3ac9c;background:#15120d;color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;}
+.ech *{box-sizing:border-box;}
+.ech a{color:inherit;text-decoration:none;}
+.ech-nav{position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);}
+.ech-navin{max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.ech-navlinks{display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b3ac9c;}
+.ech-navlinks a:hover{color:var(--gold);}
+.ech-navlinks a[aria-current]{color:var(--gold);}
+.ech-chip{cursor:pointer;font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#cfc8ba;background:none;border:1px solid rgba(198,166,103,.3);padding:10px 18px;border-radius:2px;transition:border-color .25s,color .25s,background .25s;}
+.ech-chip:hover{border-color:var(--gold);color:#f1e9d8;}
+.ech-chip:focus-visible{outline:2px solid #d4b572;outline-offset:2px;}
+.ech-chip.is-on{background:var(--gold);border-color:var(--gold);color:#15120d;}
+.ech-input{background:none;border:none;border-bottom:1px solid rgba(198,166,103,.32);outline:none;color:#e8e1d2;font-family:inherit;font-size:12px;letter-spacing:.06em;padding:8px 2px;width:220px;}
+.ech-input::placeholder{color:#7d7768;}
+.ech-input:focus-visible{border-bottom-color:var(--gold);}
+.ech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.ech-card{display:flex;flex-direction:column;border:1px solid rgba(198,166,103,.14);border-radius:4px;overflow:hidden;background:#1b1711;transition:transform .3s ease,border-color .3s ease;}
+.ech-card:hover{border-color:rgba(198,166,103,.55);transform:translateY(-4px);}
+.ech-card:hover img{transform:scale(1.05);}
+.ech-cardimg{position:relative;aspect-ratio:4/3;overflow:hidden;background:#241f17;}
+.ech-cardimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.ech-badge{position:absolute;top:12px;left:12px;z-index:3;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#15120d;background:var(--gold);padding:4px 9px;border-radius:2px;}
+.ech-cardbody{padding:20px 22px 24px;}
+.ech-date{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;}
+.ech-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;font-weight:500;color:#ece5d6;line-height:1.15;margin:9px 0 0;}
+.ech-sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:15px;color:#c6ab77;margin:7px 0 0;}
+.ech-lead{font-weight:300;font-size:13.5px;color:#9a9384;line-height:1.65;margin:11px 0 0;}
+@media(max-width:1000px){.ech-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:660px){.ech-grid{grid-template-columns:1fr;}}
+
+@media(max-width:640px){.ech header{padding-left:18px !important;padding-right:18px !important;}.ech-input{width:100%;}.ech-cardbody{padding:16px 16px 20px;}}
+html,body{overflow-x:hidden;}
+</style>
+</helmet>
+<div class="ech">
+
+  <div data-ecj-nav=""></div>
+
+  <header style="max-width:1240px;margin:0 auto;padding:70px 28px 30px;">
+    <p style="font-weight:500;letter-spacing:.42em;font-size:12px;text-transform:uppercase;color:#d4b572;margin:0;">Stones, pieces and Rome</p>
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(40px,6vw,76px);line-height:1;color:#f4ecdb;margin:20px 0 0;">The <em style="font-style:italic;color:#d8bf8e;">Journal</em></h1>
+    <p style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:20px;color:#c4bca9;max-width:58ch;margin:18px 0 0;">Stone sheets and notes from the atelier, from 2020 to today.</p>
+  </header>
+
+  <div style="max-width:1240px;margin:0 auto;padding:22px 28px 0;border-top:1px solid rgba(198,166,103,.16);display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="ech-chip is-on" data-kind="all" onClick="{{ onFilter }}">All</button>
+      <button class="ech-chip" data-kind="stone" onClick="{{ onFilter }}">Stone sheets</button>
+      <button class="ech-chip" data-kind="journal" onClick="{{ onFilter }}">From the atelier</button>
+    </div>
+    <input class="ech-input" type="text" placeholder="Search the journal" aria-label="Search the journal" onInput="{{ onSearch }}">
+  </div>
+
+  <div style="max-width:1240px;margin:0 auto;padding:18px 28px 0;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#7d7768;">{{ countLabel }}</div>
+
+  <section style="max-width:1240px;margin:0 auto;padding:26px 28px 90px;">
+    <div class="ech-grid">
+      <sc-for list="{{ shown }}" as="p" hint-placeholder-count="9">
+        <a class="ech-card" href="{{ p.href }}">
+          <span class="ech-cardimg">
+            <span class="ech-badge">{{ p.badge }}</span>
+            <img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" style="{{ p.imgStyle }}">
+          </span>
+          <span class="ech-cardbody">
+            <span class="ech-date">{{ p.dateLabel }}</span>
+            <span class="ech-title" style="display:block;">{{ p.title }}</span>
+            <span class="ech-sub" style="display:block;">{{ p.subtitle }}</span>
+            <span class="ech-lead" style="display:block;">{{ p.lead }}</span>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+    <div style="{{ emptyStyle }};text-align:center;padding:80px 24px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:26px;color:#a9a292;">Nothing matches your search.</div>
+  </section>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { posts: [], kind: 'all', q: '' };
+
+  componentDidMount() {
+    fetch('data/posts.json')
+      .then(r => r.json())
+      .then(posts => this.setState({ posts }))
+      .catch(() => this.setState({ posts: [] }));
+  }
+
+  renderVals() {
+    const { posts, kind, q } = this.state;
+    const query = q.trim().toLowerCase();
+    const shown = posts
+      .filter(p => p.lead || (p.paras && p.paras.length))
+      .filter(p => kind === 'all' || p.kind === kind)
+      .filter(p => !query || (p.title + ' ' + p.subtitle + ' ' + p.lead).toLowerCase().indexOf(query) > -1)
+      .map(p => ({
+        href: 'Post.dc.html?slug=' + p.slug,
+        title: p.title,
+        subtitle: p.subtitle || '',
+        lead: p.lead ? (p.lead.length > 150 ? p.lead.slice(0, 148) + '\u2026' : p.lead) : '',
+        image: p.image || '',
+        imgStyle: p.image ? '' : 'display:none',
+        badge: p.mohs ? 'Mohs ' + p.mohs : (p.kind === 'stone' ? 'Stone' : 'Atelier'),
+        dateLabel: new Date(p.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+      }));
+    return {
+      shown,
+      countLabel: shown.length + (shown.length === 1 ? ' entry' : ' entries'),
+      emptyStyle: posts.length && !shown.length ? 'display:block' : 'display:none',
+      onFilter: e => {
+        const kindNext = e.currentTarget.getAttribute('data-kind');
+        e.currentTarget.parentNode.querySelectorAll('.ech-chip').forEach(b => b.classList.toggle('is-on', b.getAttribute('data-kind') === kindNext));
+        this.setState({ kind: kindNext });
+      },
+      onSearch: e => this.setState({ q: e.target.value || '' }),
+    };
+  }
+}
+</script>
+</body>
+</html>

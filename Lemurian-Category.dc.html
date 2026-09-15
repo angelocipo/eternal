@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&amp;family=Karla:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #15120d; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(198,166,103,0.28); border-radius: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    a { color: #d4b572; }
+    a:hover { color: #efe9dc; }
+    @media (max-width: 900px) {
+      [data-r="nav"] { padding: 16px 20px !important; flex-wrap: wrap; row-gap: 10px; }
+      [data-r="hero"] { padding: 48px 20px !important; }
+      [data-r="heroTitle"] { font-size: 36px !important; }
+      [data-r="statRow"] { flex-wrap: wrap !important; gap: 20px !important; }
+      [data-r="section"] { padding-left: 20px !important; padding-right: 20px !important; }
+      [data-r="grid"] { grid-template-columns: repeat(2,1fr) !important; }
+      [data-r="footer"] { padding-left: 20px !important; padding-right: 20px !important; flex-direction: column; gap: 8px; }
+      [data-r="cartDrawer"] { width: 100vw !important; }
+    }
+    @media (max-width: 520px) {
+      [data-r="grid"] { grid-template-columns: 1fr !important; }
+    }
+    @media (min-width: 1200px) {
+      [data-r="heroTitle"], [data-r="heroSub"] { white-space: nowrap; }
+    }
+  
+    @media (max-width: 560px) { [data-r="heroTitle"] { font-size: 28px !important; } [data-r="section"] { padding-top: 44px !important; padding-bottom: 44px !important; } }
+  </style>
+  <script src="i18n.js"></script>
+<script src="chrome.js"></script>
+</helmet>
+
+<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
+
+  <!-- NAV -->
+  <div data-ecj-nav="bracelet"></div>
+
+  <!-- HERO -->
+  <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px); flex-wrap:wrap;">
+    <div data-r="heroText" style="flex:1 1 460px; min-width:0; display:flex; flex-direction:column; gap:8px;">
+      <div style="color:#d4b572; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
+      <div data-r="heroTitle" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px; line-height:1.1; font-weight:500;">Lemurian Bracelets: Minimalist Luxury with an Edge</div>
+      <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#cabfa9;">Quiet luxury for people who know what elegance looks like — cut minimal, worn every day.</div>
+      <div style="font-size:13px; line-height:1.6; color:#cabfa9; width:100%;">Transparent, opaque, soft blue, warm brown — Lemurian quartz carries every note in one stone. Ours is sourced directly from small mining operations in Brazil, the region long recognized as the true origin of authentic Lemurian crystals: natural striations, high clarity, no dye or treatment, no middlemen.</div>
+      <div data-r="statRow" style="display:flex; gap:32px; margin-top:8px; padding-top:12px; border-top:1px solid #2a2318; max-width:640px;">
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">7/10</div>
+          <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">Mohs Hardness</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">SiO₂</div>
+          <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">Silicon dioxide — pure quartz</div>
+      </div>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">Brazil</div>
+          <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">Serra do Cabral &amp; Diamantina</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1 1 220px; min-width:160px; max-width:240px; aspect-ratio:1/1; border-radius:6px; overflow:hidden;">
+      <img src="img/lemurian/lemurian-stone.webp" alt="Lemurian Bracelets" style="width:100%; height:100%; object-fit:cover;" />
+    </div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div data-r="section" style="padding:20px 64px 90px; display:flex; flex-direction:column; gap:14px;">
+    <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:22px;">The Collection</div>
+    <div data-r="grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+      <sc-for list="{{ products }}" as="item" hint-placeholder-count="0">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#1b1711; display:block; text-decoration:none; border:1pt solid #efe9dc;">
+            <img src="{{ item.safePhoto }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
+            <sc-if value="{{ item.badge }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">{{ item.badge }}</div></sc-if>
+            <div onClick="{{ item.toggleWish }}" style="position:absolute; top:8px; right:8px; font-size:16px; color:{{ item.heartColor }};">♡</div>
+          </a>
+          <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#efe9dc;">{{ item.name }}</a>
+          <div style="font-size:13px; color:#b3ac9c;">
+            <sc-if value="{{ item.onSale }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
+            €{{ item.priceLabel }}
+          </div>
+          <div onClick="{{ item.add }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px;">Add to Bag</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div data-r="footer" style="padding:40px 64px; border-top:1px solid #2a2318; display:flex; justify-content:space-between; color:#8f8879; font-size:12px;">
+    <div>© 2026 Eternal City Jewelry · Rome, Italy</div>
+    <div>Handcrafted Natural Gemstone Bracelets</div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#17130e; border-left:1px solid #2a2318; transform:translateX(0%);transition:transform .3s ease; z-index:20; display:flex; flex-direction:column;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #2a2318;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Bag ({{ cartCount }})</div>
+      <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#b3ac9c;">✕</div>
+    </div>
+    <div style="flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:18px;">
+      <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your bag is empty.</div>
+      </sc-if>
+      <sc-for list="{{ cartItems }}" as="line" hint-placeholder-count="0">
+        <div style="display:flex; gap:14px;">
+          <img src="{{ line.safePhoto }}" alt="{{ line.name }}" style="width:64px; height:64px; border-radius:4px; object-fit:cover; flex-shrink:0;">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="font-size:14px;">{{ line.name }}</div>
+            <div style="font-size:12px; color:#b3ac9c;">€{{ line.priceLabel }}</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-top:4px;">
+              <div onClick="{{ line.dec }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">−</div>
+              <div style="font-size:13px;">{{ line.qty }}</div>
+              <div onClick="{{ line.inc }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">+</div>
+              <div onClick="{{ line.remove }}" style="cursor:pointer; margin-left:auto; font-size:12px; color:#b3ac9c; text-decoration:underline;">Remove</div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid #2a2318; display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; justify-content:space-between; font-size:15px; font-weight:700;"><div>Subtotal</div><div>€{{ subtotalLabel }}</div></div>
+      <div style="cursor:pointer; text-align:center; background:#d4b572; color:#191510; font-weight:700; padding:15px; border-radius:2px;">Checkout</div>
+    </div>
+  </div>
+  </sc-if>
+
+  <div data-ecj-footer></div>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ toggleCart }}" style="position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:15;"></div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PRODUCTS = [
+  { id: 'lemurian', name: 'Lemurian Quartz Minimalist Bracelet', price: 224, salePrice: 112, badge: 'Sale', photo: 'img/lemurian/lemurian-product-1.webp', slug: 'lemurian-quartz-minimalist-bracelet-handmade-luxury' },
+  { id: 'lemurian-ii', name: 'Lemurian II Quartz Minimalist Bracelet', price: 224, salePrice: 112, badge: 'Sale', photo: 'img/lemurian/lemurian-ii-product.webp', slug: 'lemurian-ii-quartz-minimalist-bracelet-handmade-luxury' },
+];
+
+class Component extends DCLogic {
+  state = { cart: [], wishlist: [], cartOpen: false };
+
+  addToCart(id) {
+    this.setState(s => {
+      const cart = [...s.cart];
+      const idx = cart.findIndex(l => l.id === id);
+      if (idx >= 0) cart[idx] = { ...cart[idx], qty: cart[idx].qty + 1 };
+      else cart.push({ id, qty: 1 });
+      return { cart, cartOpen: true };
+    });
+  }
+  removeFromCart(id) { this.setState(s => ({ cart: s.cart.filter(l => l.id !== id) })); }
+  changeQty(id, delta) {
+    this.setState(s => ({ cart: s.cart.map(l => l.id === id ? { ...l, qty: Math.max(1, l.qty + delta) } : l) }));
+  }
+  toggleWishlist(id) {
+    this.setState(s => {
+      const has = s.wishlist.includes(id);
+      return { wishlist: has ? s.wishlist.filter(w => w !== id) : [...s.wishlist, id] };
+    });
+  }
+  toggleCart() { this.setState(s => ({ cartOpen: !s.cartOpen })); }
+
+  componentDidMount() { this.syncChrome(); }
+  componentDidUpdate() { this.syncChrome(); }
+  syncChrome() {
+    window.ecjCartHandler = () => this.toggleCart();
+    const s = this.state;
+    const n = Array.isArray(s.cart) ? s.cart.reduce((t, l) => t + (l.qty || 1), 0) : (s.cart ? (s.qty || 1) : 0);
+    if (window.ecjSetCartCount) window.ecjSetCartCount(n);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const products = PRODUCTS.map(p => {
+      const inWishlist = s.wishlist.includes(p.id);
+      const onSale = !!p.salePrice;
+      return {
+        ...p,
+        safePhoto: p.photo || 'img/logo-ecj-white.webp',
+        href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
+        priceLabel: (p.salePrice || p.price).toFixed(2),
+        origPriceLabel: p.price.toFixed(2),
+        onSale,
+        heartColor: inWishlist ? '#d4b572' : '#c4bca9',
+        add: () => this.addToCart(p.id),
+        toggleWish: () => this.toggleWishlist(p.id),
+      };
+    });
+    const cartItems = s.cart.map(line => {
+      const p = PRODUCTS.find(pp => pp.id === line.id);
+      const unit = p.salePrice || p.price;
+      return {
+        ...p, qty: line.qty, priceLabel: unit.toFixed(2),
+        safePhoto: p.photo || 'img/logo-ecj-white.webp',
+        inc: () => this.changeQty(p.id, 1), dec: () => this.changeQty(p.id, -1), remove: () => this.removeFromCart(p.id),
+      };
+    });
+    const cartCount = s.cart.reduce((a, l) => a + l.qty, 0);
+    const subtotal = cartItems.reduce((a, l) => a + parseFloat(l.priceLabel) * l.qty, 0);
+    return {
+      products, cartItems, cartCount, cartOpen: s.cartOpen,
+      cartEmpty: cartItems.length === 0,
+      subtotalLabel: subtotal.toFixed(2),
+      toggleCart: () => this.toggleCart(),
+    };
+  }
+}
+</script>
+</body>
+</html>

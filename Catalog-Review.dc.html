@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0a0a;color:#e8e4dc;}
+a{color:#c9a227;text-decoration:none;}
+a:hover{color:#e3c25c;}
+img{max-width:100%;}
+@media(max-width:1000px){
+  [data-r="page"]{padding:32px 20px 60px !important;}
+  [data-r="sheet"]{grid-template-columns:1fr !important;gap:32px !important;padding:24px !important;}
+  [data-r="media"]{max-width:420px;}
+  [data-r="title"]{font-size:30px !important;}
+}
+@media(max-width:640px){
+  [data-r="head"]{flex-direction:column;align-items:flex-start !important;gap:10px !important;}
+  [data-r="headTitle"]{font-size:30px !important;}
+  [data-r="navbar"]{flex-wrap:wrap;}
+  [data-r="dots"]{margin-left:0 !important;justify-content:flex-start !important;max-width:none !important;width:100%;}
+  [data-r="specs"]{grid-template-columns:1fr !important;gap:4px 0 !important;}
+  [data-r="specs"] > div:nth-child(odd){margin-top:12px;}
+  [data-r="priceRow"]{flex-wrap:wrap;gap:10px 14px !important;}
+}
+</style>
+</helmet>
+<div data-r="page" style="min-height:100vh;background:#0a0a0a;font-family:'Jost',sans-serif;color:#e8e4dc;padding:48px 40px 80px">
+  <div style="max-width:1120px;margin:0 auto">
+
+    <div data-r="head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;border-bottom:1px solid rgba(201,162,39,.28);padding-bottom:18px">
+      <div>
+        <div style="font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#c9a227">Eternal City</div>
+        <div data-r="headTitle" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:.02em;margin-top:6px">Catalogo — revisione</div>
+      </div>
+      <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8c877e;white-space:nowrap">{{ counter }}</div>
+    </div>
+
+    <div data-r="navbar" style="display:flex;align-items:center;gap:14px;padding:22px 0 26px">
+      <button onClick="{{ prev }}" style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#e8e4dc;background:transparent;border:1px solid rgba(232,228,220,.28);padding:12px 22px;cursor:pointer" style-hover="border-color:#c9a227;color:#c9a227">Precedente</button>
+      <button onClick="{{ next }}" style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#0a0a0a;background:#c9a227;border:1px solid #c9a227;padding:12px 26px;cursor:pointer" style-hover="background:#e3c25c;border-color:#e3c25c">Successivo</button>
+      <div data-r="dots" style="display:flex;gap:7px;flex-wrap:wrap;margin-left:auto;max-width:520px;justify-content:flex-end">
+        <sc-for list="{{ dots }}" as="d" hint-placeholder-count="14">
+          <button onClick="{{ d.go }}" title="{{ d.name }}" style="{{ d.style }}"></button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div data-r="sheet" style="display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:56px;align-items:start;border:1px solid rgba(232,228,220,.12);padding:40px">
+
+      <div data-r="media" style="display:flex;flex-direction:column;gap:14px">
+        <div style="aspect-ratio:1;overflow:hidden;background:#141414;border:1px solid rgba(232,228,220,.1)">
+          <img src="{{ mainImage }}" alt="{{ name }}" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="3">
+            <img src="{{ t.src }}" onClick="{{ t.go }}" alt="" style="{{ t.style }}">
+          </sc-for>
+        </div>
+        <div style="font-size:11px;line-height:1.7;color:#6f6a62;word-break:break-all">{{ mainImage }}</div>
+        <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:{{ hostColor }}">{{ hostLabel }}</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div>
+          <div data-r="title" style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;line-height:1.15;text-wrap:pretty">{{ name }}</div>
+          <div style="font-size:12px;letter-spacing:.14em;color:#6f6a62;margin-top:10px">{{ slug }}</div>
+        </div>
+
+        <div>
+          <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#c9a227;margin-bottom:10px">Descrizione</div>
+          <div style="font-size:15px;line-height:1.85;color:#c8c3ba;text-wrap:pretty;white-space:pre-line">{{ oneText }}</div>
+        </div>
+
+        <div data-r="priceRow" style="display:flex;align-items:baseline;gap:18px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:34px;color:#c9a227">{{ priceLabel }}</div>
+          <div style="font-size:15px;color:#6f6a62;text-decoration:line-through">{{ strikeLabel }}</div>
+          <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8c877e">{{ saleLabel }}</div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="2">
+            <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0a0a0a;background:#c9a227;padding:6px 12px">{{ c }}</span>
+          </sc-for>
+          <sc-for list="{{ tags }}" as="t" hint-placeholder-count="3">
+            <span style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8c877e;border:1px solid rgba(232,228,220,.2);padding:6px 12px">{{ t }}</span>
+          </sc-for>
+        </div>
+
+        <div data-r="specs" style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px 24px;font-size:14px;border-top:1px solid rgba(232,228,220,.12);border-bottom:1px solid rgba(232,228,220,.12);padding:22px 0">
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6f6a62;padding-top:3px">SKU</div><div>{{ skuLabel }}</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6f6a62;padding-top:3px">Immagini</div><div>{{ imgCount }}</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6f6a62;padding-top:3px">Disponibilità</div><div>{{ stockLabel }}</div>
+          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6f6a62;padding-top:3px">Pagina live</div><div><a href="{{ liveHref }}" target="_blank">apri scheda prodotto</a></div>
+        </div>
+
+        <sc-if value="{{ hasFlags }}" hint-placeholder-val="{{ true }}">
+          <div style="border-left:2px solid #c9a227;background:rgba(201,162,39,.06);padding:20px 24px">
+            <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#c9a227;margin-bottom:12px">Da controllare</div>
+            <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.9;color:#c8c3ba">
+              <sc-for list="{{ flags }}" as="f" hint-placeholder-count="2">
+                <li>{{ f }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { i: 0, img: 0, products: null };
+
+  componentDidMount() {
+    fetch('data/products.json').then(r => r.json()).then(p => this.setState({ products: p }));
+    this._key = e => {
+      if (e.key === 'ArrowRight') this.step(1);
+      if (e.key === 'ArrowLeft') this.step(-1);
+    };
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+
+  step(d) {
+    const n = (this.state.products || []).length || 1;
+    this.setState(s => ({ i: (s.i + d + n) % n, img: 0 }));
+  }
+
+  clean(t) {
+    return String(t || '').split('\\n').join('\n').replace(/&amp;/g, '&').replace(/[ \t]+\n/g, '\n').trim();
+  }
+
+  audit(p) {
+    const f = [];
+    if (!p.sku) f.push('SKU mancante');
+    if (!p.desc) f.push('Descrizione lunga vuota: la scheda prodotto mostra solo il testo breve');
+    const imgs = p.images || [];
+    if (!imgs.length) f.push('Nessuna immagine');
+    const remote = imgs.filter(u => /^https?:/.test(u));
+    if (remote.length) f.push(remote.length + ' immagini ancora in hotlink da eternalcity.jewelry — da scaricare in img/');
+    if (imgs.some(u => /\.avif$/i.test(u))) f.push('Formato .avif tra le immagini — meglio convertire in WebP');
+    if (/\[video/.test(p.short || '') || /\[video/.test(p.desc || '')) f.push('Shortcode [video] di WordPress rimasto nel testo');
+    if (/More info here|complete collection here|More about .* here/.test(p.short || '')) f.push('Link "here" ereditati da WordPress: nel testo non sono cliccabili');
+    if (p.sale != null && p.regular && p.sale >= p.regular) f.push('Prezzo scontato non inferiore al prezzo pieno');
+    if (p.sale != null && p.regular && p.sale <= p.regular * 0.35) f.push('Sconto oltre il 65% (' + Math.round((1 - p.sale / p.regular) * 100) + '%) — verificare che sia voluto');
+    if ((p.short || '').length > 240 && !/[.!?…]$/.test((p.short || '').trim())) f.push('Testo breve troncato a metà frase (import WooCommerce)');
+    const nameStone = (p.name || '').toLowerCase();
+    if (/necklace/.test(nameStone) && (p.cats || []).some(c => /bracelet/i.test(c))) f.push('Nome "Necklace" ma categoria Bracelets');
+    if (/bracelet/i.test(p.name) && !(p.cats || []).some(c => /bracelet/i.test(c))) f.push('Bracciale non assegnato alla categoria Bracelets');
+    if (/turquoise necklace/i.test(p.name) && /bracelet/i.test(p.desc || '') ) f.push('La descrizione parla di bracciale ma il prodotto è una collana');
+    return f;
+  }
+
+  renderVals() {
+    const list = this.state.products || [];
+    const p = list[this.state.i] || {};
+    const imgs = p.images || [];
+    const img = imgs[Math.min(this.state.img, Math.max(imgs.length - 1, 0))] || '';
+    const remote = /^https?:/.test(img);
+    const flags = list.length ? this.audit(p) : [];
+    const desc = this.clean(p.desc);
+    const short = this.clean(p.short);
+
+    return {
+      counter: list.length ? ('Scheda ' + (this.state.i + 1) + ' / ' + list.length) : 'Caricamento…',
+      prev: () => this.step(-1),
+      next: () => this.step(1),
+      dots: list.map((q, k) => ({
+        name: q.name,
+        go: () => this.setState({ i: k, img: 0 }),
+        style: 'width:10px;height:10px;padding:0;border-radius:50%;cursor:pointer;border:1px solid ' +
+          (k === this.state.i ? '#c9a227' : 'rgba(232,228,220,.3)') +
+          ';background:' + (k === this.state.i ? '#c9a227' : 'transparent')
+      })),
+      thumbs: imgs.map((src, k) => ({
+        src,
+        go: () => this.setState({ img: k }),
+        style: 'width:64px;height:64px;object-fit:cover;cursor:pointer;display:block;border:1px solid ' +
+          (k === this.state.img ? '#c9a227' : 'rgba(232,228,220,.15)') +
+          ';opacity:' + (k === this.state.img ? '1' : '.6')
+      })),
+      mainImage: img,
+      name: p.name || '',
+      slug: p.slug || '',
+      priceLabel: p.price != null ? '€ ' + p.price : '',
+      strikeLabel: p.sale != null && p.regular ? '€ ' + p.regular : '',
+      saleLabel: p.sale != null && p.regular ? ('in saldo −' + Math.round((1 - p.sale / p.regular) * 100) + '%') : '',
+      cats: p.cats || [],
+      tags: p.tags || [],
+      skuLabel: p.sku || '— non impostato',
+      imgCount: imgs.length + (imgs.length === 1 ? ' immagine' : ' immagini'),
+      stockLabel: p.inStock ? 'Disponibile' : 'Esaurito',
+      liveHref: 'product.dc.html?slug=' + (p.slug || ''),
+      oneText: (desc && short && desc !== short) ? (short + '\n\n' + desc) : (desc || short || '—'),
+      hostLabel: remote ? 'immagine remota — eternalcity.jewelry' : (img ? 'file locale in img/' : ''),
+      hostColor: remote ? '#c9722a' : '#7d9a6a',
+      flags,
+      hasFlags: flags.length > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

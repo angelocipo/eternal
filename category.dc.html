@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;text-decoration:none;}
+.cg{color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;line-height:1.45;}
+.cg *{box-sizing:border-box;}
+.cg-hero{text-align:center;padding:28px 24px 22px;background:radial-gradient(120% 80% at 50% -16%, rgba(198,166,103,.12), rgba(21,18,13,0) 62%);}
+.cg-eyebrow{font-weight:500;letter-spacing:.34em;font-size:9.5px;text-transform:uppercase;color:#d4b572;margin:0;}
+.cg-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(24px,3.4vw,36px);line-height:1;color:#f1e9d8;margin:10px 0 0;}
+.cg-mean{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(13px,1.4vw,15px);color:#a9a292;max-width:480px;margin:8px auto 0;}
+.cg-body{max-width:1240px;margin:0 auto;padding:0 28px 90px;}
+.cg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;}
+.cg-card{display:block;border:1px solid rgba(198,166,103,.16);border-radius:4px;overflow:hidden;background:#1b1711;transition:border-color .25s,transform .25s;}
+.cg-card:hover{border-color:rgba(198,166,103,.55);transform:translateY(-3px);}
+.cg-ph{position:relative;aspect-ratio:1;background:#1b1711;}
+.cg-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.cg-badge{position:absolute;top:10px;left:10px;background:#c6a667;color:#15120d;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:2px;}
+.cg-meta{padding:11px 13px 13px;}
+.cg-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;color:#ece5d6;line-height:1.2;}
+.cg-price{margin-top:6px;font-size:13px;display:flex;gap:7px;align-items:baseline;}
+.cg-price s{opacity:.5;font-size:12px;}
+.cg-price b{color:#efe9dc;}
+.cg-empty{text-align:center;padding:80px 24px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px;color:#a9a292;}
+.cg-empty a{color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);}
+@media(max-width:600px){.cg-grid{grid-template-columns:repeat(auto-fill,minmax(46%,1fr));gap:14px;}}
+
+@media(max-width:600px){.cg-body{padding-left:16px !important;padding-right:16px !important;}}
+html,body{overflow-x:hidden;}
+img{max-width:100%;}
+</style>
+</helmet>
+<div class="cg">
+
+  <div data-ecj-nav="compendium"></div>
+
+  <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:120px 28px; text-align:center;">
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; margin-bottom:14px;">Stone not found</div>
+      <a href="Compendium.dc.html" style="color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);">Back to the compendium</a>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ found }}" hint-placeholder-val="{{ false }}">
+    <div class="cg-hero">
+      <p class="cg-eyebrow">Stone Compendium</p>
+      <h1 class="cg-h1">{{ stoneName }}</h1>
+      <p class="cg-mean">{{ stoneMeaning }}</p>
+    </div>
+
+    <div class="cg-body">
+      <sc-if value="{{ hasProducts }}" hint-placeholder-val="{{ false }}">
+        <div class="cg-grid">
+          <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
+            <a class="cg-card" href="{{ p.href }}">
+              <div class="cg-ph">
+                <img src="{{ p.safeImg }}" alt="{{ p.name }}">
+                <sc-if value="{{ p.onSale }}" hint-placeholder-val="{{ false }}"><div class="cg-badge">Sale</div></sc-if>
+              </div>
+              <div class="cg-meta">
+                <div class="cg-name">{{ p.name }}</div>
+                <div class="cg-price">
+                  <sc-if value="{{ p.onSale }}" hint-placeholder-val="{{ false }}"><s>{{ p.regularLabel }}</s></sc-if>
+                  <b>{{ p.priceLabel }}</b>
+                </div>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasNoProducts }}" hint-placeholder-val="{{ true }}">
+        <div class="cg-empty">No pieces set in {{ stoneName }} yet.<br><a href="Compendium.dc.html">Browse the compendium</a></div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+function norm(s) {
+  return String(s || '').toLowerCase().replace(/bracelets?|necklaces?|jewelry|pendants?/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+class Component extends DCLogic {
+  state = { stones: [], products: [], slug: '' };
+
+  componentDidMount() {
+    const slug = new URLSearchParams(window.location.search).get('stone') || '';
+    this.setState({ slug });
+    Promise.all([
+      fetch('data/stones.json').then(r => r.json()),
+      fetch('data/products.json').then(r => r.json()),
+    ]).then(([stones, products]) => this.setState({ stones, products })).catch(() => {});
+    this.syncChrome();
+  }
+  componentDidUpdate() { this.syncChrome(); }
+  syncChrome() { if (window.ecjSetCartCount) window.ecjSetCartCount(0); }
+
+  fmt(n) { return '€ ' + Number(n).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+  renderVals() {
+    const s = this.state;
+    if (!s.stones.length && !s.slug) return { found: false, notFound: false, products: [] };
+    const stone = s.stones.find(x => x.slug === s.slug);
+    if (!stone) return { found: false, notFound: true, products: [] };
+
+    const key = norm(stone.name);
+    const matches = s.products.filter(p => {
+      const hay = [...(p.cats || []), ...(p.tags || [])].map(norm);
+      return hay.some(h => h && (h.includes(key) || key.includes(h)));
+    });
+
+    const products = matches.map(p => {
+      const img = (p.images && p.images[0]) || '';
+      return {
+        href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
+        name: p.name,
+        safeImg: img || 'img/logo-ecj-white.webp',
+        onSale: !!(p.sale && p.sale < p.regular),
+        priceLabel: this.fmt(p.price),
+        regularLabel: this.fmt(p.regular),
+      };
+    });
+
+    return {
+      found: true, notFound: false,
+      stoneName: stone.name,
+      stoneMeaning: stone.meaning,
+      hasStory: !!stone.postSlug,
+      storyHref: 'Post.dc.html?slug=' + encodeURIComponent(stone.postSlug || ''),
+      hasProducts: products.length > 0,
+      hasNoProducts: products.length === 0,
+      products,
+    };
+  }
+}
+</script>
+</body>
+</html>

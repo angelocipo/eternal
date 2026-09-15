@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<title>Contact &mdash; Eternal City Jewelry</title>
+<meta name="description" content="Questions about a piece, a custom commission or an order? Write to the Rome atelier — we answer within two working days.">
+<link rel="canonical" href="https://www.tshirt-shop.online/contact">
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;}
+.ech{--gold:#d4b572;background:#15120d;color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;}
+.ech *{box-sizing:border-box;}
+.ech a{color:inherit;text-decoration:none;}
+.ech-nav{position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);}
+.ech-navin{max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.ech-navlinks{display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b3ac9c;}
+.ech-navlinks a:hover{color:var(--gold);}
+.ct-wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+.ct-label{display:block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#8f8879;margin-bottom:8px;}
+.ct-input{width:100%;background:#1b1711;border:1px solid rgba(198,166,103,.22);border-radius:2px;color:#efe9dc;font-family:inherit;font-size:15px;font-weight:300;padding:13px 14px;outline:none;transition:border-color .18s;}
+.ct-input:focus{border-color:#d4b572;}
+.ct-input::placeholder{color:#6e6959;}
+textarea.ct-input{resize:vertical;min-height:160px;line-height:1.65;}
+.ct-btn{background:#d4b572;color:#15120d;border:none;border-radius:2px;font-family:inherit;font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:16px 34px;cursor:pointer;transition:background .18s;}
+.ct-btn:hover{background:#e6cd93;}
+.ct-btn:disabled{opacity:.45;cursor:default;}
+.ct-side p{font-weight:300;font-size:15px;line-height:1.8;color:#cfc8ba;margin:0 0 14px;}
+@media(max-width:840px){.ct-grid{grid-template-columns:1fr !important;gap:48px !important;}}
+
+@media(max-width:560px){.ct-wrap{padding-left:18px !important;padding-right:18px !important;}}
+html,body{overflow-x:hidden;}
+</style>
+</helmet>
+<div class="ech">
+
+  <div data-ecj-nav=""></div>
+
+  <header class="ct-wrap" style="padding-top:76px;padding-bottom:10px;">
+    <p style="font-weight:500;letter-spacing:.42em;font-size:12px;text-transform:uppercase;color:#d4b572;margin:0;" data-it="Scriveteci" data-en="Write to us">Write to us</p>
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(36px,5vw,60px);line-height:1.05;color:#f4ecdb;margin:20px 0 0;max-width:20ch;">Contact the <em style="font-style:italic;color:#d8bf8e;">atelier</em></h1>
+  </header>
+
+  <div class="ct-wrap" style="padding-top:52px;padding-bottom:90px;">
+    <div class="ct-grid" style="display:grid;grid-template-columns:1.35fr 1fr;gap:72px;align-items:start;">
+
+      <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:22px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;">
+          <div>
+            <label class="ct-label" for="ct-name" data-it="Nome" data-en="Name">Name</label>
+            <input class="ct-input" id="ct-name" name="name" type="text" autocomplete="name" required="true" value="{{ vName }}" onChange="{{ onName }}">
+          </div>
+          <div>
+            <label class="ct-label" for="ct-email" data-it="Email" data-en="Email">Email</label>
+            <input class="ct-input" id="ct-email" name="email" type="email" autocomplete="email" required="true" value="{{ vEmail }}" onChange="{{ onEmail }}">
+          </div>
+        </div>
+        <div>
+          <label class="ct-label" for="ct-subject" data-it="Oggetto" data-en="Subject">Subject</label>
+          <input class="ct-input" id="ct-subject" name="subject" type="text" value="{{ vSubject }}" onChange="{{ onSubject }}">
+        </div>
+        <div>
+          <label class="ct-label" for="ct-message" data-it="Messaggio" data-en="Message">Message</label>
+          <textarea class="ct-input" id="ct-message" name="message" required="true" value="{{ vMessage }}" onChange="{{ onMessage }}"></textarea>
+        </div>
+
+        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+          <label for="ct-website">Website</label>
+          <input id="ct-website" name="website" type="text" tabindex="-1" autocomplete="off" value="{{ vWebsite }}" onChange="{{ onWebsite }}">
+        </div>
+
+        <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
+          <button class="ct-btn" type="submit" disabled="{{ busy }}">
+            <span data-it="Invia messaggio" data-en="Send message">{{ btnLabel }}</span>
+          </button>
+          <sc-if value="{{ statusMsg }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:13.5px;font-weight:300;color:{{ statusColor }};">{{ statusMsg }}</span>
+          </sc-if>
+        </div>
+
+        <p style="font-size:12.5px;font-weight:300;line-height:1.7;color:#8f8879;margin:0;max-width:52ch;">By sending this message you agree to our <a href="privacy-policy.dc.html" style="color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);">privacy policy</a>. We use your address only to answer you.</p>
+      </form>
+
+      <aside class="ct-side">
+        <div style="border:1px solid rgba(198,166,103,.18);border-radius:3px;padding:28px 26px;">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#f0e8d7;margin-bottom:14px;">The atelier</div>
+          <p>Every piece is strung by hand in Rome. Write for a custom commission, a size change, or a question about a stone.</p>
+          <p style="margin-bottom:0;">We answer within two working days.</p>
+        </div>
+        <div style="border:1px solid rgba(198,166,103,.18);border-radius:3px;padding:28px 26px;margin-top:22px;">
+          <div style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#8f8879;margin-bottom:12px;">Shipping</div>
+          <p style="margin-bottom:0;">We ship worldwide from Italy. Duties and import taxes outside the EU are the buyer&rsquo;s responsibility.</p>
+        </div>
+        <div style="border:1px solid rgba(198,166,103,.18);border-radius:3px;padding:28px 26px;margin-top:22px;">
+          <div style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#8f8879;margin-bottom:12px;">Before you write</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:14.5px;font-weight:300;">
+            <a href="Eternal-City-Size-Guide.dc.html" style="color:#d4b572;">Which size to choose &rarr;</a>
+            <a href="Eternal-City-Care-Guide.dc.html" style="color:#d4b572;">How to care for your piece &rarr;</a>
+            <a href="Compendium.dc.html" style="color:#d4b572;">Stone compendium &rarr;</a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { name: '', email: '', subject: '', message: '', website: '', busy: false, status: '' };
+
+  set(k) { return (e) => this.setState({ [k]: e.target.value }); }
+
+  submit = (e) => {
+    e.preventDefault();
+    if (this.state.busy) return;
+    this.setState({ busy: true, status: 'sending' });
+    fetch('/api/send-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: this.state.name, email: this.state.email,
+        subject: this.state.subject, message: this.state.message,
+        website: this.state.website,
+      }),
+    })
+      .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+      .then(({ ok }) => {
+        if (ok) this.setState({ busy: false, status: 'sent', name: '', email: '', subject: '', message: '' });
+        else this.setState({ busy: false, status: 'error' });
+      })
+      .catch(() => this.setState({ busy: false, status: 'error' }));
+  };
+
+  renderVals() {
+    const s = this.state;
+    const msg = {
+      sending: 'Sending\u2026',
+      sent: 'Thank you \u2014 your message is on its way.',
+      error: 'Something went wrong. Please try again in a moment.',
+    }[s.status] || false;
+    return {
+      vName: s.name, vEmail: s.email, vSubject: s.subject, vMessage: s.message, vWebsite: s.website,
+      onName: this.set('name'), onEmail: this.set('email'), onSubject: this.set('subject'),
+      onMessage: this.set('message'), onWebsite: this.set('website'),
+      submit: this.submit,
+      busy: s.busy,
+      btnLabel: s.busy ? 'Sending\u2026' : 'Send message',
+      statusMsg: msg,
+      statusColor: s.status === 'error' ? '#d99a86' : '#b3ac9c',
+    };
+  }
+}
+</script>
+</body>
+</html>

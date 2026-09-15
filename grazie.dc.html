@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="consent.js" data-ga="G-4XJG8VZY6S" data-fbq="817112403879732"></script>
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<title>Thank you for your order &mdash; Eternal City Jewelry</title>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://www.tshirt-shop.online/thank-you">
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;}
+.ech{--gold:#d4b572;background:#15120d;color:#efe9dc;font-family:Jost,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;}
+.ech *{box-sizing:border-box;}
+.ech a{color:inherit;text-decoration:none;}
+.ech-nav{position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);}
+.ech-navin{max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.ech-navlinks{display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b3ac9c;}
+.ech-navlinks a:hover{color:var(--gold);}
+@keyframes ringdraw{from{stroke-dashoffset:170;}to{stroke-dashoffset:0;}}
+@keyframes markdraw{from{stroke-dashoffset:32;}to{stroke-dashoffset:0;}}
+.ty-wrap{max-width:780px;margin:0 auto;padding:0 28px;}
+.ty-panel{border:1px solid rgba(198,166,103,.2);border-radius:3px;background:#1b1711;overflow:hidden;}
+.ty-row{display:flex;justify-content:space-between;gap:24px;padding:11px 26px;border-bottom:1px solid rgba(198,166,103,.1);font-size:14px;font-weight:300;}
+.ty-row span:first-child{color:#9a9384;}
+.ty-steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(198,166,103,.16);border-radius:3px;}
+.ty-steps > div{padding:24px 22px;border-right:1px solid rgba(198,166,103,.16);}
+.ty-steps > div:last-child{border-right:none;}
+.ty-btn{display:inline-block;background:#d4b572;color:#15120d;border-radius:2px;font-weight:500;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:15px 30px;}
+.ty-btn:hover{background:#e6cd93;}
+.ty-btn-2{display:inline-block;border:1px solid rgba(198,166,103,.4);color:#d4b572;border-radius:2px;font-weight:500;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:15px 30px;}
+.ty-btn-2:hover{border-color:#d4b572;background:rgba(212,181,114,.08);}
+@media(max-width:700px){.ty-steps{grid-template-columns:1fr;}.ty-steps > div{border-right:none;border-bottom:1px solid rgba(198,166,103,.16);}.ty-steps > div:last-child{border-bottom:none;}}
+
+@media(max-width:560px){.ty-wrap{padding-left:18px;padding-right:18px;}.ty-row{flex-direction:column;gap:2px;padding:12px 18px;}}
+html,body{overflow-x:hidden;}
+</style>
+</helmet>
+<div class="ech">
+
+  <div data-ecj-nav=""></div>
+
+  <main class="ty-wrap" style="padding-top:70px;padding-bottom:96px;">
+
+    <div style="text-align:center;">
+      <svg width="76" height="76" viewBox="0 0 76 76" fill="none" aria-hidden="true" style="display:block;margin:0 auto 26px;">
+        <circle cx="38" cy="38" r="27" stroke="#d4b572" stroke-width="1.2" stroke-dasharray="170" style="animation:ringdraw .9s ease-out both;"></circle>
+        <path d="M27 38.5 34.5 46 49 31" stroke="#d4b572" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="32" style="animation:markdraw .5s ease-out .55s both;"></path>
+      </svg>
+      <p style="font-weight:500;letter-spacing:.42em;font-size:11.5px;text-transform:uppercase;color:#d4b572;margin:0;" data-it="Ordine confermato" data-en="Order confirmed">Order confirmed</p>
+      <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(34px,4.6vw,54px);line-height:1.06;color:#f4ecdb;margin:18px 0 0;">Thank you &mdash; your piece is <em style="font-style:italic;color:#d8bf8e;">on its way</em></h1>
+      <sc-if value="{{ hasOrderRef }}" hint-placeholder-val="{{ false }}">
+        <div style="display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:8px 18px;border:1px solid rgba(198,166,103,.35);border-radius:2px;font-family:ui-monospace,SFMono-Regular,monospace;font-size:13px;letter-spacing:.06em;color:#e8dcbf;">
+          <span style="color:#8f8879;letter-spacing:.2em;font-size:10.5px;text-transform:uppercase;">Ref</span><strong style="font-weight:500;">{{ orderRef }}</strong>
+        </div>
+      </sc-if>
+      <p style="font-weight:300;font-size:16px;line-height:1.8;color:#cfc8ba;max-width:50ch;margin:28px auto 0;text-wrap:pretty;">Your payment went through. A confirmation email with the order summary is on its way; the invoice follows within one working day.</p>
+    </div>
+
+    <sc-if value="{{ hasRecap }}" hint-placeholder-val="{{ false }}">
+      <div class="ty-panel" style="margin-top:52px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:20px 26px;border-bottom:1px solid rgba(198,166,103,.18);">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:#f0e8d7;">{{ recapName }}</div>
+          <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#8f8879;">Your order</div>
+        </div>
+        <sc-for list="{{ recapDetails }}" as="d" hint-placeholder-count="3">
+          <div class="ty-row"><span>{{ d.label }}</span><span style="text-align:right;color:#cfc8ba;">{{ d.value }}</span></div>
+        </sc-for>
+        <div class="ty-row"><span>Items</span><span style="text-align:right;color:#cfc8ba;">{{ recapSubtotal }}</span></div>
+        <div class="ty-row"><span>Shipping</span><span style="text-align:right;color:#cfc8ba;">{{ recapShipping }}</span></div>
+        <div style="display:flex;justify-content:space-between;gap:24px;padding:18px 26px;border-top:1px solid rgba(198,166,103,.22);font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:#f0e8d7;">
+          <span>Total paid</span><span style="color:#d4b572;">{{ recapTotal }}</span>
+        </div>
+        <sc-if value="{{ hasRecapEmail }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 26px 20px;font-size:12.5px;font-weight:300;color:#8f8879;">Confirmation sent to {{ recapEmail }}</div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ hasSender }}" hint-placeholder-val="{{ false }}">
+      <div class="ty-panel" style="margin-top:26px;border-color:rgba(198,166,103,.45);">
+        <div style="padding:20px 26px;border-bottom:1px solid rgba(198,166,103,.18);">
+          <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#d4b572;">Sender details</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:#f0e8d7;margin-top:5px;">The parcel ships in your name</div>
+        </div>
+        <sc-for list="{{ senderRows }}" as="r" hint-placeholder-count="3">
+          <div class="ty-row"><span>{{ r.label }}</span><span style="text-align:right;color:#cfc8ba;">{{ r.value }}</span></div>
+        </sc-for>
+        <div style="padding:16px 26px;font-size:12.5px;font-weight:300;color:#8f8879;">No reference to us appears on the parcel: the sender and the delivery note carry these details.</div>
+      </div>
+    </sc-if>
+
+    <div class="ty-steps" style="margin-top:52px;">
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#d4b572;margin-bottom:10px;">01 &mdash; Confirmation</div>
+        <p style="margin:0;font-weight:300;font-size:14px;line-height:1.75;color:#a9a292;">The summary email arrives straight away. The invoice follows within one working day.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#d4b572;margin-bottom:10px;">02 &mdash; The atelier</div>
+        <p style="margin:0;font-weight:300;font-size:14px;line-height:1.75;color:#a9a292;">Every piece is checked, strung and finished by hand in Rome before it leaves.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#d4b572;margin-bottom:10px;">03 &mdash; Shipping</div>
+        <p style="margin:0;font-weight:300;font-size:14px;line-height:1.75;color:#a9a292;">Sent worldwide from Italy with tracked courier, in its gift box.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:48px;">
+      <a href="index.dc.html" class="ty-btn" data-it="Torna alla collezione" data-en="Back to the collection">Back to the collection</a>
+      <a href="Eternal-City-Care-Guide.dc.html" class="ty-btn-2" data-it="Guida alla cura" data-en="Care guide">Care guide</a>
+    </div>
+
+    <p style="font-size:12.5px;font-weight:300;color:#8f8879;margin-top:40px;text-align:center;">Questions about your order? <a href="contact.dc.html" style="color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);">Write to the atelier</a> &mdash; we answer within two working days.</p>
+
+  </main>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { orderRef: '', recap: null };
+  componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    // Airline-style 6-character booking code. This is a character-for-character copy of
+    // orderRef() in api/stripe-webhook.js — if one changes, the reference shown here stops
+    // matching the one in the confirmation email. Alphabet omits I, O, 0, 1.
+    const REF_ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const makeRef = (id) => {
+      let h1 = 0x811c9dc5, h2 = 0x01000193;
+      for (let i = 0; i < id.length; i++) {
+        // Math.imul, not `*`: a plain 32-bit multiply overflows the float53 mantissa and the
+        // low bits are rounded away before >>>0 reads them, which collapsed one character
+        // position to 5 possible values and caused duplicate booking codes.
+        h1 = Math.imul(h1 ^ id.charCodeAt(i), 16777619) >>> 0;
+        h2 = Math.imul(h2 + id.charCodeAt(i) * (i + 7), 2654435761) >>> 0;
+      }
+      let out = '';
+      for (let i = 0; i < 6; i++) {
+        const mix = i < 3 ? (h1 >>> (i * 5)) : (h2 >>> ((i - 3) * 5));
+        out += REF_ALPHABET[mix % 32];
+      }
+      return out;
+    };
+    const orderRef = sessionId ? makeRef(sessionId) : (params.get('token') || '');
+    let recap = null;
+    try { recap = JSON.parse(localStorage.getItem('ts_last_order') || 'null'); } catch (_) {}
+    this.setState({ orderRef, recap });
+    this.trackPurchase(orderRef);
+  }
+
+  fmt(n) { const s = (Number(n) || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: true }); return '€ ' + s; }
+
+  /* fire the sale once per order (survives refresh / back-button) */
+  trackPurchase(orderRef) {
+    let order = null;
+    try { order = JSON.parse(localStorage.getItem('ts_pending_order') || 'null'); } catch (_) {}
+    const value = order && order.value ? order.value : null;
+    // no payment reference and no stashed order → this is just someone visiting the page
+    if (!orderRef || !value) return;
+    const key = 'ts_tracked_' + orderRef;
+    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch (_) {}
+    const items = [{ item_id: order.id || 'bracelet', item_name: order.name || 'Gemstone bracelet', price: value, quantity: 1 }];
+    if (window.gtag) gtag('event', 'purchase', { transaction_id: orderRef, currency: 'EUR', value, items });
+    if (window.fbq) fbq('track', 'Purchase', { currency: 'EUR', value });
+    try { localStorage.removeItem('ts_pending_order'); } catch (_) {}
+  }
+
+  renderVals() {
+    const r = this.state.recap;
+    const details = r && Array.isArray(r.details) ? r.details : [];
+    const sn = r && r.sender ? r.sender : null;
+    const senderRows = sn ? [
+      { label: 'Name', value: sn.company || '—' },
+      { label: 'Address', value: [sn.address, sn.cap, sn.city].filter(Boolean).join(', ') || '—' },
+      { label: 'Phone', value: sn.phone || '—' },
+    ] : [];
+    return {
+      hasSender: senderRows.length > 0,
+      senderRows,
+      hasOrderRef: !!this.state.orderRef,
+      orderRef: this.state.orderRef,
+      hasRecap: !!(r && r.total),
+      recapName: r ? (r.name || 'Order') : '',
+      recapDetails: details,
+      recapSubtotal: r ? this.fmt(r.subtotal) : '',
+      recapShipping: r ? (r.shippingFee > 0 ? this.fmt(r.shippingFee) : 'Free') : '',
+      recapTotal: r ? this.fmt(r.total) : '',
+      hasRecapEmail: !!(r && r.email),
+      recapEmail: r ? (r.email || '') : '',
+    };
+  }
+}
+</script>
+</body>
+</html>

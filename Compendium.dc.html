@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="i18n.js"></script>
+<script src="chrome.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#15120d;}
+a{color:inherit;}
+.ecj{--gold:#c6a667;--color-accent:#d4b572;--color-bg:#15120d;--color-neutral-700:#b3ac9c;background:#15120d;}
+.ecj-nav{position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);}
+.ecj-navin{max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.ecj-navlinks{display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#b3ac9c;}
+.ecj-navlinks a:hover{color:var(--gold);}
+.ecj-navlinks a[aria-current]{color:var(--gold);}
+.ecj{color:#e8e1d2;font-family:Jost,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.4;}
+.ecj *{box-sizing:border-box;}
+.ecj a{color:inherit;text-decoration:none;}
+.ecj-hero{text-align:center;padding:68px 24px 48px;background:radial-gradient(120% 80% at 50% -16%, rgba(198,166,103,.12), rgba(21,18,13,0) 62%);}
+.ecj-eyebrow{font-weight:400;letter-spacing:.44em;font-size:11px;text-transform:uppercase;color:var(--gold);margin:0 0 22px;}
+.ecj-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(42px,6.5vw,84px);line-height:.98;color:#f1e9d8;margin:0;}
+.ecj-h1 em{font-style:italic;color:#d8bf8e;}
+.ecj-sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(17px,2.2vw,23px);color:#a9a292;max-width:560px;margin:20px auto 0;}
+.ecj-rule{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:30px;}
+.ecj-rule i{display:block;width:54px;height:1px;background:rgba(198,166,103,.5);}
+.ecj-rule b{display:block;width:7px;height:7px;background:var(--gold);transform:rotate(45deg);}
+.ecj-bar{position:sticky;top:0;z-index:20;background:rgba(21,18,13,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(198,166,103,.16);border-bottom:1px solid rgba(198,166,103,.16);}
+.ecj-barin{max-width:1240px;margin:0 auto;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.ecj-coll{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:#d8bf8e;}
+.ecj-collsub{font-weight:300;letter-spacing:.22em;font-size:10px;text-transform:uppercase;color:#7d7768;margin-left:12px;}
+.ecj-search{display:flex;align-items:center;gap:18px;}
+.ecj-input{background:none;border:none;border-bottom:1px solid rgba(198,166,103,.32);outline:none;color:#e8e1d2;font-family:inherit;font-size:12px;letter-spacing:.06em;padding:5px 2px;width:190px;}
+.ecj-input::placeholder{color:#7d7768;}
+.ecj-input:focus-visible{outline:none;border-bottom-color:var(--gold);}
+.ecj-count{font-size:10px;letter-spacing:.22em;color:#7d7768;text-transform:uppercase;white-space:nowrap;}
+.ecj-az{border-top:1px solid rgba(198,166,103,.1);}
+.ecj-azin{max-width:1240px;margin:0 auto;padding:8px 28px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;}
+.ecj-az a{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;color:#8f897a;letter-spacing:1px;}
+.ecj-az a:hover{color:var(--gold);}
+.ecj-body{max-width:1300px;margin:0 auto;padding:54px 28px 44px;}
+.ecj-ghead{display:flex;align-items:center;gap:18px;margin:6px 0 20px;}
+.ecj-ghead span{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:500;color:var(--gold);line-height:1;}
+.ecj-ghead i{flex:1;height:1px;background:rgba(198,166,103,.16);}
+.ecj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;margin-bottom:48px;}
+.ecj-card{display:block;border:1px solid rgba(198,166,103,.14);border-radius:4px;overflow:hidden;background:#1b1711;transition:transform .3s ease,border-color .3s ease;}
+.ecj-card:hover{border-color:rgba(198,166,103,.55);transform:translateY(-4px);}
+.ecj-ph{position:relative;display:block;aspect-ratio:1;overflow:hidden;}
+.ecj-ph:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(0,0,0,.14) 0 7px,rgba(0,0,0,0) 7px 15px);}
+.ecj-ph:after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(0,0,0,.42) 78%);}
+.ecj-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:3;}
+.ecj-phtag{position:absolute;top:11px;right:12px;font-family:monospace;font-size:8px;letter-spacing:.18em;color:rgba(255,255,255,.55);text-transform:uppercase;border:1px solid rgba(255,255,255,.3);border-radius:2px;padding:3px 5px;z-index:2;}
+.ecj-phname{position:absolute;left:13px;bottom:12px;font-family:monospace;font-size:10px;color:rgba(255,255,255,.78);z-index:2;}
+.ecj-meta{display:block;padding:15px 16px 17px;}
+.ecj-name{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:500;color:#ece5d6;line-height:1.15;}
+.ecj-mean{display:block;font-weight:300;font-size:11.5px;letter-spacing:.02em;color:#9a9384;margin-top:6px;line-height:1.5;}
+.ecj-empty{text-align:center;padding:90px 24px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:26px;color:#a9a292;}
+@media(max-width:600px){.ecj-grid{grid-template-columns:repeat(auto-fill,minmax(46%,1fr));gap:14px;}.ecj-input{width:140px;}}
+
+@media(max-width:600px){.ecj-body,.ecj-hero{padding-left:16px !important;padding-right:16px !important;}}
+html,body{overflow-x:hidden;}
+img{max-width:100%;}
+</style>
+</helmet>
+<div class="ecj">
+
+  <div data-ecj-nav="compendium"></div>
+
+  <section class="ecj-hero">
+    <p class="ecj-eyebrow">Meanings &middot; Properties &middot; Benefits</p>
+    <h1 class="ecj-h1">The <em>Gemstone</em> Compendium</h1>
+    <p class="ecj-sub">Every natural stone we set by hand &mdash; and the meaning it has carried for centuries.</p>
+    <div class="ecj-rule"><i></i><b></b><i></i></div>
+  </section>
+
+  <div class="ecj-bar">
+    <div class="ecj-barin">
+      <div><span class="ecj-coll">The Collection</span><span class="ecj-collsub">Browse by stone</span></div>
+      <div class="ecj-search">
+        <input class="ecj-input" type="text" placeholder="Search the compendium" aria-label="Search gemstones" onInput="{{ onSearch }}">
+        <span class="ecj-count">{{ countLabel }}</span>
+      </div>
+    </div>
+    <div class="ecj-az">
+      <div class="ecj-azin">
+        <a href="#ecj-A">A</a>
+        <a href="#ecj-B">B</a>
+        <a href="#ecj-C">C</a>
+        <a href="#ecj-D">D</a>
+        <a href="#ecj-G">G</a>
+        <a href="#ecj-H">H</a>
+        <a href="#ecj-K">K</a>
+        <a href="#ecj-L">L</a>
+        <a href="#ecj-M">M</a>
+        <a href="#ecj-O">O</a>
+        <a href="#ecj-P">P</a>
+        <a href="#ecj-R">R</a>
+        <a href="#ecj-S">S</a>
+        <a href="#ecj-T">T</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ecj-body" ref="{{ bodyRef }}">
+      <div class="ecj-group" id="ecj-A">
+        <div class="ecj-ghead"><span>A</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=abalone" rel="noopener" data-find="abalone shell ocean calm and quiet protection">
+          <span class="ecj-ph" style="background:#5f7d78">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">abalone-shell</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/abalone.avif" alt="Abalone Shell">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Abalone Shell</span>
+            <span class="ecj-mean">Ocean calm and quiet protection</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=amazonite" rel="noopener" data-find="amazonite courage, truth and balance">
+          <span class="ecj-ph" style="background:#4f8f81">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">amazonite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/amazonite-tumble-500x500-1.jpg" alt="Amazonite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Amazonite</span>
+            <span class="ecj-mean">Courage, truth and balance</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=amethyst" rel="noopener" data-find="amethyst clarity, calm and intuition">
+          <span class="ecj-ph" style="background:#6f5f93">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">amethyst</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/amethyst.jpg" alt="Amethyst">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Amethyst</span>
+            <span class="ecj-mean">Clarity, calm and intuition</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=apatite" rel="noopener" data-find="apatite focus, drive and clear thought">
+          <span class="ecj-ph" style="background:#3f7088">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">apatite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/110714-apatite-4-1-1.avif" alt="Apatite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Apatite</span>
+            <span class="ecj-mean">Focus, drive and clear thought</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=aquamarine" rel="noopener" data-find="aquamarine serene flow and steady nerves">
+          <span class="ecj-ph" style="background:#6f9a9b">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">aquamarine</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/Aquamarine-Angola-Moonrise-Crystals-copia200.jpg" alt="Aquamarine">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Aquamarine</span>
+            <span class="ecj-mean">Serene flow and steady nerves</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=auralite" rel="noopener" data-find="auralite-23 deep insight and inner peace">
+          <span class="ecj-ph" style="background:#5f5070">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">auralite-23</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/auralite-23-crystal-canada-raw-004.jpg" alt="Auralite-23">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Auralite-23</span>
+            <span class="ecj-mean">Deep insight and inner peace</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-B">
+        <div class="ecj-ghead"><span>B</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=bali-beads" rel="noopener" data-find="bali beads handcrafted balinese silverwork">
+          <span class="ecj-ph" style="background:#8f897c">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">bali-beads</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/natural-bali-bead-bracelet-necklace-.avif" alt="Bali Beads">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Bali Beads</span>
+            <span class="ecj-mean">Handcrafted Balinese silverwork</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=black-onyx-jewelry" rel="noopener" data-find="black onyx strength and grounded protection">
+          <span class="ecj-ph" style="background:#2a2a2c">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">black-onyx</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/black-onyx.webp" alt="Black Onyx">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Black Onyx</span>
+            <span class="ecj-mean">Strength and grounded protection</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=blue-cloisonne-jewelry" rel="noopener" data-find="blue cloisonne refined enamel artistry">
+          <span class="ecj-ph" style="background:#345285">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">blue-cloisonne</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/IMG_3020-ac-kl-1.avif" alt="Blue Cloisonne">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Blue Cloisonne</span>
+            <span class="ecj-mean">Refined enamel artistry</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=blue-lace-agate-jewelry" rel="noopener" data-find="blue lace agate gentle, honest communication">
+          <span class="ecj-ph" style="background:#7f97b8">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">blue-lace-agate</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/blue-lace-agate-tumbles-copia.webp" alt="Blue Lace Agate">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Blue Lace Agate</span>
+            <span class="ecj-mean">Gentle, honest communication</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=blue-sandstone-jewelry" rel="noopener" data-find="blue sandstone ambition under a night sky">
+          <span class="ecj-ph" style="background:#2b3a63">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">blue-sandstone</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/Blue-Sandstone3.jpg" alt="Blue Sandstone">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Blue Sandstone</span>
+            <span class="ecj-mean">Ambition under a night sky</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=blue-striped-onyx-agate" rel="noopener" data-find="blue striped onyx agate grounded balance and resolve">
+          <span class="ecj-ph" style="background:#364463">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">blue-striped-onyx-agate</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/blue-onyx-20mm-slab-500x500-ac.avif" alt="Blue Striped Onyx Agate">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Blue Striped Onyx Agate</span>
+            <span class="ecj-mean">Grounded balance and resolve</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=blue-tigers-eye" rel="noopener" data-find="blue tigers eye calm clarity and patience">
+          <span class="ecj-ph" style="background:#3a586c">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">blue-tigers-eye</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/Tiger-Eye-Blue-rough-semi-precious-gemstone-ac.avif" alt="Blue Tiger's Eye">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Blue Tiger's Eye</span>
+            <span class="ecj-mean">Calm clarity and patience</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=blue-topaz" rel="noopener" data-find="blue topaz wisdom, honesty and truth">
+          <span class="ecj-ph" style="background:#5280ac">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">blue-topaz</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/11/Natural-Gemstone-Topaz-Bracelet-600x600-copia.jpg" alt="Blue Topaz">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Blue Topaz</span>
+            <span class="ecj-mean">Wisdom, honesty and truth</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=botswana-agate" rel="noopener" data-find="botswana agate comfort, warmth and resilience">
+          <span class="ecj-ph" style="background:#856a6e">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">botswana-agate</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/natural-botswana-bracelet-necklace.avif" alt="Botswana Agate">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Botswana Agate</span>
+            <span class="ecj-mean">Comfort, warmth and resilience</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-C">
+        <div class="ecj-ghead"><span>C</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=chrysanthemum-fossil-coral" rel="noopener" data-find="chrysanthemum fossil coral a rare bloom of good fortune">
+          <span class="ecj-ph" style="background:#45413a">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">chrysanthemum-fossil-coral</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/95ct-100-natural-chrysanthemum-jade-coral-fossil-pendant-sjh580_372470975952-kl-1.avif" alt="Chrysanthemum Fossil Coral">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Chrysanthemum Fossil Coral</span>
+            <span class="ecj-mean">A rare bloom of good fortune</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=coffee" rel="noopener" data-find="coffee striped agate earthy grounding and warmth">
+          <span class="ecj-ph" style="background:#66492f">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">coffee-striped-agate</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/6-Grey-Brown-Banded-Agate-Translucent-Gemstone-Coffeeac.avif" alt="Coffee Striped Agate">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Coffee Striped Agate</span>
+            <span class="ecj-mean">Earthy grounding and warmth</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-D">
+        <div class="ecj-ghead"><span>D</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=raw-blue-diamonds" rel="noopener" data-find="diamonds eternal, unbreakable brilliance">
+          <span class="ecj-ph" style="background:#7f97a6">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">diamonds</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/03/raw-blue-diamond.jpg" alt="Diamonds">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Diamonds</span>
+            <span class="ecj-mean">Eternal, unbreakable brilliance</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-G">
+        <div class="ecj-ghead"><span>G</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=gibeon-meteorite-ferro-nichel" rel="noopener" data-find="gibeon meteorite forged among the stars">
+          <span class="ecj-ph" style="background:#64686d">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">gibeon-meteorite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/gibeon.jpg" alt="Gibeon Meteorite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Gibeon Meteorite</span>
+            <span class="ecj-mean">Forged among the stars</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=green-jade" rel="noopener" data-find="green jade harmony, luck and serenity">
+          <span class="ecj-ph" style="background:#587450">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">green-jade</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/06/Raw-jade-stone-gravels-for-paving-Size.jpg" alt="Green Jade">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Green Jade</span>
+            <span class="ecj-mean">Harmony, luck and serenity</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=grey-map-jasper-bracelets" rel="noopener" data-find="grey map jasper the travellers grounding stone">
+          <span class="ecj-ph" style="background:#807c72">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">grey-map-jasper</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/grey.avif" alt="Grey Map Jasper">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Grey Map Jasper</span>
+            <span class="ecj-mean">The traveller's grounding stone</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-H">
+        <div class="ecj-ghead"><span>H</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=hematite" rel="noopener" data-find="hematite grounding, focus and stability">
+          <span class="ecj-ph" style="background:#45464b">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">hematite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/hematite-image.webp" alt="Hematite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Hematite</span>
+            <span class="ecj-mean">Grounding, focus and stability</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=howlite-jewelry" rel="noopener" data-find="howlite patience and a quiet mind">
+          <span class="ecj-ph" style="background:#aeaaa0">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">howlite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/howlite.webp" alt="Howlite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Howlite</span>
+            <span class="ecj-mean">Patience and a quiet mind</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-K">
+        <div class="ecj-ghead"><span>K</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=kyanite-jewelry" rel="noopener" data-find="kyanite alignment and effortless flow">
+          <span class="ecj-ph" style="background:#3b5c88">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">kyanite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/natural-kyanite-bracelet-necklace-4.avif" alt="Kyanite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Kyanite</span>
+            <span class="ecj-mean">Alignment and effortless flow</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-L">
+        <div class="ecj-ghead"><span>L</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=labradorite-jewelry" rel="noopener" data-find="labradorite magic, mystery and transformation">
+          <span class="ecj-ph" style="background:#486770">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">labradorite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/labradorite-shopping.webp" alt="Labradorite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Labradorite</span>
+            <span class="ecj-mean">Magic, mystery and transformation</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=lapis-lazuli-jewelry" rel="noopener" data-find="lapis lazuli truth, royalty and wisdom">
+          <span class="ecj-ph" style="background:#2a4684">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">lapis-lazuli</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/Lapis-Lazuli-.webp" alt="Lapis Lazuli">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Lapis Lazuli</span>
+            <span class="ecj-mean">Truth, royalty and wisdom</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=larimar-jewelry" rel="noopener" data-find="larimar tranquil caribbean seas">
+          <span class="ecj-ph" style="background:#66a1b2">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">larimar</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/larimar-geode.jpg" alt="Larimar">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Larimar</span>
+            <span class="ecj-mean">Tranquil Caribbean seas</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=lava-stone-jewelry" rel="noopener" data-find="lava stone raw strength and stability">
+          <span class="ecj-ph" style="background:#29292b">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">lava-stone</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/lava-ac.avif" alt="Lava Stone">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Lava Stone</span>
+            <span class="ecj-mean">Raw strength and stability</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="Lemurian-Category.dc.html" rel="noopener" data-find="lemurian ancient memory and wisdom">
+          <span class="ecj-ph" style="background:#8f8092">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">lemurian</span>
+            <img src="img/lemurian/lemurian-stone.webp" alt="Lemurian">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Lemurian</span>
+            <span class="ecj-mean">Ancient memory and wisdom</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-M">
+        <div class="ecj-ghead"><span>M</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=malachite-jewelry" rel="noopener" data-find="malachite protection and steady growth">
+          <span class="ecj-ph" style="background:#2a6650">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">malachite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/malachite-ok.webp" alt="Malachite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Malachite</span>
+            <span class="ecj-mean">Protection and steady growth</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=gibeon-meteorite-ferro-nichel" rel="noopener" data-find="meteorite the cosmos held in hand">
+          <span class="ecj-ph" style="background:#64686d">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">meteorite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/meteorite-ac-copia.avif" alt="Meteorite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Meteorite</span>
+            <span class="ecj-mean">The cosmos held in hand</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=moonstone-jewelry" rel="noopener" data-find="moonstone intuition and new beginnings">
+          <span class="ecj-ph" style="background:#9298a1">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">moonstone</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/moonstone.jpg" alt="Moonstone">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Moonstone</span>
+            <span class="ecj-mean">Intuition and new beginnings</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=murano-venetian-glass-jewelry" rel="noopener" data-find="murano venetian glass italian glassblowing artistry">
+          <span class="ecj-ph" style="background:#a8854f">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">murano-venetian-glass</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2020/11/IMG_2391-ac-kl-copia.avif" alt="Murano Venetian Glass">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Murano Venetian Glass</span>
+            <span class="ecj-mean">Italian glassblowing artistry</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-O">
+        <div class="ecj-ghead"><span>O</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=obsidian-black-jewelry" rel="noopener" data-find="obsidian black a shield of truth">
+          <span class="ecj-ph" style="background:#212123">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">obsidian-black</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/Black-Obsidian-Raw-Natural-Crystal-Mineral-Specimen.jpg_640x640.jpg" alt="Obsidian Black">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Obsidian Black</span>
+            <span class="ecj-mean">A shield of truth</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=obsidian-snowflake-jewelry" rel="noopener" data-find="obsidian snowflake balance within the storm">
+          <span class="ecj-ph" style="background:#36363a">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">obsidian-snowflake</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/snowflake-obsidian-raw-2.jpg" alt="Obsidian Snowflake">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Obsidian Snowflake</span>
+            <span class="ecj-mean">Balance within the storm</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=opal-jewelry" rel="noopener" data-find="opal inspiration, light and play">
+          <span class="ecj-ph" style="background:#84a09a">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">opal</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/opal2.webp" alt="Opal">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Opal</span>
+            <span class="ecj-mean">Inspiration, light and play</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-P">
+        <div class="ecj-ghead"><span>P</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=pearl" rel="noopener" data-find="pearls purity, poise and grace">
+          <span class="ecj-ph" style="background:#b1a999">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">pearls</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/pearl-copia.avif" alt="Pearls">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Pearls</span>
+            <span class="ecj-mean">Purity, poise and grace</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=peridot" rel="noopener" data-find="peridot renewal and quiet abundance">
+          <span class="ecj-ph" style="background:#788649">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">peridot</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2025/12/peridot-raw.jpg" alt="Peridot">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Peridot</span>
+            <span class="ecj-mean">Renewal and quiet abundance</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=phantom-quartz-jewelry" rel="noopener" data-find="phantom quartz growth layered over time">
+          <span class="ecj-ph" style="background:#8a8780">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">phantom-quartz</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/phantom-1.avif" alt="Phantom Quartz">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Phantom Quartz</span>
+            <span class="ecj-mean">Growth layered over time</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=picasso-jasper-jewelry" rel="noopener" data-find="picasso jasper creative, grounded focus">
+          <span class="ecj-ph" style="background:#75654f">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">picasso-jasper</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/picasso-jasper-palm-stone-ac.avif" alt="Picasso Jasper">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Picasso Jasper</span>
+            <span class="ecj-mean">Creative, grounded focus</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-R">
+        <div class="ecj-ghead"><span>R</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=red-carnelian-jewelry" rel="noopener" data-find="red carnelian vitality, courage and drive">
+          <span class="ecj-ph" style="background:#97473a">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">red-carnelian</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/confidant-carnelian-crystal-healing-stones-tumbled-by-peaceful-island-com.avif" alt="Red Carnelian">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Red Carnelian</span>
+            <span class="ecj-mean">Vitality, courage and drive</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=red-garnet-jewelry" rel="noopener" data-find="red garnet passion and devotion">
+          <span class="ecj-ph" style="background:#762d31">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">red-garnet</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/red-garnet.jpg" alt="Red Garnet">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Red Garnet</span>
+            <span class="ecj-mean">Passion and devotion</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=rhyolite-jewelry" rel="noopener" data-find="rhyolite change met with resolve">
+          <span class="ecj-ph" style="background:#786f55">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">rhyolite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/Rhyolite-208485-23.jpg" alt="Rhyolite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Rhyolite</span>
+            <span class="ecj-mean">Change met with resolve</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=rose-quartz-jewelry" rel="noopener" data-find="rose quartz unconditional, gentle love">
+          <span class="ecj-ph" style="background:#ab7c83">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">rose-quartz</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/rose-quartz-crystal.jpg" alt="Rose Quartz">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Rose Quartz</span>
+            <span class="ecj-mean">Unconditional, gentle love</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=rutilated-quartz-jewelry" rel="noopener" data-find="rutilated quartz threads of golden illumination">
+          <span class="ecj-ph" style="background:#948a73">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">rutilated-quartz</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/Quartz_rutile.avif" alt="Rutilated Quartz">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Rutilated Quartz</span>
+            <span class="ecj-mean">Threads of golden illumination</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-S">
+        <div class="ecj-ghead"><span>S</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=sea-sediment-jasper-jewelry" rel="noopener" data-find="sea sediment jasper calm and shifting tides">
+          <span class="ecj-ph" style="background:#3a6a75">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">sea-sediment-jasper</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/IMG_3012-ac-kl-1.avif" alt="Sea Sediment Jasper">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Sea Sediment Jasper</span>
+            <span class="ecj-mean">Calm and shifting tides</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=sodalite-jewelry" rel="noopener" data-find="sodalite logic balanced with intuition">
+          <span class="ecj-ph" style="background:#2f4c85">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">sodalite</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/Sodalite-ok.jpg" alt="Sodalite">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Sodalite</span>
+            <span class="ecj-mean">Logic balanced with intuition</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=strawberry-quartz-jewelry" rel="noopener" data-find="strawberry quartz joyful, warm-hearted love">
+          <span class="ecj-ph" style="background:#a3565f">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">strawberry-quartz</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/strawberry-200.webp" alt="Strawberry Quartz">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Strawberry Quartz</span>
+            <span class="ecj-mean">Joyful, warm-hearted love</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=sunstone-jewelry" rel="noopener" data-find="sunstone warmth, leadership and light">
+          <span class="ecj-ph" style="background:#a96a3b">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">sunstone</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2024/11/SunstoneI101-ac.avif" alt="Sunstone">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Sunstone</span>
+            <span class="ecj-mean">Warmth, leadership and light</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=swarovski-jewelry" rel="noopener" data-find="swarovski precision-cut radiance">
+          <span class="ecj-ph" style="background:#969eaa">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">swarovski</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/swarovski-logo-9304AC2547-seeklogo.com_.png" alt="Swarovski">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Swarovski</span>
+            <span class="ecj-mean">Precision-cut radiance</span>
+          </span>
+        </a>
+        </div>
+      </div>
+      <div class="ecj-group" id="ecj-T">
+        <div class="ecj-ghead"><span>T</span><i></i></div>
+        <div class="ecj-grid">
+        <a class="ecj-card" href="category.dc.html?stone=tigers-eye-jewelry" rel="noopener" data-find="tigers eye confidence, will and focus">
+          <span class="ecj-ph" style="background:#855a2d">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">tigers-eye</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/tiger-scaled.webp" alt="Tiger's Eye">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Tiger's Eye</span>
+            <span class="ecj-mean">Confidence, will and focus</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=tridacna-jewelry" rel="noopener" data-find="tridacna purity and serene white">
+          <span class="ecj-ph" style="background:#b0a797">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">tridacna</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/tridacna-45.jpg" alt="Tridacna">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Tridacna</span>
+            <span class="ecj-mean">Purity and serene white</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=turquoise-jewelry" rel="noopener" data-find="turquoise protection and ancient wisdom">
+          <span class="ecj-ph" style="background:#3a9494">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">turquoise</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/02/turquoise-8mm-copia.jpg" alt="Turquoise">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Turquoise</span>
+            <span class="ecj-mean">Protection and ancient wisdom</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=turquoise-calsilica-jewelry" rel="noopener" data-find="turquoise calsilica spirit of the desert">
+          <span class="ecj-ph" style="background:#4a857f">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">turquoise-calsilica</span>
+            <img src="https://www.eternalcity.jewelry/wp-content/uploads/2026/01/Turquoise-Calsilica.webp" alt="Turquoise Calsilica">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Turquoise Calsilica</span>
+            <span class="ecj-mean">Spirit of the desert</span>
+          </span>
+        </a>
+        </div>
+      </div>
+    <div class="ecj-empty" style="{{ emptyStyle }}">No stones match your search.</div>
+  </div>
+
+  <div data-ecj-footer></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { count: null, empty: false };
+
+  componentDidMount() {
+    this.apply('');
+  }
+
+  apply(q) {
+    const root = this.body;
+    if (!root) return;
+    const query = q.trim().toLowerCase();
+    const cards = root.querySelectorAll('.ecj-card');
+    let n = 0;
+    cards.forEach(c => {
+      const hit = !query || (c.getAttribute('data-find') || '').indexOf(query) > -1;
+      c.style.display = hit ? '' : 'none';
+      if (hit) n++;
+    });
+    root.querySelectorAll('.ecj-group').forEach(g => {
+      const any = Array.from(g.querySelectorAll('.ecj-card')).some(c => c.style.display !== 'none');
+      g.style.display = any ? '' : 'none';
+    });
+    this.setState({ count: n, empty: n === 0 });
+  }
+
+  renderVals() {
+    return {
+      bodyRef: el => { this.body = el; },
+      onSearch: e => this.apply(e.target.value || ''),
+      countLabel: (this.state.count == null ? 54 : this.state.count) + ' Stones',
+      emptyStyle: this.state.empty ? 'display:block' : 'display:none',
+    };
+  }
+}
+</script>
+</body>
+</html>
