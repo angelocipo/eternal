@@ -13,7 +13,7 @@
    i18n.js translates the injected markup on its own (it watches the DOM), so every
    label below carries data-en / data-it. */
 (function () {
-  var LOGO = 'img/logo-ecj-white.webp';
+  var LOGO = 'img/logo-ecj-gold.webp';
   var CART_HREF = 'checkout.dc.html';
 
   // ---- the menu: edit here only ------------------------------------------------
@@ -33,10 +33,18 @@
     { href: 'contact.dc.html', en: 'Contact', it: 'Contatti' },
     { href: 'Eternal-City-Size-Guide.dc.html', en: 'Size guide', it: 'Guida taglie' },
     { href: 'Eternal-City-Care-Guide.dc.html', en: 'Care guide', it: 'Cura' },
+    { href: 'selling-conditions.dc.html', en: 'Selling conditions', it: 'Condizioni di vendita' },
     { href: 'privacy-policy.dc.html', en: 'Privacy', it: 'Privacy' },
   ];
 
   var TAGLINE = { en: 'Handcrafted Natural Gemstone Bracelets \u00b7 Rome, Italy', it: 'Bracciali artigianali in pietre naturali \u00b7 Roma, Italia' };
+
+  // Maintenance notice: set on to false to remove it from every page.
+  var MAINT = {
+    on: true,
+    en: 'Site in maintenance',
+    it: 'Sito in manutenzione',
+  };
   // ------------------------------------------------------------------------------
 
   var GOLD = '#d4b572';
@@ -44,6 +52,24 @@
   var cartCount = 0;
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+  var MAINT_KEY = 'ecj-maintenance-dismissed';
+
+  function maintDismissed() {
+    try { return localStorage.getItem(MAINT_KEY) === '1'; } catch (e) { return false; }
+  }
+
+  function maintHtml() {
+    if (!MAINT.on || maintDismissed()) return '';
+    return '<div data-ecj-chrome="maint" style="background:#221c12;border-bottom:1px solid rgba(198,166,103,.22);">' +
+      '<div style="max-width:1240px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;justify-content:center;gap:16px;">' +
+        '<span data-en="' + esc(MAINT.en) + '" data-it="' + esc(MAINT.it) + '" style="font-size:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:' + GOLD + ';text-align:center;">' + esc(MAINT.en) + '</span>' +
+        '<button type="button" data-ecj-maint-close aria-label="Close" style="flex:0 0 auto;cursor:pointer;border:none;background:transparent;color:' + MUTED + ';font-family:inherit;line-height:0;padding:4px;">' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  }
 
   function navHtml(current) {
     var links = NAV.map(function (n) {
@@ -53,7 +79,7 @@
         ' style="color:' + (on ? GOLD : MUTED) + ';text-decoration:none;">' + esc(n.en) + '</a>';
     }).join('');
 
-    return '<nav data-ecj-chrome="nav" style="position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);">' +
+    return maintHtml() + '<nav data-ecj-chrome="nav" style="position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);">' +
       '<div style="max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">' +
         '<a href="index.dc.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:26px;width:auto;display:block;"></a>' +
         '<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;">' + links + '</div>' +
@@ -78,7 +104,7 @@
     }).join('');
 
     return '<div data-ecj-chrome="footer" style="border-top:1px solid rgba(198,166,103,.16);text-align:center;padding:56px 28px;">' +
-      '<img src="' + LOGO + '" alt="Eternal City Jewelry" style="width:100%;max-width:300px;height:auto;display:block;margin:0 auto;">' +
+      '<img src="' + LOGO + '" alt="Eternal City Jewelry" style="width:100%;max-width:75px;height:auto;display:block;margin:0 auto;">' +
       '<div data-en="' + esc(TAGLINE.en) + '" data-it="' + esc(TAGLINE.it) + '" style="font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:' + GOLD + ';margin-top:16px;">' + esc(TAGLINE.en) + '</div>' +
       '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;">' + links + '</div>' +
     '</div>';
@@ -96,6 +122,8 @@
     + '[data-ecj-chrome="nav"] > div > div:nth-child(2){gap:9px !important;letter-spacing:.12em !important;}'
     + '[data-ecj-chrome="nav"] a[data-en]{font-size:9.5px !important;}'
     + '[data-ecj-chrome="nav"] [data-ecj-cart] span[data-en]{display:none;}'
+    + '[data-ecj-chrome="maint"] > div{padding:8px 12px !important;gap:8px !important;}'
+    + '[data-ecj-chrome="maint"] span{font-size:12.5px !important;letter-spacing:.18em !important;}'
     + '[data-ecj-chrome="footer"]{padding:36px 20px !important;}'
     + '[data-ecj-chrome="footer"] > div:last-child{gap:14px !important;font-size:10.5px !important;}'
     + '}';
@@ -123,6 +151,13 @@
   }
 
   document.addEventListener('click', function (e) {
+    var close = e.target.closest ? e.target.closest('[data-ecj-maint-close]') : null;
+    if (close) {
+      try { localStorage.setItem(MAINT_KEY, '1'); } catch (err) {}
+      var bars = document.querySelectorAll('[data-ecj-chrome="maint"]');
+      for (var k = 0; k < bars.length; k++) bars[k].parentNode.removeChild(bars[k]);
+      return;
+    }
     var el = e.target.closest ? e.target.closest('[data-ecj-cart]') : null;
     if (!el || typeof window.ecjCartHandler !== 'function') return;
     e.preventDefault();
