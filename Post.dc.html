@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -31,6 +32,10 @@ a{color:inherit;}
 .ech-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
 .ech-gal img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border:1px solid rgba(198,166,103,.16);border-radius:4px;}
 .ech-more a:hover{border-color:rgba(198,166,103,.55);}
+
+@media(max-width:640px){.ech article,.ech figure,.ech-more,.ech section{padding-left:18px !important;padding-right:18px !important;}.ech-body p{font-size:15.5px;}}
+.ech img{max-width:100%;}
+html,body{overflow-x:hidden;}
 </style>
 </helmet>
 <div class="ech">

@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&amp;family=Karla:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
@@ -30,6 +31,11 @@
     @media (max-width: 520px) {
       [data-r="grid"] { grid-template-columns: 1fr !important; }
     }
+    @media (min-width: 1200px) {
+      [data-r="heroTitle"], [data-r="heroSub"] { white-space: nowrap; }
+    }
+  
+    @media (max-width: 560px) { [data-r="heroTitle"] { font-size: 28px !important; } [data-r="section"] { padding-top: 44px !important; padding-bottom: 44px !important; } }
   </style>
   <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -42,10 +48,10 @@
 
   <!-- HERO -->
   <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px); flex-wrap:wrap;">
-    <div style="flex:1 1 460px; display:flex; flex-direction:column; gap:8px;">
+    <div data-r="heroText" style="flex:1 1 460px; min-width:0; display:flex; flex-direction:column; gap:8px;">
       <div style="color:#d4b572; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
-      <div data-r="heroTitle" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px; line-height:1.1; font-weight:500; white-space:nowrap;">Lemurian Bracelets: Minimalist Luxury with an Edge</div>
-      <div style="font-size:13.5px; line-height:1.5; color:#cabfa9; white-space:nowrap;">Quiet luxury for people who know what elegance looks like — cut minimal, worn every day.</div>
+      <div data-r="heroTitle" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px; line-height:1.1; font-weight:500;">Lemurian Bracelets: Minimalist Luxury with an Edge</div>
+      <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#cabfa9;">Quiet luxury for people who know what elegance looks like — cut minimal, worn every day.</div>
       <div style="font-size:13px; line-height:1.6; color:#cabfa9; width:100%;">Transparent, opaque, soft blue, warm brown — Lemurian quartz carries every note in one stone. Ours is sourced directly from small mining operations in Brazil, the region long recognized as the true origin of authentic Lemurian crystals: natural striations, high clarity, no dye or treatment, no middlemen.</div>
       <div data-r="statRow" style="display:flex; gap:32px; margin-top:8px; padding-top:12px; border-top:1px solid #2a2318; max-width:640px;">
         <div style="display:flex; flex-direction:column; gap:2px;">
@@ -73,12 +79,12 @@
     <div data-r="grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
       <sc-for list="{{ products }}" as="item" hint-placeholder-count="0">
         <div style="display:flex; flex-direction:column; gap:12px;">
-          <a href="Eternal-City-Lemurian-Single-Product.dc.html" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#1b1711; display:block; text-decoration:none; border:1pt solid #efe9dc;">
+          <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#1b1711; display:block; text-decoration:none; border:1pt solid #efe9dc;">
             <img src="{{ item.safePhoto }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
             <sc-if value="{{ item.badge }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">{{ item.badge }}</div></sc-if>
             <div onClick="{{ item.toggleWish }}" style="position:absolute; top:8px; right:8px; font-size:16px; color:{{ item.heartColor }};">♡</div>
           </a>
-          <a href="Eternal-City-Lemurian-Single-Product.dc.html" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#efe9dc;">{{ item.name }}</a>
+          <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#efe9dc;">{{ item.name }}</a>
           <div style="font-size:13px; color:#b3ac9c;">
             <sc-if value="{{ item.onSale }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
             €{{ item.priceLabel }}
@@ -139,8 +145,8 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const PRODUCTS = [
-  { id: 'lemurian', name: 'Lemurian Quartz Minimalist Bracelet', price: 224, salePrice: 112, badge: 'Sale', photo: 'img/lemurian/lemurian-product-1.webp' },
-  { id: 'lemurian-ii', name: 'Lemurian II Quartz Minimalist Bracelet', price: 224, salePrice: 112, badge: 'Sale', photo: 'img/lemurian/lemurian-ii-product.webp' },
+  { id: 'lemurian', name: 'Lemurian Quartz Minimalist Bracelet', price: 224, salePrice: 112, badge: 'Sale', photo: 'img/lemurian/lemurian-product-1.webp', slug: 'lemurian-quartz-minimalist-bracelet-handmade-luxury' },
+  { id: 'lemurian-ii', name: 'Lemurian II Quartz Minimalist Bracelet', price: 224, salePrice: 112, badge: 'Sale', photo: 'img/lemurian/lemurian-ii-product.webp', slug: 'lemurian-ii-quartz-minimalist-bracelet-handmade-luxury' },
 ];
 
 class Component extends DCLogic {
@@ -184,6 +190,7 @@ class Component extends DCLogic {
       return {
         ...p,
         safePhoto: p.photo || 'img/logo-ecj-white.webp',
+        href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
         priceLabel: (p.salePrice || p.price).toFixed(2),
         origPriceLabel: p.price.toFixed(2),
         onSale,

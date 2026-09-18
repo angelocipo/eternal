@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -30,6 +31,9 @@ a{color:inherit;}
 .pv a{color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);word-break:break-word;}
 .pv a:hover{color:#f0dfb4;}
 .pv ul{margin:0 0 16px;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-weight:300;font-size:15.5px;line-height:1.75;color:#cfc8ba;}
+
+@media(max-width:640px){.pv-wrap{padding-left:18px;padding-right:18px;}.pv h2{font-size:23px;margin-top:40px;}}
+html,body{overflow-x:hidden;}
 </style>
 </helmet>
 <div class="ech">

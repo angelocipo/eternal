@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -43,6 +44,9 @@ a{color:inherit;}
 .ech-lead{font-weight:300;font-size:13.5px;color:#9a9384;line-height:1.65;margin:11px 0 0;}
 @media(max-width:1000px){.ech-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:660px){.ech-grid{grid-template-columns:1fr;}}
+
+@media(max-width:640px){.ech header{padding-left:18px !important;padding-right:18px !important;}.ech-input{width:100%;}.ech-cardbody{padding:16px 16px 20px;}}
+html,body{overflow-x:hidden;}
 </style>
 </helmet>
 <div class="ech">

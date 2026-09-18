@@ -1,5 +1,5 @@
 export const config = {
-  matcher: '/((?!api|_ds|img|blocked.html|favicon.ico).*)',
+  matcher: '/((?!api|_ds|_vercel|img|blocked.html|favicon.ico).*)',
 };
 
 const BLOCKED_COUNTRIES = new Set(['BH', 'BD', 'CN', 'IN', 'IR', 'IQ', 'KW', 'NE', 'NG', 'PK']);

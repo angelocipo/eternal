@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -35,6 +36,9 @@ a{color:inherit;}
 .ab-split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:64px 0;border-top:1px solid rgba(198,166,103,.14);}
 .ab-h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:34px;line-height:1.15;color:#f0e8d7;margin:0 0 18px;}
 @media(max-width:860px){.ab-split{grid-template-columns:1fr;gap:32px;padding:44px 0;}.ab-fig{justify-self:start !important;}}
+
+@media(max-width:560px){.ab-wrap{padding-left:18px;padding-right:18px;}.ab-h2{font-size:27px;}}
+html,body{overflow-x:hidden;}
 </style>
 </helmet>
 <div class="ech">
@@ -50,7 +54,7 @@ a{color:inherit;}
 
     <div class="ab-split" style="border-top:none;">
       <div class="ab-fig" style="aspect-ratio:3/4;max-width:184px;justify-self:start;">
-        <img src="img/about-angelo-1.jpg" alt="Angelo, founder of Eternal City Jewelry" loading="lazy">
+        <img src="img/italian-jewelry-about-angelo-1.webp" alt="Angelo, founder of Eternal City Jewelry" loading="lazy">
       </div>
       <div class="ab-body">
         <p style="margin:0 0 20px;">Introducing Angelo, the creator of Eternal City Jewelry, a Dutch jewelry artist based in the heart of Rome, Italy. Angelo is renowned for creating bespoke, handcrafted pieces of jewelry that are both stunningly beautiful and completely unique.</p>
@@ -65,13 +69,13 @@ a{color:inherit;}
         <p style="margin:0;">Why settle for the ordinary when you can own a masterpiece of wearable art? Explore Angelo&rsquo;s online store today and experience the exceptional beauty and craftsmanship that define his jewelry.</p>
       </div>
       <div class="ab-fig" style="aspect-ratio:3/4;max-width:184px;justify-self:end;">
-        <img src="img/about-angelo-2.jpg" alt="Angelo at work in the Rome atelier" loading="lazy">
+        <img src="img/italian-jewelry-about-angelo-2.webp" alt="Angelo at work in the Rome atelier" loading="lazy">
       </div>
     </div>
 
     <div class="ab-split">
       <div class="ab-fig" style="aspect-ratio:3/4;">
-        <img src="img/about-beads.avif" alt="Natural gemstone beads" loading="lazy">
+        <img src="img/italian-jewelry-about-beads.webp" alt="Natural gemstone beads" loading="lazy">
       </div>
       <div class="ab-body">
         <h2 class="ab-h2">Passion for Gemstones.</h2>
@@ -87,10 +91,10 @@ a{color:inherit;}
       </div>
       <div style="display:grid;gap:14px;">
         <div class="ab-fig" style="aspect-ratio:3/4;">
-          <img src="img/about-bracelets.avif" alt="Handcrafted gemstone bracelets" loading="lazy">
+          <img src="img/italian-jewelry-about-bracelets.webp" alt="Handcrafted gemstone bracelets" loading="lazy">
         </div>
         <div class="ab-fig" style="aspect-ratio:16/9;">
-          <img src="img/about-royals.avif" alt="Meeting the Dutch royal couple in Rome, 2017" loading="lazy">
+          <img src="img/italian-jewelry-about-royals.webp" alt="Meeting the Dutch royal couple in Rome, 2017" loading="lazy">
         </div>
       </div>
     </div>
