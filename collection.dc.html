@@ -8,6 +8,8 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -37,6 +39,10 @@ a{color:inherit;text-decoration:none;}
 .cl-empty{text-align:center;padding:80px 24px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px;color:#a9a292;}
 .cl-empty a{color:#d4b572;border-bottom:1px solid rgba(212,181,114,.4);}
 @media(max-width:600px){.cl-grid{grid-template-columns:repeat(auto-fill,minmax(46%,1fr));gap:14px;}}
+
+@media(max-width:600px){.cl-body,.cl-hero{padding-left:16px !important;padding-right:16px !important;}}
+html,body{overflow-x:hidden;}
+img{max-width:100%;}
 </style>
 </helmet>
 <div class="cl">

@@ -8,6 +8,8 @@
 <body>
 <x-dc>
 <helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
@@ -35,6 +37,9 @@ textarea.ct-input{resize:vertical;min-height:160px;line-height:1.65;}
 .ct-btn:disabled{opacity:.45;cursor:default;}
 .ct-side p{font-weight:300;font-size:15px;line-height:1.8;color:#cfc8ba;margin:0 0 14px;}
 @media(max-width:840px){.ct-grid{grid-template-columns:1fr !important;gap:48px !important;}}
+
+@media(max-width:560px){.ct-wrap{padding-left:18px !important;padding-right:18px !important;}}
+html,body{overflow-x:hidden;}
 </style>
 </helmet>
 <div class="ech">
