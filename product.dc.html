@@ -182,9 +182,12 @@
     Every piece comes in a luxury box &nbsp;•&nbsp; Made in Rome, worn forever &nbsp;•&nbsp; Natural stone, one-of-a-kind &nbsp;•&nbsp; Shipped worldwide from Italy &nbsp;•
   </div>
 
-  <sc-if value="{{ hasDesc }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ showPiece }}" hint-placeholder-val="{{ false }}">
     <div data-r="section" style="padding:80px 56px; max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:24px;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; font-weight:500;">The Piece</div>
+      <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
+        <video src="{{ video }}" controls="" playsInline="" muted="" loop="" preload="metadata" style="display:block; width:100%; max-width:720px; height:auto; border:1px solid #37301f; background:#0f0d09;"></video>
+      </sc-if>
       <div style="font-size:15px; line-height:1.85; color:#cabfa9; white-space:pre-line;"><sc-for list="{{ descParts }}" as="dp" hint-placeholder-count="1"><sc-if value="{{ dp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ dp.t }}</span></sc-if><sc-if value="{{ dp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ dp.href }}" style="text-decoration:underline;">{{ dp.t }}</a></sc-if></sc-for></div>
     </div>
   </sc-if>
@@ -367,6 +370,9 @@ class Component extends DCLogic {
       desc: (p.desc || '').replace(/\\n/g, '\n'),
       descParts: this.linkify((p.desc || '').replace(/\\n/g, '\n')),
       hasDesc: !!(p.desc && p.short),
+      hasVideo: !!p.video,
+      video: p.video || '',
+      showPiece: !!((p.desc && p.short) || p.video),
       heroImg, thumbs,
       onSale,
       priceLabel: this.fmt(p.price * s.qty),
