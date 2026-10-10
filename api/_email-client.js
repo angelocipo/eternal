@@ -1,8 +1,16 @@
 // Minimal transactional email sender via Resend (https://resend.com).
 // Requires RESEND_API_KEY env var set in Vercel. Sender must be a verified domain/address
-// in your Resend account (e.g. ordini@tipografia.online).
+// in your Resend account (orders@eternalcity.jewelry).
 
-const FROM = process.env.RESEND_FROM || 'Tshirt Shop Online <ordini@tshirt-shop.online>';
+const VERIFIED_DOMAIN = 'eternalcity.jewelry';
+// Sender must be on the domain verified in Resend; anything else is ignored (Resend would refuse it).
+function safeFrom() {
+  const raw = (process.env.RESEND_FROM || '').trim();
+  const addr = (raw.match(/<([^>]+)>/) || [null, raw])[1] || '';
+  if (addr.toLowerCase().endsWith('@' + VERIFIED_DOMAIN)) return raw;
+  return `Eternal City Jewelry <orders@${VERIFIED_DOMAIN}>`;
+}
+const FROM = safeFrom();
 
 async function sendEmail({ to, subject, html }) {
   const res = await fetch('https://api.resend.com/emails', {

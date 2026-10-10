@@ -2,8 +2,16 @@
 // Sends the enquiry to the shop owner via Resend, with the visitor's address as reply-to.
 // Requires RESEND_API_KEY and OWNER_NOTIFICATION_EMAIL env vars set in Vercel.
 
-const FROM = process.env.RESEND_FROM || 'Eternal City Jewelry <ordini@tshirt-shop.online>';
-const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'tipografiaromaeur@gmail.com';
+const VERIFIED_DOMAIN = 'eternalcity.jewelry';
+// Sender must be on the domain verified in Resend; anything else is ignored (Resend would refuse it).
+function safeFrom() {
+  const raw = (process.env.RESEND_FROM || '').trim();
+  const addr = (raw.match(/<([^>]+)>/) || [null, raw])[1] || '';
+  if (addr.toLowerCase().endsWith('@' + VERIFIED_DOMAIN)) return raw;
+  return `Eternal City Jewelry <orders@${VERIFIED_DOMAIN}>`;
+}
+const FROM = safeFrom();
+const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'info@eternalcity.jewelry';
 const MAX = { name: 120, email: 160, subject: 160, message: 4000 };
 
 function esc(s) {

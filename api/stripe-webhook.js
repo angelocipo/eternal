@@ -15,7 +15,18 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // went missing from a deployment and the top-level require crashed the whole function — the
 // webhook never returned 200, so Stripe retried forever and no confirmation was ever sent.
 // Keeping it inline means this endpoint has no local dependency that can go missing.
-const RESEND_FROM = process.env.RESEND_FROM || 'Tshirt Shop Online <ordini@tshirt-shop.online>';
+// The sender MUST be on a domain verified in Resend, otherwise Resend refuses every send
+// (403) and neither the buyer nor the shop gets the order email. If RESEND_FROM points
+// elsewhere it is ignored and the default address on the verified domain is used.
+const VERIFIED_DOMAIN = 'eternalcity.jewelry';
+function safeFrom() {
+  const raw = (process.env.RESEND_FROM || '').trim();
+  const addr = (raw.match(/<([^>]+)>/) || [null, raw])[1] || '';
+  if (addr.toLowerCase().endsWith('@' + VERIFIED_DOMAIN)) return raw;
+  if (raw) console.warn(`RESEND_FROM "${raw}" is not on @${VERIFIED_DOMAIN}: ignored.`);
+  return `Eternal City Jewelry <orders@${VERIFIED_DOMAIN}>`;
+}
+const RESEND_FROM = safeFrom();
 
 async function sendEmail({ to, subject, html }) {
   const r = await fetch('https://api.resend.com/emails', {
@@ -31,7 +42,7 @@ async function sendEmail({ to, subject, html }) {
   return text;
 }
 
-const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'info@tshirt-shop.online';
+const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'info@eternalcity.jewelry';
 
 function buffer(req) {
   return new Promise((resolve, reject) => {
@@ -160,7 +171,7 @@ module.exports = async (req, res) => {
       // notification was skipped entirely and the shop never learned about the order.
       if (buyerEmail) {
         try {
-          await sendEmail({ to: buyerEmail, subject: `Conferma ordine #${order.number} — Tshirt Shop Online`, html: summaryHtml });
+          await sendEmail({ to: buyerEmail, subject: `Your order #${order.number} — Eternal City Jewelry`, html: summaryHtml });
           console.log('Buyer confirmation sent to', buyerEmail);
         } catch (mailErr) {
           console.error('Buyer confirmation FAILED for session', session.id, mailErr);
@@ -209,213 +220,116 @@ module.exports = async (req, res) => {
 };
 
 // ---------------------------------------------------------------------------
-// Order confirmation email. Table-based and fully inline-styled: email clients
-// strip <style> blocks and ignore flexbox. Colours and type follow the site's
-// own system — steel accent on a light technical ground, condensed headings.
-// (Repainted with the shop's own palette: ink #201e1d, accent red #ec3013, Archivo.)
+// Order emails. Table-based and fully inline-styled: email clients strip <style>
+// blocks and ignore flexbox. Colours and type follow the shop: warm black, gold
+// accent, Cormorant Garamond headings over Jost.
 // ---------------------------------------------------------------------------
 
-const BG = '#f3f2f2';
-const INK = '#201e1d';
-const STEEL = '#ec3013';
-const STEEL_DARK = '#201e1d';
-const RULE = '#cfcccc';
-const MUTED = '#605d5d';
-const ON_DARK = '#a8a4a4';
-const HEAD_FONT = "Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif";
-const BODY_FONT = "Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif";
+const BG = '#f4f1ea';
+const PAPER = '#ffffff';
+const INK = '#1b1711';
+const GOLD = '#a8834f';
+const DARK = '#15120d';
+const ON_DARK = '#d4b572';
+const RULE = '#e4ddd0';
+const MUTED = '#6f6a5e';
+const HEAD_FONT = "'Cormorant Garamond',Georgia,'Times New Roman',serif";
+const BODY_FONT = "Jost,'Helvetica Neue',Helvetica,Arial,sans-serif";
+const SITE = 'https://www.eternalcity.jewelry';
 
-function eur(n) {
-  const s = (Number(n) || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: true });
-  return '€ ' + s;
+function esc(v) {
+  return String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
-
-function cornerRow() {
-  return `<tr>
-    <td colspan="2" style="padding:0;"><div style="height:1px;background:${RULE};font-size:0;line-height:0;">&nbsp;</div></td>
-  </tr>`;
+function eur(n) {
+  return '€ ' + (Number(n) || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function infoRows(rows) {
+  return rows.map(([k, v]) => '<tr>' +
+    '<td style="padding:8px 0;border-bottom:1px solid ' + RULE + ';font:500 11px/1.4 ' + BODY_FONT + ';letter-spacing:.12em;text-transform:uppercase;color:' + MUTED + ';width:130px;vertical-align:top;">' + k + '</td>' +
+    '<td style="padding:8px 0;border-bottom:1px solid ' + RULE + ';font:400 14px/1.5 ' + BODY_FONT + ';color:' + INK + ';">' + v + '</td>' +
+  '</tr>').join('');
+}
+function shipTo(order, md) {
+  return md.ship_same === '0'
+    ? [md.ship_name, md.ship_address, md.ship_cap, md.ship_city].filter(Boolean).map(esc).join(', ')
+    : [order.customer.name, order.customer.address, order.customer.cap, order.customer.city, order.customer.country].filter(Boolean).map(esc).join(', ');
 }
 
 function orderEmailHtml(order, total, md) {
   md = md || {};
-  const designRows = [];
-  if (md.design_ref) {
-    designRows.push(`Riferimento file: <strong style="color:${INK};">${md.design_ref}</strong>${md.design_files ? ` — ${md.design_files}` : ''}`);
-  }
-  if (md.design_link) {
-    designRows.push(`Link file: <a href="${md.design_link}" style="color:${STEEL};">${md.design_link}</a>`);
-  }
-  const designBlock = designRows.length
-    ? `<tr><td style="padding:22px 32px 0;">
-        <div style="border:1px solid ${RULE};padding:14px 16px;font:400 13px/1.7 ${BODY_FONT};color:${MUTED};">
-          <div style="font:600 11px/1 ${BODY_FONT};letter-spacing:.14em;text-transform:uppercase;color:${STEEL};padding-bottom:8px;">Materiale da stampare</div>
-          ${designRows.join('<br>')}
-          <div style="padding-top:8px;">Cita questo riferimento in ogni comunicazione sull'ordine.</div>
-        </div>
-      </td></tr>`
-    : '';
-  const rows = order.lines.map((l) => {
-    const lineTotal = l.unitPrice * l.quantity;
-    return `<tr>
-      <td style="padding:14px 0;border-bottom:1px solid ${RULE};font:400 15px/1.45 ${BODY_FONT};color:${INK};">${l.description}</td>
-      <td style="padding:14px 0 14px 16px;border-bottom:1px solid ${RULE};font:400 15px/1.45 ${BODY_FONT};color:${MUTED};text-align:right;white-space:nowrap;">${l.quantity}×</td>
-      <td style="padding:14px 0 14px 16px;border-bottom:1px solid ${RULE};font:400 15px/1.45 ${BODY_FONT};color:${INK};text-align:right;white-space:nowrap;">${eur(lineTotal)}</td>
-    </tr>`;
-  }).join('');
+  const rows = order.lines.map((l) => '<tr>' +
+    '<td style="padding:14px 0;border-bottom:1px solid ' + RULE + ';font:400 15px/1.5 ' + BODY_FONT + ';color:' + INK + ';">' + esc(l.description) + '</td>' +
+    '<td style="padding:14px 0 14px 16px;border-bottom:1px solid ' + RULE + ';font:400 15px/1.5 ' + BODY_FONT + ';color:' + INK + ';text-align:right;white-space:nowrap;">' + eur(l.unitPrice * l.quantity) + '</td>' +
+  '</tr>').join('');
 
-  const billingRows = [
-    ['Intestatario', order.customer.name || '—'],
-    ['Tipo', order.customer.isCompany ? 'Azienda' : 'Privato'],
-    ['P. IVA / CF', order.customer.vatNumber || order.customer.fiscalCode || '—'],
-    ['Indirizzo', [order.customer.address, order.customer.cap, order.customer.city].filter(Boolean).join(', ') || '—'],
-    ['Email', md.inv_email || '—'],
-  ];
-  if (order.customer.isCompany) {
-    billingRows.push(['PEC / SDI', [md.inv_pec, md.inv_sdi].filter(Boolean).join(' — ') || '—']);
-  }
-  const billingBlock = `<tr><td style="padding:26px 32px 0;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:2px solid ${STEEL};border-collapse:separate;">
-          <tr><td style="padding:14px 16px 4px;">
-            <div style="font:700 11px/1 ${BODY_FONT};letter-spacing:.16em;text-transform:uppercase;color:${STEEL};">Dati per la fatturazione</div>
-            <div style="font:800 20px/1.2 ${HEAD_FONT};color:${INK};padding-top:6px;">La fattura sarà intestata così</div>
-          </td></tr>
-          <tr><td style="padding:8px 16px 16px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-              ${billingRows.map(([k, v]) => `<tr>
-                <td style="padding:7px 0;border-bottom:1px solid ${RULE};font:600 12px/1.4 ${BODY_FONT};letter-spacing:.06em;text-transform:uppercase;color:${MUTED};width:140px;">${k}</td>
-                <td style="padding:7px 0;border-bottom:1px solid ${RULE};font:400 14px/1.4 ${BODY_FONT};color:${INK};">${v}</td>
-              </tr>`).join('')}
-            </table>
-            <div style="padding-top:10px;font:400 13px/1.6 ${BODY_FONT};color:${MUTED};">Serve una correzione? Rispondi a questa email entro un giorno lavorativo, prima dell'emissione.</div>
-          </td></tr>
-        </table>
-      </td></tr>`;
+  const details = infoRows([
+    ['Ship to', shipTo(order, md) || '—'],
+    ['Email', esc(md.inv_email) || '—'],
+  ]);
 
-  const senderRows = md.sender_use === '1' ? [
-    ['Ragione sociale', md.sender_company || '—'],
-    ['Indirizzo', [md.sender_address, md.sender_cap, md.sender_city].filter(Boolean).join(', ') || '—'],
-    ['Telefono', md.sender_phone || '—'],
-  ] : [];
-  const senderBlock = senderRows.length
-    ? `<tr><td style="padding:26px 32px 0;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:2px solid ${STEEL};border-collapse:separate;">
-          <tr><td style="padding:14px 16px 4px;">
-            <div style="font:700 11px/1 ${BODY_FONT};letter-spacing:.16em;text-transform:uppercase;color:${STEEL};">Dati del mittente</div>
-            <div style="font:800 20px/1.2 ${HEAD_FONT};color:${INK};padding-top:6px;">Il pacco parte a nome tuo</div>
-          </td></tr>
-          <tr><td style="padding:8px 16px 16px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-              ${senderRows.map(([k, v]) => `<tr>
-                <td style="padding:7px 0;border-bottom:1px solid ${RULE};font:600 12px/1.4 ${BODY_FONT};letter-spacing:.06em;text-transform:uppercase;color:${MUTED};width:140px;">${k}</td>
-                <td style="padding:7px 0;border-bottom:1px solid ${RULE};font:400 14px/1.4 ${BODY_FONT};color:${INK};">${v}</td>
-              </tr>`).join('')}
-            </table>
-            <div style="padding-top:10px;font:400 13px/1.6 ${BODY_FONT};color:${MUTED};">Nessun nostro riferimento comparirà sul pacco: mittente e documento di trasporto riportano questi dati.</div>
-          </td></tr>
-        </table>
-      </td></tr>`
-    : '';
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+'<body style="margin:0;padding:0;background:' + BG + ';">' +
+'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:' + BG + ';padding:32px 16px;"><tr><td align="center">' +
+'<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%;background:' + PAPER + ';border:1px solid ' + RULE + ';">' +
 
-  return `<!DOCTYPE html>
-<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:${BG};">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${BG};padding:32px 16px;">
-  <tr><td align="center">
-    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid ${RULE};">
+'<tr><td style="background:' + DARK + ';padding:30px 32px;text-align:center;">' +
+  '<div style="font:500 11px/1 ' + BODY_FONT + ';letter-spacing:.32em;text-transform:uppercase;color:' + ON_DARK + ';">Eternal City Jewelry</div>' +
+  '<div style="font:500 34px/1.1 ' + HEAD_FONT + ';color:#efe9dc;padding-top:12px;">Thank you for your order</div>' +
+'</td></tr>' +
 
-      <tr><td style="background:${STEEL_DARK};padding:26px 32px;">
-        <div style="font:600 11px/1 ${BODY_FONT};letter-spacing:.18em;text-transform:uppercase;color:${ON_DARK};">Tshirt Shop Online</div>
-        <div style="font:800 34px/1.05 ${HEAD_FONT};letter-spacing:-.01em;color:#ffffff;padding-top:8px;">Ordine confermato</div>
-      </td></tr>
+'<tr><td style="padding:28px 32px 0;">' +
+  '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' +
+    '<td style="font:400 16px/1.6 ' + BODY_FONT + ';color:' + INK + ';">Dear ' + esc(order.customer.name) + ', your payment has been received. Your piece is now being prepared in our Roman atelier.</td>' +
+    '<td style="text-align:right;vertical-align:top;white-space:nowrap;padding-left:16px;"><span style="display:inline-block;border:1px solid ' + GOLD + ';padding:6px 10px;font:500 13px/1 ' + BODY_FONT + ';letter-spacing:.1em;color:' + GOLD + ';">#' + order.number + '</span></td>' +
+  '</tr></table>' +
+'</td></tr>' +
 
-      <tr><td style="padding:0 32px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${cornerRow()}</table>
-      </td></tr>
+'<tr><td style="padding:26px 32px 0;">' +
+  '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">' +
+    '<tr><td colspan="2" style="padding-bottom:8px;border-bottom:1px solid ' + INK + ';font:500 11px/1 ' + BODY_FONT + ';letter-spacing:.16em;text-transform:uppercase;color:' + MUTED + ';">Your order</td></tr>' +
+    rows +
+    '<tr><td style="padding:18px 0 0;font:500 12px/1 ' + BODY_FONT + ';letter-spacing:.14em;text-transform:uppercase;color:' + MUTED + ';">Total paid</td>' +
+    '<td style="padding:18px 0 0;font:500 28px/1 ' + HEAD_FONT + ';color:' + INK + ';text-align:right;white-space:nowrap;">' + eur(total) + '</td></tr>' +
+    '<tr><td colspan="2" style="padding-top:4px;font:400 12px/1.4 ' + BODY_FONT + ';color:' + MUTED + ';text-align:right;">VAT included</td></tr>' +
+  '</table>' +
+'</td></tr>' +
 
-      <tr><td style="padding:8px 32px 0;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-          <td style="font:400 16px/1.5 ${BODY_FONT};color:${INK};">Grazie per il tuo ordine, ${order.customer.name}.</td>
-          <td style="text-align:right;vertical-align:top;white-space:nowrap;">
-            <span style="display:inline-block;border:1px solid ${RULE};padding:5px 10px;font:600 13px/1 ${BODY_FONT};letter-spacing:.08em;color:${STEEL};">#${order.number}</span>
-          </td>
-        </tr></table>
-      </td></tr>
+'<tr><td style="padding:26px 32px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">' + details + '</table></td></tr>' +
 
-      <tr><td style="padding:26px 32px 0;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-          <tr>
-            <td style="padding-bottom:8px;border-bottom:2px solid ${INK};font:600 11px/1 ${BODY_FONT};letter-spacing:.14em;text-transform:uppercase;color:${MUTED};">Dettaglio</td>
-            <td style="padding-bottom:8px;border-bottom:2px solid ${INK};font:600 11px/1 ${BODY_FONT};letter-spacing:.14em;text-transform:uppercase;color:${MUTED};text-align:right;">Q.tà</td>
-            <td style="padding-bottom:8px;border-bottom:2px solid ${INK};font:600 11px/1 ${BODY_FONT};letter-spacing:.14em;text-transform:uppercase;color:${MUTED};text-align:right;">Importo</td>
-          </tr>
-          ${rows}
-          <tr>
-            <td colspan="2" style="padding:18px 0 0;font:600 13px/1 ${BODY_FONT};letter-spacing:.1em;text-transform:uppercase;color:${MUTED};">Totale pagato</td>
-            <td style="padding:18px 0 0;font:800 30px/1 ${HEAD_FONT};color:${INK};text-align:right;white-space:nowrap;">${eur(total)}</td>
-          </tr>
-          <tr><td colspan="3" style="padding-top:4px;font:400 12px/1.4 ${BODY_FONT};color:${MUTED};text-align:right;">IVA inclusa</td></tr>
-        </table>
-      </td></tr>
+'<tr><td style="padding:26px 32px 0;font:400 14px/1.7 ' + BODY_FONT + ';color:' + MUTED + ';">' +
+  'Every piece is shipped insured from Rome in its luxury box. You will receive the tracking number as soon as it leaves the atelier. ' +
+  'Questions about your order? Simply reply to this email and quote <strong style="color:' + INK + ';">#' + order.number + '</strong>.' +
+'</td></tr>' +
 
-      ${billingBlock}
-      ${senderBlock}
-      ${designBlock}
-      <tr><td style="padding:28px 32px 0;">
-        <div style="border-top:1px solid ${RULE};padding-top:18px;font:400 14px/1.6 ${BODY_FONT};color:${MUTED};">
-          Riceverai la fattura entro un giorno lavorativo, insieme alle istruzioni per l'invio del materiale da stampare.
-        </div>
-      </td></tr>
-      <tr><td style="padding:0 32px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${cornerRow()}</table>
-      </td></tr>
+'<tr><td style="padding:28px 32px 30px;">' +
+  '<div style="border-top:1px solid ' + RULE + ';padding-top:16px;font:400 12px/1.6 ' + BODY_FONT + ';color:' + MUTED + ';text-align:center;">' +
+    'Eternal City Jewelry · Made in Rome, worn forever · <a href="' + SITE + '" style="color:' + GOLD + ';text-decoration:none;">eternalcity.jewelry</a>' +
+  '</div>' +
+'</td></tr>' +
 
-      <tr><td style="padding:0 32px 28px;">
-        <div style="font:400 12px/1.6 ${BODY_FONT};color:${MUTED};">
-          Tshirt Shop Online · Roma EUR · <a href="https://tshirt-shop.online" style="color:${STEEL};text-decoration:none;">tshirt-shop.online</a>
-        </div>
-      </td></tr>
-
-    </table>
-  </td></tr>
-</table>
-</body></html>`;
+'</table></td></tr></table></body></html>';
 }
 
 function ownerBlockHtml(order, buyerEmail, session) {
   const md = session.metadata || {};
   const rowsData = [
-    ['Cliente', order.customer.name],
-    ['Email', buyerEmail || '—'],
+    ['Cliente', esc(order.customer.name)],
+    ['Email', esc(buyerEmail) || '—'],
     ['Tipo', order.customer.isCompany ? 'Azienda' : 'Privato'],
-    ['P. IVA / CF', order.customer.vatNumber || order.customer.fiscalCode || '—'],
-    ['Indirizzo', [order.customer.address, order.customer.cap, order.customer.city].filter(Boolean).join(', ') || '—'],
-    ['Spedizione', md.ship_same === '0'
-      ? [md.ship_name, md.ship_address, md.ship_cap, md.ship_city].filter(Boolean).join(', ')
-      : 'Come fatturazione'],
+    ['P. IVA / CF', esc(order.customer.vatNumber || order.customer.fiscalCode) || '—'],
+    ['Fatturazione', [order.customer.address, order.customer.cap, order.customer.city, order.customer.country].filter(Boolean).map(esc).join(', ') || '—'],
+    ['Spedire a', shipTo(order, md) || '—'],
   ];
-  if (md.design_ref) {
-    rowsData.push(['File design', `${md.design_ref}${md.design_files ? ' — ' + md.design_files : ''} (arrivati per email separata)`]);
-  }
-  if (md.design_link) {
-    rowsData.push(['Link file', `<a href="${md.design_link}" style="color:${STEEL};">${md.design_link}</a>`]);
-  }
-  const rows = rowsData.map(([k, v]) => `<tr>
-    <td style="padding:7px 0;border-bottom:1px solid ${RULE};font:600 12px/1.4 ${BODY_FONT};letter-spacing:.06em;text-transform:uppercase;color:${MUTED};width:150px;">${k}</td>
-    <td style="padding:7px 0;border-bottom:1px solid ${RULE};font:400 14px/1.4 ${BODY_FONT};color:${INK};">${v}</td>
-  </tr>`).join('');
+  if (md.ship_same === '0' && md.ship_phone) rowsData.push(['Telefono', esc(md.ship_phone)]);
+  if (md.ship_same === '0' && md.ship_notes) rowsData.push(['Note', esc(md.ship_notes)]);
+  if (order.customer.isCompany) rowsData.push(['PEC / SDI', [md.inv_pec, md.inv_sdi].filter(Boolean).map(esc).join(' — ') || '—']);
+  rowsData.push(['Stripe', '<a href="https://dashboard.stripe.com/payments/' + esc(session.payment_intent || '') + '" style="color:' + GOLD + ';">Apri pagamento</a>']);
 
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${BG};padding:0 16px 32px;">
-  <tr><td align="center">
-    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%;background:#ffffff;border:1px solid ${RULE};">
-      <tr><td style="padding:22px 32px 6px;">
-        <div style="font:600 11px/1 ${BODY_FONT};letter-spacing:.16em;text-transform:uppercase;color:${STEEL};">Dati per l'evasione</div>
-      </td></tr>
-      <tr><td style="padding:8px 32px 26px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">${rows}</table>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>`;
+  return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:' + BG + ';padding:0 16px 32px;"><tr><td align="center">' +
+    '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:100%;background:' + PAPER + ';border:1px solid ' + RULE + ';">' +
+      '<tr><td style="padding:22px 32px 6px;font:500 11px/1 ' + BODY_FONT + ';letter-spacing:.16em;text-transform:uppercase;color:' + GOLD + ';">Dati per l\'evasione</td></tr>' +
+      '<tr><td style="padding:8px 32px 26px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">' + infoRows(rowsData) + '</table></td></tr>' +
+    '</table></td></tr></table>';
 }
 
 // Raw body is required for Stripe signature verification. Must be assigned AFTER the
