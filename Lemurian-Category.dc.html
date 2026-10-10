@@ -174,7 +174,7 @@ class Component extends DCLogic {
   }
   toggleCart() { this.setState(s => ({ cartOpen: !s.cartOpen })); }
 
-  componentDidMount() { this.syncChrome(); }
+  componentDidMount() { window.location.replace('category.dc.html?stone=lemurian'); }
   componentDidUpdate() { this.syncChrome(); }
   syncChrome() {
     window.ecjCartHandler = () => this.toggleCart();

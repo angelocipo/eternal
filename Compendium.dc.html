@@ -456,7 +456,7 @@ img{max-width:100%;}
             <span class="ecj-mean">Raw strength and stability</span>
           </span>
         </a>
-        <a class="ecj-card" href="Lemurian-Category.dc.html" rel="noopener" data-find="lemurian ancient memory and wisdom">
+        <a class="ecj-card" href="category.dc.html?stone=lemurian" rel="noopener" data-find="lemurian ancient memory and wisdom">
           <span class="ecj-ph" style="background:#8f8092">
             <span class="ecj-phtag">photo</span>
             <span class="ecj-phname">lemurian</span>
@@ -601,6 +601,17 @@ img{max-width:100%;}
           <span class="ecj-meta">
             <span class="ecj-name">Picasso Jasper</span>
             <span class="ecj-mean">Creative, grounded focus</span>
+          </span>
+        </a>
+        <a class="ecj-card" href="category.dc.html?stone=picture-jasper" rel="noopener" data-find="picture jasper looking into the earth">
+          <span class="ecj-ph" style="background:#7a6650">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">picture-jasper</span>
+            <img src="img/picture-jasper-tridacna-bracelet-08mm/italian-jewelry-picture-jasper-tridacna-bracelet-08mm-IMG_3250-ac-kl-copia.webp" alt="Picture Jasper">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Picture Jasper</span>
+            <span class="ecj-mean">Looking into the Earth</span>
           </span>
         </a>
         </div>
@@ -811,7 +822,7 @@ class Component extends DCLogic {
     return {
       bodyRef: el => { this.body = el; },
       onSearch: e => this.apply(e.target.value || ''),
-      countLabel: (this.state.count == null ? 54 : this.state.count) + ' Stones',
+      countLabel: (this.state.count == null ? 55 : this.state.count) + ' Stones',
       emptyStyle: this.state.empty ? 'display:block' : 'display:none',
     };
   }
