@@ -798,7 +798,20 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.apply('');
+    this.onAzClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#ecj-"]');
+      if (!a) return;
+      const el = document.getElementById(a.getAttribute('href').slice(1));
+      if (!el) return;
+      e.preventDefault();
+      const bar = document.querySelector('.ecj-bar');
+      const offset = bar ? bar.getBoundingClientRect().height : 0;
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - offset - 12, behavior: 'smooth' });
+      history.replaceState(null, '', a.getAttribute('href'));
+    };
+    document.addEventListener('click', this.onAzClick);
   }
+  componentWillUnmount() { document.removeEventListener('click', this.onAzClick); }
 
   apply(q) {
     const root = this.body;
