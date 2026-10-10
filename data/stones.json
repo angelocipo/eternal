@@ -1,426 +1,1626 @@
 [
- {
-  "slug": "abalone",
-  "name": "Abalone Shell",
-  "meaning": "Ocean calm and quiet protection",
-  "img": "img/stones/italian-jewelry-abalone-shell.webp",
-  "postSlug": "abalone",
-  "external": false
- },
- {
-  "slug": "amazonite",
-  "name": "Amazonite",
-  "meaning": "Courage, truth and balance",
-  "img": "img/stones/italian-jewelry-amazonite.webp",
-  "postSlug": "amazonite",
-  "external": false
- },
- {
-  "slug": "amethyst",
-  "name": "Amethyst",
-  "meaning": "Clarity, calm and intuition",
-  "img": "img/stones/italian-jewelry-amethyst.webp",
-  "postSlug": "amethyst",
-  "external": false
- },
- {
-  "slug": "apatite",
-  "name": "Apatite",
-  "meaning": "Focus, drive and clear thought",
-  "img": "img/stones/italian-jewelry-apatite.webp",
-  "postSlug": "apatite",
-  "external": false
- },
- {
-  "slug": "aquamarine",
-  "name": "Aquamarine",
-  "meaning": "Serene flow and steady nerves",
-  "img": "img/stones/italian-jewelry-aquamarine.webp",
-  "postSlug": "aquamarine",
-  "external": false
- },
- {
-  "slug": "auralite",
-  "name": "Auralite-23",
-  "meaning": "Deep insight and inner peace",
-  "img": "img/stones/italian-jewelry-auralite-23.webp",
-  "postSlug": null,
-  "external": true
- },
- {
-  "slug": "bali-beads",
-  "name": "Bali Beads",
-  "meaning": "Handcrafted Balinese silverwork",
-  "img": "img/stones/italian-jewelry-bali-beads.webp",
-  "postSlug": "bali-beads",
-  "external": false
- },
- {
-  "slug": "black-onyx-jewelry",
-  "name": "Black Onyx",
-  "meaning": "Strength and grounded protection",
-  "img": "img/stones/italian-jewelry-black-onyx.webp",
-  "postSlug": "black-onyx-jewelry",
-  "external": false
- },
- {
-  "slug": "blue-cloisonne-jewelry",
-  "name": "Blue Cloisonne",
-  "meaning": "Refined enamel artistry",
-  "img": "img/stones/italian-jewelry-blue-cloisonne.webp",
-  "postSlug": "blue-cloisonne-jewelry",
-  "external": false
- },
- {
-  "slug": "blue-lace-agate-jewelry",
-  "name": "Blue Lace Agate",
-  "meaning": "Gentle, honest communication",
-  "img": "img/stones/italian-jewelry-blue-lace-agate.webp",
-  "postSlug": "blue-lace-agate-jewelry",
-  "external": false
- },
- {
-  "slug": "blue-sandstone-jewelry",
-  "name": "Blue Sandstone",
-  "meaning": "Ambition under a night sky",
-  "img": "img/stones/italian-jewelry-blue-sandstone.webp",
-  "postSlug": "blue-sandstone-jewelry",
-  "external": false
- },
- {
-  "slug": "blue-striped-onyx-agate",
-  "name": "Blue Striped Onyx Agate",
-  "meaning": "Grounded balance and resolve",
-  "img": "img/stones/italian-jewelry-blue-striped-onyx-agate.webp",
-  "postSlug": "blue-striped-onyx-agate",
-  "external": false
- },
- {
-  "slug": "blue-tigers-eye",
-  "name": "Blue Tiger's Eye",
-  "meaning": "Calm clarity and patience",
-  "img": "img/stones/italian-jewelry-blue-tigers-eye.webp",
-  "postSlug": "blue-tigers-eye",
-  "external": false
- },
- {
-  "slug": "blue-topaz",
-  "name": "Blue Topaz",
-  "meaning": "Wisdom, honesty and truth",
-  "img": "img/stones/italian-jewelry-blue-topaz.webp",
-  "postSlug": "blue-topaz",
-  "external": false
- },
- {
-  "slug": "botswana-agate",
-  "name": "Botswana Agate",
-  "meaning": "Comfort, warmth and resilience",
-  "img": "https://www.printeurope.pro/wp-content/uploads/2024/11/natural-botswana-bracelet-necklace.avif",
-  "postSlug": "botswana-agate",
-  "external": false
- },
- {
-  "slug": "chrysanthemum-fossil-coral",
-  "name": "Chrysanthemum Fossil Coral",
-  "meaning": "A rare bloom of good fortune",
-  "img": "img/stones/italian-jewelry-chrysanthemum-fossil-coral.webp",
-  "postSlug": "chrysanthemum-fossil-coral",
-  "external": false
- },
- {
-  "slug": "coffee",
-  "name": "Coffee Striped Agate",
-  "meaning": "Earthy grounding and warmth",
-  "img": "img/stones/italian-jewelry-coffee-striped-agate.webp",
-  "postSlug": null,
-  "external": true
- },
- {
-  "slug": "raw-blue-diamonds",
-  "name": "Diamonds",
-  "meaning": "Eternal, unbreakable brilliance",
-  "img": "img/stones/italian-jewelry-diamonds.webp",
-  "postSlug": "raw-blue-diamonds",
-  "external": false
- },
- {
-  "slug": "gibeon-meteorite-ferro-nichel",
-  "name": "Gibeon Meteorite",
-  "meaning": "Forged among the stars",
-  "img": "img/stones/italian-jewelry-gibeon-meteorite.webp",
-  "postSlug": "gibeon-meteorite-ferro-nichel",
-  "external": false
- },
- {
-  "slug": "green-jade",
-  "name": "Green Jade",
-  "meaning": "Harmony, luck and serenity",
-  "img": "img/stones/italian-jewelry-green-jade.webp",
-  "postSlug": "green-jade",
-  "external": false
- },
- {
-  "slug": "grey-map-jasper-bracelets",
-  "name": "Grey Map Jasper",
-  "meaning": "The traveller's grounding stone",
-  "img": "img/stones/italian-jewelry-grey-map-jasper.webp",
-  "postSlug": "grey-map-jasper-bracelets",
-  "external": false
- },
- {
-  "slug": "hematite",
-  "name": "Hematite",
-  "meaning": "Grounding, focus and stability",
-  "img": "img/stones/italian-jewelry-hematite.webp",
-  "postSlug": "hematite",
-  "external": false
- },
- {
-  "slug": "howlite-jewelry",
-  "name": "Howlite",
-  "meaning": "Patience and a quiet mind",
-  "img": "img/stones/italian-jewelry-howlite.webp",
-  "postSlug": "howlite-jewelry",
-  "external": false
- },
- {
-  "slug": "kyanite-jewelry",
-  "name": "Kyanite",
-  "meaning": "Alignment and effortless flow",
-  "img": "img/stones/italian-jewelry-kyanite.webp",
-  "postSlug": "kyanite-jewelry",
-  "external": false
- },
- {
-  "slug": "labradorite-jewelry",
-  "name": "Labradorite",
-  "meaning": "Magic, mystery and transformation",
-  "img": "img/stones/italian-jewelry-labradorite.webp",
-  "postSlug": "labradorite-jewelry",
-  "external": false
- },
- {
-  "slug": "lapis-lazuli-jewelry",
-  "name": "Lapis Lazuli",
-  "meaning": "Truth, royalty and wisdom",
-  "img": "img/stones/italian-jewelry-lapis-lazuli.webp",
-  "postSlug": "lapis-lazuli-jewelry",
-  "external": false
- },
- {
-  "slug": "larimar-jewelry",
-  "name": "Larimar",
-  "meaning": "Tranquil Caribbean seas",
-  "img": "img/stones/italian-jewelry-larimar.webp",
-  "postSlug": "larimar-jewelry",
-  "external": false
- },
- {
-  "slug": "lava-stone-jewelry",
-  "name": "Lava Stone",
-  "meaning": "Raw strength and stability",
-  "img": "img/stones/italian-jewelry-lava-stone.webp",
-  "postSlug": "lava-stone-jewelry",
-  "external": false
- },
- {
-  "slug": "lemurian",
-  "name": "Lemurian",
-  "meaning": "Ancient memory and wisdom",
-  "img": "img/lemurian/lemurian-stone.webp",
-  "postSlug": "lemurian",
-  "external": false
- },
- {
-  "slug": "malachite-jewelry",
-  "name": "Malachite",
-  "meaning": "Protection and steady growth",
-  "img": "img/stones/italian-jewelry-malachite.webp",
-  "postSlug": "malachite-jewelry",
-  "external": false
- },
- {
-  "slug": "moonstone-jewelry",
-  "name": "Moonstone",
-  "meaning": "Intuition and new beginnings",
-  "img": "img/stones/italian-jewelry-moonstone.webp",
-  "postSlug": "moonstone-jewelry",
-  "external": false
- },
- {
-  "slug": "murano-venetian-glass-jewelry",
-  "name": "Murano Venetian Glass",
-  "meaning": "Italian glassblowing artistry",
-  "img": "img/stones/italian-jewelry-murano-venetian-glass.webp",
-  "postSlug": "murano-venetian-glass-jewelry",
-  "external": false
- },
- {
-  "slug": "obsidian-black-jewelry",
-  "name": "Obsidian Black",
-  "meaning": "A shield of truth",
-  "img": "img/stones/italian-jewelry-obsidian-black.webp",
-  "postSlug": "obsidian-black-jewelry",
-  "external": false
- },
- {
-  "slug": "obsidian-snowflake-jewelry",
-  "name": "Obsidian Snowflake",
-  "meaning": "Balance within the storm",
-  "img": "img/stones/italian-jewelry-obsidian-snowflake.webp",
-  "postSlug": "obsidian-snowflake-jewelry",
-  "external": false
- },
- {
-  "slug": "opal-jewelry",
-  "name": "Opal",
-  "meaning": "Inspiration, light and play",
-  "img": "img/stones/italian-jewelry-opal.webp",
-  "postSlug": "opal-jewelry",
-  "external": false
- },
- {
-  "slug": "pearl",
-  "name": "Pearls",
-  "meaning": "Purity, poise and grace",
-  "img": "img/stones/italian-jewelry-pearls.webp",
-  "postSlug": "pearl",
-  "external": false
- },
- {
-  "slug": "peridot",
-  "name": "Peridot",
-  "meaning": "Renewal and quiet abundance",
-  "img": "img/stones/italian-jewelry-peridot.webp",
-  "postSlug": "peridot",
-  "external": false
- },
- {
-  "slug": "phantom-quartz-jewelry",
-  "name": "Phantom Quartz",
-  "meaning": "Growth layered over time",
-  "img": "img/stones/italian-jewelry-phantom-quartz.webp",
-  "postSlug": "phantom-quartz-jewelry",
-  "external": false
- },
- {
-  "slug": "picasso-jasper-jewelry",
-  "name": "Picasso Jasper",
-  "meaning": "Creative, grounded focus",
-  "img": "img/stones/italian-jewelry-picasso-jasper.webp",
-  "postSlug": "picasso-jasper-jewelry",
-  "external": false
- },
- {
-  "slug": "red-carnelian-jewelry",
-  "name": "Red Carnelian",
-  "meaning": "Vitality, courage and drive",
-  "img": "img/stones/italian-jewelry-red-carnelian.webp",
-  "postSlug": "red-carnelian-jewelry",
-  "external": false
- },
- {
-  "slug": "red-garnet-jewelry",
-  "name": "Red Garnet",
-  "meaning": "Passion and devotion",
-  "img": "img/stones/italian-jewelry-red-garnet.webp",
-  "postSlug": "red-garnet-jewelry",
-  "external": false
- },
- {
-  "slug": "rhyolite-jewelry",
-  "name": "Rhyolite",
-  "meaning": "Change met with resolve",
-  "img": "img/stones/italian-jewelry-rhyolite.webp",
-  "postSlug": "rhyolite-jewelry",
-  "external": false
- },
- {
-  "slug": "rose-quartz-jewelry",
-  "name": "Rose Quartz",
-  "meaning": "Unconditional, gentle love",
-  "img": "img/stones/italian-jewelry-rose-quartz.webp",
-  "postSlug": "rose-quartz-jewelry",
-  "external": false
- },
- {
-  "slug": "rutilated-quartz-jewelry",
-  "name": "Rutilated Quartz",
-  "meaning": "Threads of golden illumination",
-  "img": "img/stones/italian-jewelry-rutilated-quartz.webp",
-  "postSlug": "rutilated-quartz-jewelry",
-  "external": false
- },
- {
-  "slug": "sea-sediment-jasper-jewelry",
-  "name": "Sea Sediment Jasper",
-  "meaning": "Calm and shifting tides",
-  "img": "img/stones/italian-jewelry-sea-sediment-jasper.webp",
-  "postSlug": "sea-sediment-jasper-jewelry",
-  "external": false
- },
- {
-  "slug": "sodalite-jewelry",
-  "name": "Sodalite",
-  "meaning": "Logic balanced with intuition",
-  "img": "img/stones/italian-jewelry-sodalite.webp",
-  "postSlug": "sodalite-jewelry",
-  "external": false
- },
- {
-  "slug": "strawberry-quartz-jewelry",
-  "name": "Strawberry Quartz",
-  "meaning": "Joyful, warm-hearted love",
-  "img": "img/stones/italian-jewelry-strawberry-quartz.webp",
-  "postSlug": "strawberry-quartz-jewelry",
-  "external": false
- },
- {
-  "slug": "sunstone-jewelry",
-  "name": "Sunstone",
-  "meaning": "Warmth, leadership and light",
-  "img": "img/stones/italian-jewelry-sunstone.webp",
-  "postSlug": "sunstone-jewelry",
-  "external": false
- },
- {
-  "slug": "swarovski-jewelry",
-  "name": "Swarovski",
-  "meaning": "Precision-cut radiance",
-  "img": "img/stones/italian-jewelry-swarovski.webp",
-  "postSlug": "swarovski-jewelry",
-  "external": false
- },
- {
-  "slug": "tigers-eye-jewelry",
-  "name": "Tiger's Eye",
-  "meaning": "Confidence, will and focus",
-  "img": "img/stones/italian-jewelry-tigers-eye.webp",
-  "postSlug": "tigers-eye-jewelry",
-  "external": false
- },
- {
-  "slug": "tridacna-jewelry",
-  "name": "Tridacna",
-  "meaning": "Purity and serene white",
-  "img": "img/stones/italian-jewelry-tridacna.webp",
-  "postSlug": "tridacna-jewelry",
-  "external": false
- },
- {
-  "slug": "turquoise-jewelry",
-  "name": "Turquoise",
-  "meaning": "Protection and ancient wisdom",
-  "img": "img/stones/italian-jewelry-turquoise.webp",
-  "postSlug": "turquoise-jewelry",
-  "external": false
- },
- {
-  "slug": "turquoise-calsilica-jewelry",
-  "name": "Turquoise Calsilica",
-  "meaning": "Spirit of the desert",
-  "img": "img/stones/italian-jewelry-turquoise-calsilica.webp",
-  "postSlug": "turquoise-calsilica-jewelry",
-  "external": false
- }
+  {
+    "slug": "abalone",
+    "name": "Abalone Shell",
+    "meaning": "Ocean calm and quiet protection",
+    "img": "img/stones/italian-jewelry-abalone-shell.webp",
+    "postSlug": "abalone",
+    "external": false,
+    "title": "Abalone a masterpiece of oceanic wonder",
+    "sub": "Meticulously handcrafted into a timeless Abalone bracelet handmade in Rome.",
+    "intro": [
+      {
+        "label": "Provenance",
+        "text": "Abalone shells are sustainably sourced from the pristine waters of the Pacific Ocean, carefully selected for their vibrant iridescence and smooth texture. Each shell tells a story, connecting you to the beauty of nature."
+      },
+      {
+        "label": "Benefits",
+        "text": "Wearing abalone is believed to bring peace, balance, and harmony, with its grounding energy and calming influence. Its naturally cooling tones also make it ideal for enhancing mindfulness and creating a centered sense of self."
+      }
+    ],
+    "stats": [
+      {
+        "value": "2,5-4/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "amazonite",
+    "name": "Amazonite",
+    "meaning": "Courage, truth and balance",
+    "img": "img/stones/italian-jewelry-amazonite.webp",
+    "postSlug": "amazonite",
+    "external": false,
+    "title": "Amazonite",
+    "sub": "A green-blue stone often linked with harmony and communication. meticulously handcrafted into a timeless Amazonite bracelet handmade in Rome.",
+    "intro": [
+      {
+        "label": "Provenance",
+        "text": "Amazonite is found in: Russia, China, Libya, Mongolia, United States."
+      },
+      {
+        "label": "Benefits",
+        "text": "Good luck isn’t just a coincidence, especially when you include an Amazonite crystal in your gemstone collection. With its verdant shade of blue–green, the Amazonite crystal meaning reflects the lush foliage of the Amazon rainforest, although it’s commonly found in Colorado alongside Smoky Quartz clusters."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "amethyst",
+    "name": "Amethyst",
+    "meaning": "Clarity, calm and intuition",
+    "img": "img/stones/italian-jewelry-amethyst.webp",
+    "postSlug": "amethyst",
+    "external": false,
+    "title": "Amethyst is a fitting birthstone for February",
+    "sub": "Amethyst is a myriad of colors with purple predominantly.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Amethyst is a violet variety of quartz. Amethyst is a fitting birthstone for February. In addition to the beautiful color of this gemstone, Amethyst widely popular because it’s abundant and comes in bead sizes from 6 to 12 mm. Amethyst is a myriad of colors with purple predominantly and is renowned for protection, cleansing, and healing."
+      },
+      {
+        "label": "Provenance",
+        "text": "USA, UK, Canada, Brasil, Mexico, Russia, Sri Lanka, Uruguay Africa orientale, Siberia, India."
+      },
+      {
+        "label": "Benefits",
+        "text": "The name comes from the Koine Greek ἀμέθυστος amethystos from ἀ- a-, “not” and μεθύσκω methysko / μεθύω methyo, “intoxicate”, a reference to the belief that the stone protected its owner from drunkenness. The ancient Greeks wore amethyst and carved drinking vessels from it in the belief that it would prevent intoxication."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "apatite",
+    "name": "Apatite",
+    "meaning": "Focus, drive and clear thought",
+    "img": "img/stones/italian-jewelry-apatite.webp",
+    "postSlug": "apatite",
+    "external": false,
+    "title": "Apatite",
+    "sub": "Meticulously handcrafted into a timeless Apatite bracelet handmade in Rome.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Apatite is found in sedimentary, metamorphic, igneous, and volcanic rocks. Moon rocks collected by astronauts during the Apollo program contain traces of apatite. Apatite can form in sedimentary processes, igneous processes (e.g., Pegmatite), metamorphic processes, and in hydrothermal vents, as well as production by biological systems."
+      },
+      {
+        "label": "Provenance",
+        "text": "Brazil, Myanmar, and Mexico. Other sources include Canada, Czech Republic, Germany, India, Madagascar, Mozambique, Norway, South Africa, Spain, Sri Lanka, and the United States."
+      },
+      {
+        "label": "Benefits",
+        "text": "Apatite is a stone of manifestation. It is related to service and to humanitarian pursuits. Apatite helps eliminate over-activity, under-activity, blockages and congestion in all of the chakras."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "aquamarine",
+    "name": "Aquamarine",
+    "meaning": "Serene flow and steady nerves",
+    "img": "img/stones/italian-jewelry-aquamarine.webp",
+    "postSlug": "aquamarine",
+    "external": false,
+    "title": "Unlock pure elegance with our Aquamarine bracelet",
+    "sub": "This piece becomes more than just jewelry—it’s a statement of purity.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Unlock pure elegance with our Aquamarine bracelet, designed to bring a tranquil yet powerful energy to your every day. Handcrafted with impeccable precision, this bracelet reflects light like no other, offering a refined touch that elevates any outfit. With its fresh, crisp design and unmatched quality, this piece becomes more than just jewelry—it’s a statement of purity. Feel the calming waves of aquamarine, long cherished as a symbol of peace and courage. Its refreshing hues soothe the soul, while the expert craftsmanship offers a timeless aesthetic that seamlessly blends into your lifestyle. Be bold. Be serene. Be limitless."
+      },
+      {
+        "label": "Provenance",
+        "text": "Each aquamarine gemstone is responsibly sourced, known for its connection to the calming energy of the ocean, symbolizing clarity, harmony, and fearlessness."
+      },
+      {
+        "label": "Benefits",
+        "text": "Known for its calming properties, aquamarine helps to reduce stress and quiet the mind. Its light blue color enhances clear communication and promotes inner peace, making it the perfect accessory for mindfulness and emotional balance."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7,5-8/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "auralite",
+    "name": "Auralite-23",
+    "meaning": "Deep insight and inner peace",
+    "img": "img/stones/italian-jewelry-auralite-23.webp",
+    "postSlug": null,
+    "external": true,
+    "title": "Auralite-23 crystals are about 1.2 billion years old",
+    "sub": "Auralite 23 is a recently discovered rare Canadian Gem and Energy Stone.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Auralite 23 consists of 23 minerals/metals: Rutile, Bornite, Epidote, Gialite, Chalcopyrite, Covellite, Sphalerite, Limonite, Iron, Copper, Nickel, Platinum, Silver, Gold, Pyrolusite, Goethite, Pyrite, Magnetite, Hematite, Ajoite, Lepidocrosite, Cacoxenite, Titanite. Coloring is primarily translucent assortment of purple, gray, clear, orange, red (the red tips are from iron, this is more visible in larger crystals). Auralite-23 crystals are about 1.2 billion – 2 billion years old, having been formed during the Meso-proterozoic age, at the time when multicellular creatures first emerged and began to flourish."
+      },
+      {
+        "label": "Provenance",
+        "text": "Northern Canada."
+      },
+      {
+        "label": "Benefits",
+        "text": "It is called “A New Stone of the New Consciousness” because of it’s high frequency and abundance of metaphysical properties. Auralite 23 has so many compounds in it, it is beneficial to many different malfunctions of the body. Auralite 23 relaxes the body, in particular muscle spasms, muscle ache, headaches. The stone can be a great support to improve healing and functioning of the body in general."
+      }
+    ],
+    "stats": [
+      {
+        "value": "2,5-4/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "bali-beads",
+    "name": "Bali Beads",
+    "meaning": "Handcrafted Balinese silverwork",
+    "img": "img/stones/italian-jewelry-bali-beads.webp",
+    "postSlug": "bali-beads",
+    "external": false,
+    "title": "Bali Beads handmade in Indonesia",
+    "sub": "",
+    "intro": [
+      {
+        "label": "",
+        "text": "Our Bali silver beads are authentic and handmade by artists in Bali, Indonesia using genuine 925 sterling silver."
+      }
+    ],
+    "stats": [
+      {
+        "value": "2,5-4/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "black-onyx-jewelry",
+    "name": "Black Onyx",
+    "meaning": "Strength and grounded protection",
+    "img": "img/stones/italian-jewelry-black-onyx.webp",
+    "postSlug": "black-onyx-jewelry",
+    "external": false,
+    "title": "Black Onyx",
+    "sub": "The ancient Romans entered battle carrying amulets of Black Onyx This was believed to bestow courage in battle.",
+    "intro": [
+      {
+        "label": "",
+        "text": "The ancient Romans entered battle carrying amulets of Black Onyx engraved with Mars, the god of war. This was believed to bestow courage in battle."
+      },
+      {
+        "label": "",
+        "text": "In Renaissance Europe, wearing Black Onyx was believed to bestow eloquence. A traditional Persian belief is that it helped with epilepsy. Black Onyx was traditionally used by English midwives to ease childbirth by laying it between the breasts of the mother."
+      },
+      {
+        "label": "",
+        "text": "Black Onyx primarily refers to the parallel banded variety of the silicate mineral chalcedony. Agate and onyx are both varieties of layered chalcedony that differ only in the form of the bands: agate has curved bands and onyx has parallel bands. The colors of its bands range from black to almost every color."
+      },
+      {
+        "label": "Provenance",
+        "text": "Black Onyx is a gemstone found in various regions of the world including Yemen, Uruguay, Argentina, Australia, Brazil, Canada, China, Czech Republic, Germany, India, Indonesia, Madagascar, Latin America, the UK, and various states in the US."
+      },
+      {
+        "label": "Benefits",
+        "text": "A powerful protection stone, Black Onyx absorbs and transforms negative energy, and helps to prevent the drain of personal energy."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "blue-cloisonne-jewelry",
+    "name": "Blue Cloisonne",
+    "meaning": "Refined enamel artistry",
+    "img": "img/stones/italian-jewelry-blue-cloisonne.webp",
+    "postSlug": "blue-cloisonne-jewelry",
+    "external": false,
+    "title": "Blue Cloisonné is not decoration. It’s control.",
+    "sub": "Blue Cloisonné is man-made craftsmanship, not a natural stone. It’s created by shaping thin metal wires.",
+    "intro": [
+      {
+        "label": "",
+        "text": "This bracelet carries that legacy forward. The enamel surfaces are smooth, luminous, and framed by fine metal lines that give depth and definition. The result is balance: color with restraint, elegance without excess."
+      },
+      {
+        "label": "",
+        "text": "Cloisonné has always been worn by those who understand detail. It doesn’t shout. It holds presence."
+      },
+      {
+        "label": "",
+        "text": "The colors don’t fade into noise — they stay sharp, clean, and architectural, like stained glass shaped by discipline rather than ornament. Each bracelet is crafted in Italy, in the heart of Rome. Every bead is individually checked for symmetry, clarity, and finish. No shortcuts. No visual compromises. Only pieces that meet a precise standard make it through."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5-6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "blue-lace-agate-jewelry",
+    "name": "Blue Lace Agate",
+    "meaning": "Gentle, honest communication",
+    "img": "img/stones/italian-jewelry-blue-lace-agate.webp",
+    "postSlug": "blue-lace-agate-jewelry",
+    "external": false,
+    "title": "Blue Lace Agate is a rare kind of stone",
+    "sub": "It has blue and white banding patterns throughout.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Blue Lace Agate is a type of Agate that has blue and white banding patterns throughout. Blue Lace Agate is a rare kind of stones, causing it to be most expensive than most stones. Blue Lace Agate is especially hard."
+      },
+      {
+        "label": "",
+        "text": "Provenance: Africa"
+      },
+      {
+        "label": "Benefits",
+        "text": "Blue Lace Agate is the Birthstone of Gemini (May 21 to June 21). This zodiac sign is often connected with Blue Lace. Its soothing vibrations are very good for any Geminis who are nervous or shy. It also enhances the Gemini traits of affectionate, loving, and curious natures."
+      }
+    ],
+    "stats": [
+      {
+        "value": "2,5-4/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "blue-sandstone-jewelry",
+    "name": "Blue Sandstone",
+    "meaning": "Ambition under a night sky",
+    "img": "img/stones/italian-jewelry-blue-sandstone.webp",
+    "postSlug": "blue-sandstone-jewelry",
+    "external": false,
+    "title": "Blue Sandstone",
+    "sub": "Precision, not nature. Blue Sandstone is not a natural stone. And that’s exactly why it works.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Often misrepresented, Blue Sandstone is a man-made glass, also known as aventurine glass, created by suspending copper particles inside molten glass. The sparkle isn’t random. It’s engineered. Controlled. Repeatable."
+      },
+      {
+        "label": "Provenance",
+        "text": "Abalone shells are sustainably sourced from The technique originates in Italy, traditionally attributed to Venetian glassmakers working between the 17th and 18th centuries. Through experimentation with high-temperature furnaces, they discovered that adding copper particles to molten glass would create a deep, luminous sparkle once cooled."
+      },
+      {
+        "label": "Why wear Blue Sandstone?",
+        "text": "Because not everything valuable comes from the ground. Because design can be intentional without pretending to be natural. Because control is its own form of luxury."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "blue-striped-onyx-agate",
+    "name": "Blue Striped Onyx Agate",
+    "meaning": "Grounded balance and resolve",
+    "img": "img/stones/italian-jewelry-blue-striped-onyx-agate.webp",
+    "postSlug": "blue-striped-onyx-agate",
+    "external": false,
+    "title": "Blue Striped Onyx Agate",
+    "sub": "Structure. Depth. Controlled strength. Blue Striped Onyx Agate is a stone defined by order.",
+    "intro": [
+      {
+        "label": "",
+        "text": "This is a stone chosen by people who appreciate structure. It doesn’t shout. It anchors."
+      },
+      {
+        "label": "",
+        "text": "Every bead reveals a slightly different pattern. No repetition. No symmetry forced by machines. What you see is geological timing — millions of years compressed into clean, wearable form."
+      },
+      {
+        "label": "",
+        "text": "Our Blue Striped Onyx Agate bracelets are crafted in Italy, in Rome. Each stone is individually inspected for clarity, band definition, and surface quality. Only balanced pieces make the cut. No fillers. No shortcuts."
+      },
+      {
+        "label": "Provenance",
+        "text": "Agate mines are found almost everywhere in the world. But some of the more important mines are found in USA, Russia, Europe and Canada."
+      },
+      {
+        "label": "Benefits",
+        "text": "It is thought to bring balance and self control. It is perfect for people under extreme mental or emotional stress."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "blue-tigers-eye",
+    "name": "Blue Tiger's Eye",
+    "meaning": "Calm clarity and patience",
+    "img": "img/stones/italian-jewelry-blue-tigers-eye.webp",
+    "postSlug": "blue-tigers-eye",
+    "external": false,
+    "title": "Blue Tiger's Eye also known as Falcon’s Eye",
+    "sub": "A blue-gray to blue-green opaque gemstone variety of fibrous quartz.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Hawk’s Eye, also known as Falcon’s Eye, is a blue-gray to blue-green opaque gemstone variety of fibrous quartz."
+      },
+      {
+        "label": "",
+        "text": "More specifically, it is a variety of macrocrystalline quartz. The fine layers of Quartz crystals within Hawk’s Eye reflect light and give the stone its characteristic silky sheen. Hawk’s Eye is also known as Blue Tiger Eye, Falcon’s Eye, Rodusite and Silicified Crocidolite."
+      },
+      {
+        "label": "Provenance",
+        "text": "The most important source of stone is South Africa, but it is also found in India, Myanmar, Sri Lanka, Western Australia, Brazil and California."
+      },
+      {
+        "label": "Benefits",
+        "text": "The healing properties of the Hawk’s Eye are assessed to cure the fractures in addition to the muscle cramps. The stone is believed to strengthen the heart to deal with the distressing emotions and gather the courage to deal with the emotional ups and downs of the life."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "blue-topaz",
+    "name": "Blue Topaz",
+    "meaning": "Wisdom, honesty and truth",
+    "img": "img/stones/italian-jewelry-blue-topaz.webp",
+    "postSlug": "blue-topaz",
+    "external": false,
+    "title": "Blue Topaz Bracelets: Natural faceted blue topaz",
+    "sub": "Topaz has been worn since ancient Greece as a symbol of truth and focus, believed to sharpen intuition and protect from negativity.",
+    "intro": [
+      {
+        "label": "Provenance",
+        "text": "Topaz is found in select regions known for their geological purity and brilliance — primarily Brazil, Sri Lanka, Pakistan, and Russia, with notable European deposits in Italy and the Czech Republic. Each origin gives a slightly different hue: Brazilian stones often carry vivid blue tones, while Russian and Italian topaz reveal subtle, icy clarity. The blue topaz used in our bracelets is carefully selected for its luminosity and clean crystal structure — hand-inspected before being set into silver and matched with onyx in our Roman workshop."
+      },
+      {
+        "label": "Symbolism & Benefits",
+        "text": "For centuries, topaz has been regarded as a stone of clarity, focus, and emotional stability. It’s often worn by those who lead, decide, and create — people who carry responsibility and need to stay clear-minded under pressure. Key properties attributed to blue topaz: Clarity of thought – said to sharpen intellect and communication. Calm confidence – helps maintain composure and serenity in demanding situations. Emotional balance – believed to dissipate tension and promote trust."
+      }
+    ],
+    "stats": [
+      {
+        "value": "8/10",
+        "label": "Mohs Hardness"
+      },
+      {
+        "value": "Topaz",
+        "label": "second to sapphire and diamond"
+      }
+    ]
+  },
+  {
+    "slug": "botswana-agate",
+    "name": "Botswana Agate",
+    "meaning": "Comfort, warmth and resilience",
+    "img": "https://www.printeurope.pro/wp-content/uploads/2024/11/natural-botswana-bracelet-necklace.avif",
+    "postSlug": "botswana-agate",
+    "external": false,
+    "title": "Botswana Agate",
+    "sub": "Meticulously handcrafted into a timeless Botswana bracelet handmade in Rome.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Named for the area in Africa where it is mined, Botswana Agate is called the Sunset Stone because it retains sunlight and comforts people through dark, lonely nights."
+      },
+      {
+        "label": "",
+        "text": "The volcanic activity that produced these lovely stones dates back nearly 187 million years ago, and though the igneous stones of Botswana began as volcanic flow, they did not originate from normal, mountainous volcanoes."
+      },
+      {
+        "label": "",
+        "text": "Rather the lava flowed in waves from long faults along the lower rock layers and rolled across the landscape, depositing layer upon layer of Silica/Quartz, creating the extra fine banding and patterns which make Botswana Agates highly unique and desirable."
+      },
+      {
+        "label": "Provenance",
+        "text": "No surprise here… Botswana."
+      },
+      {
+        "label": "Benefits",
+        "text": "it is comforting and protective, soothing to those who are lonely, easily hurt or grieve a loss."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "chrysanthemum-fossil-coral",
+    "name": "Chrysanthemum Fossil Coral",
+    "meaning": "A rare bloom of good fortune",
+    "img": "img/stones/italian-jewelry-chrysanthemum-fossil-coral.webp",
+    "postSlug": "chrysanthemum-fossil-coral",
+    "external": false,
+    "title": "Chrysanthemum also known as Fossil Coral is a natural type of gemstone formed by ancient corals.",
+    "sub": "The proper name for fossil coral is ‘agatized coral’ or ‘agatized fossil coral’, because during formation, the coral remains are gradually replaced with agate, a variety of naturally occurring chalcedony, or microcrystalline quartz.",
+    "intro": [
+      {
+        "label": "",
+        "text": "When prehistoric corals are fossilized through replacement with agate, the fossil coral forms through hardened deposits left by silica-rich waters. The entire process can take over 20 million years and occurs only under very unique geological conditions."
+      },
+      {
+        "label": "",
+        "text": "Corals are marine animals and it is their skeletons that are fossilized and preserved, often leaving flower-like patterns in the stone."
+      },
+      {
+        "label": "",
+        "text": "The oldest coral fossils are over 500 million years old. The earliest forms were different from those we see today and they died out 225 million years ago. Modern corals are still common in tropical oceans. These are solitary corals from the Jurassic and Cretaceous periods. Chrysanthemum can be color enhanced."
+      },
+      {
+        "label": "Provenance",
+        "text": "Indonesia, USA (Florida and Georgia)."
+      },
+      {
+        "label": "Benefits",
+        "text": "Coral represents diplomacy and concurrence. It quiets the emotions and brings peace to within the self. Facilitates intuition, imagination and visualisation."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "coffee",
+    "name": "Coffee Striped Agate",
+    "meaning": "Earthy grounding and warmth",
+    "img": "img/stones/italian-jewelry-coffee-striped-agate.webp",
+    "postSlug": null,
+    "external": true,
+    "title": "Coffee Striped Agate Jewelry",
+    "sub": "Agate is the name given to numerous varieties of banded Chalcedony, a mineral of the Quartz family.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Its name comes from the Achetes River in Sicily, where Agates were first found."
+      },
+      {
+        "label": "",
+        "text": "Usually banded in layers, or stripes, some varieties have “eye” markings, or specks of color, some have fossilized inclusions, and others are solid."
+      },
+      {
+        "label": "Provenance",
+        "text": "Brasil, Minnesota USA."
+      },
+      {
+        "label": "Benefits",
+        "text": "It cleanses and stabilizes the aura, eliminating and transforming negativity. Agate enhances mental function, improving concentration, perception and analytical abilities. It soothes and calms, healing inner anger or tension and creates a sense of security and safety."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "raw-blue-diamonds",
+    "name": "Diamonds",
+    "meaning": "Eternal, unbreakable brilliance",
+    "img": "img/stones/italian-jewelry-diamonds.webp",
+    "postSlug": "raw-blue-diamonds",
+    "external": false,
+    "title": "Raw Blue Diamond",
+    "sub": "Born 3 billion years underground Uncut chips, Mohs 10. Natural blue-grey hue from trace elements formed over billions of years. No two alike.",
+    "intro": [
+      {
+        "label": "Provenance",
+        "text": "Rough diamonds form between 150 and 200 kilometres beneath the earth's surface, under pressures so extreme that carbon atoms have no choice but to lock into the hardest structure in nature. They travel to the surface carried by volcanic eruptions (kimberlite pipes) events so rare they happen once every few million years. What arrives is not polished. It is not pretty in the conventional sense. It is raw evidence of the planet doing something extraordinary."
+      },
+      {
+        "label": "Benefits",
+        "text": "Across cultures and centuries, these stones have been worn with intention, not as decoration, but as armour, anchor, and amplifier."
+      }
+    ],
+    "stats": [
+      {
+        "value": "10/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "gibeon-meteorite-ferro-nichel",
+    "name": "Gibeon Meteorite",
+    "meaning": "Forged among the stars",
+    "img": "img/stones/italian-jewelry-gibeon-meteorite.webp",
+    "postSlug": "gibeon-meteorite-ferro-nichel",
+    "external": false,
+    "title": "Gibeon Meteorite",
+    "sub": "Not the sky but the universe is the limit! Gibeon meteorite, created over 4 billion years ago.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Our Gibeon meteorite bracelet is perfect for anyone who appreciates the beauty and mystery of the universe. It comes in a stylish gift box, making it an ideal present for a loved one or a unique addition to your own jewelry collection."
+      },
+      {
+        "label": "Provenance",
+        "text": "Gibeon Namibia"
+      }
+    ],
+    "stats": [
+      {
+        "value": "4-5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "green-jade",
+    "name": "Green Jade",
+    "meaning": "Harmony, luck and serenity",
+    "img": "img/stones/italian-jewelry-green-jade.webp",
+    "postSlug": "green-jade",
+    "external": false,
+    "title": "Green Jade Bracelets: Deep emerald to light celadon green",
+    "sub": "Wearing green jade is more than aesthetic... it’s a statement of discipline, prosperity, and inner peace.",
+    "intro": [
+      {
+        "label": "Provenance",
+        "text": "Authentic green jade comes mainly from Myanmar (Burma), China, Guatemala, and New Zealand. The two mineral types — jadeite and nephrite — share the same name but differ in rarity and texture. For luxury jewelry, we use jadeite, valued for its luminous translucence and vivid tone. Each jade bead is hand-selected for uniformity of color and surface integrity, then cut and polished in Italy, where precision meets timeless design. The deep green tone complements silver details and darker stones like obsidian or onyx, creating a sophisticated balance between nature and craftsmanship."
+      },
+      {
+        "label": "Symbolism & Benefits",
+        "text": "Green jade has been worn for thousands of years as a symbol of peace, prosperity, and emotional intelligence. It was revered by Chinese emperors as the “Stone of Heaven,” and by Mesoamerican artisans as a sacred material representing life energy and purity."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      },
+      {
+        "value": "(NaAlSi₂O₆)",
+        "label": "Jadeite"
+      }
+    ]
+  },
+  {
+    "slug": "grey-map-jasper-bracelets",
+    "name": "Grey Map Jasper",
+    "meaning": "The traveller's grounding stone",
+    "img": "img/stones/italian-jewelry-grey-map-jasper.webp",
+    "postSlug": "grey-map-jasper-bracelets",
+    "external": false,
+    "title": "Grey Map Jasper bracelets a variety of Chalcedony.",
+    "sub": "Its name is derived from the Latin ‘iaspidem’, or the Old French ‘jaspre’.",
+    "intro": [
+      {
+        "label": "",
+        "text": "The name Jasper means spotted or speckled stone. This is because it sometimes has mineral, ash, or sediment material."
+      },
+      {
+        "label": "Provenance",
+        "text": "Jasper Stone is found all over the world, but most comes from India and Australia."
+      },
+      {
+        "label": "Benefits",
+        "text": "The Jasper Stone is known as the Nurturing Stone. Having it in your life will feel like having a best friend by your side because it will sustain you during times of stress. It will bring you peacefulness, happiness, and completeness. It will give your confidence a boost, and it will get rid of all your irrational fears. Jasper Stone has often be said to be associated with good blood flow, with the season of autumn, and with a sense of inner grounding."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "hematite",
+    "name": "Hematite",
+    "meaning": "Grounding, focus and stability",
+    "img": "img/stones/italian-jewelry-hematite.webp",
+    "postSlug": "hematite",
+    "external": false,
+    "title": "Hematite has been prized by many cultures",
+    "sub": "In Ancient Rome, hematite was a popular stone for decorative purposes.",
+    "intro": [
+      {
+        "label": "",
+        "text": "For thousands of years, Hematite has been prized by many cultures. The Egyptians used hematite to calm anxiety. The famous Greek physician/philosopher, Aelius Galenus used it to treat eye infections and as a cure for headaches. Roman soldiers believed that when hematite was rubbed all over their bodies it provided protection during battle."
+      },
+      {
+        "label": "",
+        "text": "Legend has it that, blood spilled at these ancient Roman battles saturated the ground and seeped into the earth creating this “blood” stone. Native Americans also believed that war paint made from hematite would make one invincible in combat."
+      },
+      {
+        "label": "",
+        "text": "The Hematite properties and uses are very grounding, stabilizing and protective, making it one of the most powerful crystals for meditation."
+      },
+      {
+        "label": "Provenance",
+        "text": "Gray hematite is typically found in places that can have still standing water or mineral hot springs, such as those in Yellowstone National Park in North America. The spectral signature of hematite was seen on the planet Mars by the infrared spectrometer on the NASA Mars Global Surveyor (“MGS”) and 2001 Mars Odyssey spacecraft in orbit around Mars."
+      },
+      {
+        "label": "Benefits",
+        "text": "Hematite calms in times of stress or worry. It also helps to absorb negative energy. Hematite helps with mental organization, balancing energy, enhancing memory and increasing intuition as well as boosts the wearer’s self-esteem."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5,5-6,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "howlite-jewelry",
+    "name": "Howlite",
+    "meaning": "Patience and a quiet mind",
+    "img": "img/stones/italian-jewelry-howlite.webp",
+    "postSlug": "howlite-jewelry",
+    "external": false,
+    "title": "Howlite is purity as in Carrara marble",
+    "sub": "Meticulously handcrafted into a timeless Howlite bracelet handmade in Rome.",
+    "intro": [
+      {
+        "label": "",
+        "text": "These designs are for people who recognize materials before brands. For those who know the difference between something that looks white and something that looks valuable."
+      },
+      {
+        "label": "",
+        "text": "Cheap white beads are flat and lifeless. Howlite, when selected properly, has depth, movement, and character—just like stone cut from a quarry, not poured from a mold."
+      },
+      {
+        "label": "Provenance",
+        "text": "Canada"
+      },
+      {
+        "label": "Benefits",
+        "text": "It teaches patience and helps to eliminate rage, pain and stress. A calming stone, Howlite calms communication, facilitates awareness and encourages emotional expression. Howlite balances calcium levels in the body. It aids teeth, bones and soft tissue."
+      }
+    ],
+    "stats": [
+      {
+        "value": "3,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "kyanite-jewelry",
+    "name": "Kyanite",
+    "meaning": "Alignment and effortless flow",
+    "img": "img/stones/italian-jewelry-kyanite.webp",
+    "postSlug": "kyanite-jewelry",
+    "external": false,
+    "title": "Kyanite doesn’t pretend to be something else",
+    "sub": "Only well-cut, stable Kyanite makes it into our bracelets.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Every Kyanite bracelet is naturally unique. Variations in tone, striation, and depth are not defects — they’re geological fingerprints."
+      },
+      {
+        "label": "Provenance",
+        "text": "Austria, Burma, Brazil, Cambodia, India, Kenya, Myanmar, Nepal, Russia, Serbia, Switzerland, Tanzania, the United States (Connecticut, Pennsylvania, North Carolina and Georgia) and Zimbabwe."
+      },
+      {
+        "label": "Benefits",
+        "text": "Because order comes from alignment, not control. Because raw materials age better than trends. Because confidence doesn’t need polish."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6-7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "labradorite-jewelry",
+    "name": "Labradorite",
+    "meaning": "Magic, mystery and transformation",
+    "img": "img/stones/italian-jewelry-labradorite.webp",
+    "postSlug": "labradorite-jewelry",
+    "external": false,
+    "title": "Labradorite is a feldspar mineral",
+    "sub": "It has a peculiar reflection of the light from submicroscopical planes.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Only beads with strong, clean labradorescence make it through inspection. Each bead is checked under direct and angled light to verify depth, color response, and surface integrity. No dull pieces. No compromises."
+      },
+      {
+        "label": "Provenance",
+        "text": "The geological type area for labradorite is Paul’s Island near the town of Nain in Labrador, Canada. It has also been reported in Norway, Finland and various other locations worldwide."
+      },
+      {
+        "label": "Benefits",
+        "text": "Why wear Labradorite? Because subtlety beats shine. Because mystery ages better than exposure. Because presence doesn’t announce itself."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "lapis-lazuli-jewelry",
+    "name": "Lapis Lazuli",
+    "meaning": "Truth, royalty and wisdom",
+    "img": "img/stones/italian-jewelry-lapis-lazuli.webp",
+    "postSlug": "lapis-lazuli-jewelry",
+    "external": false,
+    "title": "Lapis Lazuli",
+    "sub": "Blue with authority Lapis Lazuli is not just blue. It’s decisive blue.",
+    "intro": [
+      {
+        "label": "",
+        "text": "The distribution of pyrite, the depth of blue, the internal texture — no two stones are the same. That variation is not noise. It’s authenticity."
+      },
+      {
+        "label": "Provenance",
+        "text": "Afghanistan, Russia, Chile, Italy, Mongolia, USA, Canada."
+      },
+      {
+        "label": "Benefits",
+        "text": "Why wear Lapis Lazuli? Because strong color signals certainty. Because restraint beats excess. Because timeless materials outlast trends."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "larimar-jewelry",
+    "name": "Larimar",
+    "meaning": "Tranquil Caribbean seas",
+    "img": "img/stones/italian-jewelry-larimar.webp",
+    "postSlug": "larimar-jewelry",
+    "external": false,
+    "title": "Larimar",
+    "sub": "Calm under pressure Larimar doesn’t shout for attention. It holds it.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Soft blues, white clouds, slow movement inside the stone."
+      },
+      {
+        "label": "Provenance",
+        "text": "Domincan Republic."
+      },
+      {
+        "label": "Why wear Larimar?",
+        "text": "Because calm is strength. Because clarity beats noise. Because confidence doesn’t need dark colors to feel solid."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "lava-stone-jewelry",
+    "name": "Lava Stone",
+    "meaning": "Raw strength and stability",
+    "img": "img/stones/italian-jewelry-lava-stone.webp",
+    "postSlug": "lava-stone-jewelry",
+    "external": false,
+    "title": "Lava Stone",
+    "sub": "Born from force. Worn with restraint. Lava stone doesn’t come from decoration. It comes from eruption.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Its texture is the point. Micro-porous, lightweight, tactile. It absorbs light instead of reflecting it, which gives the bracelet a grounded, architectural presence. This is why lava stone works so well in serious design: it anchors everything around it."
+      },
+      {
+        "label": "Provenance",
+        "text": "Italy (Mount Etna), Indonesia (Java and Bali ), Iceland, Mexico."
+      },
+      {
+        "label": "Why wear lava stone?",
+        "text": "Because strength doesn’t need shine. Because raw materials age honestly. Because understatement is a discipline."
+      }
+    ],
+    "stats": [
+      {
+        "value": "3,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "lemurian",
+    "name": "Lemurian",
+    "meaning": "Ancient memory and wisdom",
+    "img": "img/lemurian/lemurian-stone.webp",
+    "postSlug": "lemurian",
+    "external": false,
+    "title": "Lemurian Bracelets: Minimalist Luxury with an Edge",
+    "sub": "Quiet luxury for people who know what elegance looks like — cut minimal, worn every day.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Transparent, opaque, soft blue, warm brown — Lemurian quartz carries every note in one stone. Ours is sourced directly from small mining operations in Brazil, the region long recognized as the true origin of authentic Lemurian crystals: natural striations, high clarity, no dye or treatment, no middlemen."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      },
+      {
+        "value": "SiO₂",
+        "label": "Silicon dioxide — pure quartz"
+      },
+      {
+        "value": "Brazil",
+        "label": "Serra do Cabral & Diamantina"
+      }
+    ]
+  },
+  {
+    "slug": "malachite-jewelry",
+    "name": "Malachite",
+    "meaning": "Protection and steady growth",
+    "img": "img/stones/italian-jewelry-malachite.webp",
+    "postSlug": "malachite-jewelry",
+    "external": false,
+    "title": "Malachite",
+    "sub": "Structure with consequence. Malachite is not subtle. And it’s not meant to be.",
+    "intro": [
+      {
+        "label": "",
+        "text": "This is a stone that shows its formation openly. Every line you see is geological time made visible. No two stones repeat the same pattern, yet all of them follow the same strict logic. That’s why Malachite feels architectural. It’s bold, but disciplined."
+      },
+      {
+        "label": "Provenance",
+        "text": "Australia, Brasil, Colombia, Congo, United States, France, Mexico, Namibia, Rusland."
+      },
+      {
+        "label": "Why wear Malachite?",
+        "text": "Because confidence allows color. Because structure doesn’t need neutrality. Because boldness is strongest when controlled."
+      }
+    ],
+    "stats": [
+      {
+        "value": "3,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "moonstone-jewelry",
+    "name": "Moonstone",
+    "meaning": "Intuition and new beginnings",
+    "img": "img/stones/italian-jewelry-moonstone.webp",
+    "postSlug": "moonstone-jewelry",
+    "external": false,
+    "title": "Moonstone",
+    "sub": "Light under control. Moonstone doesn’t shine. It moves.",
+    "intro": [
+      {
+        "label": "",
+        "text": "White, ivory, or pale grey on the surface, with flashes of blue or silver appearing only when the stone is cut and oriented correctly."
+      },
+      {
+        "label": "Provenance",
+        "text": "Sri Lanka, India, Madagascar, Myanmar (Burma)."
+      },
+      {
+        "label": "Why wear Moonstone?",
+        "text": "Because restraint creates presence. Because subtle materials age better than loud ones. Because confidence doesn’t need contrast."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "murano-venetian-glass-jewelry",
+    "name": "Murano Venetian Glass",
+    "meaning": "Italian glassblowing artistry",
+    "img": "img/stones/italian-jewelry-murano-venetian-glass.webp",
+    "postSlug": "murano-venetian-glass-jewelry",
+    "external": false,
+    "title": "Murano Venetian Glass",
+    "sub": "Fire, discipline, legacy. Murano glass is not “glass jewelry.” It’s controlled fire, shaped by centuries of discipline.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Murano glass has depth, not flat color. Light moves through it, not off it.Patterns are formed in heat, not printed later."
+      },
+      {
+        "label": "Provenance",
+        "text": "Venice Italy."
+      },
+      {
+        "label": "Why wear Murano glass?",
+        "text": "Because craftsmanship beats geology when done right. Because color deserves depth, not noise. Because heritage is strongest when it’s still practiced, not copied."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5-6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "obsidian-black-jewelry",
+    "name": "Obsidian Black",
+    "meaning": "A shield of truth",
+    "img": "img/stones/italian-jewelry-obsidian-black.webp",
+    "postSlug": "obsidian-black-jewelry",
+    "external": false,
+    "title": "Obsidian Black",
+    "sub": "Sharp by nature. It’s volcanic glass — formed when molten lava cools fast. No layers. No grain. Just a dense, mirror-like surface born from sudden force.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Quality selection matters. Inferior obsidian shows surface waves, micro-fractures, or dull polish. We reject all of it. Only dense, clean obsidian with uniform black tone and controlled gloss makes it through."
+      },
+      {
+        "label": "Provenance",
+        "text": "Argentina, Armenia, Azerbaijan, Australia, Canada, Chile, Georgia, Greece, El Salvador, Guatemala, Iceland, Italy, Japan, Kenya, Mexico, New Zealand, Papua New Guinea, Peru, Scotland, Turkey and the United States."
+      },
+      {
+        "label": "Why wear Black Obsidian?",
+        "text": "Because clarity cuts deeper than decoration. Because strength doesn’t need texture. Because minimalism only works when the material is real."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "obsidian-snowflake-jewelry",
+    "name": "Obsidian Snowflake",
+    "meaning": "Balance within the storm",
+    "img": "img/stones/italian-jewelry-obsidian-snowflake.webp",
+    "postSlug": "obsidian-snowflake-jewelry",
+    "external": false,
+    "title": "Obsidian Snowflake",
+    "sub": "Order inside chaos. Snowflake Obsidian is volcanic glass with a memory.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Like Black Obsidian, it forms from lava that cools instantly. But here, something different happens: microscopic crystals of cristobalite begin to organize inside the glass as it cools. The result is the signature “snowflake” pattern — light shapes suspended in deep black."
+      },
+      {
+        "label": "Provenance",
+        "text": "Argentina, USA."
+      },
+      {
+        "label": "Why wear Snowflake Obsidian?",
+        "text": "Because balance matters. Because contrast creates clarity. Because discipline is stronger than noise."
+      }
+    ],
+    "stats": [
+      {
+        "value": "5,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "opal-jewelry",
+    "name": "Opal",
+    "meaning": "Inspiration, light and play",
+    "img": "img/stones/italian-jewelry-opal.webp",
+    "postSlug": "opal-jewelry",
+    "external": false,
+    "title": "Opal is classified as an organic gemstone",
+    "sub": "Opals exhibits a range of colors and patterns, making them highly valued in jewelry.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Opal isn’t a color. It’s shifting flashes of fire, blue, green, and gold, can’t be replicated by any other gemstone."
+      },
+      {
+        "label": "Provenance",
+        "text": "Australia (Lightning Ridge, Coober Pedy and Queensland), Ethiopia and Mexico."
+      },
+      {
+        "label": "Why Wear Opal?",
+        "text": "Because nothing else looks like it. It signals taste, not trend. It’s light, elegant, and expressive."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "pearl",
+    "name": "Pearls",
+    "meaning": "Purity, poise and grace",
+    "img": "img/stones/italian-jewelry-pearls.webp",
+    "postSlug": "pearl",
+    "external": false,
+    "title": "Pearl Bracelets: pearls aren’t just decorative",
+    "sub": "They shift how you carry yourself.",
+    "intro": [
+      {
+        "label": "Provenance: Where Real River Pearls Come From",
+        "text": "Authentic river pearls don’t come from industrial farms or mass-production systems. They come from freshwater rivers where the mussel grows naturally and slowly. Every pearl forms over years, layer after layer, building its body one microscopic sheet at a time. This slow growth creates the organic shapes, the soft luster, and the irregular beauty that cultured saltwater pearls can’t copy. When I use river pearls in my Made in Italy pieces, I’m working with materials that carry geography and history in their surface — they aren’t just “beads”; they are geological time made wearable."
+      },
+      {
+        "label": "Why Wearing River Pearls Matters",
+        "text": "River pearls aren’t just decorative. They shift how you carry yourself. Here’s what people actually feel when they wear them: Calming presence: The soft, organic energy of freshwater pearls promotes tranquility and emotional balance. People wear them when they want clarity instead of chaos. Grounding elegance: They don’t scream for attention. They sit close to the skin and give a quiet confidence — the type of elegance people notice without you trying. Natural connection: River pearls remind you that true beauty comes from nature, not machines. They attract people who are tired of the artificial and want something real. Daily-wear comfort: Freshwater pearls are lightweight, skin-friendly, and never overpowering. They become part of you, not an accessory you need to “manage.” In short: river pearls make you look refined without being performative."
+      }
+    ],
+    "stats": [
+      {
+        "value": "4,5/10",
+        "label": "Mohs Hardness"
+      },
+      {
+        "value": "River Pearl",
+        "label": "softer than stones, harder than chalk"
+      }
+    ]
+  },
+  {
+    "slug": "peridot",
+    "name": "Peridot",
+    "meaning": "Renewal and quiet abundance",
+    "img": "img/stones/italian-jewelry-peridot.webp",
+    "postSlug": "peridot",
+    "external": false,
+    "title": "Experience the radiance of Peridot",
+    "sub": "Meticulously handcrafted into a timeless Peridot bracelet handmade in Rome.",
+    "intro": [
+      {
+        "label": "Provenance",
+        "text": "Our peridot is ethically sourced from volcanic regions, ensuring only the highest quality stones. This Roman-made piece marries traditional Italian craftsmanship with nature’s brilliance."
+      },
+      {
+        "label": "Benefits",
+        "text": "- Help reduce stress and anger - Restore balance and clarity - Promote emotional healing and inner peace. Let this bracelet be your daily reminder of serenity and renewal."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "phantom-quartz-jewelry",
+    "name": "Phantom Quartz",
+    "meaning": "Growth layered over time",
+    "img": "img/stones/italian-jewelry-phantom-quartz.webp",
+    "postSlug": "phantom-quartz-jewelry",
+    "external": false,
+    "title": "Phantom Quartz is quartz that remembers its own growth.",
+    "sub": "Inside the crystal, you see shadows of earlier formations — outlines of past stages trapped within the stone itself.",
+    "intro": [
+      {
+        "label": "",
+        "text": "These “phantoms” are not cracks, stains, or treatments. They are growth interruptions, sealed and continued over time."
+      },
+      {
+        "label": "Provenance",
+        "text": "Austria, Brazil, Madagascar, Switzerland, and the United States."
+      },
+      {
+        "label": "Why wear Phantom Quartz?",
+        "text": "Because progress isn’t linear. Because strength comes from layers, not shortcuts. Because depth beats surface perfection."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "picasso-jasper-jewelry",
+    "name": "Picasso Jasper",
+    "meaning": "Creative, grounded focus",
+    "img": "img/stones/italian-jewelry-picasso-jasper.webp",
+    "postSlug": "picasso-jasper-jewelry",
+    "external": false,
+    "title": "Picasso Jasper",
+    "sub": "Designed by pressure Picasso Jasper looks intentional because it is.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Sharp lines, abstract forms, contrasts that feel sketched rather than grown. But nothing here is painted, printed, or engineered. These patterns are the result of mineral movement under pressure."
+      },
+      {
+        "label": "Provenance",
+        "text": "Madagascar, United States (California), Mexico."
+      },
+      {
+        "label": "Why wear Picasso Jasper?",
+        "text": "Because structure survives chaos. Because clarity often comes after fracture. Because discipline shows even in complexity."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "picture-jasper",
+    "name": "Picture Jasper",
+    "meaning": "Looking into the Earth",
+    "img": "img/picture-jasper-tridacna-bracelet-08mm/italian-jewelry-picture-jasper-tridacna-bracelet-08mm-IMG_3250-ac-kl-copia.webp",
+    "postSlug": null,
+    "external": false,
+    "title": "Picture jasper is like looking into the Earth.",
+    "sub": "Picture Jasper is a brown colored jasper with a mixture of tans, browns, cream, and grey.",
+    "intro": [
+      {
+        "label": "",
+        "text": "It empowers your inner Earth energy, to go to places or times in the past. Connect yourself to sacred places. It is a very good stone to use when you are working with dreams or visioning."
+      }
+    ],
+    "stats": []
+  },
+  {
+    "slug": "red-carnelian-jewelry",
+    "name": "Red Carnelian",
+    "meaning": "Vitality, courage and drive",
+    "img": "img/stones/italian-jewelry-red-carnelian.webp",
+    "postSlug": "red-carnelian-jewelry",
+    "external": false,
+    "title": "Red Carnelian",
+    "sub": "Heat with discipline. Red Carnelian is not subtle, and it’s not trying to be.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Its color comes from iron-rich silica, formed slowly, then intensified by natural heat in the earth."
+      },
+      {
+        "label": "Provenance",
+        "text": "Indonesia, Brazil, India, Russia (Siberia), and Germany."
+      },
+      {
+        "label": "Why wear Red Carnelian?",
+        "text": "Because energy doesn’t need noise. Because warmth can be controlled. Because strength doesn’t have to be dark."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "red-garnet-jewelry",
+    "name": "Red Garnet",
+    "meaning": "Passion and devotion",
+    "img": "img/stones/italian-jewelry-red-garnet.webp",
+    "postSlug": "red-garnet-jewelry",
+    "external": false,
+    "title": "Red Garnet",
+    "sub": "Density over display. Red Garnet doesn’t glow. It holds weight.",
+    "intro": [
+      {
+        "label": "",
+        "text": "This is a mineral formed under intense pressure. Garnet crystals grow dense, not flashy. That density is exactly why good Garnet feels serious."
+      },
+      {
+        "label": "Provenance",
+        "text": "Brazil, India, Madagascar, Sri Lanka and the USA. Smaller deposits exist in Austria and the Czech Republic."
+      },
+      {
+        "label": "Why wear Red Garnet?",
+        "text": "Because depth beats shine. Because intensity doesn’t need brightness. Because authority is quiet."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "rhyolite-jewelry",
+    "name": "Rhyolite",
+    "meaning": "Change met with resolve",
+    "img": "img/stones/italian-jewelry-rhyolite.webp",
+    "postSlug": "rhyolite-jewelry",
+    "external": false,
+    "title": "Rhyolite",
+    "sub": "Volcanic complexity, controlled. Rhyolite is volcanic rock that refuses simplicity.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Formed from silica-rich lava, it cools slower than basalt, allowing minerals to separate, flow, and reorganize. The result is layered color, mottled texture, and complex patterning that looks almost engineered — but isn’t."
+      },
+      {
+        "label": "Provenance",
+        "text": "France, Germany, Andes, Yellowstone, New Zealand, India."
+      },
+      {
+        "label": "Why wear Rhyolite?",
+        "text": "Because complexity can be calm. Because structure doesn’t have to be minimal. Because natural systems outperform forced design."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "rose-quartz-jewelry",
+    "name": "Rose Quartz",
+    "meaning": "Unconditional, gentle love",
+    "img": "img/stones/italian-jewelry-rose-quartz.webp",
+    "postSlug": "rose-quartz-jewelry",
+    "external": false,
+    "title": "Rose Quartz",
+    "sub": "Strength without noise. Rose Quartz is carrying color through iron and titanium traces locked into the crystal.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Good Rose Quartz has a milky depth, not transparency. Light enters and diffuses slowly, giving the stone a calm, solid presence."
+      },
+      {
+        "label": "Provenance",
+        "text": "Madagascar, India, Germany, South Dakota USA, Brazil."
+      },
+      {
+        "label": "Why wear Rose Quartz?",
+        "text": "Because confidence doesn’t need darkness. Because calm is not weakness. Because presence can be quiet."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "rutilated-quartz-jewelry",
+    "name": "Rutilated Quartz",
+    "meaning": "Threads of golden illumination",
+    "img": "img/stones/italian-jewelry-rutilated-quartz.webp",
+    "postSlug": "rutilated-quartz-jewelry",
+    "external": false,
+    "title": "Rutilated Quartz",
+    "sub": "Order pierced by light. Rutilated Quartz is quartz interrupted — deliberately.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Inside the crystal, fine needles of rutile grow in straight, angular lines, cutting through the clear body like metal under glass. These inclusions are not defects. They are the entire point."
+      },
+      {
+        "label": "Provenance",
+        "text": "Australia, Brazil, Kazakhstan, Madagascar, Norway, Pakistan and the United States."
+      },
+      {
+        "label": "Why wear Rutilated Quartz?",
+        "text": "Because clarity doesn’t mean emptiness. Because strength shows through contrast. Because complexity can be disciplined."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "sea-sediment-jasper-jewelry",
+    "name": "Sea Sediment Jasper",
+    "meaning": "Calm and shifting tides",
+    "img": "img/stones/italian-jewelry-sea-sediment-jasper.webp",
+    "postSlug": "sea-sediment-jasper-jewelry",
+    "external": false,
+    "title": "Sea Sediment Jasper",
+    "sub": "Controlled color. Honest craftsmanship. Stabilized sea sediment jasper, a material created by compressing natural sedimentary stone and reinforcing it for long-term stability",
+    "intro": [
+      {
+        "label": "",
+        "text": "Sea Sediment Jasper: The blue and red tones are intentionally enhanced. They are not the result of geological coincidence, but of controlled treatment to achieve balance, contrast, and repeatable quality."
+      },
+      {
+        "label": "Why choose this bracelet?",
+        "text": "Because transparency matters. Because design doesn’t need myths to be valuable. Because craftsmanship and honesty age better than exaggeration."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "sodalite-jewelry",
+    "name": "Sodalite",
+    "meaning": "Logic balanced with intuition",
+    "img": "img/stones/italian-jewelry-sodalite.webp",
+    "postSlug": "sodalite-jewelry",
+    "external": false,
+    "title": "Sodalite",
+    "sub": "Blue, stripped of excess. Deep navy tones cut by sharp white calcite veins. No sparkle. No surface tricks. Just contrast, structure, and restraint.",
+    "intro": [
+      {
+        "label": "",
+        "text": "This is a stone chosen by people who prefer clarity over gloss. The blue is dense and matte, closer to ink or midnight stone than anything polished or flashy."
+      },
+      {
+        "label": "Provenance",
+        "text": "USA, Namibia, Canada, Russia, Greenland."
+      },
+      {
+        "label": "Why wear Sodalite?",
+        "text": "Because discipline outlasts noise. Because contrast creates order. Because depth doesn’t need gloss."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "strawberry-quartz-jewelry",
+    "name": "Strawberry Quartz",
+    "meaning": "Joyful, warm-hearted love",
+    "img": "img/stones/italian-jewelry-strawberry-quartz.webp",
+    "postSlug": "strawberry-quartz-jewelry",
+    "external": false,
+    "title": "Strawberry Quartz",
+    "sub": "Color held in clarity. The color lives inside the crystal, not on the surface.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Good Strawberry Quartz shows depth and distribution. The inclusions are visible but controlled, floating rather than clumping."
+      },
+      {
+        "label": "Provenance",
+        "text": "Mexico, Africa, Russia."
+      },
+      {
+        "label": "Why wear Strawberry Quartz?",
+        "text": "Because warmth doesn’t need gloss. Because clarity makes color credible. Because subtle complexity lasts longer than bold effects."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "sunstone-jewelry",
+    "name": "Sunstone",
+    "meaning": "Warmth, leadership and light",
+    "img": "img/stones/italian-jewelry-sunstone.webp",
+    "postSlug": "sunstone-jewelry",
+    "external": false,
+    "title": "Sunstone",
+    "sub": "Light, disciplined. Sunstone doesn’t glitter. It radiates from within.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Tiny mineral platelets, usually copper or hematite, are locked inside the feldspar crystal. When light moves, those inclusions ignite a soft internal flash called aventurescence. Not surface sparkle. Structural glow."
+      },
+      {
+        "label": "Provenance",
+        "text": "United States (Oregon), India, Tanzania, Norway."
+      },
+      {
+        "label": "Why wear Sunstone?",
+        "text": "Because warmth doesn’t need excess. Because light is strongest when it’s controlled. Because presence can be subtle and still powerful."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6,5/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "swarovski-jewelry",
+    "name": "Swarovski",
+    "meaning": "Precision-cut radiance",
+    "img": "img/stones/italian-jewelry-swarovski.webp",
+    "postSlug": "swarovski-jewelry",
+    "external": false,
+    "title": "Swarovski",
+    "sub": "Precision, engineered. Swarovski is not a gemstone. It’s engineered crystal, perfected through precision, chemistry, and control.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Founded in Austria in 1895, Swarovski developed a proprietary method for cutting lead crystal with extreme accuracy. The result is a material that behaves differently from natural stone: sharper facets, higher brilliance, and absolute consistency."
+      },
+      {
+        "label": "Provenance",
+        "text": "Austria."
+      },
+      {
+        "label": "Why choose Swarovski?",
+        "text": "Because precision is a form of luxury. Because modern design doesn’t need myths. Because brilliance can be engineered honestly."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ],
+    "showProducts": false
+  },
+  {
+    "slug": "tigers-eye-jewelry",
+    "name": "Tiger's Eye",
+    "meaning": "Confidence, will and focus",
+    "img": "img/stones/italian-jewelry-tigers-eye.webp",
+    "postSlug": "tigers-eye-jewelry",
+    "external": false,
+    "title": "Tiger’s Eye",
+    "sub": "Movement with authority. Tiger’s Eye is defined by motion. Not shine. Not sparkle. Movement.",
+    "intro": [
+      {
+        "label": "",
+        "text": "When light hits the stone, a sharp band slides across the surface. That optical effect—chatoyancy—comes from fibrous structures locked inside the quartz. It’s structural, not decorative."
+      },
+      {
+        "label": "Provenance",
+        "text": "South Africa and Western Australia."
+      },
+      {
+        "label": "Why wear Tiger’s Eye?",
+        "text": "Because confidence is dynamic. Because control beats aggression. Because presence should respond, not shout."
+      }
+    ],
+    "stats": [
+      {
+        "value": "7/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "tridacna-jewelry",
+    "name": "Tridacna",
+    "meaning": "Purity and serene white",
+    "img": "img/stones/italian-jewelry-tridacna.webp",
+    "postSlug": "tridacna-jewelry",
+    "external": false,
+    "title": "Tridacna",
+    "sub": "Marine origin. Minimal presence.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Tridacna is not a gemstone. It’s shell, cut from the inner layer of the giant clam (Tridacna species). Dense, matte, and naturally white, with a soft grain that feels organic rather than polished."
+      },
+      {
+        "label": "Provenance",
+        "text": "Mediterranean Sea and Indo-Pacific Ocean."
+      },
+      {
+        "label": "Why wear Tridacna?",
+        "text": "Because restraint is powerful. Because not everything needs to sparkle. Because calm materials elevate strong design."
+      }
+    ],
+    "stats": [
+      {
+        "value": "4/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "turquoise-jewelry",
+    "name": "Turquoise",
+    "meaning": "Protection and ancient wisdom",
+    "img": "img/stones/italian-jewelry-turquoise.webp",
+    "postSlug": "turquoise-jewelry",
+    "external": false,
+    "title": "Turquoise",
+    "sub": "Color with lineage Turquoise is one of the few stones where color is identity.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Not surface color. Not treatment shine. Real turquoise carries its blue-green tone through the entire stone, shaped by copper-rich fluids binding mineral fragments over time."
+      },
+      {
+        "label": "Provenance",
+        "text": "Iran (Nishapur), United States (Arizona, Nevada), Mexico, China / Tibet."
+      },
+      {
+        "label": "Why wear Turquoise?",
+        "text": "Because real color doesn’t fade quietly. Because heritage matters when the material carries it. Because authenticity beats intensity."
+      }
+    ],
+    "stats": [
+      {
+        "value": "6/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  },
+  {
+    "slug": "turquoise-calsilica-jewelry",
+    "name": "Turquoise Calsilica",
+    "meaning": "Spirit of the desert",
+    "img": "img/stones/italian-jewelry-turquoise-calsilica.webp",
+    "postSlug": "turquoise-calsilica-jewelry",
+    "external": false,
+    "title": "Turquoise Calsilica",
+    "sub": "Color, stabilized by design. Turquoise Calsilica is not traditional turquoise.",
+    "intro": [
+      {
+        "label": "",
+        "text": "It’s a stabilized composite material, created by combining natural turquoise fragments with calcium-based minerals and silica, then compressing the mix into a dense, workable stone."
+      },
+      {
+        "label": "Why choose Turquoise Calsilica?",
+        "text": "Because durability matters. Because consistency can be intentional. Because transparency builds trust."
+      }
+    ],
+    "stats": [
+      {
+        "value": "4/10",
+        "label": "Mohs Hardness"
+      }
+    ]
+  }
 ]
