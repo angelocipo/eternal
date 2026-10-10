@@ -5,6 +5,11 @@
 
 const Stripe = require('stripe');
 const { PRICING, angoliArrotondatiPrice } = require('./_pricing-data');
+// Jewellery catalogue: the same file the product pages read, so the charged price always
+// matches the displayed one. Static require so Vercel bundles it with the function.
+const JEWELRY = require('../data/products.json');
+const JEWELRY_FREE_SHIPPING_FROM = 50;
+const JEWELRY_SHIPPING_FEE = 8;
 
 // Lazy init so a missing key returns a clean JSON error instead of crashing the
 // function at module load (newer stripe throws in the constructor when key is empty).
@@ -27,15 +32,30 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { productId, tierIndex, sizeIndex, formula, deliveryIndex, customer, shipping, sender, shippingFee, shippingZone, designRef, designFiles, designLink } = req.body || {};
-    const product = PRICING[productId];
+    const { productId, tierIndex, sizeIndex, formula, deliveryIndex, customer, shipping, sender, shippingZone, designRef, designFiles, designLink } = req.body || {};
+    let { shippingFee } = req.body || {};
+    const jewel = Array.isArray(JEWELRY) ? JEWELRY.find((p) => p.slug === productId) : null;
+    const product = jewel ? { type: 'jewelry' } : PRICING[productId];
     if (!product) {
       res.status(400).json({ error: 'Prodotto sconosciuto' });
       return;
     }
 
     let unitAmountCents, description;
-    if (product.type === 'formula') {
+    if (product.type === 'jewelry') {
+      const unit = Number(jewel.price);
+      if (!(unit > 0)) {
+        res.status(400).json({ error: 'Product not available for online purchase' });
+        return;
+      }
+      const qty = Math.max(1, Math.min(20, parseInt(req.body.qty, 10) || 1));
+      const opts = String(req.body.options || '').replace(/[<>]/g, '').slice(0, 200);
+      const total = unit * qty;
+      unitAmountCents = Math.round(total * 100);
+      description = `${jewel.name}${opts ? ' — ' + opts : ''}${qty > 1 ? ' ×' + qty : ''}`.slice(0, 250);
+      // Shipping is decided here too, never taken from the browser.
+      shippingFee = total >= JEWELRY_FREE_SHIPPING_FROM ? 0 : JEWELRY_SHIPPING_FEE;
+    } else if (product.type === 'formula') {
       const qty = Math.max(1, parseInt(formula?.qty, 10) || 1);
       const strutturaIdx = formula?.strutturaIdx === 1 ? 1 : 0;
       const rush = formula?.tempi === '24H' ? product.rate24h : 0;
@@ -376,7 +396,7 @@ module.exports = async (req, res) => {
       lineItems.push({
         price_data: {
           currency: 'eur',
-          product_data: { name: 'Spedizione Italia' },
+          product_data: { name: jewel ? 'Shipping' : 'Spedizione Italia' },
           unit_amount: Math.round(shipFee * 100),
         },
         quantity: 1,
