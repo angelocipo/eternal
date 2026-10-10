@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="img/favicon.png">
 <title>Thank you for your order &mdash; Eternal City Jewelry</title>
 <meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://www.tshirt-shop.online/thank-you">
+<link rel="canonical" href="https://www.eternalcity.jewelry/thank-you">
 <style>
 html,body{margin:0;padding:0;background:#15120d;}
 a{color:inherit;}
@@ -86,18 +86,11 @@ html,body{overflow-x:hidden;}
           <div style="padding:0 26px 20px;font-size:12.5px;font-weight:300;color:#8f8879;">Confirmation sent to {{ recapEmail }}</div>
         </sc-if>
       </div>
-    </sc-if>
-
-    <sc-if value="{{ hasSender }}" hint-placeholder-val="{{ false }}">
-      <div class="ty-panel" style="margin-top:26px;border-color:rgba(198,166,103,.45);">
-        <div style="padding:20px 26px;border-bottom:1px solid rgba(198,166,103,.18);">
-          <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#d4b572;">Sender details</div>
-          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:#f0e8d7;margin-top:5px;">The parcel ships in your name</div>
-        </div>
-        <sc-for list="{{ senderRows }}" as="r" hint-placeholder-count="3">
-          <div class="ty-row"><span>{{ r.label }}</span><span style="text-align:right;color:#cfc8ba;">{{ r.value }}</span></div>
-        </sc-for>
-        <div style="padding:16px 26px;font-size:12.5px;font-weight:300;color:#8f8879;">No reference to us appears on the parcel: the sender and the delivery note carry these details.</div>
+      <div style="display:flex;justify-content:center;margin-top:22px;">
+        <a href="#" onClick="{{ downloadPdf }}" class="ty-btn-2" style="display:inline-flex;align-items:center;gap:10px;cursor:pointer;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+          <span>{{ pdfLabel }}</span>
+        </a>
       </div>
     </sc-if>
 
@@ -131,7 +124,77 @@ html,body{overflow-x:hidden;}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { orderRef: '', recap: null };
+  state = { orderRef: '', recap: null, pdfBusy: false };
+
+  loadJsPdf() {
+    if (window.jspdf) return Promise.resolve(window.jspdf);
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      s.onload = () => resolve(window.jspdf);
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  /* Order receipt as PDF, built from the same data shown on the page. */
+  async downloadPdf(e) {
+    if (e) e.preventDefault();
+    const r = this.state.recap;
+    if (!r || this.state.pdfBusy) return;
+    this.setState({ pdfBusy: true });
+    try {
+      const { jsPDF } = await this.loadJsPdf();
+      const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+      const eur = (n) => 'EUR ' + (Number(n) || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const clean = (t) => String(t == null ? '' : t).replace(/[\u2014\u2013]/g, '-').replace(/\u00d7/g, 'x');
+      const W = 210, L = 20, R = W - 20;
+      let y = 0;
+      doc.setFillColor(21, 18, 13); doc.rect(0, 0, W, 38, 'F');
+      doc.setTextColor(212, 181, 114); doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+      doc.text('ETERNAL CITY JEWELRY', L, 16, { charSpace: 1.2 });
+      doc.setTextColor(244, 236, 219); doc.setFont('times', 'normal'); doc.setFontSize(22);
+      doc.text('Order receipt', L, 29);
+      y = 52;
+      doc.setTextColor(111, 106, 94); doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+      if (this.state.orderRef) { doc.text('ORDER', L, y); doc.setTextColor(27, 23, 17); doc.setFontSize(11); doc.text(this.state.orderRef, L + 22, y); }
+      doc.setTextColor(111, 106, 94); doc.setFontSize(9);
+      doc.text('DATE', 120, y); doc.setTextColor(27, 23, 17); doc.setFontSize(11);
+      doc.text(new Date(r.date || Date.now()).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }), 138, y);
+      y += 14;
+      doc.setDrawColor(27, 23, 17); doc.setLineWidth(0.4); doc.line(L, y, R, y); y += 9;
+      doc.setFont('times', 'normal'); doc.setFontSize(14); doc.setTextColor(27, 23, 17);
+      const nameLines = doc.splitTextToSize(clean(r.name || 'Order'), R - L - 40);
+      doc.text(nameLines, L, y);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+      doc.text(eur(r.subtotal), R, y, { align: 'right' });
+      y += nameLines.length * 6 + 3;
+      doc.setFontSize(10); doc.setTextColor(111, 106, 94);
+      (Array.isArray(r.details) ? r.details : []).forEach((d) => {
+        const lines = doc.splitTextToSize(clean(d.label) + ': ' + clean(d.value), R - L);
+        doc.text(lines, L, y); y += lines.length * 5;
+      });
+      y += 4; doc.setDrawColor(228, 221, 208); doc.setLineWidth(0.3); doc.line(L, y, R, y); y += 8;
+      const row = (k, v) => { doc.setTextColor(111, 106, 94); doc.setFontSize(10); doc.text(k, L, y); doc.setTextColor(27, 23, 17); doc.text(v, R, y, { align: 'right' }); y += 7; };
+      row('Items', eur(r.subtotal));
+      row('Shipping', r.shippingFee > 0 ? eur(r.shippingFee) : 'Free');
+      y += 2; doc.setDrawColor(27, 23, 17); doc.setLineWidth(0.4); doc.line(L, y, R, y); y += 10;
+      doc.setFont('times', 'normal'); doc.setFontSize(16); doc.setTextColor(27, 23, 17);
+      doc.text('Total paid', L, y); doc.setTextColor(168, 131, 79); doc.text(eur(r.total), R, y, { align: 'right' });
+      y += 6; doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(111, 106, 94);
+      doc.text('VAT included', R, y, { align: 'right' });
+      if (r.email) { y += 14; doc.setFontSize(10); doc.text('Confirmation sent to ' + r.email, L, y); }
+      y += 14; doc.setFontSize(9);
+      doc.text(doc.splitTextToSize('This is a payment receipt, not a tax invoice. The invoice follows within one working day. For any question about your order, reply to the confirmation email quoting the order code.', R - L), L, y);
+      doc.setFontSize(8.5); doc.setTextColor(168, 131, 79);
+      doc.text('Eternal City Jewelry  ·  Made in Rome, worn forever  ·  www.eternalcity.jewelry', W / 2, 284, { align: 'center' });
+      doc.save('eternal-city-jewelry-order-' + (this.state.orderRef || 'receipt') + '.pdf');
+    } catch (err) {
+      console.error('PDF failed', err);
+      alert('The PDF could not be created. Please try again.');
+    }
+    this.setState({ pdfBusy: false });
+  }
   componentDidMount() {
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get('session_id');
@@ -160,6 +223,30 @@ class Component extends DCLogic {
     try { recap = JSON.parse(localStorage.getItem('ts_last_order') || 'null'); } catch (_) {}
     this.setState({ orderRef, recap });
     this.trackPurchase(orderRef);
+    if (sessionId) this.loadConfirmed(sessionId);
+  }
+
+  /* Replace the amounts saved in the browser with what Stripe actually charged. */
+  loadConfirmed(sessionId) {
+    fetch('/api/order-summary?session_id=' + encodeURIComponent(sessionId))
+      .then((res) => (res.ok ? res.json() : null))
+      .then((d) => {
+        if (!d || !(d.total > 0)) return;
+        const prev = this.state.recap || {};
+        const product = (d.items || []).filter((it) => it.name !== 'Shipping' && it.name !== 'Spedizione Italia');
+        this.setState({
+          recap: Object.assign({}, prev, {
+            name: product.length ? product.map((it) => it.name).join(' + ') : (prev.name || 'Order'),
+            subtotal: +(d.total - d.shippingFee).toFixed(2),
+            shippingFee: d.shippingFee,
+            total: d.total,
+            email: d.email || prev.email || '',
+            details: Array.isArray(prev.details) ? prev.details : [],
+            confirmed: true,
+          }),
+        });
+      })
+      .catch(() => {});
   }
 
   fmt(n) { const s = (Number(n) || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: true }); return '€ ' + s; }
@@ -182,15 +269,9 @@ class Component extends DCLogic {
   renderVals() {
     const r = this.state.recap;
     const details = r && Array.isArray(r.details) ? r.details : [];
-    const sn = r && r.sender ? r.sender : null;
-    const senderRows = sn ? [
-      { label: 'Name', value: sn.company || '—' },
-      { label: 'Address', value: [sn.address, sn.cap, sn.city].filter(Boolean).join(', ') || '—' },
-      { label: 'Phone', value: sn.phone || '—' },
-    ] : [];
     return {
-      hasSender: senderRows.length > 0,
-      senderRows,
+      downloadPdf: (e) => this.downloadPdf(e),
+      pdfLabel: this.state.pdfBusy ? 'Preparing PDF…' : 'Download receipt (PDF)',
       hasOrderRef: !!this.state.orderRef,
       orderRef: this.state.orderRef,
       hasRecap: !!(r && r.total),

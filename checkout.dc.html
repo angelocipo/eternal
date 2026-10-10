@@ -174,21 +174,6 @@ html,body{overflow-x:hidden;}
         </sc-if>
       </section>
 
-      <section class="co-panel">
-        <h2 class="co-h">Sender details</h2>
-        <label class="co-radio"><input type="checkbox" checked="{{ useSender }}" onChange="{{ toggleSender }}">Use my company as the sender for this shipment</label>
-        <p style="margin:0 0 16px;font-size:13.5px;color:#8f8879;">Useful if you are gifting or reselling and want the parcel to carry your details instead of ours.</p>
-
-        <sc-if value="{{ useSender }}" hint-placeholder-val="{{ false }}">
-          <div class="co-grid">
-            <div><label class="co-label" for="send-company">Company / sender name</label><input class="co-input" id="send-company" value="{{ sender.company }}" onChange="{{ setSenderCompany }}"></div>
-            <div><label class="co-label" for="send-phone">Phone</label><input class="co-input" id="send-phone" value="{{ sender.phone }}" onChange="{{ setSenderPhone }}"></div>
-            <div><label class="co-label" for="send-address">Address</label><input class="co-input" id="send-address" value="{{ sender.address }}" onChange="{{ setSenderAddress }}"></div>
-            <div><label class="co-label" for="send-city">City</label><input class="co-input" id="send-city" value="{{ sender.city }}" onChange="{{ setSenderCity }}"></div>
-            <div><label class="co-label" for="send-cap">Postal code</label><input class="co-input" id="send-cap" value="{{ sender.cap }}" onChange="{{ setSenderCap }}"></div>
-          </div>
-        </sc-if>
-      </section>
 
       <sc-if value="{{ errorMsg }}" hint-placeholder-val="{{ null }}">
         <p style="color:#d99a86;font-size:14px;margin:0 0 18px;">{{ errorMsg }}</p>
@@ -339,7 +324,6 @@ class Component extends DCLogic {
         shippingFee: +shippingFee.toFixed(2),
         total: value,
         email: (this.state.inv || {}).email || '',
-        sender: this.state.useSender ? { ...(this.state.sender || {}) } : null,
         details: this.buildOrderDetails(this.state.orderBody),
       }));
     } catch (_) {}

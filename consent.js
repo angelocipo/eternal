@@ -78,25 +78,25 @@
     var wrap = document.createElement('div');
     wrap.id = 'ts-consent';
     wrap.setAttribute('role', 'dialog');
-    wrap.setAttribute('aria-label', 'Preferenze cookie');
+    wrap.setAttribute('aria-label', 'Cookie preferences');
     wrap.style.cssText = 'position:fixed;left:16px;bottom:16px;z-index:2147483000;max-width:420px;' +
       'background:#f3f2f2;border:1px solid #201e1d;padding:14px 16px;display:flex;gap:12px;' +
       'align-items:center;flex-wrap:wrap;';
 
     var txt = document.createElement('div');
     txt.style.cssText = 'font:400 12.5px/1.5 Archivo,system-ui,sans-serif;color:#201e1d;flex:1 1 200px;';
-    txt.innerHTML = 'Cookie di statistica e marketing, attivi solo col tuo consenso. ' +
-      '<a href="privacy-policy.dc.html" style="color:#ec3013;">Informativa</a>';
+    txt.innerHTML = 'We use analytics and marketing cookies only with your consent. ' +
+      '<a href="privacy-policy.dc.html" style="color:#ec3013;">Privacy policy</a>';
 
     var actions = document.createElement('div');
     actions.style.cssText = 'display:flex;gap:6px;flex-wrap:nowrap;';
 
     var no = document.createElement('button');
-    no.type = 'button'; no.textContent = 'Rifiuta'; styleBtn(no, false);
+    no.type = 'button'; no.textContent = 'Decline'; styleBtn(no, false);
     no.onclick = function () { write('denied'); wrap.remove(); };
 
     var yes = document.createElement('button');
-    yes.type = 'button'; yes.textContent = 'Accetta'; styleBtn(yes, true);
+    yes.type = 'button'; yes.textContent = 'Accept'; styleBtn(yes, true);
     yes.onclick = function () { write('granted'); wrap.remove(); loadTrackers(); };
 
     actions.appendChild(no); actions.appendChild(yes);
