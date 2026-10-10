@@ -12,7 +12,7 @@
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Nunito+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
     body { margin: 0; background: #15120d; overflow-x: hidden; }
     a { color: #d4b572; }
@@ -94,19 +94,6 @@
 
       <div style="height:1px; background:#2f2a20; margin:28px 0;"></div>
 
-      <sc-if value="{{ hasSizes }}" hint-placeholder-val="{{ false }}">
-        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
-            <div style="font-size:16px; color:#efe9dc;">Bead size</div>
-            <a href="Eternal-City-Size-Guide.dc.html" style="font-size:15px; text-decoration:underline;">Measure &amp; Sizing</a>
-          </div>
-          <div style="display:flex; flex-wrap:wrap; gap:10px;">
-            <sc-for list="{{ sizes }}" as="sz" hint-placeholder-count="0">
-              <div onClick="{{ sz.onClick }}" style="cursor:pointer; border-width:1px; border-style:solid; border-color:{{ sz.borderColor }}; color:{{ sz.textColor }}; padding:13px 20px; font-size:14px; letter-spacing:.04em;">{{ sz.label }}</div>
-            </sc-for>
-          </div>
-        </div>
-      </sc-if>
 
       <sc-if value="{{ hasWristField }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
@@ -143,6 +130,16 @@
               </div>
             </sc-for>
           </div>
+          <sc-if value="{{ hasMetal }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+              <div style="font-size:15px; color:#efe9dc;">Clasp metal</div>
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <sc-for list="{{ metals }}" as="mt" hint-placeholder-count="0">
+                  <div onClick="{{ mt.onClick }}" style="cursor:pointer; border-width:1px; border-style:solid; border-color:{{ mt.borderColor }}; color:{{ mt.textColor }}; padding:13px 20px; font-size:14px; letter-spacing:.04em;">{{ mt.label }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
         </div>
       </sc-if>
 
@@ -172,9 +169,9 @@
         </sc-for>
       </div>
 
-      <div style="font-size:16px; line-height:1.75; color:#cabfa9; white-space:pre-line; margin-top:34px; text-wrap:pretty;"><sc-for list="{{ shortParts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></div>
+      <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.75; color:#cabfa9; white-space:pre-line; margin-top:34px; text-wrap:pretty;"><sc-for list="{{ shortParts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></div>
 
-      <div style="font-size:15px; line-height:1.75; color:#8f8879; font-style:italic; margin-top:22px; text-wrap:pretty;">Our pieces are made with natural gemstones; slight variations in color, size, and pattern may occur.</div>
+      <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.75; color:#8f8879; font-style:italic; margin-top:22px; text-wrap:pretty;">Our pieces are made with natural gemstones; slight variations in color, size, and pattern may occur.</div>
     </div>
   </div>
 
@@ -188,7 +185,7 @@
       <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
         <video src="{{ video }}" controls="" playsInline="" muted="" loop="" preload="metadata" style="display:block; width:100%; max-width:720px; height:auto; border:1px solid #37301f; background:#0f0d09;"></video>
       </sc-if>
-      <div style="font-size:15px; line-height:1.85; color:#cabfa9; white-space:pre-line;"><sc-for list="{{ descParts }}" as="dp" hint-placeholder-count="1"><sc-if value="{{ dp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ dp.t }}</span></sc-if><sc-if value="{{ dp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ dp.href }}" style="text-decoration:underline;">{{ dp.t }}</a></sc-if></sc-for></div>
+      <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.85; color:#cabfa9; white-space:pre-line;"><sc-for list="{{ descParts }}" as="dp" hint-placeholder-count="1"><sc-if value="{{ dp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ dp.t }}</span></sc-if><sc-if value="{{ dp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ dp.href }}" style="text-decoration:underline;">{{ dp.t }}</a></sc-if></sc-for></div>
     </div>
   </sc-if>
   </sc-if>
@@ -238,7 +235,7 @@ const SIZE_TAG_RE = /^(Bracelets? )?(\d+)\s*mm$/i;
 const BLANK = 'img/logo-ecj-white.webp';
 
 class Component extends DCLogic {
-  state = { products: [], slug: '', size: '', length: '', clasp: '', wrist: '', openPerk: -1, qty: 1, cart: false, cartOpen: false, thumbIdx: 0 };
+  state = { products: [], slug: '', size: '', metal: '', length: '', clasp: '', wrist: '', openPerk: -1, qty: 1, cart: false, cartOpen: false, thumbIdx: 0 };
 
   componentDidMount() {
     const slug = new URLSearchParams(window.location.search).get('slug') || '';
@@ -313,7 +310,6 @@ class Component extends DCLogic {
     const onSale = !!(p.sale && p.sale < p.regular);
     const discount = onSale ? Math.round((1 - p.sale / p.regular) * 100) : 0;
     const cats = (p.cats || []).filter(c => !/^bracelets?$/i.test(c));
-    const sizeOptions = ['8 mm', '10 mm', '12 mm'];
     const isBracelet = /bracelet/i.test(p.name || '') || (p.cats || []).some(c => /bracelet/i.test(c)) || (p.tags || []).some(t => /bracelet/i.test(t));
     const WRIST = ['XSmall 15 cm - 6 inch', 'Small 16 cm - 6.4 inch', 'Medium 17 cm - 6.8 inch', 'Medium+ 18 cm - 7.2 inch', 'Large 19 cm - 7.6 inch', 'XLarge 20 cm - 8 inch', 'XXLarge 21 cm - 8.4 inch'];
     const CLOSINGS = [
@@ -326,13 +322,18 @@ class Component extends DCLogic {
     const claspOptions = p.clasps || (isBracelet ? CLOSINGS : []);
     const sizeHeading = isBracelet && !p.lengths ? 'Bracelet Size:' : 'Necklace Size:';
     const claspHeading = isBracelet && !p.clasps ? 'Closing' : 'Clasp';
+    const selClasp = s.clasp || (claspOptions[0] && claspOptions[0].label) || '';
+    const METALS = ['Stainless Steel', 'Silver'];
+    const hasMetal = /^(Clasp|Hook Clasp)$/.test(selClasp);
+    const selMetal = hasMetal ? (s.metal || METALS[0]) : '';
+    const claspText = selMetal ? selClasp + ' (' + selMetal + ')' : selClasp;
     const limited = (p.tags || []).some(t => /Imperium Collection/i.test(t));
     const badge = limited ? 'Limited' : (onSale ? 'Sale' : '');
     const chip = (on) => ({ borderColor: on ? '#d4b572' : '#37301f', textColor: on ? '#d4b572' : '#c4bca9' });
     const perkData = [
       { mark: '◈', label: 'Handcrafted in our Roman atelier',
         body: 'Every Eternal City bracelet is assembled in our Roman atelier from natural, carefully chosen gemstones. We work with the stone as it is — its grain, its colour, its imperfections — so the piece you wear is unrepeatable, and entirely yours.' },
-      { mark: '↻', label: 'Ships worldwide from Italy',
+      { mark: '↻', label: 'Ships worldwide from Rome-Italy',
         body: 'Worldwide shipping, insured delivery. Free shipping on orders from € 50; below that, € 8 flat. From raw stones to your door in 1 week.' },
       { mark: '⬡', label: 'Natural stone, one of a kind',
         body: 'Every type of stone has its own character, history and cultural belief. Natural gemstones vary in colour, size and pattern — no two alike.' },
@@ -378,14 +379,13 @@ class Component extends DCLogic {
       priceLabel: this.fmt(p.price * s.qty),
       regularLabel: this.fmt(p.regular),
       discountLabel: '−' + discount + '%',
-      hasSizes: !!s.size,
-      sizes: s.size ? sizeOptions.map(label => ({ label, borderColor: label === s.size ? '#d4b572' : '#37301f', textColor: label === s.size ? '#d4b572' : '#c4bca9', onClick: () => this.setState({ size: label }) })) : [],
-      selectedSize: s.size,
-      optionsLine: [s.size, wristField ? s.wrist : (s.length || lengthOptions[0]), s.clasp || (claspOptions[0] && claspOptions[0].label)].filter(Boolean).map(x => ' · ' + x).join(''),
+      hasMetal,
+      metals: METALS.map(label => Object.assign({ label, onClick: () => this.setState({ metal: label }) }, chip(label === selMetal))),
+      optionsLine: [wristField ? s.wrist : (s.length || lengthOptions[0]), claspText].filter(Boolean).map(x => ' · ' + x).join(''),
       qty: s.qty,
       lineTotalLabel: this.fmt(p.price * s.qty),
       checkoutHref: (() => {
-        const opts = [s.size, wristField ? s.wrist : (s.length || lengthOptions[0]), s.clasp || (claspOptions[0] && claspOptions[0].label)].filter(Boolean);
+        const opts = [wristField ? s.wrist : (s.length || lengthOptions[0]), claspText].filter(Boolean);
         const label = p.name + (opts.length ? ' — ' + opts.join(', ') : '') + (s.qty > 1 ? ' ×' + s.qty : '');
         return 'checkout.dc.html?id=' + encodeURIComponent(p.slug) +
           '&name=' + encodeURIComponent(label) +
