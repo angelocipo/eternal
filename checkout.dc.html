@@ -252,7 +252,7 @@ class Component extends DCLogic {
         .filter(([, v]) => v !== undefined && v !== null && v !== '')
         .map(([k, v]) => ({ label: k, value: String(v) }));
     }
-    const skip = new Set(['productId']);
+    const skip = new Set(['productId', 'qty', 'options']);
     const src = orderBody.formula && typeof orderBody.formula === 'object' ? orderBody.formula : orderBody;
     return Object.entries(src)
       .filter(([k, v]) => !skip.has(k) && v !== undefined && v !== null && v !== '' && typeof v !== 'object')
@@ -266,7 +266,7 @@ class Component extends DCLogic {
     const price = params.get('price');
     const cfg = params.get('cfg');
     const col = params.get('col');
-    let orderBody = id ? { productId: id } : null;
+    let orderBody = id ? { productId: id, qty: parseInt(params.get('qty'), 10) || 1, options: params.get('opts') || '' } : null;
     if (cfg) {
       try { orderBody = JSON.parse(decodeURIComponent(atob(cfg))); } catch (e) {}
     }

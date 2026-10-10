@@ -390,6 +390,8 @@ class Component extends DCLogic {
         return 'checkout.dc.html?id=' + encodeURIComponent(p.slug) +
           '&name=' + encodeURIComponent(label) +
           '&price=' + (p.price * s.qty).toFixed(2) +
+          '&qty=' + s.qty +
+          '&opts=' + encodeURIComponent(opts.join(', ')) +
           '&col=' + encodeURIComponent((p.cats || [])[0] || 'misura');
       })(),
       incQty: () => this.incQty(), decQty: () => this.decQty(),
