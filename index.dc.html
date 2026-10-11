@@ -10,7 +10,7 @@
 <helmet>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <style>
@@ -123,6 +123,7 @@ a{color:inherit;}
 @media(max-width:560px){.ech-sec{padding:56px 18px !important;}.ech-head p{font-size:17px;}}
 html,body{overflow-x:hidden;}
 </style>
+<script defer src="consent.js"></script>
 </helmet>
 <div class="ech" ref="{{ rootRef }}">
 
@@ -136,7 +137,7 @@ html,body{overflow-x:hidden;}
         <img src="img/stones/italian-jewelry-lemurian.webp" alt="">
       </span>
       <div class="ech-heroinner">
-        <p class="ech-eyebrow">Handcrafted in Rome · Since 2014</p>
+        <p class="ech-eyebrow">Handcrafted in Rome · Since 2008</p>
         <h1 class="ech-h1">Stones with a <em>Soul</em></h1>
         <p class="ech-lead">Natural gemstone bracelets, set by hand — each one carrying a meaning worn for centuries.</p>
         <div class="ech-herocta">
@@ -156,7 +157,7 @@ html,body{overflow-x:hidden;}
         <h1 class="ech-h1">Quiet <em>Strength</em></h1>
         <p class="ech-lead">Onyx, obsidian and lava — grounded protection, worn with intent.</p>
         <div class="ech-herocta">
-          <a class="ech-btn" href="https://eternalcity.jewelry/category.dc?stone=black-onyx-jewelry">Discover Onyx</a>
+          <a class="ech-btn" href="category.dc.html?stone=black-onyx-jewelry">Discover Onyx</a>
         </div>
       </div>
     </div>
@@ -171,7 +172,7 @@ html,body{overflow-x:hidden;}
         <h1 class="ech-h1">Depth &amp; <em>Truth</em></h1>
         <p class="ech-lead">Lapis lazuli, sodalite and topaz — the colour of wisdom and the open sea.</p>
         <div class="ech-herocta">
-          <a class="ech-btn" href="https://eternalcity.jewelry/category.dc?stone=lapis-lazuli-jewelry">Discover Lapis</a>
+          <a class="ech-btn" href="category.dc.html?stone=lapis-lazuli-jewelry">Discover Lapis</a>
         </div>
       </div>
     </div>
@@ -215,7 +216,7 @@ html,body{overflow-x:hidden;}
       <p>Three signatures, each defined by the character of its stone.</p>
     </div>
     <div class="ech-cols">
-      <a class="ech-col" href="collection.dc.html">
+      <a class="ech-col" href="collection.dc.html?group=dark">
         <span class="ech-ph has-img">
           <span class="ech-phtag">photo</span>
           <span class="ech-phname">collection-dark</span>
@@ -227,7 +228,7 @@ html,body{overflow-x:hidden;}
           <em>Discover</em>
         </span>
       </a>
-      <a class="ech-col" href="collection.dc.html">
+      <a class="ech-col" href="collection.dc.html?group=blue">
         <span class="ech-ph has-img">
           <span class="ech-phtag">photo</span>
           <span class="ech-phname">collection-blue</span>
@@ -239,7 +240,7 @@ html,body{overflow-x:hidden;}
           <em>Discover</em>
         </span>
       </a>
-      <a class="ech-col" href="collection.dc.html">
+      <a class="ech-col" href="collection.dc.html?group=rare">
         <span class="ech-ph has-img">
           <span class="ech-phtag">photo</span>
           <span class="ech-phname">collection-rare</span>
@@ -267,7 +268,7 @@ html,body{overflow-x:hidden;}
         <p class="ech-eyebrow">Our Craft</p>
         <h2>Strung by hand,<br><em>one stone at a time</em></h2>
         <p>Every Eternal City bracelet is assembled in our Roman atelier from natural, carefully chosen gemstones. We work with the stone as it is — its grain, its colour, its imperfections — so the piece you wear is unrepeatable, and entirely yours.</p>
-        <a class="ech-btn ech-btn--ghost" href="https://www.eternalcity.jewelry/about-us/">Our Story</a>
+        <a class="ech-btn ech-btn--ghost" href="about.dc.html">Our Story</a>
       </div>
     </div>
   </section>
@@ -279,27 +280,27 @@ html,body{overflow-x:hidden;}
       <p>The pieces our collectors return for, again and again.</p>
     </div>
     <div class="ech-grid">
-      <a class="ech-card" href="https://www.eternalcity.jewelry/black-onyx-jewelry/">
+      <a class="ech-card" href="category.dc.html?stone=black-onyx-jewelry">
         <span class="ech-pwrap">
           <span class="ech-tag">Bestseller</span>
           <span class="ech-ph has-img"><span class="ech-phtag">photo</span><span class="ech-phname">black-onyx</span><img src="img/stones/italian-jewelry-black-onyx.webp" alt="Black Onyx"></span>
         </span>
         <span class="ech-meta"><span class="ech-name">Black Onyx</span><span class="ech-price">Grounded protection</span></span>
       </a>
-      <a class="ech-card" href="https://www.eternalcity.jewelry/lapis-lazuli-jewelry/">
+      <a class="ech-card" href="category.dc.html?stone=lapis-lazuli-jewelry">
         <span class="ech-pwrap">
           <span class="ech-ph has-img"><span class="ech-phtag">photo</span><span class="ech-phname">lapis-lazuli</span><img src="img/stones/italian-jewelry-lapis-lazuli.webp" alt="Lapis Lazuli"></span>
         </span>
         <span class="ech-meta"><span class="ech-name">Lapis Lazuli</span><span class="ech-price">Truth &amp; wisdom</span></span>
       </a>
-      <a class="ech-card" href="https://www.eternalcity.jewelry/tigers-eye-jewelry/">
+      <a class="ech-card" href="category.dc.html?stone=tigers-eye-jewelry">
         <span class="ech-pwrap">
           <span class="ech-tag">New</span>
           <span class="ech-ph has-img"><span class="ech-phtag">photo</span><span class="ech-phname">tigers-eye</span><img src="img/stones/italian-jewelry-tigers-eye.webp" alt="Tiger's Eye"></span>
         </span>
         <span class="ech-meta"><span class="ech-name">Tiger's Eye</span><span class="ech-price">Confidence &amp; will</span></span>
       </a>
-      <a class="ech-card" href="https://www.eternalcity.jewelry/turquoise-jewelry/">
+      <a class="ech-card" href="category.dc.html?stone=turquoise-jewelry">
         <span class="ech-pwrap">
           <span class="ech-ph has-img"><span class="ech-phtag">photo</span><span class="ech-phname">turquoise</span><img src="img/stones/italian-jewelry-turquoise.webp" alt="Turquoise"></span>
         </span>

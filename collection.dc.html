@@ -10,7 +10,7 @@
 <helmet>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <style>
@@ -23,7 +23,7 @@ a{color:inherit;text-decoration:none;}
 .cl-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(38px,6vw,68px);line-height:1;color:#f1e9d8;margin:20px 0 0;}
 .cl-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
 .cl-tab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border:1px solid rgba(198,166,103,.28);border-radius:20px;color:#b3ac9c;}
-.cl-tab[aria-current]{background:#d4b572;color:#15120d;border-color:#d4b572;}
+.cl-tab[aria-current="true"]{background:#d4b572;color:#15120d;border-color:#d4b572;}
 .cl-body{max-width:1240px;margin:0 auto;padding:8px 28px 90px;}
 .cl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px;}
 .cl-card{display:block;border:1px solid rgba(198,166,103,.16);border-radius:4px;overflow:hidden;background:#1b1711;transition:border-color .25s,transform .25s;}
@@ -44,6 +44,7 @@ a{color:inherit;text-decoration:none;}
 html,body{overflow-x:hidden;}
 img{max-width:100%;}
 </style>
+<script defer src="consent.js"></script>
 </helmet>
 <div class="cl">
 
@@ -91,13 +92,20 @@ img{max-width:100%;}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const TYPE_NAMES = { bracelet: 'Bracelets', necklace: 'Necklaces', pendant: 'Pendants', stone: 'Loose stones' };
+const GROUPS = {
+  dark: { name: 'The Dark Stones', test: h => /^(matte |natural & matte )?hematite/.test(h) || (/black|onyx|obsidian|lava|jet\b|smoky/.test(h.replace(/striped onyx agate|blue onyx/g, ''))) },
+  blue: { name: 'Shades of Blue', test: h => /lapis|sodalite|topaz|aquamarine|kyanite|blue/.test(h) && !/diamond/.test(h) },
+  rare: { name: 'The Rare & Precious', test: h => /meteorite|gibeon|diamond|larimar|certificate|parcel/.test(h) },
+};
 
 class Component extends DCLogic {
-  state = { products: [], type: 'bracelet' };
+  state = { products: [], type: 'bracelet', group: null };
 
   componentDidMount() {
-    const type = new URLSearchParams(window.location.search).get('type') || 'bracelet';
-    this.setState({ type: TYPE_NAMES[type] ? type : 'bracelet' });
+    const q = new URLSearchParams(window.location.search);
+    const type = q.get('type') || 'bracelet';
+    const group = GROUPS[q.get('group')] ? q.get('group') : null;
+    this.setState({ type: TYPE_NAMES[type] ? type : 'bracelet', group });
     fetch('data/products.json').then(r => r.json()).then(products => this.setState({ products })).catch(() => {});
     this.syncChrome();
   }
@@ -116,7 +124,10 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state;
-    const matches = s.products.filter(p => this.matchesType(p, s.type));
+    const g = s.group && GROUPS[s.group];
+    const matches = s.products.filter(p => g
+      ? g.test(String(p.name || '').toLowerCase())
+      : this.matchesType(p, s.type));
     const products = matches.map(p => ({
       href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
       name: p.name,
@@ -127,10 +138,10 @@ class Component extends DCLogic {
     }));
     return {
       navKey: s.type,
-      typeName: TYPE_NAMES[s.type],
-      typeNameLower: TYPE_NAMES[s.type].toLowerCase(),
-      curBracelet: s.type === 'bracelet', curNecklace: s.type === 'necklace',
-      curPendant: s.type === 'pendant', curStone: s.type === 'stone',
+      typeName: g ? g.name : TYPE_NAMES[s.type],
+      typeNameLower: g ? 'pieces' : TYPE_NAMES[s.type].toLowerCase(),
+      curBracelet: !g && s.type === 'bracelet', curNecklace: !g && s.type === 'necklace',
+      curPendant: !g && s.type === 'pendant', curStone: !g && s.type === 'stone',
       hasProducts: products.length > 0,
       hasNoProducts: products.length === 0,
       products,
