@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-<script defer src="consent.js" data-ga="G-4XJG8VZY6S" data-fbq="817112403879732"></script>
+<script defer src="consent.js"></script>
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <link rel="icon" type="image/png" href="img/favicon.png">
@@ -218,11 +218,10 @@ class Component extends DCLogic {
       }
       return out;
     };
-    const orderRef = sessionId ? makeRef(sessionId) : (params.get('token') || '');
+    const orderRef = sessionId ? makeRef(sessionId) : '';
     let recap = null;
-    try { recap = JSON.parse(localStorage.getItem('ts_last_order') || 'null'); } catch (_) {}
+    try { recap = JSON.parse(localStorage.getItem('ecj_last_order') || 'null'); } catch (_) {}
     this.setState({ orderRef, recap });
-    this.trackPurchase(orderRef);
     if (sessionId) this.loadConfirmed(sessionId);
   }
 
@@ -233,7 +232,7 @@ class Component extends DCLogic {
       .then((d) => {
         if (!d || !(d.total > 0)) return;
         const prev = this.state.recap || {};
-        const product = (d.items || []).filter((it) => it.name !== 'Shipping' && it.name !== 'Spedizione Italia');
+        const product = (d.items || []).filter((it) => it.name !== 'Shipping');
         this.setState({
           recap: Object.assign({}, prev, {
             name: product.length ? product.map((it) => it.name).join(' + ') : (prev.name || 'Order'),
@@ -250,21 +249,6 @@ class Component extends DCLogic {
   }
 
   fmt(n) { const s = (Number(n) || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: true }); return '€ ' + s; }
-
-  /* fire the sale once per order (survives refresh / back-button) */
-  trackPurchase(orderRef) {
-    let order = null;
-    try { order = JSON.parse(localStorage.getItem('ts_pending_order') || 'null'); } catch (_) {}
-    const value = order && order.value ? order.value : null;
-    // no payment reference and no stashed order → this is just someone visiting the page
-    if (!orderRef || !value) return;
-    const key = 'ts_tracked_' + orderRef;
-    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch (_) {}
-    const items = [{ item_id: order.id || 'bracelet', item_name: order.name || 'Gemstone bracelet', price: value, quantity: 1 }];
-    if (window.gtag) gtag('event', 'purchase', { transaction_id: orderRef, currency: 'EUR', value, items });
-    if (window.fbq) fbq('track', 'Purchase', { currency: 'EUR', value });
-    try { localStorage.removeItem('ts_pending_order'); } catch (_) {}
-  }
 
   renderVals() {
     const r = this.state.recap;

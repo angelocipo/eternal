@@ -11,14 +11,13 @@
 <meta charset="utf-8">
 <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-<script defer src="consent.js" data-ga="G-4XJG8VZY6S" data-fbq="817112403879732"></script>
+<script defer src="consent.js"></script>
 <link rel="icon" type="image/png" href="img/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://www.tshirt-shop.online/checkout.html">
+<link rel="canonical" href="https://www.eternalcity.jewelry/checkout.html">
 <title>Checkout &mdash; Eternal City Jewelry</title>
 <meta name="robots" content="noindex, follow">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://www.paypal.com/sdk/js?client-id=AcfKh7__fZxzxaPOuwNjQqF3dvY1bUeLjfv7IoVp907QW3GrH_-6Vw8IdJ6EfjZ2Brokd6HF7_mtbAPI&currency=EUR"></script>
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <style>
@@ -184,17 +183,9 @@ html,body{overflow-x:hidden;}
         <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#efe9dc;">&euro; {{ orderTotal }}</span>
       </div>
       <button type="submit" class="co-btn" disabled="{{ submitting }}">{{ submitLabel }}</button>
-      <p style="text-align:center;font-size:12px;color:#8f8879;margin-top:16px;">Secure payment via Stripe. You will receive an invoice by email once the order is confirmed.</p>
+      <p style="text-align:center;font-size:12px;color:#8f8879;margin-top:16px;">Secure card payment via Stripe. You will receive an invoice by email once the order is confirmed.</p>
     </form>
 
-    <sc-if value="{{ hasProduct }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;align-items:center;gap:14px;margin:34px 0;">
-        <div style="flex:1;height:1px;background:rgba(198,166,103,.16);"></div>
-        <span style="font-size:12px;color:#8f8879;">or</span>
-        <div style="flex:1;height:1px;background:rgba(198,166,103,.16);"></div>
-      </div>
-      <div id="paypal-checkout-slot" style="min-height:45px;"></div>
-    </sc-if>
   </main>
 
   <div data-ecj-footer></div>
@@ -204,7 +195,7 @@ html,body{overflow-x:hidden;}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = {
-    productId: null, productName: '', productPrice: null, productCollection: 'misura', orderBody: null,
+    productId: null, productName: '', productPrice: null, orderBody: null,
     invType: 'privato',
     inv: { name: '', email: '', company: '', vat: '', cf: '', pec: '', sdi: '', address: '', city: '', cap: '', country: '' },
     shipSame: true,
@@ -217,17 +208,7 @@ class Component extends DCLogic {
   };
 
   humanizeKey(key) {
-    const map = {
-      lato_lungo: 'Lato lungo', lato_corto: 'Lato corto', pagCol: 'Pagine a colori', pagBn: 'Pagine bianco/nero',
-      latiIdx: 'Lati', cartaIdx: 'Carta', misuraIdx: 'Misura', coloreIdx: 'Colore', qty: 'Quantit\u00e0',
-      formatIdx: 'Formato', soggettiIdx: 'Soggetti', larghezza: 'Larghezza', altezza: 'Altezza',
-      sagomaIdx: 'Forma', materialeIdx: 'Materiale', lavorazioneIdx: 'Lavorazione', altroColore: 'Altro colore',
-      base: 'Base', copie: 'Copie', swatchIdx: 'Variante', unit: 'Unit\u00e0', formato: 'Formato', pannelli: 'Pannelli',
-      creazione: 'Creazione file', creazione_file: 'Creazione file', spessore: 'Spessore', holder: 'Porta badge',
-      stampa: 'Stampa', plastificazione: 'Plastificazione', cordino: 'Cordino', colore_cordino: 'Colore cordino',
-      quantita: 'Quantit\u00e0', facciate: 'Facciate', tierIndex: 'Opzione', sizeIndex: 'Formato', deliveryIndex: 'Consegna',
-    };
-    return map[key] || key.replace(/Idx$/, '').replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase());
+    return key.replace(/Idx$/, '').replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase());
   }
 
   buildOrderDetails(orderBody) {
@@ -250,47 +231,17 @@ class Component extends DCLogic {
     const name = params.get('name');
     const price = params.get('price');
     const cfg = params.get('cfg');
-    const col = params.get('col');
     let orderBody = id ? { productId: id, qty: parseInt(params.get('qty'), 10) || 1, options: params.get('opts') || '' } : null;
     if (cfg) {
       try { orderBody = JSON.parse(decodeURIComponent(atob(cfg))); } catch (e) {}
     }
     const priceNum = parseFloat(price) || 0;
-    const autoFree = (col === 'strategici') || priceNum >= 50;
-    if (id) this.setState({ productId: id, productName: name || '', productPrice: price || '', productCollection: col || 'misura', orderBody, shipZone: autoFree ? 'gratuita' : this.state.shipZone });
-    if (id) this.mountPaypalWhenReady();
+    const autoFree = priceNum >= 50;
+    if (id) this.setState({ productId: id, productName: name || '', productPrice: price || '', orderBody, shipZone: autoFree ? 'gratuita' : this.state.shipZone });
     if (window.ecjSetCartCount) window.ecjSetCartCount(0);
   }
 
-  mountPaypalWhenReady(attempts) {
-    attempts = attempts || 0;
-    if (typeof paypal === 'undefined') {
-      if (attempts > 40) return;
-      setTimeout(() => this.mountPaypalWhenReady(attempts + 1), 250);
-      return;
-    }
-    const el = document.getElementById('paypal-checkout-slot');
-    if (!el) { setTimeout(() => this.mountPaypalWhenReady(attempts + 1), 250); return; }
-    el.innerHTML = '';
-    paypal.Buttons({
-      style: { layout: 'horizontal', color: 'gold', shape: 'rect', height: 45, tagline: false },
-      createOrder: (data, actions) => {
-        const err = this.validate();
-        if (err) { this.setState({ errorMsg: err }); return Promise.reject(new Error(err)); }
-        const shippingFee = this.computeShippingFee();
-        const total = ((parseFloat(this.state.productPrice) || 0) + shippingFee).toFixed(2);
-        return actions.order.create({ purchase_units: [{ amount: { value: total, currency_code: 'EUR' }, description: this.state.productName }] });
-      },
-      onApprove: (data, actions) => actions.order.capture().then((details) => {
-        this.stashOrder(this.computeShippingFee());
-        window.location.href = '/grazie.dc.html?token=' + (details.id || '');
-      }),
-      onError: (err) => this.setState({ errorMsg: 'PayPal payment failed, please try again.' }),
-    }).render('#paypal-checkout-slot');
-  }
-
   computeShippingFee() {
-    if (this.state.productCollection === 'strategici') return 0;
     const price = parseFloat(this.state.productPrice) || 0;
     if (price >= 50) return 0;
     return 8;
@@ -311,14 +262,11 @@ class Component extends DCLogic {
     return null;
   }
 
-  /* remember the order value so the thank-you page can report the sale to GA4 / Meta */
+  /* remember the order so the thank-you page can show the recap */
   stashOrder(shippingFee) {
     const value = +((parseFloat(this.state.productPrice) || 0) + shippingFee).toFixed(2);
     try {
-      localStorage.setItem('ts_pending_order', JSON.stringify({
-        value, currency: 'EUR', name: this.state.productName, id: this.state.productId,
-      }));
-      localStorage.setItem('ts_last_order', JSON.stringify({
+      localStorage.setItem('ecj_last_order', JSON.stringify({
         name: this.state.productName,
         subtotal: +(parseFloat(this.state.productPrice) || 0).toFixed(2),
         shippingFee: +shippingFee.toFixed(2),
@@ -327,8 +275,6 @@ class Component extends DCLogic {
         details: this.buildOrderDetails(this.state.orderBody),
       }));
     } catch (_) {}
-    if (window.fbq) fbq('track', 'InitiateCheckout', { value, currency: 'EUR' });
-    if (window.gtag) gtag('event', 'begin_checkout', { currency: 'EUR', value });
   }
 
   async submit(e) {
