@@ -13,6 +13,14 @@
    i18n.js translates the injected markup on its own (it watches the DOM), so every
    label below carries data-en / data-it. */
 (function () {
+  // favicon on every page that loads chrome.js (replaces any older icon link)
+  (function () {
+    var h = document.head; if (!h) return;
+    Array.prototype.forEach.call(h.querySelectorAll('link[rel~="icon"],link[rel="apple-touch-icon"]'), function (l) { l.remove(); });
+    [['icon', 'image/png', '/img/favicon-32.png', '32x32'], ['icon', 'image/png', '/img/favicon.png', '512x512'], ['apple-touch-icon', '', '/img/apple-touch-icon.png', '180x180']].forEach(function (d) {
+      var l = document.createElement('link'); l.rel = d[0]; if (d[1]) l.type = d[1]; l.href = d[2]; l.sizes = d[3]; h.appendChild(l);
+    });
+  })();
   var LOGO = 'img/logo-ecj-gold.webp';
   var CART_HREF = 'checkout.dc.html';
 
