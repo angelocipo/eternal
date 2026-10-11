@@ -319,6 +319,9 @@
         "value": "6/10",
         "label": "Mohs Hardness"
       }
+    ],
+    "match": [
+      "Sandstone Blue"
     ]
   },
   {
@@ -643,6 +646,9 @@
         "value": "6,5-7/10",
         "label": "Mohs Hardness"
       }
+    ],
+    "match": [
+      "Grey Jasper"
     ]
   },
   {
@@ -865,6 +871,9 @@
         "value": "3,5/10",
         "label": "Mohs Hardness"
       }
+    ],
+    "match": [
+      "Lavastone"
     ]
   },
   {
@@ -985,6 +994,9 @@
         "value": "5-6/10",
         "label": "Mohs Hardness"
       }
+    ],
+    "match": [
+      "Murano Venetian"
     ]
   },
   {
