@@ -87,7 +87,7 @@
           <sc-for list="{{ products }}" as="item" hint-placeholder-count="0">
             <div style="display:flex; flex-direction:column; gap:12px;">
               <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#1b1711; display:block; text-decoration:none; border:1pt solid #efe9dc;">
-                <img src="{{ item.safePhoto }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
+                <img src="{{ item.safePhoto }}" data-fallback="{{ item.fallback }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
                 <sc-if value="{{ item.onSale }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">Sale</div></sc-if>
               </a>
               <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#efe9dc;">{{ item.name }}</a>
@@ -95,7 +95,7 @@
                 <sc-if value="{{ item.onSale }}" hint-placeholder-val="{{ false }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
                 €{{ item.priceLabel }}
               </div>
-              <a href="{{ item.href }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px; color:#efe9dc; text-decoration:none;">Add to Bag</a>
+              <a href="{{ item.href }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px; color:#efe9dc; text-decoration:none;">Make It Yours</a>
             </div>
           </sc-for>
         </div>
@@ -118,7 +118,10 @@ function norm(s) {
 class Component extends DCLogic {
   state = { stones: [], products: [], slug: '', loaded: false };
 
+  componentWillUnmount() { document.removeEventListener('error', this._imgErr, true); }
   componentDidMount() {
+    this._imgErr = (e) => { const el = e.target; if (el && el.tagName === 'IMG') { const fb = el.getAttribute('data-fallback'); if (fb && fb.indexOf('{{') < 0 && el.getAttribute('src') !== fb) el.setAttribute('src', fb); } };
+    document.addEventListener('error', this._imgErr, true);
     const slug = new URLSearchParams(window.location.search).get('stone') || '';
     this.setState({ slug });
     Promise.all([
@@ -138,16 +141,18 @@ class Component extends DCLogic {
     if (typeof document !== 'undefined') document.title = (stone.title || stone.name) + ' · Eternal City Jewelry';
 
     const key = norm(stone.name);
+    const keys = [key, ...(stone.match || []).map(norm)];
     const otherKeys = new Set(s.stones.filter(x => x !== stone).map(x => norm(x.name)));
     const products = stone.showProducts === false ? [] : s.products
       .filter(p => p.published !== false)
-      .filter(p => [...(p.cats || []), ...(p.tags || [])].map(norm).some(h => h && (h.includes(key) || (key.includes(h) && !otherKeys.has(h)))))
+      .filter(p => [...(p.cats || []), ...(p.tags || [])].map(norm).some(h => h && (keys.some(k => h.includes(k)) || (key.includes(h) && !otherKeys.has(h)))))
       .map(p => {
         const onSale = !!(p.sale && p.sale < p.regular);
         return {
           name: p.name,
           href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
           safePhoto: (p.images && p.images[0]) || 'img/logo-ecj-white.webp',
+          fallback: p.fallbackImg || 'img/logo-ecj-white.webp',
           onSale,
           priceLabel: Number(onSale ? p.sale : p.price).toFixed(2),
           origPriceLabel: Number(p.regular).toFixed(2),

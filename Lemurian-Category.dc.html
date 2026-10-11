@@ -90,7 +90,7 @@
             <sc-if value="{{ item.onSale }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
             €{{ item.priceLabel }}
           </div>
-          <div onClick="{{ item.add }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px;">Add to Bag</div>
+          <div onClick="{{ item.add }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px;">Make It Yours</div>
         </div>
       </sc-for>
     </div>
@@ -106,12 +106,12 @@
   <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
   <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#17130e; border-left:1px solid #2a2318; transform:translateX(0%);transition:transform .3s ease; z-index:20; display:flex; flex-direction:column;">
     <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #2a2318;">
-      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Bag ({{ cartCount }})</div>
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Cart ({{ cartCount }})</div>
       <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#b3ac9c;">✕</div>
     </div>
     <div style="flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:18px;">
       <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
-        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your bag is empty.</div>
+        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your cart is empty.</div>
       </sc-if>
       <sc-for list="{{ cartItems }}" as="line" hint-placeholder-count="0">
         <div style="display:flex; gap:14px;">

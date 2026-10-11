@@ -57,7 +57,7 @@
     <div style="display:flex; flex-direction:column; gap:16px;">
       <div style="position:relative; width:100%; border-radius:6px; overflow:hidden; background:#1b1711;">
         <div style="padding-top:100%;"></div>
-        <img src="{{ heroImg }}" alt="{{ name }}" draggable="false" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+        <img src="{{ heroImg }}" data-fallback="{{ fallbackImg }}" alt="{{ name }}" draggable="false" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
         <sc-if value="{{ onSale }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute; top:20px; left:20px; background:#c6a667; color:#15120d; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:6px 12px; border-radius:2px;">Sale</div>
         </sc-if>
@@ -65,7 +65,7 @@
       <div data-r="thumbs" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;">
         <sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="0">
           <div onClick="{{ th.onClick }}" style="cursor:pointer; aspect-ratio:1; border-radius:4px; overflow:hidden; background:#1b1711; border:1px solid {{ th.border }};">
-            <img src="{{ th.src }}" alt="" draggable="false" style="width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+            <img src="{{ th.src }}" data-fallback="{{ fallbackImg }}" alt="" draggable="false" style="width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
           </div>
         </sc-for>
       </div>
@@ -146,7 +146,7 @@
       <div style="height:1px; background:#2f2a20; margin:0 0 28px;"></div>
 
       <div data-r="addRow" style="display:flex; align-items:stretch; gap:14px;">
-        <div data-r="addBtn" onClick="{{ addToCart }}" style="cursor:pointer; flex:1; min-width:0; background:#c3a077; color:#1b1711; text-align:center; padding:24px 16px; font-size:16px; letter-spacing:.22em; text-transform:uppercase;">Add to cart</div>
+        <div data-r="addBtn" onClick="{{ addToCart }}" style="cursor:pointer; flex:1; min-width:0; background:#c3a077; color:#1b1711; text-align:center; padding:24px 16px; font-size:16px; letter-spacing:.22em; text-transform:uppercase;">Make It Yours</div>
         <div style="display:flex; align-items:center; justify-content:center; gap:6px; border:1px solid #37301f; padding:0 6px; color:#cabfa9; flex-shrink:0;">
           <div onClick="{{ incQty }}" style="cursor:pointer; font-size:16px; line-height:1; padding:8px 10px;">+</div>
           <div style="font-size:14px; line-height:1; color:#efe9dc;">{{ qty }}</div>
@@ -195,16 +195,16 @@
   <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
   <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#17130e; border-left:1px solid #2a2318; z-index:20; display:flex; flex-direction:column;">
     <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #2a2318;">
-      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Bag ({{ cartCount }})</div>
+      <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Cart ({{ cartCount }})</div>
       <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#b3ac9c;">✕</div>
     </div>
     <div style="flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:18px;">
       <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
-        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your bag is empty.</div>
+        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your cart is empty.</div>
       </sc-if>
       <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex; gap:14px;">
-          <img src="{{ heroImg }}" alt="" style="width:64px; height:64px; border-radius:4px; object-fit:cover; flex-shrink:0;">
+          <img src="{{ heroImg }}" data-fallback="{{ fallbackImg }}" alt="" style="width:64px; height:64px; border-radius:4px; object-fit:cover; flex-shrink:0;">
           <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
             <div style="font-size:14px;">{{ name }}</div>
             <div style="font-size:12px; color:#b3ac9c;">{{ priceLabel }}{{ optionsLine }}</div>
@@ -237,7 +237,10 @@ const BLANK = 'img/logo-ecj-white.webp';
 class Component extends DCLogic {
   state = { products: [], slug: '', size: '', metal: '', length: '', clasp: '', wrist: '', openPerk: -1, qty: 1, cart: false, cartOpen: false, thumbIdx: 0 };
 
+  componentWillUnmount() { document.removeEventListener('error', this._imgErr, true); }
   componentDidMount() {
+    this._imgErr = (e) => { const el = e.target; if (el && el.tagName === 'IMG') { const fb = el.getAttribute('data-fallback'); if (fb && fb.indexOf('{{') < 0 && el.getAttribute('src') !== fb) el.setAttribute('src', fb); } };
+    document.addEventListener('error', this._imgErr, true);
     const slug = new URLSearchParams(window.location.search).get('slug') || '';
     this.setState({ slug });
     fetch('data/stones.json').then(r => r.json()).then(stones => this.setState({ stones })).catch(() => {});
@@ -300,9 +303,9 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state;
-    if (!s.products.length && !s.slug) return { found: false, notFound: false, heroImg: BLANK, thumbs: [], sizes: [] };
+    if (!s.products.length && !s.slug) return { found: false, notFound: false, heroImg: BLANK, thumbs: [], sizes: [], fallbackImg: BLANK };
     const p = this.getProduct();
-    if (!p) return { found: false, notFound: true, heroImg: BLANK, thumbs: [], sizes: [] };
+    if (!p) return { found: false, notFound: true, heroImg: BLANK, thumbs: [], sizes: [], fallbackImg: BLANK };
 
     const images = p.images && p.images.length ? p.images : [BLANK];
     const heroImg = images[Math.min(s.thumbIdx, images.length - 1)] || BLANK;
@@ -375,6 +378,7 @@ class Component extends DCLogic {
       video: p.video || '',
       showPiece: !!((p.desc && p.short) || p.video),
       heroImg, thumbs,
+      fallbackImg: p.fallbackImg || BLANK,
       onSale,
       priceLabel: this.fmt(p.price * s.qty),
       regularLabel: this.fmt(p.regular),
