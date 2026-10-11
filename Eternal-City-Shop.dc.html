@@ -180,7 +180,7 @@
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div onClick="{{ item.view }}" style="cursor:pointer; position:relative; height:200px; border-radius:4px; background:{{ item.stripeBg }}; display:flex; align-items:center; justify-content:center; font-family:monospace; font-size:11px; color:#8f8879; text-align:center; padding:8px; overflow:hidden;">
               <sc-if value="{{ item.photo }}" hint-placeholder-val="{{ false }}">
-                <img src="{{ item.photo }}" alt="{{ item.name }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
+                <img src="{{ item.photo }}" data-fallback="{{ item.fallback }}" alt="{{ item.name }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
               </sc-if>
               <sc-if value="{{ item.noPhoto }}" hint-placeholder-val="{{ true }}">{{ item.photoLabel }}</sc-if>
               <sc-if value="{{ item.badge }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">{{ item.badge }}</div></sc-if>
@@ -231,7 +231,7 @@
         <sc-for list="{{ products }}" as="item" hint-placeholder-count="8">
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div onClick="{{ item.view }}" style="cursor:pointer; position:relative; height:200px; border-radius:4px; background:{{ item.stripeBg }}; display:flex; align-items:center; justify-content:center; font-family:monospace; font-size:11px; color:#8f8879; text-align:center; padding:8px;">
-              {{ item.photoLabel }}
+              <img src="{{ item.photo }}" data-fallback="{{ item.fallback }}" alt="{{ item.name }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" />
               <div onClick="{{ item.toggleWish }}" style="position:absolute; top:8px; right:8px; font-size:16px; color:{{ item.heartColor }};">♡</div>
             </div>
             <div onClick="{{ item.view }}" style="cursor:pointer; font-family:'Cormorant Garamond',Georgia,serif; font-size:17px;">{{ item.name }}</div>
@@ -369,21 +369,23 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-const PRODUCTS = [
-  { id: 'onyx', name: 'Black Onyx Bracelet', stone: 'Black Onyx', category: 'Bracelets', color: 'Black', size: '10mm', price: 120, badge: 'Bestseller', meaning: 'Grounded protection — a stone for quiet strength.', hue: 40, sat: 0.01, light: 0.22 },
-  { id: 'lapis', name: 'Lapis Lazuli Bracelet', stone: 'Lapis Lazuli', category: 'Bracelets', color: 'Blue', size: '8mm', price: 95, meaning: 'Truth & wisdom — the colour of the deep sea.', hue: 250, sat: 0.09, light: 0.32 },
-  { id: 'tigerseye', name: "Tiger's Eye Bracelet", stone: "Tiger's Eye", category: 'Bracelets', color: 'Brown', size: '10mm', price: 85, badge: 'New', meaning: 'Confidence & will — worn for courage.', hue: 55, sat: 0.1, light: 0.42 },
-  { id: 'turquoise8', name: 'Turquoise Bracelet 8mm', stone: 'Turquoise', category: 'Bracelets', color: 'Blue', size: '8mm', price: 55, meaning: 'Ancient wisdom carried on the wrist.', hue: 195, sat: 0.09, light: 0.4 },
-  { id: 'topazmatte', name: 'Sky Blue Topaz & Black Matte Bracelet', stone: 'Topaz', category: 'Bracelets', color: 'Blue', size: '10mm', price: 168, salePrice: 48, meaning: 'Black for grounding, blue for clarity.', hue: 215, sat: 0.1, light: 0.36 },
-  { id: 'lemurian', name: 'Lemurian Quartz Minimalist Bracelet', stone: 'Lemurian Quartz', category: 'Lemurian Bracelets', color: 'White', size: '8mm', price: 224, salePrice: 112, meaning: 'Clarity and quiet focus, cut minimal.', hue: 60, sat: 0.02, light: 0.5 },
-  { id: 'peridot', name: 'Peridot Bracelet', stone: 'Peridot', category: 'Bracelets', color: 'Green', size: '10mm', price: 75, meaning: 'Pure energy, handcrafted in Rome.', hue: 120, sat: 0.09, light: 0.38 },
-  { id: 'garnet', name: 'Red Garnet Bracelet', stone: 'Red Garnet', category: 'Bracelets', color: 'Red', size: '8mm', price: 40, meaning: 'Faceted garnet with hematite discs.', hue: 15, sat: 0.12, light: 0.34 },
-  { id: 'hematite', name: 'Hematite Bracelet', stone: 'Hematite', category: 'Bracelets', color: 'Metallic', size: '12mm', price: 65, meaning: 'Metallic strength, worn heavy and grounded.', hue: 220, sat: 0.01, light: 0.4 },
-  { id: 'turqnecklace', name: 'Turquoise Necklace', stone: 'Turquoise', category: 'Necklaces', color: 'Blue', size: '8mm', price: 40, meaning: 'The wisdom of turquoise, worn close.', hue: 195, sat: 0.09, light: 0.4 },
-  { id: 'diamondonyx', name: 'Raw Blue Diamonds & Black Onyx Bracelet', stone: 'Raw Diamond & Onyx', category: 'Bracelets', color: 'Mixed', size: '10mm', price: 500, salePrice: 275, badge: 'Sale', meaning: 'The extraordinary, set on your wrist.', hue: 230, sat: 0.08, light: 0.3 },
-];
-
-const CATEGORY_LIST = ['All', 'Bracelets', 'Lemurian Bracelets', 'Necklaces'];
+let PRODUCTS = [];
+const BLANK_IMG = 'img/logo-ecj-white.webp';
+function mapProduct(p) {
+  const all = (p.cats || []).concat(p.tags || []).join(' ');
+  const category = p.loose ? 'Loose Gemstones' : (/necklace|pendant/i.test(p.name + ' ' + all) && !/bracelet/i.test(p.name) ? 'Necklaces' : 'Bracelets');
+  const stoneCat = (p.cats || []).find(c => !/^(bracelets?|necklaces?|loose gemstones)$/i.test(c)) || '';
+  const onSale = !!(p.sale && p.sale < p.regular);
+  return {
+    id: p.slug, slug: p.slug, name: p.name, category,
+    stone: stoneCat.replace(/\s*(bracelets?|jewelry)$/i, ''), color: '',
+    price: Number(p.regular || p.price), salePrice: onSale ? Number(p.sale) : null,
+    badge: onSale ? 'Sale' : '', meaning: '', size: '',
+    photo: (p.images && p.images[0]) || BLANK_IMG, fallback: p.fallbackImg || BLANK_IMG,
+    local: !p.photoPending, hue: 60, sat: 0.02, light: 0.25,
+  };
+}
+const CATEGORY_LIST = ['All', 'Bracelets', 'Necklaces', 'Loose Gemstones'];
 
 const PRODUCT_PHOTOS = {
   onyx: 'https://www.printeurope.pro/wp-content/uploads/2025/12/black-onyx.webp',
@@ -420,9 +422,15 @@ const HERO_SLIDES = [
 ];
 
 class Component extends DCLogic {
-  state = { screen: 'home', productId: PRODUCTS[0].id, cart: [], wishlist: [], cartOpen: false, search: '', category: 'All', placed: false, heroSlide: 0 };
+  state = { catalog: [], screen: 'home', productId: '', cart: [], wishlist: [], cartOpen: false, search: '', category: 'All', placed: false, heroSlide: 0 };
 
   componentDidMount() {
+    this._imgErr = (e) => { const el = e.target; if (el && el.tagName === 'IMG') { const fb = el.getAttribute('data-fallback'); if (fb && fb.indexOf('{{') < 0 && el.getAttribute('src') !== fb) el.setAttribute('src', fb); } };
+    document.addEventListener('error', this._imgErr, true);
+    fetch('data/products.json').then(r => r.json()).then(list => {
+      PRODUCTS = list.filter(p => p.published !== false).map(mapProduct);
+      this.setState({ catalog: PRODUCTS });
+    }).catch(() => {});
     this.syncChrome();
     this._heroTimer = setInterval(() => {
       this.setState(s => ({ heroSlide: (s.heroSlide + 1) % HERO_SLIDES.length }));
@@ -430,6 +438,7 @@ class Component extends DCLogic {
   }
   componentWillUnmount() {
     if (this._heroTimer) clearInterval(this._heroTimer);
+    document.removeEventListener('error', this._imgErr, true);
   }
   goHeroSlide(i) { this.setState({ heroSlide: i }); }
 
@@ -474,20 +483,22 @@ class Component extends DCLogic {
     const inWishlist = s.wishlist.includes(p.id);
     const bg = `oklch(${p.light} ${p.sat} ${p.hue})`;
     const bgDark = `oklch(${Math.max(p.light - 0.1, 0.05)} ${p.sat} ${p.hue})`;
-    const photo = PRODUCT_PHOTOS[p.id] || null;
+    const photo = p.photo || null;
+    const href = 'product.dc.html?slug=' + encodeURIComponent(p.slug);
+    const open = () => { window.location.href = href; };
     return {
       ...p,
       priceLabel: (p.salePrice || p.price).toFixed(2),
-      origPriceLabel: p.price.toFixed(2),
+      origPriceLabel: p.price.toFixed(2), href,
       onSale,
       inWishlist,
       heartColor: inWishlist ? '#d4b572' : '#c4bca9',
       stripeBg: `repeating-linear-gradient(135deg, ${bg} 0px, ${bg} 12px, ${bgDark} 12px, ${bgDark} 24px)`,
       photoLabel: p.stone + ' — product photo',
       photo, noPhoto: !photo,
-      add: () => this.addToCart(p.id),
+      add: open,
       toggleWish: () => this.toggleWishlist(p.id),
-      view: () => this.go('product', p.id),
+      view: open,
     };
   }
 
@@ -499,10 +510,10 @@ class Component extends DCLogic {
       const qOk = !q || p.name.toLowerCase().includes(q) || p.stone.toLowerCase().includes(q) || p.color.toLowerCase().includes(q);
       return catOk && qOk;
     }).map(p => this.decorateProduct(p, s));
-    const featuredProducts = PRODUCTS.slice(0, 4).map(p => this.decorateProduct(p, s));
-    const selectedRaw = PRODUCTS.find(p => p.id === s.productId) || PRODUCTS[0];
+    const featuredProducts = PRODUCTS.filter(p => p.local).concat(PRODUCTS.filter(p => !p.local)).slice(0, 4).map(p => this.decorateProduct(p, s));
+    const selectedRaw = PRODUCTS.find(p => p.id === s.productId) || PRODUCTS[0] || mapProduct({ slug: '', name: '', cats: [] });
     const selected = this.decorateProduct(selectedRaw, s);
-    const cartItems = s.cart.map(line => {
+    const cartItems = s.cart.filter(line => PRODUCTS.some(pp => pp.id === line.id)).map(line => {
       const p = PRODUCTS.find(pp => pp.id === line.id);
       const unit = p.salePrice || p.price;
       const bg = `oklch(${p.light} ${p.sat} ${p.hue})`;

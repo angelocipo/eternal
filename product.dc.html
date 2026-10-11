@@ -313,7 +313,7 @@ class Component extends DCLogic {
     const onSale = !!(p.sale && p.sale < p.regular);
     const discount = onSale ? Math.round((1 - p.sale / p.regular) * 100) : 0;
     const cats = (p.cats || []).filter(c => !/^bracelets?$/i.test(c));
-    const isBracelet = /bracelet/i.test(p.name || '') || (p.cats || []).some(c => /bracelet/i.test(c)) || (p.tags || []).some(t => /bracelet/i.test(t));
+    const isBracelet = !p.loose && (/bracelet/i.test(p.name || '') || (p.cats || []).some(c => /bracelet/i.test(c)) || (p.tags || []).some(t => /bracelet/i.test(t)));
     const WRIST = ['XSmall 15 cm - 6 inch', 'Small 16 cm - 6.4 inch', 'Medium 17 cm - 6.8 inch', 'Medium+ 18 cm - 7.2 inch', 'Large 19 cm - 7.6 inch', 'XLarge 20 cm - 8 inch', 'XXLarge 21 cm - 8.4 inch'];
     const CLOSINGS = [
       { label: 'Elastic', img: 'img/options/italian-jewelry-closing-elastic.webp' },
