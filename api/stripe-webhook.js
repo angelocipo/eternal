@@ -24,7 +24,7 @@ function safeFrom() {
   const addr = (raw.match(/<([^>]+)>/) || [null, raw])[1] || '';
   if (addr.toLowerCase().endsWith('@' + VERIFIED_DOMAIN)) return raw;
   if (raw) console.warn(`RESEND_FROM "${raw}" is not on @${VERIFIED_DOMAIN}: ignored.`);
-  return `Eternal City Jewelry <orders@${VERIFIED_DOMAIN}>`;
+  return `Eternal City Jewelry <info@${VERIFIED_DOMAIN}>`;
 }
 const RESEND_FROM = safeFrom();
 
@@ -132,6 +132,10 @@ module.exports = async (req, res) => {
     }
   }
 
+  console.log('Stripe event received:', event.type, event.id);
+  if (event.type !== 'checkout.session.completed') {
+    console.log('Ignored: this endpoint only acts on checkout.session.completed.');
+  }
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     try {

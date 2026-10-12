@@ -8,7 +8,7 @@ function safeFrom() {
   const raw = (process.env.RESEND_FROM || '').trim();
   const addr = (raw.match(/<([^>]+)>/) || [null, raw])[1] || '';
   if (addr.toLowerCase().endsWith('@' + VERIFIED_DOMAIN)) return raw;
-  return `Eternal City Jewelry <orders@${VERIFIED_DOMAIN}>`;
+  return `Eternal City Jewelry <info@${VERIFIED_DOMAIN}>`;
 }
 const FROM = safeFrom();
 const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'info@eternalcity.jewelry';
