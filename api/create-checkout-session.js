@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
       unitAmountCents = Math.round(total * 100);
       description = `${jewel.name}${opts ? ' — ' + opts : ''}${qty > 1 ? ' ×' + qty : ''}`.slice(0, 250);
       // Shipping is decided here too, never taken from the browser.
-      shippingFee = total >= JEWELRY_FREE_SHIPPING_FROM ? 0 : JEWELRY_SHIPPING_FEE;
+      shippingFee = (jewel.noShipping || total >= JEWELRY_FREE_SHIPPING_FROM) ? 0 : JEWELRY_SHIPPING_FEE;
     } else {
       res.status(400).json({ error: 'Product not available for online purchase' });
       return;
