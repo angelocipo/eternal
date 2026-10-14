@@ -17,7 +17,7 @@
 <link rel="canonical" href="https://www.eternalcity.jewelry/checkout.html">
 <title>Checkout &mdash; Eternal City Jewelry</title>
 <meta name="robots" content="noindex, follow">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <style>
@@ -236,14 +236,15 @@ class Component extends DCLogic {
       try { orderBody = JSON.parse(decodeURIComponent(atob(cfg))); } catch (e) {}
     }
     const priceNum = parseFloat(price) || 0;
-    const autoFree = priceNum >= 50;
-    if (id) this.setState({ productId: id, productName: name || '', productPrice: price || '', orderBody, shipZone: autoFree ? 'gratuita' : this.state.shipZone });
+    const noShip = params.get('noship') === '1';
+    const autoFree = noShip || priceNum >= 50;
+    if (id) this.setState({ productId: id, productName: name || '', productPrice: price || '', noShip, orderBody, shipZone: autoFree ? 'gratuita' : this.state.shipZone });
     if (window.ecjSetCartCount) window.ecjSetCartCount(0);
   }
 
   computeShippingFee() {
     const price = parseFloat(this.state.productPrice) || 0;
-    if (price >= 50) return 0;
+    if (this.state.noShip || price >= 50) return 0;
     return 8;
   }
 
