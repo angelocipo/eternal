@@ -12,12 +12,12 @@
   <script defer src="/_vercel/speed-insights/script.js"></script>
 <link rel="stylesheet" href="fonts/fonts.css">
   <style>
-    body { margin: 0; background: #15120d; }
+    body { margin: 0; background: #0e1524; }
     ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-thumb { background: rgba(198,166,103,0.28); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(185,190,200,0.28); border-radius: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    a { color: #d4b572; }
-    a:hover { color: #efe9dc; }
+    a { color: #cfd3da; }
+    a:hover { color: #eef0f4; }
     @media (max-width: 900px) {
       [data-r="nav"] { padding: 16px 20px !important; flex-wrap: wrap; row-gap: 10px; }
       [data-r="hero"] { padding: 48px 20px !important; }
@@ -42,30 +42,30 @@
 <script defer src="consent.js"></script>
 </helmet>
 
-<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
+<div style="min-height:100%; background:#0e1524; color:#eef0f4; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
 
   <!-- NAV -->
   <div data-ecj-nav="bracelet"></div>
 
   <!-- HERO -->
-  <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px); flex-wrap:wrap;">
+  <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #0e1423, #0e1423 14px, #131c30 14px, #131c30 28px); flex-wrap:wrap;">
     <div data-r="heroText" style="flex:1 1 460px; min-width:0; display:flex; flex-direction:column; gap:8px;">
-      <div style="color:#d4b572; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
+      <div style="color:#cfd3da; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
       <div data-r="heroTitle" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:30px; line-height:1.1; font-weight:500;">Lemurian Bracelets: Minimalist Luxury with an Edge</div>
-      <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#cabfa9;">Quiet luxury for people who know what elegance looks like — cut minimal, worn every day.</div>
-      <div style="font-size:13px; line-height:1.6; color:#cabfa9; width:100%;">Transparent, opaque, soft blue, warm brown — Lemurian quartz carries every note in one stone. Ours is sourced directly from small mining operations in Brazil, the region long recognized as the true origin of authentic Lemurian crystals: natural striations, high clarity, no dye or treatment, no middlemen.</div>
-      <div data-r="statRow" style="display:flex; gap:32px; margin-top:8px; padding-top:12px; border-top:1px solid #2a2318; max-width:640px;">
+      <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#bcc2cd;">Quiet luxury for people who know what elegance looks like — cut minimal, worn every day.</div>
+      <div style="font-size:13px; line-height:1.6; color:#bcc2cd; width:100%;">Transparent, opaque, soft blue, warm brown — Lemurian quartz carries every note in one stone. Ours is sourced directly from small mining operations in Brazil, the region long recognized as the true origin of authentic Lemurian crystals: natural striations, high clarity, no dye or treatment, no middlemen.</div>
+      <div data-r="statRow" style="display:flex; gap:32px; margin-top:8px; padding-top:12px; border-top:1px solid #121b30; max-width:640px;">
         <div style="display:flex; flex-direction:column; gap:2px;">
           <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">7/10</div>
-          <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">Mohs Hardness</div>
+          <div style="font-size:10.5px; color:#a3abba; letter-spacing:.04em;">Mohs Hardness</div>
         </div>
         <div style="display:flex; flex-direction:column; gap:2px;">
           <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">SiO₂</div>
-          <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">Silicon dioxide — pure quartz</div>
+          <div style="font-size:10.5px; color:#a3abba; letter-spacing:.04em;">Silicon dioxide — pure quartz</div>
       </div>
         <div style="display:flex; flex-direction:column; gap:2px;">
           <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">Brazil</div>
-          <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">Serra do Cabral &amp; Diamantina</div>
+          <div style="font-size:10.5px; color:#a3abba; letter-spacing:.04em;">Serra do Cabral &amp; Diamantina</div>
         </div>
       </div>
     </div>
@@ -80,58 +80,58 @@
     <div data-r="grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
       <sc-for list="{{ products }}" as="item" hint-placeholder-count="0">
         <div style="display:flex; flex-direction:column; gap:12px;">
-          <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#1b1711; display:block; text-decoration:none; border:1pt solid #efe9dc;">
+          <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#131c30; display:block; text-decoration:none; border:1pt solid #eef0f4;">
             <img src="{{ item.safePhoto }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
-            <sc-if value="{{ item.badge }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">{{ item.badge }}</div></sc-if>
+            <sc-if value="{{ item.badge }}"><div style="position:absolute; top:10px; left:10px; background:#cfd3da; color:#0b111e; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">{{ item.badge }}</div></sc-if>
             <div onClick="{{ item.toggleWish }}" style="position:absolute; top:8px; right:8px; font-size:16px; color:{{ item.heartColor }};">♡</div>
           </a>
-          <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#efe9dc;">{{ item.name }}</a>
-          <div style="font-size:13px; color:#b3ac9c;">
+          <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#eef0f4;">{{ item.name }}</a>
+          <div style="font-size:13px; color:#a3abba;">
             <sc-if value="{{ item.onSale }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
             €{{ item.priceLabel }}
           </div>
-          <div onClick="{{ item.add }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px;">Make It Yours</div>
+          <div onClick="{{ item.add }}" style="cursor:pointer; text-align:center; border:1px solid #18233e; padding:9px; font-size:13px; border-radius:2px;">Make It Yours</div>
         </div>
       </sc-for>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <div data-r="footer" style="padding:40px 64px; border-top:1px solid #2a2318; display:flex; justify-content:space-between; color:#8f8879; font-size:12px;">
+  <div data-r="footer" style="padding:40px 64px; border-top:1px solid #121b30; display:flex; justify-content:space-between; color:#757f93; font-size:12px;">
     <div>© 2026 Eternal City Jewelry · Rome, Italy</div>
     <div>Handcrafted Natural Gemstone Bracelets</div>
   </div>
 
   <!-- CART DRAWER -->
   <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
-  <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#17130e; border-left:1px solid #2a2318; transform:translateX(0%);transition:transform .3s ease; z-index:20; display:flex; flex-direction:column;">
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #2a2318;">
+  <div data-r="cartDrawer" style="position:fixed; top:0; right:0; height:100%; width:380px; background:#0a0f1b; border-left:1px solid #121b30; transform:translateX(0%);transition:transform .3s ease; z-index:20; display:flex; flex-direction:column;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid #121b30;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:20px;">Your Cart ({{ cartCount }})</div>
-      <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#b3ac9c;">✕</div>
+      <div onClick="{{ toggleCart }}" style="cursor:pointer; font-size:18px; color:#a3abba;">✕</div>
     </div>
     <div style="flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:18px;">
       <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
-        <div style="color:#8f8879; font-size:14px; padding-top:40px; text-align:center;">Your cart is empty.</div>
+        <div style="color:#757f93; font-size:14px; padding-top:40px; text-align:center;">Your cart is empty.</div>
       </sc-if>
       <sc-for list="{{ cartItems }}" as="line" hint-placeholder-count="0">
         <div style="display:flex; gap:14px;">
           <img src="{{ line.safePhoto }}" alt="{{ line.name }}" style="width:64px; height:64px; border-radius:4px; object-fit:cover; flex-shrink:0;">
           <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
             <div style="font-size:14px;">{{ line.name }}</div>
-            <div style="font-size:12px; color:#b3ac9c;">€{{ line.priceLabel }}</div>
+            <div style="font-size:12px; color:#a3abba;">€{{ line.priceLabel }}</div>
             <div style="display:flex; align-items:center; gap:10px; margin-top:4px;">
-              <div onClick="{{ line.dec }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">−</div>
+              <div onClick="{{ line.dec }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #18233e; border-radius:2px; font-size:13px;">−</div>
               <div style="font-size:13px;">{{ line.qty }}</div>
-              <div onClick="{{ line.inc }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #37301f; border-radius:2px; font-size:13px;">+</div>
-              <div onClick="{{ line.remove }}" style="cursor:pointer; margin-left:auto; font-size:12px; color:#b3ac9c; text-decoration:underline;">Remove</div>
+              <div onClick="{{ line.inc }}" style="cursor:pointer; width:22px; height:22px; text-align:center; border:1px solid #18233e; border-radius:2px; font-size:13px;">+</div>
+              <div onClick="{{ line.remove }}" style="cursor:pointer; margin-left:auto; font-size:12px; color:#a3abba; text-decoration:underline;">Remove</div>
             </div>
           </div>
         </div>
       </sc-for>
     </div>
-    <div style="padding:20px 24px; border-top:1px solid #2a2318; display:flex; flex-direction:column; gap:12px;">
+    <div style="padding:20px 24px; border-top:1px solid #121b30; display:flex; flex-direction:column; gap:12px;">
       <div style="display:flex; justify-content:space-between; font-size:15px; font-weight:700;"><div>Subtotal</div><div>€{{ subtotalLabel }}</div></div>
-      <div style="cursor:pointer; text-align:center; background:#d4b572; color:#191510; font-weight:700; padding:15px; border-radius:2px;">Checkout</div>
+      <div style="cursor:pointer; text-align:center; background:#cfd3da; color:#0b111e; font-weight:700; padding:15px; border-radius:2px;">Checkout</div>
     </div>
   </div>
   </sc-if>
@@ -195,7 +195,7 @@ class Component extends DCLogic {
         priceLabel: (p.salePrice || p.price).toFixed(2),
         origPriceLabel: p.price.toFixed(2),
         onSale,
-        heartColor: inWishlist ? '#d4b572' : '#c4bca9',
+        heartColor: inWishlist ? '#cfd3da' : '#b7bdc8',
         add: () => this.addToCart(p.id),
         toggleWish: () => this.toggleWishlist(p.id),
       };

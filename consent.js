@@ -9,17 +9,18 @@
     var w = document.createElement('div');
     w.id = 'ecj-privacy';
     w.setAttribute('role', 'note');
+    var NV = window.ECJ_PALETTE !== 'gold';
     w.style.cssText = 'position:fixed;left:16px;bottom:16px;z-index:2147483000;max-width:340px;' +
-      'background:rgba(21,18,13,.94);border:1px solid #3a3122;padding:10px 12px 10px 14px;' +
+      'background:' + (NV ? 'rgba(14,21,36,.94)' : 'rgba(21,18,13,.94)') + ';border:1px solid ' + (NV ? '#2c3a57' : '#3a3122') + ';padding:10px 12px 10px 14px;' +
       'display:flex;gap:12px;align-items:center;font:400 12px/1.5 Avenir,Nunito,system-ui,sans-serif;' +
-      'color:#c9bfae;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;';
+      'color:' + (NV ? '#bcc2cd' : '#c9bfae') + ';opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;';
     w.innerHTML = '<span style="flex:1">No tracking cookies. We only use what is needed to process your order. ' +
-      '<a href="privacy-policy.html" style="color:#d4b572;text-decoration:underline;text-underline-offset:2px;">Privacy</a></span>';
+      '<a href="privacy-policy.html" style="color:' + (NV ? '#cfd3da' : '#d4b572') + ';text-decoration:underline;text-underline-offset:2px;">Privacy</a></span>';
     var x = document.createElement('button');
     x.type = 'button';
     x.setAttribute('aria-label', 'Close');
     x.textContent = '×';
-    x.style.cssText = 'background:none;border:0;color:#d4b572;font:300 18px/1 system-ui;cursor:pointer;padding:4px 6px;min-width:28px;min-height:28px;';
+    x.style.cssText = 'background:none;border:0;color:' + (NV ? '#cfd3da' : '#d4b572') + ';font:300 18px/1 system-ui;cursor:pointer;padding:4px 6px;min-width:28px;min-height:28px;';
     x.onclick = function () {
       try { localStorage.setItem(KEY, '1'); } catch (e) {}
       w.style.opacity = '0';

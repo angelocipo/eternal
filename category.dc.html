@@ -13,12 +13,12 @@
 <link rel="stylesheet" href="fonts/fonts.css">
   <style>
     html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-    body { margin: 0; background: #15120d; }
+    body { margin: 0; background: #0e1524; }
     ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-thumb { background: rgba(198,166,103,0.28); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(185,190,200,0.28); border-radius: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    a { color: #d4b572; }
-    a:hover { color: #efe9dc; }
+    a { color: #cfd3da; }
+    a:hover { color: #eef0f4; }
     @media (max-width: 900px) {
       [data-r="hero"] { padding: 24px 20px 32px !important; }
       [data-r="heroImg"] { order: -1; }
@@ -35,7 +35,7 @@
 <script defer src="consent.js"></script>
 </helmet>
 
-<div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
+<div style="min-height:100%; background:#0e1524; color:#eef0f4; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
 
   <div data-ecj-nav="compendium"></div>
 
@@ -47,27 +47,27 @@
   </sc-if>
 
   <sc-if value="{{ found }}" hint-placeholder-val="{{ false }}">
-    <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px); flex-wrap:wrap;">
+    <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #0e1423, #0e1423 14px, #131c30 14px, #131c30 28px); flex-wrap:wrap;">
       <div data-r="heroText" style="flex:1 1 460px; min-width:0; display:flex; flex-direction:column; gap:8px;">
-        <a href="compendium.html" style="display:flex; align-items:center; gap:6px; align-self:flex-start; color:#cabfa9; font-size:12px; letter-spacing:.04em; text-decoration:none; padding:6px 0;" style-hover="color:#efe9dc;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>Compendium</a>
-        <div style="color:#d4b572; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
+        <a href="compendium.html" style="display:flex; align-items:center; gap:6px; align-self:flex-start; color:#bcc2cd; font-size:12px; letter-spacing:.04em; text-decoration:none; padding:6px 0;" style-hover="color:#eef0f4;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>Compendium</a>
+        <div style="color:#cfd3da; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
         <h1 data-r="heroTitle" style="margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-size:30px; line-height:1.1; font-weight:500;">{{ heroTitle }}</h1>
-        <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#cabfa9;">{{ heroSub }}</div>
+        <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#bcc2cd;">{{ heroSub }}</div>
         <sc-if value="{{ hasIntro }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex; flex-direction:column; gap:8px; max-width:760px;">
             <sc-for list="{{ intro }}" as="b" hint-placeholder-count="0">
-              <div style="font-size:13px; line-height:1.6; color:#cabfa9; text-wrap:pretty;">
-                <sc-if value="{{ b.label }}" hint-placeholder-val="{{ false }}"><strong style="color:#efe9dc; font-weight:600;">{{ b.label }}: </strong></sc-if>{{ b.text }}
+              <div style="font-size:13px; line-height:1.6; color:#bcc2cd; text-wrap:pretty;">
+                <sc-if value="{{ b.label }}" hint-placeholder-val="{{ false }}"><strong style="color:#eef0f4; font-weight:600;">{{ b.label }}: </strong></sc-if>{{ b.text }}
               </div>
             </sc-for>
           </div>
         </sc-if>
         <sc-if value="{{ hasStats }}" hint-placeholder-val="{{ false }}">
-          <div data-r="statRow" style="display:flex; gap:32px; margin-top:8px; padding-top:12px; border-top:1px solid #2a2318; max-width:640px;">
+          <div data-r="statRow" style="display:flex; gap:32px; margin-top:8px; padding-top:12px; border-top:1px solid #121b30; max-width:640px;">
             <sc-for list="{{ stats }}" as="st" hint-placeholder-count="0">
               <div style="display:flex; flex-direction:column; gap:2px;">
                 <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:19px;">{{ st.value }}</div>
-                <div style="font-size:10.5px; color:#b3ac9c; letter-spacing:.04em;">{{ st.label }}</div>
+                <div style="font-size:10.5px; color:#a3abba; letter-spacing:.04em;">{{ st.label }}</div>
               </div>
             </sc-for>
           </div>
@@ -86,22 +86,22 @@
         <div data-r="grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
           <sc-for list="{{ products }}" as="item" hint-placeholder-count="0">
             <div style="display:flex; flex-direction:column; gap:12px;">
-              <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#1b1711; display:block; text-decoration:none; border:1pt solid #efe9dc;">
+              <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#131c30; display:block; text-decoration:none; border:1pt solid #eef0f4;">
                 <img src="{{ item.safePhoto }}" data-fallback="{{ item.fallback }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
-                <sc-if value="{{ item.onSale }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; top:10px; left:10px; background:#d4b572; color:#191510; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">Sale</div></sc-if>
+                <sc-if value="{{ item.onSale }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; top:10px; left:10px; background:#cfd3da; color:#0b111e; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">Sale</div></sc-if>
               </a>
-              <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#efe9dc;">{{ item.name }}</a>
-              <div style="font-size:13px; color:#b3ac9c;">
+              <a href="{{ item.href }}" style="font-family:'Cormorant Garamond',Georgia,serif; font-size:17px; text-decoration:none; color:#eef0f4;">{{ item.name }}</a>
+              <div style="font-size:13px; color:#a3abba;">
                 <sc-if value="{{ item.onSale }}" hint-placeholder-val="{{ false }}"><span style="text-decoration:line-through; margin-right:8px; opacity:.6;">€{{ item.origPriceLabel }}</span></sc-if>
                 €{{ item.priceLabel }}
               </div>
-              <a href="{{ item.href }}" style="cursor:pointer; text-align:center; border:1px solid #37301f; padding:9px; font-size:13px; border-radius:2px; color:#efe9dc; text-decoration:none;">Make It Yours</a>
+              <a href="{{ item.href }}" style="cursor:pointer; text-align:center; border:1px solid #18233e; padding:9px; font-size:13px; border-radius:2px; color:#eef0f4; text-decoration:none;">Make It Yours</a>
             </div>
           </sc-for>
         </div>
       </sc-if>
       <sc-if value="{{ hasNoProducts }}" hint-placeholder-val="{{ false }}">
-        <div style="padding:40px 0; font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:20px; color:#a9a292;">No pieces set in {{ stoneName }} yet. <a href="compendium.html">Browse the compendium</a></div>
+        <div style="padding:40px 0; font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:20px; color:#929aa9;">No pieces set in {{ stoneName }} yet. <a href="compendium.html">Browse the compendium</a></div>
       </sc-if>
     </div>
   </sc-if>

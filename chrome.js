@@ -21,7 +21,7 @@
       var l = document.createElement('link'); l.rel = d[0]; if (d[1]) l.type = d[1]; l.href = d[2]; l.sizes = d[3]; h.appendChild(l);
     });
   })();
-  var LOGO = 'img/logo-ecj-gold.webp';
+  var LOGO = 'img/logo-ecj.svg';
   var CART_HREF = 'checkout.html';
 
   // ---- the menu: edit here only ------------------------------------------------
@@ -55,8 +55,10 @@
   };
   // ------------------------------------------------------------------------------
 
-  var GOLD = '#d4b572';
-  var MUTED = '#b3ac9c';
+  var GOLD = '#cfd3da';
+  var MUTED = '#a3abba';
+  var LINE = 'rgba(185,190,200,', NAVBG = 'rgba(14,21,36,.96)', MAINTBG = '#1a2540';
+  if (window.ECJ_PALETTE === 'gold') { GOLD = '#d4b572'; MUTED = '#b3ac9c'; LINE = 'rgba(198,166,103,'; NAVBG = 'rgba(21,18,13,.96)'; MAINTBG = '#221c12'; }
   var cartCount = 0;
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
@@ -69,7 +71,7 @@
 
   function maintHtml() {
     if (!MAINT.on || maintDismissed()) return '';
-    return '<div data-ecj-chrome="maint" style="background:#221c12;border-bottom:1px solid rgba(198,166,103,.22);">' +
+    return '<div data-ecj-chrome="maint" style="background:' + MAINTBG + ';border-bottom:1px solid ' + LINE + '.22);">' +
       '<div style="max-width:1240px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;justify-content:center;gap:16px;">' +
         '<span data-en="' + esc(MAINT.en) + '" data-it="' + esc(MAINT.it) + '" style="font-size:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:' + GOLD + ';text-align:center;">' + esc(MAINT.en) + '</span>' +
         '<button type="button" data-ecj-maint-close aria-label="Close" style="flex:0 0 auto;cursor:pointer;border:none;background:transparent;color:' + MUTED + ';font-family:inherit;line-height:0;padding:4px;">' +
@@ -87,9 +89,9 @@
         ' style="color:' + (on ? GOLD : MUTED) + ';text-decoration:none;">' + esc(n.en) + '</a>';
     }).join('');
 
-    return maintHtml() + '<nav data-ecj-chrome="nav" style="position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);">' +
+    return maintHtml() + '<nav data-ecj-chrome="nav" style="position:sticky;top:0;z-index:30;background:' + NAVBG + ';backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid ' + LINE + '.16);">' +
       '<div style="max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">' +
-        '<a href="index.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:26px;width:auto;display:block;"></a>' +
+        '<a href="index.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:40px;width:auto;display:block;"></a>' +
         '<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;">' + links + '</div>' +
         '<div style="display:flex;align-items:center;gap:16px;flex:0 0 auto;">' +
           '<a href="' + CART_HREF + '" data-ecj-cart style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:' + MUTED + ';text-decoration:none;cursor:pointer;">' +
@@ -97,7 +99,7 @@
             '<span data-en="Cart" data-it="Carrello">Cart</span>' +
             '<span data-ecj-cart-count style="color:' + GOLD + ';">(' + cartCount + ')</span>' +
           '</a>' +
-          '<span style="display:flex;border:1px solid rgba(198,166,103,.3);border-radius:2px;overflow:hidden;">' +
+          '<span style="display:flex;border:1px solid ' + LINE + '.3);border-radius:2px;overflow:hidden;">' +
             '<button type="button" data-lang="it" style="cursor:pointer;border:none;background:transparent;color:' + MUTED + ';font-family:inherit;font-size:10px;letter-spacing:.14em;padding:7px 10px;">IT</button>' +
             '<button type="button" data-lang="en" style="cursor:pointer;border:none;background:transparent;color:' + MUTED + ';font-family:inherit;font-size:10px;letter-spacing:.14em;padding:7px 10px;">EN</button>' +
           '</span>' +
@@ -111,8 +113,8 @@
       return '<a href="' + esc(l.href) + '" data-en="' + esc(l.en) + '" data-it="' + esc(l.it) + '" style="color:' + MUTED + ';text-decoration:none;">' + esc(l.en) + '</a>';
     }).join('');
 
-    return '<div data-ecj-chrome="footer" style="border-top:1px solid rgba(198,166,103,.16);text-align:center;padding:56px 28px;">' +
-      '<img src="' + LOGO + '" alt="Eternal City Jewelry" style="width:100%;max-width:75px;height:auto;display:block;margin:0 auto;">' +
+    return '<div data-ecj-chrome="footer" style="border-top:1px solid ' + LINE + '.16);text-align:center;padding:56px 28px;">' +
+      '<img src="img/logo-ecj-stacked.svg" alt="Eternal City Jewelry" style="width:100%;max-width:200px;height:auto;display:block;margin:0 auto;">' +
       '<div data-en="' + esc(TAGLINE.en) + '" data-it="' + esc(TAGLINE.it) + '" style="font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:' + GOLD + ';margin-top:16px;">' + esc(TAGLINE.en) + '</div>' +
       '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;">' + links + '</div>' +
     '</div>';
