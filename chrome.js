@@ -22,34 +22,34 @@
     });
   })();
   var LOGO = 'img/logo-ecj-gold.webp';
-  var CART_HREF = 'checkout.dc.html';
+  var CART_HREF = 'checkout.html';
 
   // ---- the menu: edit here only ------------------------------------------------
   var NAV = [
-    { key: 'bracelet', href: 'collection.dc.html?type=bracelet', en: 'Bracelets', it: 'Bracciali' },
-    { key: 'necklace', href: 'collection.dc.html?type=necklace', en: 'Necklaces', it: 'Collane' },
-    { key: 'pendant', href: 'collection.dc.html?type=pendant', en: 'Pendants', it: 'Ciondoli' },
-    { key: 'stone', href: 'collection.dc.html?type=stone', en: 'Loose stones', it: 'Pietre sciolte' },
-    { key: 'compendium', href: 'Compendium.dc.html', en: 'Compendium', it: 'Compendio' },
+    { key: 'bracelet', href: 'collection.html?type=bracelet', en: 'Bracelets', it: 'Bracciali' },
+    { key: 'necklace', href: 'collection.html?type=necklace', en: 'Necklaces', it: 'Collane' },
+    { key: 'pendant', href: 'collection.html?type=pendant', en: 'Pendants', it: 'Ciondoli' },
+    { key: 'stone', href: 'collection.html?type=stone', en: 'Loose stones', it: 'Pietre sciolte' },
+    { key: 'compendium', href: 'compendium.html', en: 'Compendium', it: 'Compendio' },
   ];
 
   var FOOTER = [
-    { href: 'index.dc.html', en: 'Home', it: 'Home' },
-    { href: 'Compendium.dc.html', en: 'Compendium', it: 'Compendio' },
-    { href: 'Journal.dc.html', en: 'Journal', it: 'Diario' },
-    { href: 'about.dc.html', en: 'About', it: 'Chi siamo' },
-    { href: 'contact.dc.html', en: 'Contact', it: 'Contatti' },
-    { href: 'Eternal-City-Size-Guide.dc.html', en: 'Size guide', it: 'Guida taglie' },
-    { href: 'Eternal-City-Care-Guide.dc.html', en: 'Care guide', it: 'Cura' },
-    { href: 'selling-conditions.dc.html', en: 'Selling conditions', it: 'Condizioni di vendita' },
-    { href: 'privacy-policy.dc.html', en: 'Privacy', it: 'Privacy' },
+    { href: 'index.html', en: 'Home', it: 'Home' },
+    { href: 'compendium.html', en: 'Compendium', it: 'Compendio' },
+    { href: 'journal.html', en: 'Journal', it: 'Diario' },
+    { href: 'about.html', en: 'About', it: 'Chi siamo' },
+    { href: 'contact.html', en: 'Contact', it: 'Contatti' },
+    { href: 'size-guide.html', en: 'Size guide', it: 'Guida taglie' },
+    { href: 'care-guide.html', en: 'Care guide', it: 'Cura' },
+    { href: 'selling-conditions.html', en: 'Selling conditions', it: 'Condizioni di vendita' },
+    { href: 'privacy-policy.html', en: 'Privacy', it: 'Privacy' },
   ];
 
   var TAGLINE = { en: 'Handcrafted Natural Gemstone Bracelets \u00b7 Rome, Italy', it: 'Bracciali artigianali in pietre naturali \u00b7 Roma, Italia' };
 
   // Maintenance notice: set on to false to remove it from every page.
   var MAINT = {
-    on: true,
+    on: false,
     en: 'Site in maintenance',
     it: 'Sito in manutenzione',
   };
@@ -89,7 +89,7 @@
 
     return maintHtml() + '<nav data-ecj-chrome="nav" style="position:sticky;top:0;z-index:30;background:rgba(21,18,13,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(198,166,103,.16);">' +
       '<div style="max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">' +
-        '<a href="index.dc.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:26px;width:auto;display:block;"></a>' +
+        '<a href="index.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:26px;width:auto;display:block;"></a>' +
         '<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;">' + links + '</div>' +
         '<div style="display:flex;align-items:center;gap:16px;flex:0 0 auto;">' +
           '<a href="' + CART_HREF + '" data-ecj-cart style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:' + MUTED + ';text-decoration:none;cursor:pointer;">' +
