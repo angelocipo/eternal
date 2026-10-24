@@ -10,7 +10,7 @@
 <helmet>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <style>
@@ -49,6 +49,7 @@ a{color:inherit;}
 @media(max-width:640px){.ech header{padding-left:18px !important;padding-right:18px !important;}.ech-input{width:100%;}.ech-cardbody{padding:16px 16px 20px;}}
 html,body{overflow-x:hidden;}
 </style>
+<script defer src="consent.js"></script>
 </helmet>
 <div class="ech">
 
@@ -114,7 +115,7 @@ class Component extends DCLogic {
       .filter(p => kind === 'all' || p.kind === kind)
       .filter(p => !query || (p.title + ' ' + p.subtitle + ' ' + p.lead).toLowerCase().indexOf(query) > -1)
       .map(p => ({
-        href: 'Post.dc.html?slug=' + p.slug,
+        href: 'post.html?slug=' + p.slug,
         title: p.title,
         subtitle: p.subtitle || '',
         lead: p.lead ? (p.lead.length > 150 ? p.lead.slice(0, 148) + '\u2026' : p.lead) : '',

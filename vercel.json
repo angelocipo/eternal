@@ -1,5 +1,5 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "rewrites": [
     {
       "source": "/",
@@ -10,32 +10,52 @@
       "destination": "/index.dc.html"
     },
     {
-      "source": "/collection.html",
-      "destination": "/collection.dc.html"
-    },
-    {
       "source": "/compendium.html",
       "destination": "/Compendium.dc.html"
+    },
+    {
+      "source": "/care-guide.html",
+      "destination": "/Eternal-City-Care-Guide.dc.html"
+    },
+    {
+      "source": "/shop.html",
+      "destination": "/Eternal-City-Shop.dc.html"
+    },
+    {
+      "source": "/size-guide.html",
+      "destination": "/Eternal-City-Size-Guide.dc.html"
     },
     {
       "source": "/journal.html",
       "destination": "/Journal.dc.html"
     },
     {
-      "source": "/about.html",
-      "destination": "/about.dc.html"
-    },
-    {
-      "source": "/about-us",
-      "destination": "/about.dc.html"
+      "source": "/lemurian.html",
+      "destination": "/Lemurian-Category.dc.html"
     },
     {
       "source": "/post.html",
       "destination": "/Post.dc.html"
     },
     {
+      "source": "/about.html",
+      "destination": "/about.dc.html"
+    },
+    {
+      "source": "/category.html",
+      "destination": "/category.dc.html"
+    },
+    {
       "source": "/checkout.html",
       "destination": "/checkout.dc.html"
+    },
+    {
+      "source": "/collection.html",
+      "destination": "/collection.dc.html"
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact.dc.html"
     },
     {
       "source": "/thank-you.html",
@@ -46,12 +66,114 @@
       "destination": "/privacy-policy.dc.html"
     },
     {
+      "source": "/product.html",
+      "destination": "/product.dc.html"
+    },
+    {
+      "source": "/selling-conditions.html",
+      "destination": "/selling-conditions.dc.html"
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about.dc.html"
+    },
+    {
       "source": "/contact",
       "destination": "/contact.dc.html"
     },
     {
       "source": "/privacy",
       "destination": "/privacy-policy.dc.html"
+    },
+    {
+      "source": "/compendium",
+      "destination": "/Compendium.dc.html"
+    },
+    {
+      "source": "/shop",
+      "destination": "/Eternal-City-Shop.dc.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/Compendium.dc",
+      "destination": "/compendium.html",
+      "permanent": true
+    },
+    {
+      "source": "/Eternal-City-Care-Guide.dc",
+      "destination": "/care-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/Eternal-City-Shop.dc",
+      "destination": "/shop.html",
+      "permanent": true
+    },
+    {
+      "source": "/Eternal-City-Size-Guide.dc",
+      "destination": "/size-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/Journal.dc",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/Lemurian-Category.dc",
+      "destination": "/lemurian.html",
+      "permanent": true
+    },
+    {
+      "source": "/Post.dc",
+      "destination": "/post.html",
+      "permanent": true
+    },
+    {
+      "source": "/about.dc",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/category.dc",
+      "destination": "/category.html",
+      "permanent": true
+    },
+    {
+      "source": "/checkout.dc",
+      "destination": "/checkout.html",
+      "permanent": true
+    },
+    {
+      "source": "/collection.dc",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact.dc",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/grazie.dc",
+      "destination": "/thank-you.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.dc",
+      "destination": "/privacy-policy.html",
+      "permanent": true
+    },
+    {
+      "source": "/product.dc",
+      "destination": "/product.html",
+      "permanent": true
+    },
+    {
+      "source": "/selling-conditions.dc",
+      "destination": "/selling-conditions.html",
+      "permanent": true
     }
   ]
 }

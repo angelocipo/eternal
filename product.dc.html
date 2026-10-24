@@ -48,7 +48,7 @@
   <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
     <div style="padding:120px 28px; text-align:center;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; margin-bottom:14px;">Product not found</div>
-      <a href="index.dc.html">Back to the collection</a>
+      <a href="index.html">Back to the collection</a>
     </div>
   </sc-if>
 
@@ -99,7 +99,7 @@
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
             <div style="font-size:16px; color:#efe9dc;">Enter wrist size (cm/in)</div>
-            <a href="Eternal-City-Size-Guide.dc.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+            <a href="size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
           </div>
           <input type="text" value="{{ wrist }}" onChange="{{ setWrist }}" placeholder="for example: 8, tight fit" style="background:#1b1711; border:1px solid #37301f; color:#efe9dc; font-family:'Jost',sans-serif; font-size:15px; padding:14px 16px; max-width:420px; border-radius:0; outline:none;">
         </div>
@@ -109,7 +109,7 @@
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
             <div style="font-size:16px; color:#efe9dc;">{{ sizeHeading }}</div>
-            <a href="Eternal-City-Size-Guide.dc.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+            <a href="size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:10px;">
             <sc-for list="{{ lengths }}" as="ln" hint-placeholder-count="0">
@@ -278,7 +278,7 @@ class Component extends DCLogic {
     let hit = stones.find(s => s.name.toLowerCase().replace(/[^a-z]+/g, '') === key);
     if (!hit) hit = stones.find(s => s.slug.replace(/[^a-z]+/g, '').replace(/jewelry$/, '') === key);
     if (!hit) hit = stones.find(s => s.name.toLowerCase().replace(/[^a-z]+/g, '').indexOf(key) === 0);
-    return hit ? ('category.dc.html?stone=' + hit.slug) : '';
+    return hit ? ('category.html?stone=' + hit.slug) : '';
   }
 
   linkify(text) {
@@ -288,7 +288,7 @@ class Component extends DCLogic {
     while ((m = re.exec(text)) !== null) {
       const lead = m[1] || m[3] || m[4] || '';
       const label = m[2] || m[5] || '';
-      const href = m[3] ? 'collection.dc.html' : this.stoneHref(label);
+      const href = m[3] ? 'collection.html' : this.stoneHref(label);
       if (!href) continue;
       if (m.index > last) parts.push({ t: text.slice(last, m.index), isText: true, isLink: false, href: '' });
       parts.push({ t: lead, isText: true, isLink: false, href: '' });
@@ -391,7 +391,7 @@ class Component extends DCLogic {
       checkoutHref: (() => {
         const opts = [wristField ? s.wrist : (s.length || lengthOptions[0]), claspText].filter(Boolean);
         const label = p.name + (opts.length ? ' — ' + opts.join(', ') : '') + (s.qty > 1 ? ' ×' + s.qty : '');
-        return 'checkout.dc.html?id=' + encodeURIComponent(p.slug) +
+        return 'checkout.html?id=' + encodeURIComponent(p.slug) +
           '&name=' + encodeURIComponent(label) +
           '&price=' + (p.price * s.qty).toFixed(2) +
           '&qty=' + s.qty +

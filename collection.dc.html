@@ -54,10 +54,10 @@ img{max-width:100%;}
     <p class="cl-eyebrow">The Collection</p>
     <h1 class="cl-h1">{{ typeName }}</h1>
     <div class="cl-tabs">
-      <a class="cl-tab" href="collection.dc.html?type=bracelet" aria-current="{{ curBracelet }}">Bracelets</a>
-      <a class="cl-tab" href="collection.dc.html?type=necklace" aria-current="{{ curNecklace }}">Necklaces</a>
-      <a class="cl-tab" href="collection.dc.html?type=pendant" aria-current="{{ curPendant }}">Pendants</a>
-      <a class="cl-tab" href="collection.dc.html?type=stone" aria-current="{{ curStone }}">Loose stones</a>
+      <a class="cl-tab" href="collection.html?type=bracelet" aria-current="{{ curBracelet }}">Bracelets</a>
+      <a class="cl-tab" href="collection.html?type=necklace" aria-current="{{ curNecklace }}">Necklaces</a>
+      <a class="cl-tab" href="collection.html?type=pendant" aria-current="{{ curPendant }}">Pendants</a>
+      <a class="cl-tab" href="collection.html?type=stone" aria-current="{{ curStone }}">Loose stones</a>
     </div>
   </div>
 
@@ -82,7 +82,7 @@ img{max-width:100%;}
       </div>
     </sc-if>
     <sc-if value="{{ hasNoProducts }}" hint-placeholder-val="{{ true }}">
-      <div class="cl-empty">More {{ typeNameLower }} are on their way.<br><a href="Compendium.dc.html">Browse the stone compendium</a></div>
+      <div class="cl-empty">More {{ typeNameLower }} are on their way.<br><a href="compendium.html">Browse the stone compendium</a></div>
     </sc-if>
   </div>
 
@@ -129,7 +129,7 @@ class Component extends DCLogic {
       ? g.test(String(p.name || '').toLowerCase())
       : this.matchesType(p, s.type));
     const products = matches.map(p => ({
-      href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
+      href: 'product.html?slug=' + encodeURIComponent(p.slug),
       name: p.name,
       img: (p.images && p.images[0]) || 'img/logo-ecj-white.webp',
       onSale: !!(p.sale && p.sale < p.regular),

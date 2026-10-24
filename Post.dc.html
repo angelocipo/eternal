@@ -10,7 +10,7 @@
 <helmet>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 <script src="i18n.js"></script>
 <script src="chrome.js"></script>
 <style>
@@ -38,6 +38,7 @@ a{color:inherit;}
 .ech img{max-width:100%;}
 html,body{overflow-x:hidden;}
 </style>
+<script defer src="consent.js"></script>
 </helmet>
 <div class="ech">
 
@@ -45,7 +46,7 @@ html,body{overflow-x:hidden;}
 
   <article style="max-width:1000px;margin:0 auto;padding:56px 28px 20px;">
     <nav aria-label="Breadcrumb" style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7d7768;margin-bottom:34px;">
-      <a href="Journal.dc.html" style="color:#b3ac9c;" style-hover="color:#d4b572">Journal</a> &nbsp;/&nbsp; <span>{{ title }}</span>
+      <a href="journal.html" style="color:#b3ac9c;" style-hover="color:#d4b572">Journal</a> &nbsp;/&nbsp; <span>{{ title }}</span>
     </nav>
 
     <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:18px;">
@@ -80,8 +81,8 @@ html,body{overflow-x:hidden;}
 
   <section style="max-width:1000px;margin:0 auto;padding:44px 28px 0;">
     <div style="display:flex;gap:16px;flex-wrap:wrap;">
-      <a class="ech-btn" href="collection.dc.html">Shop the collection</a>
-      <a class="ech-ghost" href="Compendium.dc.html">All 54 stones</a>
+      <a class="ech-btn" href="collection.html">Shop the collection</a>
+      <a class="ech-ghost" href="compendium.html">All 54 stones</a>
     </div>
   </section>
 
@@ -127,7 +128,7 @@ class Component extends DCLogic {
     if (!p) return { title: '', paras: [], gallery: [], more: [] };
     const gallery = (p.images || []).filter(u => u !== p.image).slice(0, 4);
     const more = posts.filter(x => x.slug !== p.slug && x.image && x.kind === p.kind).slice(0, 3).map(x => ({
-      href: 'Post.dc.html?slug=' + x.slug,
+      href: 'post.html?slug=' + x.slug,
       title: x.title,
       image: x.image,
       dateLabel: this.fmt(x.date),

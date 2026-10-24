@@ -10,8 +10,7 @@
 <helmet>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&amp;family=Karla:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
   <style>
     html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body { margin: 0; background: #15120d; }
@@ -33,6 +32,7 @@
   </style>
   <script src="i18n.js"></script>
   <script src="chrome.js"></script>
+<script defer src="consent.js"></script>
 </helmet>
 
 <div style="min-height:100%; background:#15120d; color:#efe9dc; font-family:Jost,'Helvetica Neue',Arial,sans-serif; position:relative;">
@@ -42,14 +42,14 @@
   <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
     <div style="padding:120px 28px; text-align:center;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; margin-bottom:14px;">Stone not found</div>
-      <a href="Compendium.dc.html">Back to the compendium</a>
+      <a href="compendium.html">Back to the compendium</a>
     </div>
   </sc-if>
 
   <sc-if value="{{ found }}" hint-placeholder-val="{{ false }}">
     <div data-r="hero" style="padding:28px 64px 22px; display:flex; align-items:center; gap:28px; background:repeating-linear-gradient(120deg, #1e1913, #1e1913 14px, #1b1711 14px, #1b1711 28px); flex-wrap:wrap;">
       <div data-r="heroText" style="flex:1 1 460px; min-width:0; display:flex; flex-direction:column; gap:8px;">
-        <a href="Compendium.dc.html" style="display:flex; align-items:center; gap:6px; align-self:flex-start; color:#cabfa9; font-size:12px; letter-spacing:.04em; text-decoration:none; padding:6px 0;" style-hover="color:#efe9dc;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>Compendium</a>
+        <a href="compendium.html" style="display:flex; align-items:center; gap:6px; align-self:flex-start; color:#cabfa9; font-size:12px; letter-spacing:.04em; text-decoration:none; padding:6px 0;" style-hover="color:#efe9dc;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>Compendium</a>
         <div style="color:#d4b572; font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Shop by Stone</div>
         <h1 data-r="heroTitle" style="margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-size:30px; line-height:1.1; font-weight:500;">{{ heroTitle }}</h1>
         <div data-r="heroSub" style="font-size:13.5px; line-height:1.5; color:#cabfa9;">{{ heroSub }}</div>
@@ -101,7 +101,7 @@
         </div>
       </sc-if>
       <sc-if value="{{ hasNoProducts }}" hint-placeholder-val="{{ false }}">
-        <div style="padding:40px 0; font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:20px; color:#a9a292;">No pieces set in {{ stoneName }} yet. <a href="Compendium.dc.html">Browse the compendium</a></div>
+        <div style="padding:40px 0; font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:20px; color:#a9a292;">No pieces set in {{ stoneName }} yet. <a href="compendium.html">Browse the compendium</a></div>
       </sc-if>
     </div>
   </sc-if>
@@ -150,7 +150,7 @@ class Component extends DCLogic {
         const onSale = !!(p.sale && p.sale < p.regular);
         return {
           name: p.name,
-          href: 'product.dc.html?slug=' + encodeURIComponent(p.slug),
+          href: 'product.html?slug=' + encodeURIComponent(p.slug),
           safePhoto: (p.images && p.images[0]) || 'img/logo-ecj-white.webp',
           fallback: p.fallbackImg || 'img/logo-ecj-white.webp',
           onSale,
