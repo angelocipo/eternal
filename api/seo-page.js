@@ -2,7 +2,9 @@
 // <title>, meta description, canonical, Open Graph and (for products) JSON-LD already in the
 // HTML, so search engines and social previews see them without running JavaScript.
 // The page itself is unchanged: same template file, same client-side rendering.
-// Routed from vercel.json: /product.html → /api/seo-page?type=product (query string kept).
+// Routed from vercel.json: /bracelets/<slug> → type=product, /journal/<slug> → type=post,
+// /category.html?stone=<slug> → type=category. A <base href="/"> keeps the page's relative
+// asset paths working on the nested clean URLs.
 
 const fs = require('fs');
 const path = require('path');
@@ -57,8 +59,15 @@ function abs(u) {
   return /^https?:\/\//.test(u) ? u : SITE + '/' + u.replace(/^\.?\//, '');
 }
 
+function urlFor(type, key) {
+  const k = encodeURIComponent(key);
+  if (type === 'product') return `${SITE}/bracelets/${k}`;
+  if (type === 'post') return `${SITE}/journal/${k}`;
+  return `${SITE}/${PAGES[type]}?${KEY[type]}=${k}`;
+}
+
 function meta(type, key) {
-  const canonical = `${SITE}/${PAGES[type]}?${KEY[type]}=${encodeURIComponent(key)}`;
+  const canonical = urlFor(type, key);
   if (type === 'product') {
     const p = products.find((x) => x.slug === key);
     if (!p) return null;
@@ -76,18 +85,24 @@ function meta(type, key) {
     };
     return {
       title: `${plain(p.name)} — ${BRAND}`, description: clip(p.short || p.desc), canonical, image,
-      ogType: 'product', noindex: p.published === false, ld,
+      ogType: 'product', noindex: p.published === false, ld, h1: plain(p.name),
     };
   }
   if (type === 'post') {
     const p = posts.find((x) => x.slug === key);
     if (!p) return null;
     const title = plain(p.title);
-    return {
-      title: `${title.charAt(0).toUpperCase() + title.slice(1)} — ${BRAND}`,
-      description: clip(p.lead || p.subtitle || (p.paras || [])[0]), canonical,
-      image: abs(p.image || (p.images || [])[0]), ogType: 'article',
+    const heading = title.charAt(0).toUpperCase() + title.slice(1);
+    const description = clip(p.lead || p.subtitle || (p.paras || [])[0]);
+    const image = abs(p.image || (p.images || [])[0]);
+    const ld = {
+      '@context': 'https://schema.org', '@type': 'Article', headline: heading, description,
+      url: canonical, mainEntityOfPage: canonical, image: image ? [image] : undefined,
+      datePublished: p.date || undefined,
+      author: { '@type': 'Organization', name: BRAND, url: SITE },
+      publisher: { '@type': 'Organization', name: BRAND, logo: { '@type': 'ImageObject', url: SITE + '/img/logo-ecj-header.png' } },
     };
+    return { title: `${heading} — ${BRAND}`, description, canonical, image, ogType: 'article', ld, h1: heading };
   }
   const s = stones.find((x) => x.slug === key);
   if (!s) return null;
@@ -95,7 +110,7 @@ function meta(type, key) {
   return {
     title: `${plain(s.name)} Bracelets — Handmade in Rome — ${BRAND}`,
     description: clip([s.sub, intro].filter(Boolean).join(' ')), canonical,
-    image: abs(s.img), ogType: 'website',
+    image: abs(s.img), ogType: 'website', h1: `${plain(s.name)} Bracelets`,
   };
 }
 
@@ -126,15 +141,20 @@ module.exports = (req, res) => {
   const key = req.query[KEY[type]];
   let status = 200;
   let head = '';
+  let noscript = '';
   if (key) {
     const m = meta(type, String(key));
-    if (m) head = tags(m);
+    if (m) {
+      head = tags(m);
+      noscript = `<noscript><h1>${esc(m.h1 || m.title)}</h1><p>${esc(m.description)}</p></noscript>`;
+    }
     else { status = 404; head = `<title>Not found — ${BRAND}</title>\n<meta name="robots" content="noindex">`; }
   } else if (type !== 'product') {
     head = `<link rel="canonical" href="${SITE}/${type === 'post' ? 'journal' : 'compendium'}.html">`;
   }
 
-  if (head) html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n' + head);
+  html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="/">' + (head ? '\n' + head : ''));
+  if (noscript) html = html.replace('<body>', '<body>\n' + noscript);
   res.statusCode = status;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=86400');
