@@ -3,7 +3,7 @@
 // HTML, so search engines and social previews see them without running JavaScript.
 // The page itself is unchanged: same template file, same client-side rendering.
 // Routed from vercel.json: /bracelets/<slug> → type=product, /journal/<slug> → type=post,
-// /category.html?stone=<slug> → type=category. A <base href="/"> keeps the page's relative
+// /stones/<slug> → type=category. A <base href="/"> keeps the page's relative
 // asset paths working on the nested clean URLs.
 
 const fs = require('fs');
@@ -63,7 +63,24 @@ function urlFor(type, key) {
   const k = encodeURIComponent(key);
   if (type === 'product') return `${SITE}/bracelets/${k}`;
   if (type === 'post') return `${SITE}/journal/${k}`;
-  return `${SITE}/${PAGES[type]}?${KEY[type]}=${k}`;
+  return `${SITE}/stones/${k}`;
+}
+
+function norm(s) {
+  return String(s || '').toLowerCase().replace(/bracelets?|necklaces?|jewelry|pendants?/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+// Same matching rule as category.dc.html, so the schema lists exactly the products shown.
+function stoneProducts(stone) {
+  if (stone.showProducts === false) return [];
+  const key = norm(stone.name);
+  const keys = [key, ...(stone.match || []).map(norm)];
+  const otherKeys = new Set(stones.filter((x) => x !== stone).map((x) => norm(x.name)));
+  return products.filter((p) => p.published !== false).filter((p) =>
+    [...(p.cats || []), ...(p.tags || [])].map(norm).some((h) => h && (keys.some((k) => h.includes(k)) || (key.includes(h) && !otherKeys.has(h)))));
+}
+function crumbs(items) {
+  return { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: items.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
 }
 
 function meta(type, key) {
@@ -85,7 +102,8 @@ function meta(type, key) {
     };
     return {
       title: `${plain(p.name)} — ${BRAND}`, description: clip(p.short || p.desc), canonical, image,
-      ogType: 'product', noindex: p.published === false, ld, h1: plain(p.name),
+      ogType: 'product', noindex: p.published === false, h1: plain(p.name),
+      ld: [ld, crumbs([['Home', SITE + '/'], ['Collection', SITE + '/collection.html'], [plain(p.name), canonical]])],
     };
   }
   if (type === 'post') {
@@ -102,16 +120,24 @@ function meta(type, key) {
       author: { '@type': 'Organization', name: BRAND, url: SITE },
       publisher: { '@type': 'Organization', name: BRAND, logo: { '@type': 'ImageObject', url: SITE + '/img/logo-ecj-header.png' } },
     };
-    return { title: `${heading} — ${BRAND}`, description, canonical, image, ogType: 'article', ld, h1: heading };
+    return { title: `${heading} — ${BRAND}`, description, canonical, image, ogType: 'article', h1: heading,
+      ld: [ld, crumbs([['Home', SITE + '/'], ['Journal', SITE + '/journal.html'], [heading, canonical]])] };
   }
   const s = stones.find((x) => x.slug === key);
   if (!s) return null;
   const intro = Array.isArray(s.intro) ? s.intro.map((i) => i.text || '').join(' ') : s.intro;
-  return {
-    title: `${plain(s.name)} Bracelets — Handmade in Rome — ${BRAND}`,
-    description: clip([s.sub, intro].filter(Boolean).join(' ')), canonical,
-    image: abs(s.img), ogType: 'website', h1: `${plain(s.name)} Bracelets`,
+  const name = plain(s.name);
+  const title = `${name} Bracelets & Jewelry, Handmade in Rome | ${BRAND}`;
+  const description = clip([s.sub, intro].filter(Boolean).join(' '));
+  const items = stoneProducts(s);
+  const page = {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${name} Bracelets & Jewelry`,
+    description, url: canonical, isPartOf: { '@type': 'WebSite', name: BRAND, url: SITE + '/' },
+    mainEntity: { '@type': 'ItemList', numberOfItems: items.length,
+      itemListElement: items.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: urlFor('product', p.slug), name: plain(p.name) })) },
   };
+  return { title, description, canonical, image: abs(s.img), ogType: 'website', h1: `${name} Bracelets & Jewelry`,
+    ld: [page, crumbs([['Home', SITE + '/'], ['Compendium', SITE + '/compendium.html'], [name, canonical]])] };
 }
 
 function tags(m) {
@@ -127,7 +153,7 @@ function tags(m) {
     m.image && `<meta property="og:image" content="${esc(m.image)}">`,
     `<meta name="twitter:card" content="${m.image ? 'summary_large_image' : 'summary'}">`,
     m.noindex && `<meta name="robots" content="noindex, follow">`,
-    m.ld && `<script type="application/ld+json">${JSON.stringify(m.ld).replace(/</g, '\\u003c')}</script>`,
+    ...[].concat(m.ld || []).map((d) => `<script type="application/ld+json">${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`),
   ];
   return t.filter(Boolean).join('\n');
 }
