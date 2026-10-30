@@ -80,9 +80,34 @@
     {
       "source": "/journal/:slug",
       "destination": "/api/seo-page?type=post&slug=:slug"
+    },
+    {
+      "source": "/stones/:slug",
+      "destination": "/api/seo-page?type=category&stone=:slug"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
     }
   ],
   "redirects": [
+    {
+      "source": "/category.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "stone",
+          "value": "(?<stone>.+)"
+        }
+      ],
+      "destination": "/stones/:stone",
+      "permanent": true
+    },
+    {
+      "source": "/lemurian.html",
+      "destination": "/stones/lemurian",
+      "permanent": true
+    },
     {
       "source": "/Compendium.dc",
       "destination": "/compendium.html",

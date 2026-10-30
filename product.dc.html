@@ -278,7 +278,7 @@ class Component extends DCLogic {
     let hit = stones.find(s => s.name.toLowerCase().replace(/[^a-z]+/g, '') === key);
     if (!hit) hit = stones.find(s => s.slug.replace(/[^a-z]+/g, '').replace(/jewelry$/, '') === key);
     if (!hit) hit = stones.find(s => s.name.toLowerCase().replace(/[^a-z]+/g, '').indexOf(key) === 0);
-    return hit ? ('category.html?stone=' + hit.slug) : '';
+    return hit ? ('/stones/' + hit.slug) : '';
   }
 
   linkify(text) {
