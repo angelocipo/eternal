@@ -35,7 +35,7 @@
     },
     {
       "source": "/post.html",
-      "destination": "/Post.dc.html"
+      "destination": "/api/seo-page?type=post"
     },
     {
       "source": "/about.html",
@@ -43,7 +43,7 @@
     },
     {
       "source": "/category.html",
-      "destination": "/category.dc.html"
+      "destination": "/api/seo-page?type=category"
     },
     {
       "source": "/checkout.html",
@@ -67,7 +67,7 @@
     },
     {
       "source": "/product.html",
-      "destination": "/product.dc.html"
+      "destination": "/api/seo-page?type=product"
     },
     {
       "source": "/selling-conditions.html",
@@ -92,6 +92,14 @@
     {
       "source": "/shop",
       "destination": "/Eternal-City-Shop.dc.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.dc.html"
+    },
+    {
+      "source": "/selling-conditions",
+      "destination": "/selling-conditions.dc.html"
     }
   ],
   "redirects": [
@@ -174,6 +182,21 @@
       "source": "/selling-conditions.dc",
       "destination": "/selling-conditions.html",
       "permanent": true
+    },
+    {
+      "source": "/terms-of-service.html",
+      "destination": "/selling-conditions.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-gdpr.html",
+      "destination": "/privacy-policy.html",
+      "permanent": true
     }
-  ]
+  ],
+  "functions": {
+    "api/seo-page.js": {
+      "includeFiles": "{product,Post,category}.dc.html"
+    }
+  }
 }
