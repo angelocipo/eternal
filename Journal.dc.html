@@ -124,7 +124,7 @@ class Component extends DCLogic {
       .filter(p => kind === 'all' || p.kind === kind)
       .filter(p => !query || (p.title + ' ' + p.subtitle + ' ' + p.lead).toLowerCase().indexOf(query) > -1)
       .map(p => ({
-        href: 'post.html?slug=' + p.slug,
+        href: '/journal/' + p.slug,
         title: p.title,
         subtitle: p.subtitle || '',
         lead: p.lead ? (p.lead.length > 150 ? p.lead.slice(0, 148) + '\u2026' : p.lead) : '',

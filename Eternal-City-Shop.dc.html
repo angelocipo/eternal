@@ -494,7 +494,7 @@ class Component extends DCLogic {
     const bg = `oklch(${p.light} ${p.sat} ${p.hue})`;
     const bgDark = `oklch(${Math.max(p.light - 0.1, 0.05)} ${p.sat} ${p.hue})`;
     const photo = p.photo || null;
-    const href = 'product.html?slug=' + encodeURIComponent(p.slug);
+    const href = '/bracelets/' + encodeURIComponent(p.slug);
     const open = () => { window.location.href = href; };
     return {
       ...p,

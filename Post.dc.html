@@ -111,7 +111,7 @@ class Component extends DCLogic {
 
   componentDidMount() {
     let slug = '';
-    try { slug = new URLSearchParams(window.location.search).get('slug') || ''; } catch (e) {}
+    try { slug = new URLSearchParams(window.location.search).get('slug') || decodeURIComponent((window.location.pathname.match(/^\/journal\/([^/]+)/) || [])[1] || ''); } catch (e) {}
     fetch('data/posts.json')
       .then(r => r.json())
       .then(posts => this.setState({ posts, slug }))
@@ -128,7 +128,7 @@ class Component extends DCLogic {
     if (!p) return { title: '', paras: [], gallery: [], more: [] };
     const gallery = (p.images || []).filter(u => u !== p.image).slice(0, 4);
     const more = posts.filter(x => x.slug !== p.slug && x.image && x.kind === p.kind).slice(0, 3).map(x => ({
-      href: 'post.html?slug=' + x.slug,
+      href: '/journal/' + x.slug,
       title: x.title,
       image: x.image,
       dateLabel: this.fmt(x.date),

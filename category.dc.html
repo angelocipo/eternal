@@ -150,7 +150,7 @@ class Component extends DCLogic {
         const onSale = !!(p.sale && p.sale < p.regular);
         return {
           name: p.name,
-          href: 'product.html?slug=' + encodeURIComponent(p.slug),
+          href: '/bracelets/' + encodeURIComponent(p.slug),
           safePhoto: (p.images && p.images[0]) || 'img/logo-ecj-white.webp',
           fallback: p.fallbackImg || 'img/logo-ecj-white.webp',
           onSale,
