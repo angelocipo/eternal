@@ -1,5 +1,6 @@
 {
   "cleanUrls": false,
+  "trailingSlash": false,
   "rewrites": [
     {
       "source": "/",
@@ -223,13 +224,1203 @@
       "permanent": true
     },
     {
-      "source": "/product/:slug/",
+      "source": "/product/:slug",
       "destination": "/bracelets/:slug",
       "permanent": true
     },
     {
-      "source": "/product/:slug",
-      "destination": "/bracelets/:slug",
+      "source": "/product-category/bracelets/:slug",
+      "destination": "/product-category/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/abalone-bracelets",
+      "destination": "/stones/abalone",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/abalone-shell",
+      "destination": "/stones/abalone",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/abalone-shell-bracelets",
+      "destination": "/stones/abalone",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/amazonite",
+      "destination": "/stones/amazonite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/amazonite-bracelets",
+      "destination": "/stones/amazonite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/amethyst",
+      "destination": "/stones/amethyst",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/amethyst-bracelets",
+      "destination": "/stones/amethyst",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/amethyst-necklace",
+      "destination": "/stones/amethyst",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/apatite",
+      "destination": "/stones/apatite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/apatite-bracelets",
+      "destination": "/stones/apatite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/aquamarine",
+      "destination": "/stones/aquamarine",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/aquamarine-bracelets",
+      "destination": "/stones/aquamarine",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/auralite-23",
+      "destination": "/stones/auralite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/auralite-23-bracelets",
+      "destination": "/stones/auralite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/auralite-23-quartz-bracelets",
+      "destination": "/stones/auralite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/auralite-bracelets",
+      "destination": "/stones/auralite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/bali-beads",
+      "destination": "/stones/bali-beads",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/bali-beads-bracelets",
+      "destination": "/stones/bali-beads",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/bali-beads-silver-sterling-925",
+      "destination": "/stones/bali-beads",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/black-onyx",
+      "destination": "/stones/black-onyx-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/black-onyx-bracelets",
+      "destination": "/stones/black-onyx-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-cloisonne",
+      "destination": "/stones/blue-cloisonne-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-cloisonne-bracelets",
+      "destination": "/stones/blue-cloisonne-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-lace-agate",
+      "destination": "/stones/blue-lace-agate-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-lace-agate-bracelets",
+      "destination": "/stones/blue-lace-agate-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-lace-bracelets",
+      "destination": "/stones/blue-lace-agate-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-sandstone",
+      "destination": "/stones/blue-sandstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-sandstone-bracelets",
+      "destination": "/stones/blue-sandstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-striped-onyx-agate",
+      "destination": "/stones/blue-striped-onyx-agate",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-striped-onyx-agate-bracelets",
+      "destination": "/stones/blue-striped-onyx-agate",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-tigers-eye",
+      "destination": "/stones/blue-tigers-eye",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-tigers-eye-bracelets",
+      "destination": "/stones/blue-tigers-eye",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-topaz",
+      "destination": "/stones/blue-topaz",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/blue-topaz-bracelets",
+      "destination": "/stones/blue-topaz",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/botswana-agate",
+      "destination": "/stones/botswana-agate",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/botswana-agate-bracelets",
+      "destination": "/stones/botswana-agate",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/bracelets",
+      "destination": "/collection.html?type=bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/chrysanthemum-fossil-coral",
+      "destination": "/stones/chrysanthemum-fossil-coral",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/chrysanthemum-fossil-coral-bracelets",
+      "destination": "/stones/chrysanthemum-fossil-coral",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/coffee-bracelets",
+      "destination": "/stones/coffee",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/coffee-striped-agate",
+      "destination": "/stones/coffee",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/coffee-striped-agate-bracelets",
+      "destination": "/stones/coffee",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/diamonds",
+      "destination": "/stones/raw-blue-diamonds",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/diamonds-bracelets",
+      "destination": "/stones/raw-blue-diamonds",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/gibeon-meteorite",
+      "destination": "/stones/gibeon-meteorite-ferro-nichel",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/gibeon-meteorite-bracelet",
+      "destination": "/stones/gibeon-meteorite-ferro-nichel",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/gibeon-meteorite-bracelets",
+      "destination": "/stones/gibeon-meteorite-ferro-nichel",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/gibeon-meteorite-ferro-nichel-bracelets",
+      "destination": "/stones/gibeon-meteorite-ferro-nichel",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/green-african-turquoise-bracelets",
+      "destination": "/stones/turquoise-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/green-jade",
+      "destination": "/stones/green-jade",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/green-jade-bracelets",
+      "destination": "/stones/green-jade",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/green-turquoise",
+      "destination": "/stones/turquoise-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/grey-jasper-bracelets",
+      "destination": "/stones/grey-map-jasper-bracelets",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/grey-map-jasper",
+      "destination": "/stones/grey-map-jasper-bracelets",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/grey-map-jasper-bracelets",
+      "destination": "/stones/grey-map-jasper-bracelets",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/grey-map-jasper-bracelets-bracelets",
+      "destination": "/stones/grey-map-jasper-bracelets",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/hematite",
+      "destination": "/stones/hematite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/hematite-bracelets",
+      "destination": "/stones/hematite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/howlite",
+      "destination": "/stones/howlite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/howlite-bracelets",
+      "destination": "/stones/howlite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/kyanite",
+      "destination": "/stones/kyanite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/kyanite-bracelets",
+      "destination": "/stones/kyanite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/labradorite",
+      "destination": "/stones/labradorite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/labradorite-bracelets",
+      "destination": "/stones/labradorite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lapis-lazuli",
+      "destination": "/stones/lapis-lazuli-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lapis-lazuli-bracelets",
+      "destination": "/stones/lapis-lazuli-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/larimar",
+      "destination": "/stones/larimar-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/larimar-bracelets",
+      "destination": "/stones/larimar-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lava-stone",
+      "destination": "/stones/lava-stone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lava-stone-bracelets",
+      "destination": "/stones/lava-stone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lavastone",
+      "destination": "/stones/lava-stone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lavastone-bracelets",
+      "destination": "/stones/lava-stone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lemurian",
+      "destination": "/stones/lemurian",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lemurian-bracelets",
+      "destination": "/stones/lemurian",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/loose-gemstones",
+      "destination": "/collection.html?type=stone",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/malachite",
+      "destination": "/stones/malachite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/malachite-bracelets",
+      "destination": "/stones/malachite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/moonstone",
+      "destination": "/stones/moonstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/moonstone-bracelets",
+      "destination": "/stones/moonstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/murano-venetian-bracelets",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/murano-venetian-glass",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/murano-venetian-glass-bracelets",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/murano-venetian-gold-silverglass-bracelets",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/necklace",
+      "destination": "/collection.html?type=necklace",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/obsidian-black",
+      "destination": "/stones/obsidian-black-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/obsidian-black-bracelets",
+      "destination": "/stones/obsidian-black-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/obsidian-snowflake",
+      "destination": "/stones/obsidian-snowflake-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/obsidian-snowflake-bracelets",
+      "destination": "/stones/obsidian-snowflake-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/opal",
+      "destination": "/stones/opal-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/opal-bracelets",
+      "destination": "/stones/opal-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/pearl-bracelets",
+      "destination": "/stones/pearl",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/pearl-hematite",
+      "destination": "/stones/hematite",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/pearls",
+      "destination": "/stones/pearl",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/pearls-bracelets",
+      "destination": "/stones/pearl",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/pendant",
+      "destination": "/collection.html?type=pendant",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/peridot",
+      "destination": "/stones/peridot",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/peridot-bracelets",
+      "destination": "/stones/peridot",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/phantom-quartz",
+      "destination": "/stones/phantom-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/phantom-quartz-bracelets",
+      "destination": "/stones/phantom-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/picasso-jasper",
+      "destination": "/stones/picasso-jasper-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/picasso-jasper-bracelets",
+      "destination": "/stones/picasso-jasper-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/picture-jasper",
+      "destination": "/stones/picture-jasper",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/picture-jasper-bracelets",
+      "destination": "/stones/picture-jasper",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/raw-blue-diamond",
+      "destination": "/stones/raw-blue-diamonds",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/raw-blue-diamonds-bracelets",
+      "destination": "/stones/raw-blue-diamonds",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/red-bamboo-bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/red-carnelian",
+      "destination": "/stones/red-carnelian-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/red-carnelian-bracelets",
+      "destination": "/stones/red-carnelian-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/red-garnet",
+      "destination": "/stones/red-garnet-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/red-garnet-bracelets",
+      "destination": "/stones/red-garnet-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/red-grid-agate-bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/rhyolite",
+      "destination": "/stones/rhyolite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/rhyolite-bracelets",
+      "destination": "/stones/rhyolite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/rose-quartz",
+      "destination": "/stones/rose-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/rose-quartz-bracelets",
+      "destination": "/stones/rose-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/rutilated-quartz",
+      "destination": "/stones/rutilated-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/rutilated-quartz-bracelets",
+      "destination": "/stones/rutilated-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sandstone-blue-bracelets",
+      "destination": "/stones/blue-sandstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sapphire",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sea-sediment-jasper",
+      "destination": "/stones/sea-sediment-jasper-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sea-sediment-jasper-bracelets",
+      "destination": "/stones/sea-sediment-jasper-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sodalite",
+      "destination": "/stones/sodalite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sodalite-bracelets",
+      "destination": "/stones/sodalite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/strawberry-quartz",
+      "destination": "/stones/strawberry-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/strawberry-quartz-bracelets",
+      "destination": "/stones/strawberry-quartz-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sunstone",
+      "destination": "/stones/sunstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sunstone-bracelets",
+      "destination": "/stones/sunstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/swarovski",
+      "destination": "/stones/swarovski-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/swarovski-bracelets",
+      "destination": "/stones/swarovski-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/swarovski-cristals",
+      "destination": "/stones/swarovski-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/sweet-water-pearl",
+      "destination": "/stones/pearl",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/tigers-eye",
+      "destination": "/stones/tigers-eye-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/tigers-eye-bracelets",
+      "destination": "/stones/tigers-eye-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/topaz-bracelets",
+      "destination": "/stones/blue-topaz",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/tridacna",
+      "destination": "/stones/tridacna-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/tridacna-bracelets",
+      "destination": "/stones/tridacna-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/turquoise",
+      "destination": "/stones/turquoise-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/turquoise-bracelets",
+      "destination": "/stones/turquoise-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/turquoise-calsilica",
+      "destination": "/stones/turquoise-calsilica-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/turquoise-calsilica-bracelets",
+      "destination": "/stones/turquoise-calsilica-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/9-5-mm-bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/black-stones",
+      "destination": "/collection.html?group=dark",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/blue-stones",
+      "destination": "/collection.html?group=blue",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/blue-topaz",
+      "destination": "/stones/blue-topaz",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelet-necklace-set",
+      "destination": "/collection.html?type=necklace",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelet-packs",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-10-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-12-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-13-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-14mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-18-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-4-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-6-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-8-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/bracelets-9-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/brown-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/chrysanthemum-fossil-coral-necklace",
+      "destination": "/stones/chrysanthemum-fossil-coral",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/creme-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/cube-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/diamond",
+      "destination": "/stones/raw-blue-diamonds",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/green-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/grey-stones",
+      "destination": "/collection.html?group=dark",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/howlite-necklace",
+      "destination": "/stones/howlite-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/imperium-collection",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/lemurian",
+      "destination": "/stones/lemurian",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/living-rainbow-colors",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/mens-bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/mens-bracelets-12-mm",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/metallic-stones",
+      "destination": "/collection.html?group=dark",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/mixed-colors",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/mother-pearl",
+      "destination": "/stones/pearl",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/murano-gold-silver-foil-venetian-glass-bracelets",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/necklaces",
+      "destination": "/collection.html?type=necklace",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/opal-bracelets",
+      "destination": "/stones/opal-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/orange-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/pendant",
+      "destination": "/collection.html?type=pendant",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/pink-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/purple-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/recently-added-to-collection",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/red-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/silver-sterling-925-beads",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/swarovski",
+      "destination": "/stones/swarovski-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/transparent-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/turquoise-calsilica",
+      "destination": "/stones/turquoise-calsilica-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/white-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/womens-bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/yellow-stones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/pearls",
+      "destination": "/stones/pearl",
+      "permanent": true
+    },
+    {
+      "source": "/product-tag/peridot",
+      "destination": "/stones/peridot",
+      "permanent": true
+    },
+    {
+      "source": "/category/howlite-grey-jade-sodalite-bracelet",
+      "destination": "/journal/howlite-grey-jade-sodalite-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/category/natural-gemstone-bracelet-necklace-jewels",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/high-quality-variations-of-well-known-stones-handmade-bracelets-with-exceptional-gemstones-made-in-rome-italy-handmade-italian-gemstone-bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/red-garnet-bracelets",
+      "destination": "/stones/red-garnet-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/natural-auralite-23-bracelet-necklace",
+      "destination": "/stones/auralite",
+      "permanent": true
+    },
+    {
+      "source": "/category/murano-silver-or-gold-foil-venetian-glass-bracelets",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/murano-venetian-glass-bracelets",
+      "destination": "/stones/murano-venetian-glass-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/picture-jasper-natural-stone-bracelet",
+      "destination": "/stones/picture-jasper",
+      "permanent": true
+    },
+    {
+      "source": "/tag/murano-24k-gold-foil-venetian-glass-bracelets",
+      "destination": "/journal/murano-24k-gold-foil-venetian-glass-bracelets",
+      "permanent": true
+    },
+    {
+      "source": "/tag/blue-lace-agate-bracelets",
+      "destination": "/stones/blue-lace-agate-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/easter-2021-rome-italy",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/beadedjewelry",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/bracciali",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/braccialipietre",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/bracelets",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/collectionstone",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/custommade",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/diangelojewelry",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/diangelojewelryromeitaly",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/formen",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/gemstonebracelet",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/gemstonejewelry",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/gemstones",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/handmadejewelry",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/italianstyle",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/jewelry",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/luxuryjewelry",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/madeinitaly",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/mensaccessories",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/mensbracelet",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/mensfashion",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/mensfashionstyle",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/mensjewelry",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/menstyle",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/pietredure",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/sunstone-hematite-necklace-made-in-italy",
+      "destination": "/stones/sunstone-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/womensjewelry",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/wristwear",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/gibeon-meteorite-bracelet-jewelry",
+      "destination": "/stones/gibeon-meteorite-ferro-nichel",
+      "permanent": true
+    },
+    {
+      "source": "/category/turquoise",
+      "destination": "/stones/turquoise-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/category/eternal-blog",
+      "destination": "/journal.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/tiger-eye-bracelet",
+      "destination": "/stones/tigers-eye-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/tiger-eye-bracelet-benefits",
+      "destination": "/stones/tigers-eye-jewelry",
+      "permanent": true
+    },
+    {
+      "source": "/tag/chrysanthemum-beads",
+      "destination": "/stones/chrysanthemum-fossil-coral",
+      "permanent": true
+    },
+    {
+      "source": "/tag/chrysanthemum-stone-coral-fossils-bracelets",
+      "destination": "/journal/chrysanthemum-stone-coral-fossils-bracelets",
+      "permanent": true
+    },
+    {
+      "source": "/tag/natural-gemstone-jewelry-jewels",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/natural-stone-bracelet",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/tag/gemstone-bracelet-meaning",
+      "destination": "/collection.html",
+      "permanent": true
+    },
+    {
+      "source": "/category/pearls",
+      "destination": "/stones/pearl",
       "permanent": true
     },
     {
@@ -258,17 +1449,7 @@
       "permanent": true
     },
     {
-      "source": "/about-us/",
-      "destination": "/about.html",
-      "permanent": true
-    },
-    {
       "source": "/about",
-      "destination": "/about.html",
-      "permanent": true
-    },
-    {
-      "source": "/about/",
       "destination": "/about.html",
       "permanent": true
     },
@@ -278,17 +1459,7 @@
       "permanent": true
     },
     {
-      "source": "/shop/",
-      "destination": "/shop.html",
-      "permanent": true
-    },
-    {
       "source": "/care-guide",
-      "destination": "/care-guide.html",
-      "permanent": true
-    },
-    {
-      "source": "/care-guide/",
       "destination": "/care-guide.html",
       "permanent": true
     },
@@ -298,17 +1469,7 @@
       "permanent": true
     },
     {
-      "source": "/size-guide/",
-      "destination": "/size-guide.html",
-      "permanent": true
-    },
-    {
       "source": "/contact",
-      "destination": "/contact.html",
-      "permanent": true
-    },
-    {
-      "source": "/contact/",
       "destination": "/contact.html",
       "permanent": true
     },
@@ -318,17 +1479,7 @@
       "permanent": true
     },
     {
-      "source": "/contact-us/",
-      "destination": "/contact.html",
-      "permanent": true
-    },
-    {
       "source": "/faqs",
-      "destination": "/selling-conditions.html",
-      "permanent": true
-    },
-    {
-      "source": "/faqs/",
       "destination": "/selling-conditions.html",
       "permanent": true
     },
@@ -338,17 +1489,7 @@
       "permanent": true
     },
     {
-      "source": "/faq/",
-      "destination": "/selling-conditions.html",
-      "permanent": true
-    },
-    {
       "source": "/cart",
-      "destination": "/checkout.html",
-      "permanent": true
-    },
-    {
-      "source": "/cart/",
       "destination": "/checkout.html",
       "permanent": true
     },
@@ -358,17 +1499,7 @@
       "permanent": true
     },
     {
-      "source": "/checkout/",
-      "destination": "/checkout.html",
-      "permanent": true
-    },
-    {
       "source": "/my-account",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/my-account/",
       "destination": "/",
       "permanent": true
     },
@@ -378,17 +1509,7 @@
       "permanent": true
     },
     {
-      "source": "/privacy-policy/",
-      "destination": "/privacy-policy.html",
-      "permanent": true
-    },
-    {
       "source": "/privacy",
-      "destination": "/privacy-policy.html",
-      "permanent": true
-    },
-    {
-      "source": "/privacy/",
       "destination": "/privacy-policy.html",
       "permanent": true
     },
@@ -398,17 +1519,7 @@
       "permanent": true
     },
     {
-      "source": "/selling-conditions/",
-      "destination": "/selling-conditions.html",
-      "permanent": true
-    },
-    {
       "source": "/terms-of-service",
-      "destination": "/selling-conditions.html",
-      "permanent": true
-    },
-    {
-      "source": "/terms-of-service/",
       "destination": "/selling-conditions.html",
       "permanent": true
     },
@@ -418,17 +1529,7 @@
       "permanent": true
     },
     {
-      "source": "/compendium/",
-      "destination": "/compendium.html",
-      "permanent": true
-    },
-    {
       "source": "/journal",
-      "destination": "/journal.html",
-      "permanent": true
-    },
-    {
-      "source": "/journal/",
       "destination": "/journal.html",
       "permanent": true
     },
@@ -438,17 +1539,7 @@
       "permanent": true
     },
     {
-      "source": "/blog/",
-      "destination": "/journal.html",
-      "permanent": true
-    },
-    {
       "source": "/collection",
-      "destination": "/collection.html",
-      "permanent": true
-    },
-    {
-      "source": "/collection/",
       "destination": "/collection.html",
       "permanent": true
     },
@@ -458,17 +1549,7 @@
       "permanent": true
     },
     {
-      "source": "/howlite-grey-jade-sodalite-bracelet/",
-      "destination": "/journal/howlite-grey-jade-sodalite-bracelet",
-      "permanent": true
-    },
-    {
       "source": "/the-hematite-properties-and-uses-are-very-grounding-stabilizing-and-protective-making-it-one-of-the-most-powerful-crystals-for-meditation",
-      "destination": "/journal/the-hematite-properties-and-uses-are-very-grounding-stabilizing-and-protective-making-it-one-of-the-most-powerful-crystals-for-meditation",
-      "permanent": true
-    },
-    {
-      "source": "/the-hematite-properties-and-uses-are-very-grounding-stabilizing-and-protective-making-it-one-of-the-most-powerful-crystals-for-meditation/",
       "destination": "/journal/the-hematite-properties-and-uses-are-very-grounding-stabilizing-and-protective-making-it-one-of-the-most-powerful-crystals-for-meditation",
       "permanent": true
     },
@@ -478,17 +1559,7 @@
       "permanent": true
     },
     {
-      "source": "/blue-ocean-jasper-bracelet/",
-      "destination": "/journal/blue-ocean-jasper-bracelet",
-      "permanent": true
-    },
-    {
       "source": "/pure-as-italian-white-carrera-marble",
-      "destination": "/journal/pure-as-italian-white-carrera-marble",
-      "permanent": true
-    },
-    {
-      "source": "/pure-as-italian-white-carrera-marble/",
       "destination": "/journal/pure-as-italian-white-carrera-marble",
       "permanent": true
     },
@@ -498,17 +1569,7 @@
       "permanent": true
     },
     {
-      "source": "/larimar-bracelet/",
-      "destination": "/journal/larimar-bracelet",
-      "permanent": true
-    },
-    {
       "source": "/visiting-st-pauls-basilica-outsider-the-walls-with-my-botswana-bracelet",
-      "destination": "/journal/visiting-st-pauls-basilica-outsider-the-walls-with-my-botswana-bracelet",
-      "permanent": true
-    },
-    {
-      "source": "/visiting-st-pauls-basilica-outsider-the-walls-with-my-botswana-bracelet/",
       "destination": "/journal/visiting-st-pauls-basilica-outsider-the-walls-with-my-botswana-bracelet",
       "permanent": true
     },
@@ -518,17 +1579,7 @@
       "permanent": true
     },
     {
-      "source": "/red-garnet-bracelet-made-in-rome/",
-      "destination": "/journal/red-garnet-bracelet-made-in-rome",
-      "permanent": true
-    },
-    {
       "source": "/february-birthstone-amethyst",
-      "destination": "/journal/february-birthstone-amethyst",
-      "permanent": true
-    },
-    {
-      "source": "/february-birthstone-amethyst/",
       "destination": "/journal/february-birthstone-amethyst",
       "permanent": true
     },
@@ -538,17 +1589,7 @@
       "permanent": true
     },
     {
-      "source": "/happy-valentines-day/",
-      "destination": "/journal/happy-valentines-day",
-      "permanent": true
-    },
-    {
       "source": "/sunstone-whats-it-all-about",
-      "destination": "/journal/sunstone-whats-it-all-about",
-      "permanent": true
-    },
-    {
-      "source": "/sunstone-whats-it-all-about/",
       "destination": "/journal/sunstone-whats-it-all-about",
       "permanent": true
     },
@@ -558,17 +1599,7 @@
       "permanent": true
     },
     {
-      "source": "/stronger-than-before/",
-      "destination": "/journal/stronger-than-before",
-      "permanent": true
-    },
-    {
       "source": "/matte-natural-hematite-bracelets",
-      "destination": "/journal/matte-natural-hematite-bracelets",
-      "permanent": true
-    },
-    {
-      "source": "/matte-natural-hematite-bracelets/",
       "destination": "/journal/matte-natural-hematite-bracelets",
       "permanent": true
     },
@@ -578,17 +1609,7 @@
       "permanent": true
     },
     {
-      "source": "/tridacna-the-whitest-stone/",
-      "destination": "/journal/tridacna-the-whitest-stone",
-      "permanent": true
-    },
-    {
       "source": "/auralite-23-1",
-      "destination": "/journal/auralite-23-1",
-      "permanent": true
-    },
-    {
-      "source": "/auralite-23-1/",
       "destination": "/journal/auralite-23-1",
       "permanent": true
     },
@@ -598,17 +1619,7 @@
       "permanent": true
     },
     {
-      "source": "/combine-aquamarine-and-moonstone/",
-      "destination": "/journal/combine-aquamarine-and-moonstone",
-      "permanent": true
-    },
-    {
       "source": "/silver-beaded-bracelets",
-      "destination": "/journal/silver-beaded-bracelets",
-      "permanent": true
-    },
-    {
-      "source": "/silver-beaded-bracelets/",
       "destination": "/journal/silver-beaded-bracelets",
       "permanent": true
     },
@@ -618,17 +1629,7 @@
       "permanent": true
     },
     {
-      "source": "/cube-larimar/",
-      "destination": "/journal/cube-larimar",
-      "permanent": true
-    },
-    {
       "source": "/murano-gold-foil-venetian-glass-bracelets",
-      "destination": "/journal/murano-gold-foil-venetian-glass-bracelets",
-      "permanent": true
-    },
-    {
-      "source": "/murano-gold-foil-venetian-glass-bracelets/",
       "destination": "/journal/murano-gold-foil-venetian-glass-bracelets",
       "permanent": true
     },
@@ -638,17 +1639,7 @@
       "permanent": true
     },
     {
-      "source": "/picture-jasper-natural-stone-bracelets/",
-      "destination": "/journal/picture-jasper-natural-stone-bracelets",
-      "permanent": true
-    },
-    {
       "source": "/murano-24k-gold-foil-venetian-glass-bracelets",
-      "destination": "/journal/murano-24k-gold-foil-venetian-glass-bracelets",
-      "permanent": true
-    },
-    {
-      "source": "/murano-24k-gold-foil-venetian-glass-bracelets/",
       "destination": "/journal/murano-24k-gold-foil-venetian-glass-bracelets",
       "permanent": true
     },
@@ -658,17 +1649,7 @@
       "permanent": true
     },
     {
-      "source": "/new-in-our-collection-blue-lace-agate-bracelets/",
-      "destination": "/journal/new-in-our-collection-blue-lace-agate-bracelets",
-      "permanent": true
-    },
-    {
       "source": "/easter-2021-rome",
-      "destination": "/journal/easter-2021-rome",
-      "permanent": true
-    },
-    {
-      "source": "/easter-2021-rome/",
       "destination": "/journal/easter-2021-rome",
       "permanent": true
     },
@@ -678,17 +1659,7 @@
       "permanent": true
     },
     {
-      "source": "/sunstone-video-incredibili-braccialetti-di-pietre-preziose-naturali-ed-eccezionali/",
-      "destination": "/journal/sunstone-video-incredibili-braccialetti-di-pietre-preziose-naturali-ed-eccezionali",
-      "permanent": true
-    },
-    {
       "source": "/gibeon-meteorite-bracelet",
-      "destination": "/journal/gibeon-meteorite-bracelet",
-      "permanent": true
-    },
-    {
-      "source": "/gibeon-meteorite-bracelet/",
       "destination": "/journal/gibeon-meteorite-bracelet",
       "permanent": true
     },
@@ -698,17 +1669,7 @@
       "permanent": true
     },
     {
-      "source": "/black-fancy-diamonds-for-sale/",
-      "destination": "/journal/black-fancy-diamonds-for-sale",
-      "permanent": true
-    },
-    {
       "source": "/green",
-      "destination": "/journal/green",
-      "permanent": true
-    },
-    {
-      "source": "/green/",
       "destination": "/journal/green",
       "permanent": true
     },
@@ -718,17 +1679,7 @@
       "permanent": true
     },
     {
-      "source": "/turquoise-bracelets-from-rome/",
-      "destination": "/journal/turquoise-bracelets-from-rome",
-      "permanent": true
-    },
-    {
       "source": "/peridot-bracelet-handmade-in-rome",
-      "destination": "/journal/peridot-bracelet-handmade-in-rome",
-      "permanent": true
-    },
-    {
-      "source": "/peridot-bracelet-handmade-in-rome/",
       "destination": "/journal/peridot-bracelet-handmade-in-rome",
       "permanent": true
     },
@@ -738,17 +1689,7 @@
       "permanent": true
     },
     {
-      "source": "/tiger-eye-bracelet-and-indonesian-925-silver-beads-bracelet-bead-bracelet-men-mens-tigers-eye-bracelet-luxury-bracelet-men/",
-      "destination": "/journal/tiger-eye-bracelet-and-indonesian-925-silver-beads-bracelet-bead-bracelet-men-mens-tigers-eye-bracelet-luxury-bracelet-men",
-      "permanent": true
-    },
-    {
       "source": "/chrysanthemum-stone-coral-fossils-bracelets",
-      "destination": "/journal/chrysanthemum-stone-coral-fossils-bracelets",
-      "permanent": true
-    },
-    {
-      "source": "/chrysanthemum-stone-coral-fossils-bracelets/",
       "destination": "/journal/chrysanthemum-stone-coral-fossils-bracelets",
       "permanent": true
     },
@@ -758,17 +1699,7 @@
       "permanent": true
     },
     {
-      "source": "/accent-your-style-with-these-calm-colors/",
-      "destination": "/journal/accent-your-style-with-these-calm-colors",
-      "permanent": true
-    },
-    {
       "source": "/sweet-water-pearl-bracelet",
-      "destination": "/journal/sweet-water-pearl-bracelet",
-      "permanent": true
-    },
-    {
-      "source": "/sweet-water-pearl-bracelet/",
       "destination": "/journal/sweet-water-pearl-bracelet",
       "permanent": true
     },
@@ -778,17 +1709,7 @@
       "permanent": true
     },
     {
-      "source": "/lemurian-bracelets/",
-      "destination": "/journal/lemurian-bracelets",
-      "permanent": true
-    },
-    {
       "source": "/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart",
-      "destination": "/journal/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart",
-      "permanent": true
-    },
-    {
-      "source": "/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart/",
       "destination": "/journal/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart",
       "permanent": true
     },
@@ -798,17 +1719,7 @@
       "permanent": true
     },
     {
-      "source": "/natural-stones-not-treatednatural-stones-not-treated-not-dyed-not-fake-not-dyed-not-fake/",
-      "destination": "/journal/natural-stones-not-treatednatural-stones-not-treated-not-dyed-not-fake-not-dyed-not-fake",
-      "permanent": true
-    },
-    {
       "source": "/what-mens-jewelry-is-in-fashion",
-      "destination": "/journal/what-mens-jewelry-is-in-fashion",
-      "permanent": true
-    },
-    {
-      "source": "/what-mens-jewelry-is-in-fashion/",
       "destination": "/journal/what-mens-jewelry-is-in-fashion",
       "permanent": true
     },
@@ -818,17 +1729,7 @@
       "permanent": true
     },
     {
-      "source": "/blue-topaz/",
-      "destination": "/journal/blue-topaz",
-      "permanent": true
-    },
-    {
       "source": "/green-jade",
-      "destination": "/journal/green-jade",
-      "permanent": true
-    },
-    {
-      "source": "/green-jade/",
       "destination": "/journal/green-jade",
       "permanent": true
     },
@@ -838,17 +1739,7 @@
       "permanent": true
     },
     {
-      "source": "/lemurian/",
-      "destination": "/journal/lemurian",
-      "permanent": true
-    },
-    {
       "source": "/pearl",
-      "destination": "/journal/pearl",
-      "permanent": true
-    },
-    {
-      "source": "/pearl/",
       "destination": "/journal/pearl",
       "permanent": true
     },
@@ -858,17 +1749,7 @@
       "permanent": true
     },
     {
-      "source": "/abalone/",
-      "destination": "/journal/abalone",
-      "permanent": true
-    },
-    {
       "source": "/amazonite",
-      "destination": "/journal/amazonite",
-      "permanent": true
-    },
-    {
-      "source": "/amazonite/",
       "destination": "/journal/amazonite",
       "permanent": true
     },
@@ -878,17 +1759,7 @@
       "permanent": true
     },
     {
-      "source": "/citrine/",
-      "destination": "/journal/citrine",
-      "permanent": true
-    },
-    {
       "source": "/peridot",
-      "destination": "/journal/peridot",
-      "permanent": true
-    },
-    {
-      "source": "/peridot/",
       "destination": "/journal/peridot",
       "permanent": true
     },
@@ -898,17 +1769,7 @@
       "permanent": true
     },
     {
-      "source": "/amethyst/",
-      "destination": "/journal/amethyst",
-      "permanent": true
-    },
-    {
       "source": "/apatite",
-      "destination": "/journal/apatite",
-      "permanent": true
-    },
-    {
-      "source": "/apatite/",
       "destination": "/journal/apatite",
       "permanent": true
     },
@@ -918,17 +1779,7 @@
       "permanent": true
     },
     {
-      "source": "/aquamarine/",
-      "destination": "/journal/aquamarine",
-      "permanent": true
-    },
-    {
       "source": "/auralite-23",
-      "destination": "/journal/auralite-23",
-      "permanent": true
-    },
-    {
-      "source": "/auralite-23/",
       "destination": "/journal/auralite-23",
       "permanent": true
     },
@@ -938,17 +1789,7 @@
       "permanent": true
     },
     {
-      "source": "/chrysanthemum-fossil-coral/",
-      "destination": "/journal/chrysanthemum-fossil-coral",
-      "permanent": true
-    },
-    {
       "source": "/coffee-striped-agate-jewelry",
-      "destination": "/journal/coffee-striped-agate-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/coffee-striped-agate-jewelry/",
       "destination": "/journal/coffee-striped-agate-jewelry",
       "permanent": true
     },
@@ -958,17 +1799,7 @@
       "permanent": true
     },
     {
-      "source": "/bali-beads/",
-      "destination": "/journal/bali-beads",
-      "permanent": true
-    },
-    {
       "source": "/black-onyx-jewelry",
-      "destination": "/journal/black-onyx-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/black-onyx-jewelry/",
       "destination": "/journal/black-onyx-jewelry",
       "permanent": true
     },
@@ -978,17 +1809,7 @@
       "permanent": true
     },
     {
-      "source": "/blue-cloisonne-jewelry/",
-      "destination": "/journal/blue-cloisonne-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/blue-lace-agate-jewelry",
-      "destination": "/journal/blue-lace-agate-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/blue-lace-agate-jewelry/",
       "destination": "/journal/blue-lace-agate-jewelry",
       "permanent": true
     },
@@ -998,17 +1819,7 @@
       "permanent": true
     },
     {
-      "source": "/blue-striped-onyx-agate/",
-      "destination": "/journal/blue-striped-onyx-agate",
-      "permanent": true
-    },
-    {
       "source": "/blue-tigers-eye",
-      "destination": "/journal/blue-tigers-eye",
-      "permanent": true
-    },
-    {
-      "source": "/blue-tigers-eye/",
       "destination": "/journal/blue-tigers-eye",
       "permanent": true
     },
@@ -1018,17 +1829,7 @@
       "permanent": true
     },
     {
-      "source": "/botswana-agate/",
-      "destination": "/journal/botswana-agate",
-      "permanent": true
-    },
-    {
       "source": "/gibeon-meteorite-ferro-nichel",
-      "destination": "/journal/gibeon-meteorite-ferro-nichel",
-      "permanent": true
-    },
-    {
-      "source": "/gibeon-meteorite-ferro-nichel/",
       "destination": "/journal/gibeon-meteorite-ferro-nichel",
       "permanent": true
     },
@@ -1038,17 +1839,7 @@
       "permanent": true
     },
     {
-      "source": "/grey-map-jasper-bracelets/",
-      "destination": "/journal/grey-map-jasper-bracelets",
-      "permanent": true
-    },
-    {
       "source": "/hematite",
-      "destination": "/journal/hematite",
-      "permanent": true
-    },
-    {
-      "source": "/hematite/",
       "destination": "/journal/hematite",
       "permanent": true
     },
@@ -1058,17 +1849,7 @@
       "permanent": true
     },
     {
-      "source": "/howlite-jewelry/",
-      "destination": "/journal/howlite-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/kyanite-jewelry",
-      "destination": "/journal/kyanite-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/kyanite-jewelry/",
       "destination": "/journal/kyanite-jewelry",
       "permanent": true
     },
@@ -1078,17 +1859,7 @@
       "permanent": true
     },
     {
-      "source": "/labradorite-jewelry/",
-      "destination": "/journal/labradorite-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/lapis-lazuli-jewelry",
-      "destination": "/journal/lapis-lazuli-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/lapis-lazuli-jewelry/",
       "destination": "/journal/lapis-lazuli-jewelry",
       "permanent": true
     },
@@ -1098,17 +1869,7 @@
       "permanent": true
     },
     {
-      "source": "/larimar-jewelry/",
-      "destination": "/journal/larimar-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/lava-stone-jewelry",
-      "destination": "/journal/lava-stone-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/lava-stone-jewelry/",
       "destination": "/journal/lava-stone-jewelry",
       "permanent": true
     },
@@ -1118,17 +1879,7 @@
       "permanent": true
     },
     {
-      "source": "/malachite-jewelry/",
-      "destination": "/journal/malachite-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/moonstone-jewelry",
-      "destination": "/journal/moonstone-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/moonstone-jewelry/",
       "destination": "/journal/moonstone-jewelry",
       "permanent": true
     },
@@ -1138,17 +1889,7 @@
       "permanent": true
     },
     {
-      "source": "/murano-venetian-glass-jewelry/",
-      "destination": "/journal/murano-venetian-glass-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/obsidian-black-jewelry",
-      "destination": "/journal/obsidian-black-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/obsidian-black-jewelry/",
       "destination": "/journal/obsidian-black-jewelry",
       "permanent": true
     },
@@ -1158,17 +1899,7 @@
       "permanent": true
     },
     {
-      "source": "/obsidian-snowflake-jewelry/",
-      "destination": "/journal/obsidian-snowflake-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/phantom-quartz-jewelry",
-      "destination": "/journal/phantom-quartz-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/phantom-quartz-jewelry/",
       "destination": "/journal/phantom-quartz-jewelry",
       "permanent": true
     },
@@ -1178,17 +1909,7 @@
       "permanent": true
     },
     {
-      "source": "/picasso-jasper-jewelry/",
-      "destination": "/journal/picasso-jasper-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/red-carnelian-jewelry",
-      "destination": "/journal/red-carnelian-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/red-carnelian-jewelry/",
       "destination": "/journal/red-carnelian-jewelry",
       "permanent": true
     },
@@ -1198,17 +1919,7 @@
       "permanent": true
     },
     {
-      "source": "/red-garnet-jewelry/",
-      "destination": "/journal/red-garnet-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/rhyolite-jewelry",
-      "destination": "/journal/rhyolite-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/rhyolite-jewelry/",
       "destination": "/journal/rhyolite-jewelry",
       "permanent": true
     },
@@ -1218,17 +1929,7 @@
       "permanent": true
     },
     {
-      "source": "/rose-quartz-jewelry/",
-      "destination": "/journal/rose-quartz-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/rutilated-quartz-jewelry",
-      "destination": "/journal/rutilated-quartz-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/rutilated-quartz-jewelry/",
       "destination": "/journal/rutilated-quartz-jewelry",
       "permanent": true
     },
@@ -1238,17 +1939,7 @@
       "permanent": true
     },
     {
-      "source": "/blue-sandstone-jewelry/",
-      "destination": "/journal/blue-sandstone-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/sea-sediment-jasper-jewelry",
-      "destination": "/journal/sea-sediment-jasper-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/sea-sediment-jasper-jewelry/",
       "destination": "/journal/sea-sediment-jasper-jewelry",
       "permanent": true
     },
@@ -1258,17 +1949,7 @@
       "permanent": true
     },
     {
-      "source": "/sodalite-jewelry/",
-      "destination": "/journal/sodalite-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/strawberry-quartz-jewelry",
-      "destination": "/journal/strawberry-quartz-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/strawberry-quartz-jewelry/",
       "destination": "/journal/strawberry-quartz-jewelry",
       "permanent": true
     },
@@ -1278,17 +1959,7 @@
       "permanent": true
     },
     {
-      "source": "/swarovski-jewelry/",
-      "destination": "/journal/swarovski-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/tigers-eye-jewelry",
-      "destination": "/journal/tigers-eye-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/tigers-eye-jewelry/",
       "destination": "/journal/tigers-eye-jewelry",
       "permanent": true
     },
@@ -1298,17 +1969,7 @@
       "permanent": true
     },
     {
-      "source": "/tridacna-jewelry/",
-      "destination": "/journal/tridacna-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/turquoise-jewelry",
-      "destination": "/journal/turquoise-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/turquoise-jewelry/",
       "destination": "/journal/turquoise-jewelry",
       "permanent": true
     },
@@ -1318,17 +1979,7 @@
       "permanent": true
     },
     {
-      "source": "/turquoise-calsilica-jewelry/",
-      "destination": "/journal/turquoise-calsilica-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/sunstone-jewelry",
-      "destination": "/journal/sunstone-jewelry",
-      "permanent": true
-    },
-    {
-      "source": "/sunstone-jewelry/",
       "destination": "/journal/sunstone-jewelry",
       "permanent": true
     },
@@ -1338,17 +1989,7 @@
       "permanent": true
     },
     {
-      "source": "/opal-jewelry/",
-      "destination": "/journal/opal-jewelry",
-      "permanent": true
-    },
-    {
       "source": "/raw-blue-diamonds",
-      "destination": "/journal/raw-blue-diamonds",
-      "permanent": true
-    },
-    {
-      "source": "/raw-blue-diamonds/",
       "destination": "/journal/raw-blue-diamonds",
       "permanent": true
     }
