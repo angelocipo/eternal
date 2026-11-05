@@ -30,8 +30,9 @@ a{color:inherit;}
 .ech-ghost,.ech a.ech-ghost{display:inline-block;font-weight:400;letter-spacing:.24em;font-size:11px;text-transform:uppercase;color:#e6e9ee;border:1px solid rgba(185,190,200,.5);padding:15px 34px;border-radius:2px;}
 .ech-ghost:hover{background:rgba(185,190,200,.1);border-color:var(--gold);}
 .ech-body p{font-weight:300;font-size:16.5px;line-height:1.85;color:#bcc2cd;margin:0 0 22px;white-space:pre-line;}
-.ech-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
-.ech-gal img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border:1px solid rgba(185,190,200,.16);border-radius:4px;}
+.ech-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;align-items:start;justify-items:center;}
+/* Never enlarged beyond the file's own size: small photos stay sharp instead of being stretched. */
+.ech-gal img{width:auto;height:auto;max-width:100%;display:block;border:1px solid rgba(185,190,200,.16);border-radius:4px;}
 .ech-more a:hover{border-color:rgba(185,190,200,.55);}
 
 @media(max-width:640px){.ech article,.ech figure,.ech-more,.ech section{padding-left:18px !important;padding-right:18px !important;}.ech-body p{font-size:15.5px;}}
@@ -60,7 +61,8 @@ html,body{overflow-x:hidden;}
   </article>
 
   <figure style="{{ heroStyle }};max-width:1000px;margin:38px auto 0;padding:0 28px;">
-    <img src="{{ image }}" alt="{{ title }}" style="width:100%;max-height:560px;object-fit:cover;display:block;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
+    <img src="{{ image }}" alt="{{ title }}" style="width:auto;height:auto;max-width:100%;max-height:560px;display:block;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
+    <figcaption style="{{ heroNoteStyle }};font-size:12.5px;line-height:1.6;color:#757f93;font-style:italic;text-align:center;margin-top:10px;">{{ logoNote }}</figcaption>
   </figure>
 
   <section class="ech-body" style="max-width:1000px;margin:0 auto;padding:44px 28px 10px;">
@@ -74,7 +76,10 @@ html,body{overflow-x:hidden;}
   <section style="{{ galStyle }};max-width:1000px;margin:0 auto;padding:20px 28px 10px;">
     <div class="ech-gal">
       <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
-        <img src="{{ g }}" alt="{{ title }}" loading="lazy">
+        <figure style="margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <img src="{{ g.src }}" alt="{{ title }}" loading="lazy">
+          <figcaption style="{{ g.noteStyle }};font-size:12px;line-height:1.55;color:#757f93;font-style:italic;text-align:center;">{{ logoNote }}</figcaption>
+        </figure>
       </sc-for>
     </div>
   </section>
@@ -126,7 +131,10 @@ class Component extends DCLogic {
     const { posts, slug } = this.state;
     const p = posts.find(x => x.slug === slug) || posts[0];
     if (!p) return { title: '', paras: [], gallery: [], more: [] };
-    const gallery = (p.images || []).filter(u => u !== p.image).slice(0, 4);
+    // Photos taken before the rebrand show the old "diAngelo" tag: say so under each of them.
+    const oldLogo = p.oldLogo || [];
+    const noteStyle = u => (oldLogo.indexOf(u) > -1 ? 'display:block' : 'display:none');
+    const gallery = (p.images || []).filter(u => u !== p.image).slice(0, 4).map(u => ({ src: u, noteStyle: noteStyle(u) }));
     const more = posts.filter(x => x.slug !== p.slug && x.image && x.kind === p.kind).slice(0, 3).map(x => ({
       href: '/journal/' + x.slug,
       title: x.title,
@@ -144,6 +152,8 @@ class Component extends DCLogic {
       dateLabel: this.fmt(p.date),
       image: p.image || '',
       heroStyle: p.image ? '' : 'display:none',
+      heroNoteStyle: noteStyle(p.image),
+      logoNote: 'Archive photo: the tag shows our former diAngelo brand. Every piece now carries the Eternal City Jewelry tag.',
       paras: p.paras || [],
       gallery,
       galStyle: gallery.length ? '' : 'display:none',

@@ -92,6 +92,13 @@
         <div style="color:#cfd3da; font-size:12px; letter-spacing:.14em; text-transform:uppercase; min-width:0;">{{ catLine }}</div>
       </div>
 
+      <sc-if value="{{ hasReviews }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ goReviews }}" style="cursor:pointer; align-self:flex-start; display:flex; align-items:center; gap:10px; margin-top:12px; color:#a3abba; font-size:14px;">
+          <span style="color:#cfd3da; font-size:16px; letter-spacing:.08em;">{{ avgStars }}</span>
+          <span style="text-decoration:underline; text-underline-offset:3px;">{{ avgLabel }} · {{ countLabel }}</span>
+        </div>
+      </sc-if>
+
       <div style="height:1px; background:#162139; margin:28px 0;"></div>
 
 
@@ -188,6 +195,34 @@
       <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.85; color:#bcc2cd; white-space:pre-line;"><sc-for list="{{ descParts }}" as="dp" hint-placeholder-count="1"><sc-if value="{{ dp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ dp.t }}</span></sc-if><sc-if value="{{ dp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ dp.href }}" style="text-decoration:underline;">{{ dp.t }}</a></sc-if></sc-for></div>
     </div>
   </sc-if>
+
+  <sc-if value="{{ hasReviews }}" hint-placeholder-val="{{ false }}">
+    <div id="reviews" data-r="section" style="padding:80px 56px; max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:28px; scroll-margin-top:90px;">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px 24px;">
+        <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; font-weight:500;">Reviews</div>
+        <div style="display:flex; align-items:baseline; gap:12px; color:#a3abba; font-size:14px;">
+          <span style="color:#cfd3da; font-size:18px; letter-spacing:.08em;">{{ avgStars }}</span>
+          <span>{{ avgLabel }} out of 5 · {{ countLabel }}</span>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column;">
+        <sc-for list="{{ reviews }}" as="rv" hint-placeholder-count="2">
+          <div style="border-top:1px solid #162139; padding:24px 0; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+              <span style="color:#cfd3da; font-size:15px; letter-spacing:.08em;">{{ rv.stars }}</span>
+              <span style="font-size:12px; color:#757f93;">{{ rv.dateLabel }}</span>
+            </div>
+            <sc-if value="{{ rv.hasTitle }}" hint-placeholder-val="{{ true }}">
+              <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:22px; color:#eef0f4;">{{ rv.title }}</div>
+            </sc-if>
+            <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.8; color:#bcc2cd; white-space:pre-line; text-wrap:pretty;">{{ rv.text }}</div>
+            <div style="font-size:13px; color:#a3abba;">{{ rv.name }} <span style="color:#757f93;">· Verified buyer</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font-size:13px; line-height:1.7; color:#757f93; border-top:1px solid #162139; padding-top:18px;">Reviews come only from customers who bought this piece, invited by email after delivery. We publish every genuine review, positive or negative. <a href="selling-conditions.html#reviews" style="text-decoration:underline;">How reviews work</a></div>
+    </div>
+  </sc-if>
   </sc-if>
 
   <div data-ecj-footer></div>
@@ -243,6 +278,11 @@ class Component extends DCLogic {
     document.addEventListener('error', this._imgErr, true);
     const slug = new URLSearchParams(window.location.search).get('slug') || decodeURIComponent((window.location.pathname.match(/^\/bracelets\/([^/]+)/) || [])[1] || '');
     this.setState({ slug });
+    // Verified-buyer reviews. Fails quietly (no section) when the reviews service is unavailable.
+    if (slug) fetch('/api/reviews?slug=' + encodeURIComponent(slug))
+      .then(r => (r.ok ? r.json() : null))
+      .then(rv => { if (rv && Array.isArray(rv.reviews)) this.setState({ reviews: rv }); })
+      .catch(() => {});
     fetch('data/stones.json').then(r => r.json()).then(stones => this.setState({ stones })).catch(() => {});
     fetch('data/products.json').then(r => r.json()).then(products => {
       const p = products.find(x => x.slug === slug);
@@ -353,7 +393,20 @@ class Component extends DCLogic {
       onClick: () => this.setState(st => ({ openPerk: st.openPerk === i ? -1 : i })),
     }));
 
+    const rvData = s.reviews && s.reviews.count ? s.reviews : null;
+    const starRow = n => { const r = Math.round(n); return '★★★★★'.slice(0, r) + '☆☆☆☆☆'.slice(0, 5 - r); };
+
     return {
+      hasReviews: !!rvData,
+      // A scroll, not href="#reviews": product pages carry <base href="/">, so a bare hash link would open the home page.
+      goReviews: () => { const el = document.getElementById('reviews'); if (el) el.scrollIntoView({ behavior: 'smooth' }); },
+      avgStars: rvData ? starRow(rvData.average) : '',
+      avgLabel: rvData ? rvData.average.toLocaleString('en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : '',
+      countLabel: rvData ? rvData.count + (rvData.count === 1 ? ' review' : ' reviews') : '',
+      reviews: rvData ? rvData.reviews.map(r => ({
+        stars: starRow(r.rating), title: r.title || '', hasTitle: !!r.title, text: r.text, name: r.name,
+        dateLabel: r.date ? new Date(r.date).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) : '',
+      })) : [],
       badge, hasBadge: !!badge, perks,
       sizeHeading, claspHeading,
       hasWristField: wristField,

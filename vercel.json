@@ -75,6 +75,10 @@
       "destination": "/selling-conditions.dc.html"
     },
     {
+      "source": "/review.html",
+      "destination": "/review.dc.html"
+    },
+    {
       "source": "/bracelets/:slug",
       "destination": "/api/seo-page?type=product&slug=:slug"
     },
@@ -89,9 +93,18 @@
     {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
+    },
+    {
+      "source": "/api/review-cron",
+      "destination": "/api/reviews?cron=1"
     }
   ],
   "redirects": [
+    {
+      "source": "/journal/happy-valentines-day",
+      "destination": "/journal.html",
+      "permanent": true
+    },
     {
       "source": "/category.html",
       "has": [
@@ -1585,7 +1598,7 @@
     },
     {
       "source": "/happy-valentines-day",
-      "destination": "/journal/happy-valentines-day",
+      "destination": "/journal.html",
       "permanent": true
     },
     {
@@ -1998,5 +2011,11 @@
     "api/seo-page.js": {
       "includeFiles": "{product,Post,category}.dc.html"
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/review-cron",
+      "schedule": "0 8 * * *"
+    }
+  ]
 }

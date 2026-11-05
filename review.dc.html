@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write a review — Eternal City Jewelry</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <script defer src="/_vercel/insights/script.js"></script>
+<link rel="stylesheet" href="fonts/fonts.css">
+  <style>
+    body { margin: 0; background: #0e1524; overflow-x: hidden; }
+    a { color: #cfd3da; }
+    a:hover { color: #eef0f4; }
+    img { max-width: 100%; }
+    [data-r="field"]:focus { border-color: #cfd3da !important; }
+    @media (max-width: 640px) {
+      [data-r="wrap"] { padding: 40px 18px 60px !important; }
+      [data-r="head"] { flex-direction: column; align-items: flex-start !important; }
+      [data-r="star"] { font-size: 34px !important; }
+    }
+  </style>
+  <script src="i18n.js"></script>
+  <script src="chrome.js"></script>
+<script defer src="consent.js"></script>
+</helmet>
+
+<div style="min-height:100%; background:#0e1524; color:#eef0f4; font-family:Jost,'Helvetica Neue',Arial,sans-serif;">
+
+  <div data-ecj-nav=""></div>
+
+  <div data-r="wrap" style="max-width:720px; margin:0 auto; padding:64px 28px 90px; display:flex; flex-direction:column; gap:28px;">
+
+    <div style="font-size:12px; letter-spacing:.38em; text-transform:uppercase; color:#cfd3da;">Verified buyer review</div>
+
+    <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+      <div style="color:#a3abba; font-size:15px;">Loading your order…</div>
+    </sc-if>
+
+    <sc-if value="{{ problem }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <h1 style="margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:40px; line-height:1.1;">{{ problemTitle }}</h1>
+        <p style="margin:0; font-size:16px; line-height:1.75; color:#bcc2cd;">{{ problemText }}</p>
+        <a href="collection.html" style="align-self:flex-start; margin-top:8px; background:#cfd3da; color:#0b111e; padding:15px 26px; text-decoration:none; font-size:13px; letter-spacing:.18em; text-transform:uppercase;">Back to the collection</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; flex-direction:column; gap:28px;">
+        <div data-r="head" style="display:flex; align-items:center; gap:22px;">
+          <img src="{{ productImg }}" alt="{{ productName }}" style="width:96px; height:96px; object-fit:cover; border:1px solid #18233e; border-radius:4px; flex-shrink:0;">
+          <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
+            <h1 style="margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:38px; line-height:1.1;">How is your piece?</h1>
+            <div style="font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:#a3abba; text-wrap:pretty;">{{ productName }}</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:15px; color:#eef0f4;">Your rating</div>
+          <div style="display:flex; gap:6px;">
+            <sc-for list="{{ starPicker }}" as="st" hint-placeholder-count="5">
+              <div data-r="star" onClick="{{ st.pick }}" title="{{ st.label }}" style="cursor:pointer; font-size:38px; line-height:1; color:{{ st.color }}; user-select:none;">{{ st.glyph }}</div>
+            </sc-for>
+          </div>
+          <div style="font-size:13px; color:#757f93;">{{ ratingLabel }}</div>
+        </div>
+
+        <label style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font-size:15px;">Title <span style="color:#757f93;">(optional)</span></span>
+          <input data-r="field" type="text" maxLength="90" value="{{ title }}" onChange="{{ setTitle }}" placeholder="In a few words" style="background:#131c30; border:1px solid #18233e; color:#eef0f4; font-family:Jost,sans-serif; font-size:15px; padding:14px 16px; outline:none; border-radius:0;">
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font-size:15px;">Your review</span>
+          <textarea data-r="field" rows="7" maxLength="2000" value="{{ text }}" onChange="{{ setText }}" placeholder="How does it look and feel? How was the fit, the packaging, the delivery?" style="background:#131c30; border:1px solid #18233e; color:#eef0f4; font-family:Jost,sans-serif; font-size:15px; line-height:1.6; padding:14px 16px; outline:none; border-radius:0; resize:vertical;"></textarea>
+          <span style="font-size:12px; color:#757f93;">{{ textCount }}</span>
+        </label>
+
+        <label style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font-size:15px;">Name shown with the review</span>
+          <input data-r="field" type="text" maxLength="40" value="{{ name }}" onChange="{{ setName }}" placeholder="e.g. Marco R." style="background:#131c30; border:1px solid #18233e; color:#eef0f4; font-family:Jost,sans-serif; font-size:15px; padding:14px 16px; outline:none; border-radius:0; max-width:320px;">
+        </label>
+
+        <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+          <div style="border-left:2px solid #c97a6a; padding:10px 16px; color:#e2b8ae; font-size:14px;">{{ error }}</div>
+        </sc-if>
+
+        <div onClick="{{ send }}" style="cursor:pointer; align-self:flex-start; background:{{ sendBg }}; color:#0b111e; padding:18px 34px; font-size:14px; letter-spacing:.2em; text-transform:uppercase;">{{ sendLabel }}</div>
+
+        <p style="margin:0; font-size:13px; line-height:1.75; color:#757f93; text-wrap:pretty;">Only customers who bought the piece can review it. We read every review before it appears, and we publish every genuine one, positive or negative, with the name you choose above. Your email address is never shown. More in our <a href="selling-conditions.html#reviews">selling conditions</a> and <a href="privacy-policy.html">privacy policy</a>.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <h1 style="margin:0; font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:42px; line-height:1.1;">Thank you</h1>
+        <p style="margin:0; font-size:16px; line-height:1.75; color:#bcc2cd;">Your review has reached our atelier. It will appear on the product page as soon as we have read it, usually within a couple of days.</p>
+        <a href="{{ productHref }}" style="align-self:flex-start; margin-top:8px; background:#cfd3da; color:#0b111e; padding:15px 26px; text-decoration:none; font-size:13px; letter-spacing:.18em; text-transform:uppercase;">Back to the piece</a>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <div data-ecj-footer></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const BLANK = 'img/logo-ecj-white.webp';
+const LABELS = ['', 'Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
+const ERRORS = {
+  rating: 'Please choose a rating from one to five stars.',
+  text: 'Please write at least a couple of sentences (20 characters).',
+  name: 'Please add the name to show with your review.',
+  already: 'A review for this order has already been sent. Thank you!',
+  not_found: 'We could not find a paid order for this link.',
+  unavailable: 'Reviews are not available right now. Please try again later.',
+};
+
+class Component extends DCLogic {
+  state = { phase: 'loading', session: '', info: null, product: null, rating: 0, hover: 0, title: '', text: '', name: '', error: '', sending: false };
+
+  componentDidMount() {
+    const session = new URLSearchParams(window.location.search).get('session_id') || '';
+    this.setState({ session });
+    if (!/^cs_/.test(session)) { this.setState({ phase: 'invalid' }); return; }
+    fetch('/api/reviews?session_id=' + encodeURIComponent(session))
+      .then(r => r.json().then(j => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (!ok) { this.setState({ phase: j.error === 'unavailable' ? 'unavailable' : 'invalid' }); return; }
+        if (j.already) { this.setState({ phase: 'already' }); return; }
+        this.setState({ phase: 'form', info: j, name: j.name || '' });
+        fetch('data/products.json').then(r => r.json()).then(ps => this.setState({ product: ps.find(p => p.slug === j.slug) || null })).catch(() => {});
+      })
+      .catch(() => this.setState({ phase: 'unavailable' }));
+  }
+
+  send() {
+    const s = this.state;
+    if (s.sending) return;
+    if (!s.rating) { this.setState({ error: ERRORS.rating }); return; }
+    if (s.text.trim().length < 20) { this.setState({ error: ERRORS.text }); return; }
+    if (!s.name.trim()) { this.setState({ error: ERRORS.name }); return; }
+    this.setState({ sending: true, error: '' });
+    fetch('/api/reviews', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: s.session, rating: s.rating, title: s.title, text: s.text, name: s.name }),
+    })
+      .then(r => r.json().then(j => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (ok) this.setState({ phase: 'done', sending: false });
+        else this.setState({ sending: false, error: ERRORS[j.error] || 'Something went wrong. Please try again.' });
+      })
+      .catch(() => this.setState({ sending: false, error: 'Connection problem. Please try again.' }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const problems = {
+      invalid: ['This link does not work', 'The review link is incomplete or does not belong to a paid order. Please use the link in the email we sent you.'],
+      already: ['Already reviewed', 'A review for this order has already been sent. Thank you for taking the time!'],
+      unavailable: ['Not available right now', 'Reviews cannot be sent at the moment. Please try again a little later.'],
+    };
+    const prob = problems[s.phase];
+    const shown = s.hover || s.rating;
+    const p = s.product;
+    return {
+      loading: s.phase === 'loading',
+      problem: !!prob, problemTitle: prob ? prob[0] : '', problemText: prob ? prob[1] : '',
+      showForm: s.phase === 'form',
+      done: s.phase === 'done',
+      productName: (s.info && s.info.productName) || '',
+      productImg: (p && p.images && p.images[0]) || BLANK,
+      productHref: s.info ? '/bracelets/' + encodeURIComponent(s.info.slug) : 'collection.html',
+      starPicker: [1, 2, 3, 4, 5].map(n => ({
+        glyph: n <= shown ? '★' : '☆',
+        color: n <= shown ? '#cfd3da' : '#3a4560',
+        label: LABELS[n],
+        pick: () => this.setState({ rating: n, error: '' }),
+      })),
+      ratingLabel: s.rating ? LABELS[s.rating] : 'Tap a star',
+      title: s.title, setTitle: e => this.setState({ title: e.target.value }),
+      text: s.text, setText: e => this.setState({ text: e.target.value }),
+      textCount: s.text.length + ' / 2000',
+      name: s.name, setName: e => this.setState({ name: e.target.value }),
+      hasError: !!s.error, error: s.error,
+      send: () => this.send(),
+      sendLabel: s.sending ? 'Sending…' : 'Send review',
+      sendBg: s.sending ? '#8d94a3' : '#cfd3da',
+    };
+  }
+}
+</script>
+</body>
+</html>
