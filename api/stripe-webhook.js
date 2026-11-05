@@ -44,6 +44,23 @@ async function sendEmail({ to, subject, html }) {
 
 const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'info@eternalcity.jewelry';
 
+// Inlined for the same reason as sendEmail: no local require that could go missing. Does nothing
+// when the Upstash storage is not connected, so orders work exactly as before without it.
+async function queueReviewInvite(sessionId) {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return;
+  const days = Number(process.env.REVIEW_INVITE_DAYS) || 14;
+  const due = Date.now() + days * 86400000;
+  const r = await fetch(url.replace(/\/$/, '') + '/pipeline', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+    // NX: a webhook retry from Stripe keeps the original date instead of pushing it back.
+    body: JSON.stringify([['ZADD', 'rev:invites', 'NX', String(due), sessionId]]),
+  });
+  if (!r.ok) throw new Error('Redis ' + r.status + ' ' + (await r.text()));
+}
+
 function buffer(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -76,7 +93,7 @@ async function rawBody(req) {
 // old in-memory 00001 counter did). The alphabet omits I, O, 0 and 1 so the code can be read out
 // over the phone without ambiguity.
 //
-// IMPORTANT: grazie.dc.html contains a character-for-character copy of this function. Change one,
+// IMPORTANT: thank-you.html contains a character-for-character copy of this function. Change one,
 // change the other, or the code on screen stops matching the code in the email.
 // Math.imul is required, not a plain `*`: 32-bit values times these primes exceed 2^53, so the
 // low bits get rounded away before >>>0 reads them. That collapsed one character position to 5
@@ -190,6 +207,16 @@ module.exports = async (req, res) => {
         console.log('Owner notification sent to', OWNER_EMAIL);
       } catch (mailErr) {
         console.error('Owner notification FAILED to', OWNER_EMAIL, mailErr);
+      }
+
+      // Review invite: queued, not sent. /api/review-cron (Vercel Cron, daily) emails the buyer
+      // REVIEW_INVITE_DAYS after the order (default 14), once the piece has arrived.
+      if (buyerEmail) {
+        try {
+          await queueReviewInvite(session.id);
+        } catch (revErr) {
+          console.error('Review invite not queued for session', session.id, revErr);
+        }
       }
 
       // Aruba is NOT connected yet (it needs a professional account) — invoices are issued by

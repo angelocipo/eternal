@@ -133,6 +133,8 @@ module.exports = async (req, res) => {
       metadata.sender_city = sn.city || '';
       metadata.sender_cap = sn.cap || '';
     }
+    // Which product was bought — read by /api/reviews to attach the buyer's review to it.
+    metadata.product_slug = jewel.slug;
     metadata.shipping_fee = String(shipFee);
     metadata.shipping_zone = shippingZone || '';
 
@@ -142,7 +144,7 @@ module.exports = async (req, res) => {
       customer_email: c.email || undefined,
       line_items: lineItems,
       metadata,
-      success_url: `${origin}/grazie.dc.html?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/thank-you.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/?checkout=cancelled`,
     });
 
