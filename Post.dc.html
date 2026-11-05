@@ -30,6 +30,9 @@ a{color:inherit;}
 .ech-ghost,.ech a.ech-ghost{display:inline-block;font-weight:400;letter-spacing:.24em;font-size:11px;text-transform:uppercase;color:#e6e9ee;border:1px solid rgba(185,190,200,.5);padding:15px 34px;border-radius:2px;}
 .ech-ghost:hover{background:rgba(185,190,200,.1);border-color:var(--gold);}
 .ech-body p{font-weight:300;font-size:16.5px;line-height:1.85;color:#bcc2cd;margin:0 0 22px;white-space:pre-line;}
+.ech-split{max-width:1000px;margin:0 auto;padding:44px 28px 10px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,42%);gap:48px;align-items:start;}
+.ech-hero{margin:0;position:sticky;top:96px;}
+@media(max-width:820px){.ech-split{grid-template-columns:1fr !important;gap:28px;}.ech-hero{position:static;order:-1;}}
 .ech-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;align-items:start;justify-items:center;}
 /* Never enlarged beyond the file's own size: small photos stay sharp instead of being stretched. */
 .ech-gal img{width:auto;height:auto;max-width:100%;display:block;border:1px solid rgba(185,190,200,.16);border-radius:4px;}
@@ -44,7 +47,7 @@ a{color:inherit;}
 .ech-pntitle{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;line-height:1.2;color:#e6e9ee;}
 @media(max-width:640px){.ech-pn{grid-template-columns:1fr;}.ech-pnnext{grid-column:auto;}.ech-pntitle{font-size:19px;}}
 
-@media(max-width:640px){.ech article,.ech figure,.ech-more,.ech section{padding-left:18px !important;padding-right:18px !important;}.ech-body p{font-size:15.5px;}}
+@media(max-width:640px){.ech article,.ech-split,.ech-more,.ech > section,.ech > nav{padding-left:18px !important;padding-right:18px !important;}.ech-body p{font-size:15.5px;}}
 .ech img{max-width:100%;}
 html,body{overflow-x:hidden;}
 </style>
@@ -75,18 +78,18 @@ html,body{overflow-x:hidden;}
     <p style="{{ leadStyle }};font-weight:300;font-size:19px;line-height:1.7;color:#d3d8e0;max-width:60ch;margin:26px 0 0;">{{ lead }}</p>
   </article>
 
-  <figure style="{{ heroStyle }};max-width:1000px;margin:38px auto 0;padding:0 28px;">
-    <img src="{{ image }}" alt="{{ title }}" style="width:auto;height:auto;max-width:100%;max-height:560px;display:block;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
-    <figcaption style="{{ heroNoteStyle }};font-size:12.5px;line-height:1.6;color:#757f93;font-style:italic;text-align:center;margin-top:10px;">{{ logoNote }}</figcaption>
-  </figure>
-
-  <section class="ech-body" style="max-width:1000px;margin:0 auto;padding:44px 28px 10px;">
-    <div style="max-width:64ch;">
+  <!-- Text on the left, main photo on the right at the same height; stacked (photo first) on phones. -->
+  <div class="ech-split" style="{{ splitStyle }}">
+    <section class="ech-body">
       <sc-for list="{{ paras }}" as="para" hint-placeholder-count="3">
         <p>{{ para }}</p>
       </sc-for>
-    </div>
-  </section>
+    </section>
+    <figure class="ech-hero" style="{{ heroStyle }}">
+      <img src="{{ image }}" alt="{{ title }}" style="width:auto;height:auto;max-width:100%;max-height:560px;display:block;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
+      <figcaption style="{{ heroNoteStyle }};font-size:12.5px;line-height:1.6;color:#757f93;font-style:italic;text-align:center;margin-top:10px;">{{ logoNote }}</figcaption>
+    </figure>
+  </div>
 
   <section style="{{ galStyle }};max-width:1000px;margin:0 auto;padding:20px 28px 10px;">
     <div class="ech-gal">
@@ -100,6 +103,10 @@ html,body{overflow-x:hidden;}
   </section>
 
   <section style="max-width:1000px;margin:0 auto;padding:44px 28px 0;">
+    <div style="display:flex;gap:8px;margin-bottom:22px;">
+      <a class="ech-arrow" href="{{ prevHref }}" title="{{ prevTitle }}" aria-label="Previous post" style="{{ prevStyle }}">&larr;</a>
+      <a class="ech-arrow" href="{{ nextHref }}" title="{{ nextTitle }}" aria-label="Next post" style="{{ nextStyle }}">&rarr;</a>
+    </div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;">
       <a class="ech-btn" href="collection.html">Shop the collection</a>
       <a class="ech-ghost" href="compendium.html">All 54 stones</a>
@@ -195,6 +202,8 @@ class Component extends DCLogic {
       dateLabel: this.fmt(p.date),
       image: p.image || '',
       heroStyle: p.image ? '' : 'display:none',
+      // Side by side only when there is both text and a photo; otherwise one centred column.
+      splitStyle: p.image && (p.paras || []).length ? '' : 'grid-template-columns:minmax(0,1fr)',
       heroNoteStyle: noteStyle(p.image),
       logoNote: 'Archive photo: the tag shows our former diAngelo brand. Every piece now carries the Eternal City Jewelry tag.',
       paras: p.paras || [],
