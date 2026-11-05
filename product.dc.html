@@ -17,6 +17,21 @@
     a { color: #cfd3da; }
     a:hover { color: #eef0f4; }
     img { max-width: 100%; }
+    /* Product text: paragraphs, headings, spec table, bullet list, "learn more" links */
+    .pd { font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; line-height:1.75; color:#bcc2cd; text-wrap:pretty; display:flex; flex-direction:column; gap:16px; }
+    .pd-p { margin:0; }
+    .pd-h { margin:14px 0 -4px; font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; font-size:23px; line-height:1.25; color:#eef0f4; }
+    .pd-spec { margin:0; display:grid; grid-template-columns:max-content minmax(0,1fr); border-top:1px solid #162139; }
+    .pd-spec dt, .pd-spec dd { margin:0; padding:10px 0; border-bottom:1px solid #162139; }
+    .pd-spec dt { padding-right:22px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#8d95a5; align-self:center; }
+    .pd-spec dd { color:#e1e4ea; }
+    .pd-ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .pd-ul li { position:relative; padding-left:22px; }
+    .pd-ul li::before { content:'◆'; position:absolute; left:0; top:.1em; font-size:9px; color:#cfd3da; }
+    .pd-ul strong { color:#eef0f4; font-weight:500; }
+    .pd-links { display:flex; flex-wrap:wrap; gap:10px 22px; padding-top:4px; }
+    .pd-links a { font-size:12px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; border-bottom:1px solid rgba(207,211,218,.35); padding-bottom:3px; }
+    .pd-links a:hover { border-bottom-color:#cfd3da; }
     @media (max-width: 900px) {
       [data-r="pdp"] { grid-template-columns: 1fr !important; padding: 32px 20px 24px !important; gap: 28px !important; }
       [data-r="title"] { font-size: 30px !important; }
@@ -176,7 +191,7 @@
         </sc-for>
       </div>
 
-      <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.75; color:#bcc2cd; white-space:pre-line; margin-top:34px; text-wrap:pretty;"><sc-for list="{{ shortParts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></div>
+      <div style="margin-top:34px;"><div class="pd" style="font-size:16px;"><sc-for list="{{ shortBlocks }}" as="b" hint-placeholder-count="2"><sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p class="pd-p"><sc-for list="{{ b.parts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></p></sc-if><sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><h3 class="pd-h">{{ b.t }}</h3></sc-if><sc-if value="{{ b.isSpec }}" hint-placeholder-val="{{ false }}"><dl class="pd-spec"><sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="3"><dt>{{ r.k }}</dt><dd>{{ r.v }}</dd></sc-for></dl></sc-if><sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}"><ul class="pd-ul"><sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li><sc-if value="{{ it.hasK }}" hint-placeholder-val="{{ false }}"><strong>{{ it.k }}</strong> </sc-if><span>{{ it.t }}</span></li></sc-for></ul></sc-if><sc-if value="{{ b.isLinks }}" hint-placeholder-val="{{ false }}"><div class="pd-links"><sc-for list="{{ b.items }}" as="lk" hint-placeholder-count="2"><a href="{{ lk.href }}">{{ lk.t }} &rarr;</a></sc-for></div></sc-if></sc-for></div></div>
 
       <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.75; color:#757f93; font-style:italic; margin-top:22px; text-wrap:pretty;">Our pieces are made with natural gemstones; slight variations in color, size, and pattern may occur.</div>
     </div>
@@ -192,7 +207,7 @@
       <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
         <video src="{{ video }}" controls="" playsInline="" muted="" loop="" preload="metadata" style="display:block; width:100%; max-width:720px; height:auto; border:1px solid #18233e; background:#070a11;"></video>
       </sc-if>
-      <div style="font-family:'Avenir Next',Avenir,'Nunito Sans','Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.85; color:#bcc2cd; white-space:pre-line;"><sc-for list="{{ descParts }}" as="dp" hint-placeholder-count="1"><sc-if value="{{ dp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ dp.t }}</span></sc-if><sc-if value="{{ dp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ dp.href }}" style="text-decoration:underline;">{{ dp.t }}</a></sc-if></sc-for></div>
+      <div class="pd" style="font-size:15.5px;"><sc-for list="{{ descBlocks }}" as="b" hint-placeholder-count="2"><sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p class="pd-p"><sc-for list="{{ b.parts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></p></sc-if><sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><h3 class="pd-h">{{ b.t }}</h3></sc-if><sc-if value="{{ b.isSpec }}" hint-placeholder-val="{{ false }}"><dl class="pd-spec"><sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="3"><dt>{{ r.k }}</dt><dd>{{ r.v }}</dd></sc-for></dl></sc-if><sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}"><ul class="pd-ul"><sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li><sc-if value="{{ it.hasK }}" hint-placeholder-val="{{ false }}"><strong>{{ it.k }}</strong> </sc-if><span>{{ it.t }}</span></li></sc-for></ul></sc-if><sc-if value="{{ b.isLinks }}" hint-placeholder-val="{{ false }}"><div class="pd-links"><sc-for list="{{ b.items }}" as="lk" hint-placeholder-count="2"><a href="{{ lk.href }}">{{ lk.t }} &rarr;</a></sc-for></div></sc-if></sc-for></div>
     </div>
   </sc-if>
 
@@ -341,6 +356,55 @@ class Component extends DCLogic {
     return parts;
   }
 
+  /* Turns the flat WooCommerce text into readable blocks, for every product automatically:
+     paragraphs, headings ("Provenance:", "Why …?"), a spec table ("Clarity: I2"), bullet lists
+     (short lines, "Emotional Balance: …"), and the "What is X? More info here." sentences gathered
+     into a row of links at the end. The "(Due to the special characteristics…)" disclaimer is
+     dropped here because the page already shows it underneath. */
+  blocks(raw, name) {
+    const dec = t => String(t).replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/&#0?39;|&rsquo;/g, '’').replace(/&quot;/g, '"');
+    let text = dec(String(raw || '').replace(/\\n/g, '\n'));
+    const links = [];
+    const addLink = (t, href) => { if (href && !links.some(l => l.href === href)) links.push({ t, href }); };
+    text = text
+      .replace(/\(Due to the special characteristics[^)]*\)?\.?/gi, '')
+      .replace(/What (?:is|are) ([^?\n]{2,40})\?\s*More info here\.?/g, (m, st) => { addLink('About ' + st.trim(), this.stoneHref(st)); return ''; })
+      .replace(/More about ([^.\n]{2,40}?) here\.?/g, (m, st) => { addLink('About ' + st.trim(), this.stoneHref(st)); return ''; })
+      .replace(/Check out our complete (?:pendant )?collection here\.?/g, () => { addLink('The complete collection', 'collection.html'); return ''; });
+    const nameKey = String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+    const lines = text.split('\n').map(l => l.replace(/\s+/g, ' ').trim()).filter(l => l && l.toLowerCase().replace(/[^a-z0-9]+/g, '') !== nameKey);
+    const out = [];
+    const last = () => out[out.length - 1];
+    const push = (kind, data) => {
+      const prev = last();
+      if (prev && prev.kind === kind && (kind === 'spec' || kind === 'ul')) { (kind === 'spec' ? prev.rows : prev.items).push(data); return; }
+      const b = { kind, isP: kind === 'p', isH: kind === 'h', isSpec: kind === 'spec', isUl: kind === 'ul', isLinks: false };
+      if (kind === 'spec') b.rows = [data]; else if (kind === 'ul') b.items = [data]; else Object.assign(b, data);
+      out.push(b);
+    };
+    lines.forEach((l, i) => {
+      const kv = l.match(/^([A-Z][A-Za-z&' ]{1,28}?)\s*:\s*(.+)$/);
+      const words = kv ? kv[1].trim().split(' ').length : 0;
+      const nextIsShort = i + 1 < lines.length && lines[i + 1].length < 70 && !/[.!]$/.test(lines[i + 1]);
+      // A second "…:" line right under a heading is a lead-in sentence ("Wearing peridot can:"), not another heading.
+      if (/:$/.test(l) && l.length < 80 && !(last() && last().kind === 'h')) { push('h', { t: l.replace(/\s*:$/, '') }); return; }
+      if (/\?$/.test(l) && l.length < 80) { push('h', { t: l }); return; }
+      if (kv && words <= 3 && kv[2].length <= 60) { push('spec', { k: kv[1].trim(), v: kv[2].trim() }); return; }
+      const mv = l.match(/^(Measurements?|Size|Weight|Diameter|Dimensions?)\s+(\d.{0,58})$/i);
+      if (mv) { push('spec', { k: mv[1], v: mv[2] }); return; }
+      if (kv && words <= 3) { push('ul', { hasK: true, k: kv[1].trim(), t: kv[2].trim() }); return; }
+      if (/:$/.test(l)) { push('p', { parts: this.linkify(l) }); return; }
+      const shortLine = l.length < 70 && !/[.!]$/.test(l);
+      const prev = last();
+      if (shortLine && ((prev && prev.kind === 'ul') || (prev && prev.kind === 'h' && nextIsShort) || nextIsShort && prev && /:$/.test(lines[i - 1] || ''))) {
+        push('ul', { hasK: false, k: '', t: l }); return;
+      }
+      push('p', { parts: this.linkify(l) });
+    });
+    if (links.length) out.push({ kind: 'links', isLinks: true, isP: false, isH: false, isSpec: false, isUl: false, items: links });
+    return out;
+  }
+
   renderVals() {
     const s = this.state;
     if (!s.products.length && !s.slug) return { found: false, notFound: false, heroImg: BLANK, thumbs: [], sizes: [], fallbackImg: BLANK };
@@ -422,6 +486,13 @@ class Component extends DCLogic {
       found: true, notFound: false,
       name: p.name,
       catLine: cats.join(' · ') || (p.cats || []).join(' · '),
+      ...(() => {
+        // Paragraphs already shown next to the price are not repeated in "The Piece".
+        const sb = this.blocks(p.short || p.desc || '', p.name);
+        const seen = new Set(sb.filter(b => b.isP).map(b => b.parts.map(x => x.t).join('').trim()));
+        const db = p.short ? this.blocks(p.desc || '', p.name).filter(b => !(b.isP && seen.has(b.parts.map(x => x.t).join('').trim()))) : [];
+        return { shortBlocks: sb, descBlocks: db };
+      })(),
       shortParts: this.linkify((p.short || p.desc || '').replace(/\\n/g, '\n')),
       short: (p.short || p.desc || '').replace(/\\n/g, '\n'),
       desc: (p.desc || '').replace(/\\n/g, '\n'),

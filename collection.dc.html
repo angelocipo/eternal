@@ -125,9 +125,11 @@ class Component extends DCLogic {
 
   matchesType(p, type) {
     const hay = [p.name, ...(p.cats || []), ...(p.tags || [])].join(' ').toLowerCase();
+    // Loose stones (p.loose, category "Loose Gemstones") go only under Loose stones, never under the jewellery tabs.
+    if (type === 'stone') return !!p.loose || (/loose (gem)?stones?|raw stone|(^|\s)stone(\s|$)/.test(hay) && !/bracelet|necklace/.test(hay));
+    if (p.loose) return false;
     if (type === 'necklace') return /necklace/.test(hay);
     if (type === 'pendant') return /pendant/.test(hay);
-    if (type === 'stone') return /loose stone|raw stone|(^|\s)stone(\s|$)/.test(hay) && !/bracelet|necklace/.test(hay);
     return !/necklace|pendant/.test(hay); // bracelet: default bucket
   }
 
