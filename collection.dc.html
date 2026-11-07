@@ -108,13 +108,16 @@ const GROUPS = {
 };
 
 class Component extends DCLogic {
-  state = { products: [], type: 'bracelet', group: null };
+  state = { products: [], type: 'bracelet', group: null, stone: '', stoneName: '' };
 
   componentDidMount() {
     const q = new URLSearchParams(window.location.search);
     const type = q.get('type') || 'bracelet';
     const group = GROUPS[q.get('group')] ? q.get('group') : null;
-    this.setState({ type: TYPE_NAMES[type] ? type : 'bracelet', group });
+    // ?stone=a|b (from a Journal post): only jewellery made in that stone, all types, no loose stones.
+    const stone = (q.get('stone') || '').toLowerCase().trim();
+    const stoneName = q.get('name') || (stone.split('|')[0] || '').replace(/\b\w/g, c => c.toUpperCase());
+    this.setState({ type: TYPE_NAMES[type] ? type : 'bracelet', group, stone, stoneName });
     fetch('data/products.json').then(r => r.json()).then(products => this.setState({ products })).catch(() => {});
     this.syncChrome();
   }
@@ -136,8 +139,11 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
     const g = s.group && GROUPS[s.group];
-    const matches = s.products.filter(p => g
-      ? g.test(String(p.name || '').toLowerCase())
+    const terms = s.stone ? s.stone.split('|').map(t => t.trim()).filter(Boolean)
+      .map(t => new RegExp('(^|[^a-z])' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))) : null;
+    const matches = s.products.filter(p => terms
+      ? !p.loose && terms.some(rx => rx.test([p.name, ...(p.cats || []), ...(p.tags || [])].join(' ').toLowerCase().replace(/\u2019/g, "'")))
+      : g ? g.test(String(p.name || '').toLowerCase())
       : this.matchesType(p, s.type));
     const products = matches.map(p => ({
       href: '/bracelets/' + encodeURIComponent(p.slug),
@@ -149,10 +155,10 @@ class Component extends DCLogic {
     }));
     return {
       navKey: s.type,
-      typeName: g ? g.name : TYPE_NAMES[s.type],
-      typeNameLower: g ? 'pieces' : TYPE_NAMES[s.type].toLowerCase(),
-      curBracelet: !g && s.type === 'bracelet', curNecklace: !g && s.type === 'necklace',
-      curPendant: !g && s.type === 'pendant', curStone: !g && s.type === 'stone',
+      typeName: terms ? s.stoneName + ' Jewelry' : g ? g.name : TYPE_NAMES[s.type],
+      typeNameLower: terms ? s.stoneName.toLowerCase() + ' pieces' : g ? 'pieces' : TYPE_NAMES[s.type].toLowerCase(),
+      curBracelet: !terms && !g && s.type === 'bracelet', curNecklace: !terms && !g && s.type === 'necklace',
+      curPendant: !terms && !g && s.type === 'pendant', curStone: !terms && !g && s.type === 'stone',
       hasProducts: products.length > 0,
       hasNoProducts: products.length === 0,
       products,

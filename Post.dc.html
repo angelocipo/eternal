@@ -111,7 +111,7 @@ html,body{overflow-x:hidden;}
       <a class="ech-arrow" href="{{ nextHref }}" title="{{ nextTitle }}" aria-label="Next post" style="{{ nextStyle }}">&rarr;</a>
     </div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;">
-      <a class="ech-btn" href="collection.html">Shop the collection</a>
+      <a class="ech-btn" href="{{ shopHref }}">Shop the collection</a>
       <a class="ech-ghost" href="compendium.html">All 54 stones</a>
     </div>
   </section>
@@ -204,6 +204,8 @@ class Component extends DCLogic {
     return {
       prevHref: this._nav.prev || '#', prevTitle: prev ? prev.title : '', prevStyle: prev ? '' : 'visibility:hidden',
       nextHref: this._nav.next || '#', nextTitle: next ? next.title : '', nextStyle: next ? '' : 'visibility:hidden',
+      // Stone posts open the collection filtered to jewellery made in that stone.
+      shopHref: p.stone ? 'collection.html?stone=' + encodeURIComponent(p.stone) + '&name=' + encodeURIComponent(p.stoneName || '') : 'collection.html',
       title: p.title,
       subtitle: p.subtitle || '',
       subtitleStyle: p.subtitle ? '' : 'display:none',
