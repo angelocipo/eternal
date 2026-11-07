@@ -84,10 +84,12 @@ html,body{overflow-x:hidden;}
       <sc-for list="{{ paras }}" as="para" hint-placeholder-count="3">
         <p>{{ para }}</p>
       </sc-for>
-      <video class="ech-postvideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="auto" style="{{ videoStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#070a11;"></video>
+      <img src="{{ image }}" alt="{{ title }}" style="{{ imgBodyStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
+      <video class="ech-postvideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="auto" style="{{ videoBodyStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#070a11;"></video>
     </section>
     <figure class="ech-hero" style="{{ heroStyle }}">
-      <img src="{{ image }}" alt="{{ title }}" style="width:auto;height:auto;max-width:100%;max-height:560px;display:block;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
+      <video class="ech-postvideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="auto" style="{{ videoHeroStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:560px;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#070a11;"></video>
+      <img src="{{ image }}" alt="{{ title }}" style="{{ imgHeroStyle }};width:auto;height:auto;max-width:100%;max-height:560px;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
       <figcaption style="{{ heroNoteStyle }};font-size:12.5px;line-height:1.6;color:#757f93;font-style:italic;text-align:center;margin-top:10px;">{{ logoNote }}</figcaption>
     </figure>
   </div>
@@ -182,7 +184,7 @@ class Component extends DCLogic {
   renderVals() {
     const { posts, slug } = this.state;
     const p = posts.find(x => x.slug === slug) || posts[0];
-    if (!p) return { title: '', paras: [], gallery: [], more: [], videoStyle: 'display:none', heroStyle: 'display:none' };
+    if (!p) return { title: '', paras: [], gallery: [], more: [], videoBodyStyle: 'display:none', videoHeroStyle: 'display:none', imgBodyStyle: 'display:none', imgHeroStyle: 'display:none', heroStyle: 'display:none' };
     // Photos taken before the rebrand show the old "diAngelo" tag: say so under each of them.
     const oldLogo = p.oldLogo || [];
     const noteStyle = u => (oldLogo.indexOf(u) > -1 ? 'display:block' : 'display:none');
@@ -211,10 +213,15 @@ class Component extends DCLogic {
       mohsStyle: p.mohs ? 'display:inline-block' : 'display:none',
       dateLabel: this.fmt(p.date),
       image: p.image || '',
-      heroStyle: p.image ? '' : 'display:none',
+      // "videoHero": true in posts.json swaps them: video on the right, photo under the text.
+      heroStyle: p.image || (p.videoHero && p.video) ? '' : 'display:none',
+      imgHeroStyle: p.image && !(p.videoHero && p.video) ? 'display:block' : 'display:none',
+      imgBodyStyle: p.image && p.videoHero && p.video ? 'display:block' : 'display:none',
+      videoHeroStyle: p.videoHero && p.video ? 'display:block' : 'display:none',
+      videoBodyStyle: p.video && !p.videoHero ? 'display:block' : 'display:none',
       // Side by side only when there is both text and a photo; otherwise one centred column.
-      splitStyle: p.image && ((p.paras || []).length || p.video) ? '' : 'grid-template-columns:minmax(0,1fr)',
-      heroNoteStyle: noteStyle(p.image),
+      splitStyle: (p.image || (p.videoHero && p.video)) && ((p.paras || []).length || p.video) ? '' : 'grid-template-columns:minmax(0,1fr)',
+      heroNoteStyle: p.videoHero && p.video ? 'display:none' : noteStyle(p.image),
       logoNote: 'Archive photo: the tag shows our former diAngelo brand. Every piece now carries the Eternal City Jewelry tag.',
       paras: p.paras || [],
       gallery,
