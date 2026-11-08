@@ -57,6 +57,7 @@
 
   var GOLD = '#cfd3da';
   var MUTED = '#a3abba';
+  var ORANGE = '#d06f2b'; // accent, same as the homepage
   var LINE = 'rgba(185,190,200,', NAVBG = 'rgba(14,21,36,.96)', MAINTBG = '#1a2540';
   if (window.ECJ_PALETTE === 'gold') { GOLD = '#d4b572'; MUTED = '#b3ac9c'; LINE = 'rgba(198,166,103,'; NAVBG = 'rgba(21,18,13,.96)'; MAINTBG = '#221c12'; }
   var cartCount = 0;
@@ -97,7 +98,7 @@
           '<a href="' + CART_HREF + '" data-ecj-cart style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:' + MUTED + ';text-decoration:none;cursor:pointer;">' +
             '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>' +
             '<span data-en="Cart" data-it="Carrello">Cart</span>' +
-            '<span data-ecj-cart-count style="color:' + GOLD + ';">(' + cartCount + ')</span>' +
+            '<span data-ecj-cart-count style="color:' + ORANGE + ';">(' + cartCount + ')</span>' +
           '</a>' +
           '<span style="display:flex;border:1px solid ' + LINE + '.3);border-radius:2px;overflow:hidden;">' +
             '<button type="button" data-lang="it" style="cursor:pointer;border:none;background:transparent;color:' + MUTED + ';font-family:inherit;font-size:10px;letter-spacing:.14em;padding:7px 10px;">IT</button>' +
@@ -115,12 +116,19 @@
 
     return '<div data-ecj-chrome="footer" style="border-top:1px solid ' + LINE + '.16);text-align:center;padding:56px 28px;">' +
       '<img src="img/logo-ecj-stacked.png" alt="Eternal City Jewelry" style="width:100%;max-width:200px;height:auto;display:block;margin:0 auto;">' +
+      '<span aria-hidden="true" style="display:block;width:6px;height:6px;background:' + ORANGE + ';transform:rotate(45deg);margin:18px auto 0;"></span>' +
       '<div data-en="' + esc(TAGLINE.en) + '" data-it="' + esc(TAGLINE.it) + '" style="font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:' + GOLD + ';margin-top:16px;">' + esc(TAGLINE.en) + '</div>' +
       '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;">' + links + '</div>' +
     '</div>';
   }
 
-  var CSS = '@media(max-width:820px){'
+  // Small orange accents on every page: active/hover menu links, footer links, text selection, keyboard focus.
+  var CSS = '[data-ecj-chrome="nav"] a[data-en]:hover,[data-ecj-chrome="footer"] a:hover{color:' + ORANGE + ' !important;}'
+    + '[data-ecj-chrome="nav"] a[aria-current]{box-shadow:inset 0 -2px 0 ' + ORANGE + ';padding-bottom:5px;}'
+    + '::selection{background:' + ORANGE + ';color:#fff;}'
+    + 'h1 em,h2 em{color:' + ORANGE + ';}'
+    + 'a:focus-visible,button:focus-visible{outline:2px solid ' + ORANGE + ' !important;outline-offset:3px;}'
+    + '@media(max-width:820px){'
     + '[data-ecj-chrome="nav"] > div{padding:10px 16px !important;gap:10px !important;row-gap:10px !important;}'
     + '[data-ecj-chrome="nav"] img{height:20px !important;}'
     + '[data-ecj-chrome="nav"] a[data-en]{font-size:10px !important;}'
