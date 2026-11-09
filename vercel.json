@@ -101,6 +101,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "eternalcity.jewelry"
+        }
+      ],
+      "destination": "https://www.eternalcity.jewelry/:path*",
+      "permanent": true
+    },
+    {
       "source": "/journal/happy-valentines-day",
       "destination": "/journal.html",
       "permanent": true
