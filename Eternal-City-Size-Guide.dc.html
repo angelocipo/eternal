@@ -76,12 +76,13 @@
     </div>
   </div>
 
-  <!-- SIZE COMPARISON PHOTOS -->
-  <div data-r="section" style="padding:0 64px 70px; display:flex; flex-direction:column; gap:20px;">
+  <!-- SIZE COMPARISON PHOTOS: shown only when the photos load (list in WRIST_PHOTOS below). -->
+  <div data-r="section" style="{{ wristStyle }};padding:0 64px 70px; flex-direction:column; gap:20px;">
     <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:26px;">See It on the Wrist</div>
     <div data-r="grid3" style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
-      <img src="https://www.eternalcity.jewelry/img/admin/Italian-Jewelry-Made-In-Rome-Lemurian-Quartz-Minimalist-Bracelet-Handmade-Luxury-Sizes-1.jpg" alt="Bead size comparison on wrist, view 1" style="width:100%; border-radius:6px; object-fit:cover;" />
-      <img src="https://www.eternalcity.jewelry/img/admin/Italian-Jewelry-Made-In-Rome-Lemurian-Quartz-Minimalist-Bracelet-Handmade-Luxury-Sizes-2.jpg" alt="Bead size comparison on wrist, view 2" style="width:100%; border-radius:6px; object-fit:cover;" />
+      <sc-for list="{{ wristPhotos }}" as="ph" hint-placeholder-count="2">
+        <img src="{{ ph.src }}" alt="{{ ph.alt }}" style="width:auto; height:auto; max-width:100%; display:block; margin:0 auto; border-radius:6px;" />
+      </sc-for>
     </div>
   </div>
 
@@ -132,9 +133,28 @@ const ADVICE_ROWS = [
   { style: 'Collector / statement', sizes: '10mm – 12mm' },
 ];
 
+// Bead-size photos on the wrist. Put the files here; the section stays hidden until at least one loads.
+const WRIST_PHOTOS = [
+  'img/size-guide/bead-sizes-on-wrist-1.webp',
+  'img/size-guide/bead-sizes-on-wrist-2.webp',
+];
+
 class Component extends DCLogic {
+  state = { wrist: [] };
+
+  componentDidMount() {
+    WRIST_PHOTOS.forEach((src, i) => {
+      const im = new Image();
+      im.onload = () => this.setState(st => ({ wrist: st.wrist.concat({ src, i }).sort((a, b) => a.i - b.i) }));
+      im.src = src;
+    });
+  }
+
   renderVals() {
+    const wrist = this.state.wrist;
     return {
+      wristPhotos: wrist.map(w => ({ src: w.src, alt: 'Bead size comparison on the wrist, view ' + (w.i + 1) })),
+      wristStyle: wrist.length ? 'display:flex' : 'display:none',
       sizeChips: SIZE_DETAILS.map(s => s.mm),
       sizeDetails: SIZE_DETAILS,
       adviceRows: ADVICE_ROWS,
