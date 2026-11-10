@@ -23,7 +23,8 @@ module.exports = (req, res) => {
   for (const [loc, f, p] of STATIC) out.push(url(loc, CONTENT_UPDATED, f, p));
   for (const p of list(PRODUCTS, 'products')) if (p.published !== false) out.push(url('/bracelets/' + encodeURIComponent(p.slug), later(p.modified, CONTENT_UPDATED), 'monthly', '0.8'));
   for (const s of list(STONES, 'stones')) out.push(url('/stones/' + encodeURIComponent(s.slug), CONTENT_UPDATED, 'monthly', '0.7'));
-  for (const p of list(POSTS, 'posts')) out.push(url('/journal/' + encodeURIComponent(p.slug), later(p.modified || p.date, CONTENT_UPDATED), 'yearly', '0.5'));
+  // Only Journal posts with text (same rule as the Journal page); empty posts are not listed.
+  for (const p of list(POSTS, 'posts')) if (p.lead || (p.paras && p.paras.length)) out.push(url('/journal/' + encodeURIComponent(p.slug), later(p.modified || p.date, CONTENT_UPDATED), 'yearly', '0.5'));
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
   res.end('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + out.join('\n') + '\n</urlset>\n');
