@@ -112,6 +112,41 @@
       "permanent": true
     },
     {
+      "source": "/product/snowflake-obsidian-12mm-bracelet",
+      "destination": "/bracelets/obsidian-snowflake-12mm-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/bracelets/snowflake-obsidian-12mm-bracelet",
+      "destination": "/bracelets/obsidian-snowflake-12mm-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/product/amethyst-6mm-bracelet",
+      "destination": "/bracelets/amethyst-06mm-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/bracelets/amethyst-6mm-bracelet",
+      "destination": "/bracelets/amethyst-06mm-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/product/picasso-jasper-12mm-picasso-jasper-15mm-8x10mm-swarovsky-silver-bracelet-copy",
+      "destination": "/bracelets/picasso-jasper-15mm-8x10mm-swarovsky-silver-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/bracelets/picasso-jasper-12mm-picasso-jasper-15mm-8x10mm-swarovsky-silver-bracelet-copy",
+      "destination": "/bracelets/picasso-jasper-15mm-8x10mm-swarovsky-silver-bracelet",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy-2",
+      "destination": "/privacy-policy.html",
+      "permanent": true
+    },
+    {
       "source": "/journal/happy-valentines-day",
       "destination": "/journal.html",
       "permanent": true
