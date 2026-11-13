@@ -17,6 +17,12 @@ const BRAND = 'Eternal City Jewelry';
 const FILES = { product: 'product.dc.html', post: 'Post.dc.html', category: 'category.dc.html' };
 const PAGES = { product: 'product.html', post: 'post.html', category: 'category.html' };
 const KEY = { product: 'slug', post: 'slug', category: 'stone' };
+// Static listing pages served through this function too (vercel.json: ?__page=<name>), only so
+// crawlers get real links instead of template placeholders. Their <head> tags stay as written.
+const STATIC = {
+  collection: 'collection.dc.html', shop: 'Eternal-City-Shop.dc.html', journal: 'Journal.dc.html',
+  lemurian: 'Lemurian-Category.dc.html', 'size-guide': 'Eternal-City-Size-Guide.dc.html',
+};
 
 const list = (d, k) => (Array.isArray(d) ? d : d[k] || Object.values(d));
 const products = list(PRODUCTS, 'products');
@@ -24,9 +30,66 @@ const posts = list(POSTS, 'posts');
 const stones = list(STONES, 'stones');
 
 const cache = {};
-function template(type) {
-  if (!cache[type]) cache[type] = fs.readFileSync(path.join(process.cwd(), FILES[type]), 'utf8');
-  return cache[type];
+function readFile(name) {
+  if (!cache[name]) cache[name] = fs.readFileSync(path.join(process.cwd(), name), 'utf8');
+  return cache[name];
+}
+function template(type) { return readFile(FILES[type]); }
+
+// Inside <x-dc>, park template URLs (href="{{ … }}", src="{{ … }}") in data-dc-* attributes:
+// crawlers without JavaScript no longer see them as broken links/images, and support.js
+// (dcRestoreAttrs) puts them back before rendering, so visitors see no difference.
+function parkTemplateUrls(html) {
+  const a = html.indexOf('<x-dc>'), b = html.lastIndexOf('</x-dc>');
+  if (a < 0 || b < a) return html;
+  const mid = html.slice(a, b).replace(/\s(href|src|poster)="([^"]*\{\{[^"]*)"/g,
+    (m, attr, val) => ` ${attr}="${attr === 'href' ? '#' : 'data:,'}" data-dc-${attr}="${val}"`);
+  return html.slice(0, a) + mid + html.slice(b);
+}
+
+// Plain-HTML links and images for crawlers that don't run JavaScript (shown only without JS).
+const rel = (u) => (!u ? '' : /^https?:\/\//.test(u) ? u : '/' + String(u).replace(/^\.?\//, ''));
+const textPosts = () => posts.filter((x) => x.lead || (x.paras && x.paras.length));
+function linkList(items) {
+  return items.length ? '<ul>' + items.map(([href, label]) => `<li><a href="${esc(href)}">${esc(plain(label))}</a></li>`).join('') + '</ul>' : '';
+}
+function imgTags(list, alt) {
+  return list.filter(Boolean).map((u) => `<img src="${esc(rel(u))}" alt="${esc(plain(alt))}" loading="lazy">`).join('');
+}
+function crawlBlock(type, key) {
+  if (type === 'product') {
+    const p = products.find((x) => x.slug === key);
+    if (!p) return '';
+    const cat = (p.cats || [])[0];
+    const more = products.filter((x) => x !== p && x.published !== false && cat && (x.cats || []).includes(cat)).slice(0, 8);
+    return imgTags((p.images || []).filter((u) => !/^https?:/.test(u)).slice(0, 6), p.name) +
+      linkList([['/collection.html', 'The Collection'], ...more.map((x) => ['/bracelets/' + encodeURIComponent(x.slug), x.name])]);
+  }
+  if (type === 'post') {
+    const list = textPosts();
+    const i = list.findIndex((x) => x.slug === key);
+    const p = posts.find((x) => x.slug === key);
+    if (!p) return '';
+    const old = p.oldLogo || [];
+    const pics = [p.image, ...(p.images || [])].filter((u, j, a) => u && a.indexOf(u) === j && !old.includes(u));
+    const links = [];
+    if (i > 0) links.push(['/journal/' + encodeURIComponent(list[i - 1].slug), list[i - 1].title]);
+    if (i > -1 && i < list.length - 1) links.push(['/journal/' + encodeURIComponent(list[i + 1].slug), list[i + 1].title]);
+    links.push([p.stone ? '/collection.html?stone=' + encodeURIComponent(p.stone) : '/collection.html', 'Shop the collection']);
+    links.push(['/journal.html', 'Journal'], ['/compendium.html', 'All stones']);
+    return imgTags(pics.slice(0, 5), p.title) + linkList(links);
+  }
+  const st = stones.find((x) => x.slug === key);
+  if (!st) return '';
+  const items = stoneProducts(st);
+  return imgTags([st.img], st.name) + linkList([...items.map((x) => ['/bracelets/' + encodeURIComponent(x.slug), x.name]), ['/compendium.html', 'All stones']]);
+}
+function staticCrawlBlock(page) {
+  if (page === 'journal') return linkList(textPosts().map((x) => ['/journal/' + encodeURIComponent(x.slug), x.title]));
+  if (page === 'size-guide') return linkList([['/collection.html', 'The Collection']]);
+  const pub = products.filter((x) => x.published !== false);
+  const list = page === 'lemurian' ? pub.filter((x) => /lemurian/i.test(x.name + ' ' + (x.cats || []).join(' '))) : pub;
+  return linkList(list.map((x) => ['/bracelets/' + encodeURIComponent(x.slug), x.name]));
 }
 
 function esc(s) {
@@ -159,6 +222,17 @@ function tags(m) {
 }
 
 module.exports = (req, res) => {
+  const page = req.query.__page;
+  if (page) {
+    if (!STATIC[page]) { res.statusCode = 404; return res.end('Not found'); }
+    let html;
+    try { html = parkTemplateUrls(readFile(STATIC[page])); } catch (e) { res.statusCode = 500; return res.end('Template missing'); }
+    const block = staticCrawlBlock(page);
+    if (block) html = html.replace('<body>', '<body>\n<noscript>' + block + '</noscript>');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=86400');
+    return res.end(html);
+  }
   const type = FILES[req.query.type] ? req.query.type : null;
   if (!type) { res.statusCode = 404; return res.end('Not found'); }
   let html;
@@ -172,13 +246,14 @@ module.exports = (req, res) => {
     const m = meta(type, String(key));
     if (m) {
       head = tags(m);
-      noscript = `<noscript><h1>${esc(m.h1 || m.title)}</h1><p>${esc(m.description)}</p></noscript>`;
+      noscript = `<noscript><h1>${esc(m.h1 || m.title)}</h1><p>${esc(m.description)}</p>${crawlBlock(type, String(key))}</noscript>`;
     }
     else { status = 404; head = `<title>Not found — ${BRAND}</title>\n<meta name="robots" content="noindex">`; }
   } else if (type !== 'product') {
     head = `<link rel="canonical" href="${SITE}/${type === 'post' ? 'journal' : 'compendium'}.html">`;
   }
 
+  html = parkTemplateUrls(html);
   html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="/">' + (head ? '\n' + head : ''));
   if (noscript) html = html.replace('<body>', '<body>\n' + noscript);
   res.statusCode = status;
