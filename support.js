@@ -21,6 +21,11 @@
   ));
 
   // src/parse.ts
+  // The server (api/seo-page.js) parks template URLs such as href="{{ p.href }}" in
+  // data-dc-* attributes so crawlers without JavaScript don't follow them; put them back.
+  function dcRestoreAttrs(t) {
+    return String(t).replace(/\s(href|src|poster)="(?:#|data:,)"\s+data-dc-(href|src|poster)="/g, (m, a, b) => (a === b ? " " + a + '="' : m));
+  }
   function parseDcDocument(doc) {
     const dc = doc.querySelector("x-dc");
     if (!dc) return null;
@@ -29,7 +34,7 @@
       scriptEl?.getAttribute("data-props") ?? null
     );
     return {
-      template: dc.innerHTML,
+      template: dcRestoreAttrs(dc.innerHTML),
       js: scriptEl ? scriptEl.textContent || "" : "",
       props,
       preview
@@ -40,7 +45,7 @@
     if (!openMatch) return null;
     const close = src.lastIndexOf("</x-dc>");
     if (close === -1 || close < openMatch.index) return null;
-    const template = src.slice(openMatch.index + openMatch[0].length, close);
+    const template = dcRestoreAttrs(src.slice(openMatch.index + openMatch[0].length, close));
     const doc = new DOMParser().parseFromString(src, "text/html");
     const scriptEl = doc.querySelector("script[data-dc-script]");
     const { props, preview } = parseDataProps(

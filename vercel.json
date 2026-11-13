@@ -20,15 +20,15 @@
     },
     {
       "source": "/shop.html",
-      "destination": "/Eternal-City-Shop.dc.html"
+      "destination": "/api/seo-page?__page=shop"
     },
     {
       "source": "/size-guide.html",
-      "destination": "/Eternal-City-Size-Guide.dc.html"
+      "destination": "/api/seo-page?__page=size-guide"
     },
     {
       "source": "/journal.html",
-      "destination": "/Journal.dc.html"
+      "destination": "/api/seo-page?__page=journal"
     },
     {
       "source": "/lemurian.html",
@@ -52,7 +52,7 @@
     },
     {
       "source": "/collection.html",
-      "destination": "/collection.dc.html"
+      "destination": "/api/seo-page?__page=collection"
     },
     {
       "source": "/contact.html",
