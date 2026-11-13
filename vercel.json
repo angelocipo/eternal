@@ -2055,7 +2055,7 @@
   ],
   "functions": {
     "api/seo-page.js": {
-      "includeFiles": "{product,Post,category}.dc.html"
+      "includeFiles": "{product,Post,category,collection,Journal,Eternal-City-Shop,Eternal-City-Size-Guide,Lemurian-Category}.dc.html"
     }
   },
   "crons": [
