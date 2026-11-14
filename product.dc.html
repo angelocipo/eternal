@@ -63,7 +63,7 @@
   <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
     <div style="padding:120px 28px; text-align:center;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; margin-bottom:14px;">Product not found</div>
-      <a href="index.html">Back to the collection</a>
+      <a href="/">Back to the collection</a>
     </div>
   </sc-if>
 
@@ -121,7 +121,7 @@
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
             <div style="font-size:16px; color:#eef0f4;">Enter wrist size (cm/in)</div>
-            <a href="size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+            <a href="/size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
           </div>
           <input type="text" value="{{ wrist }}" onChange="{{ setWrist }}" placeholder="for example: 8, tight fit" style="background:#131c30; border:1px solid #18233e; color:#eef0f4; font-family:'Jost',sans-serif; font-size:15px; padding:14px 16px; max-width:420px; border-radius:0; outline:none;">
         </div>
@@ -131,7 +131,7 @@
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
             <div style="font-size:16px; color:#eef0f4;">{{ sizeHeading }}</div>
-            <a href="size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+            <a href="/size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:10px;">
             <sc-for list="{{ lengths }}" as="ln" hint-placeholder-count="0">
@@ -235,7 +235,7 @@
           </div>
         </sc-for>
       </div>
-      <div style="font-size:13px; line-height:1.7; color:#757f93; border-top:1px solid #162139; padding-top:18px;">Reviews come only from customers who bought this piece, invited by email after delivery. We publish every genuine review, positive or negative. <a href="selling-conditions.html#reviews" style="text-decoration:underline;">How reviews work</a></div>
+      <div style="font-size:13px; line-height:1.7; color:#757f93; border-top:1px solid #162139; padding-top:18px;">Reviews come only from customers who bought this piece, invited by email after delivery. We publish every genuine review, positive or negative. <a href="/selling-conditions.html#reviews" style="text-decoration:underline;">How reviews work</a></div>
     </div>
   </sc-if>
   </sc-if>
