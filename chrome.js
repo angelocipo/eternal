@@ -95,6 +95,9 @@
         '<a href="index.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:40px;width:auto;display:block;"></a>' +
         '<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;">' + links + '</div>' +
         '<div style="display:flex;align-items:center;gap:16px;flex:0 0 auto;">' +
+          '<button type="button" data-ecj-search aria-label="Search stones" title="Search stones" style="cursor:pointer;border:none;background:transparent;color:' + MUTED + ';padding:4px;line-height:0;">' +
+            '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>' +
+          '</button>' +
           '<a href="' + CART_HREF + '" data-ecj-cart style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:' + MUTED + ';text-decoration:none;cursor:pointer;">' +
             '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>' +
             '<span data-en="Cart" data-it="Carrello">Cart</span>' +
@@ -122,8 +125,68 @@
     '</div>';
   }
 
+  // Stone search (magnifier in the menu): searches data/stones.json by name, meaning and
+  // alternative names, and links to /stones/<slug>. With nothing typed it lists every stone.
+  var stonesList = null;
+  function fold(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
+  function loadStones() {
+    if (stonesList) return Promise.resolve(stonesList);
+    return fetch('/data/stones.json').then(function (r) { return r.json(); }).then(function (d) {
+      var l = Array.isArray(d) ? d : (d.stones || []);
+      stonesList = l.filter(function (x) { return x && x.slug && x.name; })
+        .sort(function (a, b) { return a.name.localeCompare(b.name); })
+        .map(function (x) { return { slug: x.slug, name: x.name, meaning: x.meaning || '', img: x.img || '', key: fold([x.name, x.slug, x.meaning, (x.match || []).join(' ')].join(' ')) }; });
+      return stonesList;
+    });
+  }
+  function searchResults(q) {
+    var box = document.querySelector('[data-ecj-search-results]');
+    if (!box) return;
+    if (!stonesList) { box.innerHTML = '<div style="padding:14px 4px;color:' + MUTED + ';">\u2026</div>'; return; }
+    var words = fold(q).split(' ').filter(Boolean);
+    var hits = stonesList.filter(function (x) { return words.every(function (w) { return x.key.indexOf(w) > -1; }); });
+    if (!hits.length) { box.innerHTML = '<div style="padding:14px 4px;color:' + MUTED + ';">No stones found \u00b7 Nessuna pietra trovata</div>'; return; }
+    box.innerHTML = hits.map(function (x) {
+      return '<a href="/stones/' + encodeURIComponent(x.slug) + '" style="display:flex;align-items:center;gap:14px;padding:10px 4px;border-bottom:1px solid ' + LINE + '.12);text-decoration:none;">' +
+        (x.img ? '<img src="/' + esc(String(x.img).replace(/^\.?\//, '')) + '" alt="" loading="lazy" style="width:42px;height:42px;object-fit:cover;border-radius:50%;flex:0 0 auto;">' : '') +
+        '<span><span style="display:block;color:' + GOLD + ';font-size:15px;">' + esc(x.name) + '</span>' +
+        (x.meaning ? '<span style="display:block;color:' + MUTED + ';font-size:12px;margin-top:2px;">' + esc(x.meaning) + '</span>' : '') + '</span></a>';
+    }).join('');
+  }
+  function closeSearch() { var o = document.getElementById('ecj-search'); if (o) o.parentNode.removeChild(o); }
+  function openSearch() {
+    if (document.getElementById('ecj-search')) return;
+    var o = document.createElement('div');
+    o.id = 'ecj-search';
+    o.setAttribute('role', 'dialog');
+    o.setAttribute('aria-label', 'Search stones');
+    o.style.cssText = 'position:fixed;inset:0;z-index:100;background:rgba(6,10,18,.72);display:flex;justify-content:center;align-items:flex-start;padding:70px 16px 16px;';
+    o.innerHTML = '<div data-ecj-search-panel style="width:100%;max-width:560px;max-height:calc(100vh - 100px);display:flex;flex-direction:column;background:' + NAVBG + ';border:1px solid ' + LINE + '.25);border-top:2px solid ' + ORANGE + ';padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.5);">' +
+      '<div style="display:flex;align-items:center;gap:10px;border-bottom:1px solid ' + LINE + '.3);padding-bottom:10px;">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="' + ORANGE + '" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>' +
+        '<input type="text" enterkeyhint="search" data-ecj-search-input placeholder="Search stones \u00b7 Cerca pietre" autocomplete="off" style="flex:1;min-width:0;background:transparent;border:none;outline:none;color:' + GOLD + ';font-family:inherit;font-size:17px;padding:4px 0;">' +
+        '<button type="button" data-ecj-search-close aria-label="Close" style="cursor:pointer;border:none;background:transparent;color:' + MUTED + ';line-height:0;padding:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>' +
+      '</div>' +
+      '<div data-ecj-search-results style="overflow-y:auto;margin-top:6px;"></div></div>';
+    document.body.appendChild(o);
+    var input = o.querySelector('[data-ecj-search-input]');
+    input.addEventListener('input', function () { searchResults(input.value); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { var a = o.querySelector('[data-ecj-search-results] a'); if (a) location.href = a.href; }
+    });
+    o.addEventListener('click', function (e) { if (!e.target.closest('[data-ecj-search-panel]') || e.target.closest('[data-ecj-search-close]')) closeSearch(); });
+    searchResults('');
+    loadStones().then(function () { searchResults(input.value); }, function () {
+      var box = o.querySelector('[data-ecj-search-results]'); if (box) box.innerHTML = '<div style="padding:14px 4px;color:' + MUTED + ';">Search unavailable</div>';
+    });
+    setTimeout(function () { input.focus(); }, 30);
+  }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSearch(); });
+
   // Small orange accents on every page: active/hover menu links, footer links, text selection, keyboard focus.
-  var CSS = '[data-ecj-chrome="nav"] a[data-en]:hover,[data-ecj-chrome="footer"] a:hover{color:' + ORANGE + ' !important;}'
+  var CSS = '[data-ecj-chrome="nav"] [data-ecj-search]:hover,#ecj-search a:hover span span:first-child{color:' + ORANGE + ' !important;}'
+    + '#ecj-search input::placeholder{color:' + MUTED + ';opacity:.7;}'
+    + '[data-ecj-chrome="nav"] a[data-en]:hover,[data-ecj-chrome="footer"] a:hover{color:' + ORANGE + ' !important;}'
     + '[data-ecj-chrome="nav"] a[aria-current]{box-shadow:inset 0 -2px 0 ' + ORANGE + ';padding-bottom:5px;}'
     + '::selection{background:' + ORANGE + ';color:#fff;}'
     + 'h1 em,h2 em{color:' + ORANGE + ';}'
@@ -140,6 +203,7 @@
     + '[data-ecj-chrome="nav"] > div > div:nth-child(2){gap:9px !important;letter-spacing:.12em !important;}'
     + '[data-ecj-chrome="nav"] a[data-en]{font-size:9.5px !important;}'
     + '[data-ecj-chrome="nav"] [data-ecj-cart] span[data-en]{display:none;}'
+    + '#ecj-search{padding-top:56px !important;}'
     + '[data-ecj-chrome="maint"] > div{padding:8px 12px !important;gap:8px !important;}'
     + '[data-ecj-chrome="maint"] span{font-size:12.5px !important;letter-spacing:.18em !important;}'
     + '[data-ecj-chrome="footer"]{padding:36px 20px !important;}'
@@ -176,6 +240,7 @@
       for (var k = 0; k < bars.length; k++) bars[k].parentNode.removeChild(bars[k]);
       return;
     }
+    if (e.target.closest && e.target.closest('[data-ecj-search]')) { e.preventDefault(); openSearch(); return; }
     var el = e.target.closest ? e.target.closest('[data-ecj-cart]') : null;
     if (!el || typeof window.ecjCartHandler !== 'function') return;
     e.preventDefault();
