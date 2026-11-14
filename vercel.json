@@ -1773,7 +1773,12 @@
     },
     {
       "source": "/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart",
-      "destination": "/journal/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart",
+      "destination": "/journal/eternal-city-jewelry-why-this-luxury-gemstone-brand-stands-apart",
+      "permanent": true
+    },
+    {
+      "source": "/journal/aeterna-jewelry-rome-why-this-luxury-gemstone-brand-stands-apart",
+      "destination": "/journal/eternal-city-jewelry-why-this-luxury-gemstone-brand-stands-apart",
       "permanent": true
     },
     {
