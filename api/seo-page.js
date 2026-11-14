@@ -141,6 +141,20 @@ function stoneProducts(stone) {
   return products.filter((p) => p.published !== false).filter((p) =>
     [...(p.cats || []), ...(p.tags || [])].map(norm).some((h) => h && (keys.some((k) => h.includes(k)) || (key.includes(h) && !otherKeys.has(h)))));
 }
+// Terms from selling-conditions.html: worldwide shipping from Italy, free from € 50, otherwise
+// € 8 flat; 30-day returns by mail, return shipping paid by the buyer.
+const SHIP_TO = ['IT','AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','LV','LT','LU','MT','NL',
+  'PL','PT','RO','SK','SI','ES','SE','CH','NO','GB','US','CA','AU','NZ','JP'];
+function shipping(price) {
+  return { '@type': 'OfferShippingDetails',
+    shippingRate: { '@type': 'MonetaryAmount', value: Number(price) >= 50 ? '0' : '8', currency: 'EUR' },
+    shippingDestination: SHIP_TO.map((c) => ({ '@type': 'DefinedRegion', addressCountry: c })),
+    shippingOrigin: { '@type': 'DefinedRegion', addressCountry: 'IT' } };
+}
+const RETURNS = { '@type': 'MerchantReturnPolicy', applicableCountry: SHIP_TO,
+  returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 30,
+  returnMethod: 'https://schema.org/ReturnByMail', returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
+  merchantReturnLink: SITE + '/selling-conditions.html' };
 function crumbs(items) {
   return { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
     itemListElement: items.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
@@ -161,6 +175,7 @@ function meta(type, key) {
       offers: {
         '@type': 'Offer', url: canonical, priceCurrency: 'EUR', price: String(price),
         availability: p.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+        shippingDetails: shipping(price), hasMerchantReturnPolicy: RETURNS,
       },
     };
     return {
