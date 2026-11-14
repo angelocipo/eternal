@@ -29,6 +29,8 @@ a{color:inherit;}
 .ech-btn:focus-visible{outline:2px solid #cfd3da;outline-offset:3px;}
 .ech-ghost,.ech a.ech-ghost{display:inline-block;font-weight:400;letter-spacing:.24em;font-size:11px;text-transform:uppercase;color:#e6e9ee;border:1px solid rgba(185,190,200,.5);padding:15px 34px;border-radius:2px;}
 .ech-ghost:hover{background:rgba(185,190,200,.1);border-color:var(--gold);}
+.ech-body h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(25px,3vw,31px);line-height:1.2;color:#eceff3;margin:34px 0 14px;}
+.ech-body h2:first-child{margin-top:0;}
 .ech-body p{font-weight:300;font-size:16.5px;line-height:1.85;color:#bcc2cd;margin:0 0 22px;white-space:pre-line;}
 .ech-split{max-width:1000px;margin:0 auto;padding:44px 28px 10px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,42%);gap:48px;align-items:start;}
 .ech-hero{margin:0;position:sticky;top:96px;}
@@ -82,7 +84,8 @@ html,body{overflow-x:hidden;}
   <div class="ech-split" style="{{ splitStyle }}">
     <section class="ech-body">
       <sc-for list="{{ paras }}" as="para" hint-placeholder-count="3">
-        <p>{{ para }}</p>
+        <h2 style="{{ para.hStyle }}">{{ para.h }}</h2>
+        <p style="{{ para.pStyle }}">{{ para.p }}</p>
       </sc-for>
       <img src="{{ image }}" alt="{{ title }}" style="{{ imgBodyStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
       <video class="ech-postvideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="auto" style="{{ videoBodyStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#070a11;"></video>
@@ -225,7 +228,11 @@ class Component extends DCLogic {
       splitStyle: (p.image || (p.videoHero && p.video)) && ((p.paras || []).length || p.video) ? '' : 'grid-template-columns:minmax(0,1fr)',
       heroNoteStyle: p.videoHero && p.video ? 'display:none' : noteStyle(p.image),
       logoNote: 'Archive photo: the tag shows our former diAngelo brand. Every piece now carries the Eternal City Jewelry tag.',
-      paras: p.paras || [],
+      // A paragraph starting with "## " in posts.json is shown as a subheading (h2).
+      paras: (p.paras || []).map(t => {
+        const isH = /^##\s/.test(String(t));
+        return { h: isH ? String(t).replace(/^##\s+/, '') : '', p: isH ? '' : t, hStyle: isH ? '' : 'display:none', pStyle: isH ? 'display:none' : '' };
+      }),
       gallery,
       galStyle: gallery.length ? '' : 'display:none',
       // Optional post video (posts.json "video"): small, autoplay, muted, loop, under the text.

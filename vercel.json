@@ -1653,7 +1653,12 @@
     },
     {
       "source": "/sunstone-whats-it-all-about",
-      "destination": "/journal/sunstone-whats-it-all-about",
+      "destination": "/journal/sunstone-meaning",
+      "permanent": true
+    },
+    {
+      "source": "/journal/sunstone-whats-it-all-about",
+      "destination": "/journal/sunstone-meaning",
       "permanent": true
     },
     {
