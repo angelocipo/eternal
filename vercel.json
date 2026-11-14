@@ -95,6 +95,10 @@
       "destination": "/api/sitemap"
     },
     {
+      "source": "/merchant-feed.xml",
+      "destination": "/api/sitemap?feed=merchant"
+    },
+    {
       "source": "/api/review-cron",
       "destination": "/api/reviews?cron=1"
     }
