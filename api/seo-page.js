@@ -143,13 +143,19 @@ function stoneProducts(stone) {
 }
 // Terms from selling-conditions.html: worldwide shipping from Italy, free from € 50, otherwise
 // € 8 flat; 30-day returns by mail, return shipping paid by the buyer.
-const SHIP_TO = ['IT','AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','LV','LT','LU','MT','NL',
-  'PL','PT','RO','SK','SI','ES','SE','CH','NO','GB','US','CA','AU','NZ','JP'];
+// Delivery times (Angelo): 3–5 working days to prepare, then 2–5 days in transit in Europe, 5–10 elsewhere.
+const SHIP_EU = ['IT','AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','LV','LT','LU','MT','NL',
+  'PL','PT','RO','SK','SI','ES','SE','CH','NO','GB'];
+const SHIP_WORLD = ['US','CA','AU','NZ','JP'];
+const SHIP_TO = [...SHIP_EU, ...SHIP_WORLD];
+const days = (min, max) => ({ '@type': 'QuantitativeValue', minValue: min, maxValue: max, unitCode: 'DAY' });
 function shipping(price) {
-  return { '@type': 'OfferShippingDetails',
-    shippingRate: { '@type': 'MonetaryAmount', value: Number(price) >= 50 ? '0' : '8', currency: 'EUR' },
-    shippingDestination: SHIP_TO.map((c) => ({ '@type': 'DefinedRegion', addressCountry: c })),
-    shippingOrigin: { '@type': 'DefinedRegion', addressCountry: 'IT' } };
+  const rate = { '@type': 'MonetaryAmount', value: Number(price) >= 50 ? '0' : '8', currency: 'EUR' };
+  const zone = (countries, tMin, tMax) => ({ '@type': 'OfferShippingDetails', shippingRate: rate,
+    shippingDestination: countries.map((c) => ({ '@type': 'DefinedRegion', addressCountry: c })),
+    shippingOrigin: { '@type': 'DefinedRegion', addressCountry: 'IT' },
+    deliveryTime: { '@type': 'ShippingDeliveryTime', handlingTime: days(3, 5), transitTime: days(tMin, tMax) } });
+  return [zone(SHIP_EU, 2, 5), zone(SHIP_WORLD, 5, 10)];
 }
 const RETURNS = { '@type': 'MerchantReturnPolicy', applicableCountry: SHIP_TO,
   returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 30,
