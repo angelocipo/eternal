@@ -63,7 +63,7 @@
   <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
     <div style="padding:120px 28px; text-align:center;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; margin-bottom:14px;">Product not found</div>
-      <a href="/">Back to the collection</a>
+      <a href="index.html">Back to the collection</a>
     </div>
   </sc-if>
 
@@ -72,15 +72,17 @@
     <div style="display:flex; flex-direction:column; gap:16px;">
       <div style="position:relative; width:100%; border-radius:6px; overflow:hidden; background:#131c30;">
         <div style="padding-top:100%;"></div>
-        <img src="{{ heroImg }}" data-fallback="{{ fallbackImg }}" alt="{{ name }}" draggable="false" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:auto; height:auto; max-width:100%; max-height:100%; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+        <video class="ecj-boxvideo" src="{{ boxVideoSrc }}" poster="{{ boxPoster }}" autoPlay="" muted="" loop="" playsInline="" preload="none" aria-label="Eternal City Jewelry box" style="{{ boxVideoStyle }};position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#131c30;"></video>
+        <img src="{{ heroImg }}" data-fallback="{{ fallbackImg }}" alt="{{ name }}" draggable="false" style="{{ heroImgStyle }};position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:auto; height:auto; max-width:100%; max-height:100%; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
         <sc-if value="{{ onSale }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute; top:20px; left:20px; background:#c3c8d1; color:#0e1524; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:6px 12px; border-radius:2px;">Sale</div>
         </sc-if>
       </div>
       <div data-r="thumbs" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;">
         <sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="0">
-          <div onClick="{{ th.onClick }}" style="cursor:pointer; aspect-ratio:1; border-radius:4px; overflow:hidden; background:#131c30; border:1px solid {{ th.border }};">
+          <div onClick="{{ th.onClick }}" style="position:relative; cursor:pointer; aspect-ratio:1; border-radius:4px; overflow:hidden; background:#131c30; border:1px solid {{ th.border }};">
             <img src="{{ th.src }}" data-fallback="{{ fallbackImg }}" alt="" draggable="false" style="width:100%; height:100%; object-fit:cover; touch-action:pan-y; -webkit-user-drag:none; user-select:none;">
+            <span aria-hidden="true" style="{{ th.playStyle }};position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:34px; height:34px; border-radius:50%; background:rgba(14,21,36,.72); border:1px solid rgba(207,211,218,.6); align-items:center; justify-content:center; color:#eef0f4; font-size:13px; padding-left:3px;">&#9654;</span>
           </div>
         </sc-for>
       </div>
@@ -121,7 +123,7 @@
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
             <div style="font-size:16px; color:#eef0f4;">Enter wrist size (cm/in)</div>
-            <a href="/size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+            <a href="size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
           </div>
           <input type="text" value="{{ wrist }}" onChange="{{ setWrist }}" placeholder="for example: 8, tight fit" style="background:#131c30; border:1px solid #18233e; color:#eef0f4; font-family:'Jost',sans-serif; font-size:15px; padding:14px 16px; max-width:420px; border-radius:0; outline:none;">
         </div>
@@ -131,7 +133,7 @@
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
             <div style="font-size:16px; color:#eef0f4;">{{ sizeHeading }}</div>
-            <a href="/size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
+            <a href="size-guide.html" style="font-size:15px; text-decoration:underline;">Size chart</a>
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:10px;">
             <sc-for list="{{ lengths }}" as="ln" hint-placeholder-count="0">
@@ -235,7 +237,7 @@
           </div>
         </sc-for>
       </div>
-      <div style="font-size:13px; line-height:1.7; color:#757f93; border-top:1px solid #162139; padding-top:18px;">Reviews come only from customers who bought this piece, invited by email after delivery. We publish every genuine review, positive or negative. <a href="/selling-conditions.html#reviews" style="text-decoration:underline;">How reviews work</a></div>
+      <div style="font-size:13px; line-height:1.7; color:#757f93; border-top:1px solid #162139; padding-top:18px;">Reviews come only from customers who bought this piece, invited by email after delivery. We publish every genuine review, positive or negative. <a href="selling-conditions.html#reviews" style="text-decoration:underline;">How reviews work</a></div>
     </div>
   </sc-if>
   </sc-if>
@@ -283,6 +285,9 @@
 <script type="text/x-dc" data-dc-script>
 const SIZE_TAG_RE = /^(Bracelets? )?(\d+)\s*mm$/i;
 const BLANK = 'img/logo-ecj-white.webp';
+// Packaging video shown as the last thumbnail on every product (small, muted, looping; loads only when opened).
+const BOX_VIDEO = 'img/box/eternal-city-jewelry-box-600.mp4';
+const BOX_POSTER = 'img/box/eternal-city-jewelry-box-poster.webp';
 
 class Component extends DCLogic {
   state = { products: [], slug: '', size: '', metal: '', length: '', clasp: '', wrist: '', openPerk: -1, qty: 1, cart: false, cartOpen: false, thumbIdx: 0 };
@@ -307,7 +312,15 @@ class Component extends DCLogic {
     }).catch(() => this.setState({ products: [] }));
     this.syncChrome();
   }
-  componentDidUpdate() { this.syncChrome(); }
+  componentDidUpdate() {
+    this.syncChrome();
+    // React does not set "muted" reliably and browsers only autoplay muted video: force it.
+    document.querySelectorAll('video.ecj-boxvideo').forEach(v => {
+      if (!v.getAttribute('src')) return;
+      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+      if (v.paused) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }
+    });
+  }
   syncChrome() {
     window.ecjCartHandler = () => this.toggleCart();
     if (window.ecjSetCartCount) window.ecjSetCartCount(this.state.cart ? this.state.qty : 0);
@@ -412,8 +425,10 @@ class Component extends DCLogic {
     if (!p) return { found: false, notFound: true, heroImg: BLANK, thumbs: [], sizes: [], fallbackImg: BLANK };
 
     const images = p.images && p.images.length ? p.images : [BLANK];
+    const showBox = s.thumbIdx === images.length;
     const heroImg = images[Math.min(s.thumbIdx, images.length - 1)] || BLANK;
-    const thumbs = images.map((src, i) => ({ src: src || BLANK, border: i === s.thumbIdx ? '#cfd3da' : 'transparent', onClick: () => this.setThumb(i) }));
+    const thumbs = images.map((src, i) => ({ src: src || BLANK, border: i === s.thumbIdx ? '#cfd3da' : 'transparent', playStyle: 'display:none', onClick: () => this.setThumb(i) }))
+      .concat([{ src: BOX_POSTER, border: showBox ? '#cfd3da' : 'transparent', playStyle: 'display:flex', onClick: () => this.setThumb(images.length) }]);
     const onSale = !!(p.sale && p.sale < p.regular);
     const discount = onSale ? Math.round((1 - p.sale / p.regular) * 100) : 0;
     const cats = (p.cats || []).filter(c => !/^bracelets?$/i.test(c));
@@ -502,6 +517,10 @@ class Component extends DCLogic {
       video: p.video || '',
       showPiece: !!((p.desc && p.short) || p.video),
       heroImg, thumbs,
+      heroImgStyle: showBox ? 'display:none' : 'display:block',
+      boxVideoStyle: showBox ? 'display:block' : 'display:none',
+      boxVideoSrc: showBox ? BOX_VIDEO : '',
+      boxPoster: BOX_POSTER,
       fallbackImg: p.fallbackImg || BLANK,
       onSale,
       priceLabel: this.fmt(p.price * s.qty),
