@@ -161,6 +161,27 @@ const RETURNS = { '@type': 'MerchantReturnPolicy', applicableCountry: SHIP_TO,
   returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 30,
   returnMethod: 'https://schema.org/ReturnByMail', returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
   merchantReturnLink: SITE + '/selling-conditions.html' };
+// A product address that doesn't exist (old or mistyped links, e.g. from Google) is sent with a
+// permanent redirect to the closest real page instead of "Product not found":
+// a product sharing the stone and most words (e.g. the bead size), else the stone page, else the collection.
+const STOP = new Set(['bracelet', 'bracelets', 'made', 'in', 'rome', 'handmade', 'the', 'and', 'with', 'luxury', 'jewelry', 'necklace', 'pack']);
+const toks = (t) => String(t || '').toLowerCase().replace(/(\d+)\s*mm/g, (m, n) => ' ' + String(Number(n)) + 'mm ')
+  .split(/[^a-z0-9]+/).filter((w) => w && !STOP.has(w));
+function closestPage(slug) {
+  const want = toks(slug);
+  if (!want.length) return '/collection.html';
+  const stone = stones.find((st) => toks(st.name).length && toks(st.name).every((w) => want.includes(w)))
+    || stones.find((st) => toks(st.slug).some((w) => w.length > 4 && want.includes(w)));
+  const pool = (stone ? stoneProducts(stone) : products.filter((p) => p.published !== false));
+  let best = null, score = 0;
+  for (const p of pool) {
+    const have = new Set(toks(p.slug + ' ' + p.name));
+    const sc = want.filter((w) => have.has(w)).length - (have.size > 6 ? 0.01 * have.size : 0);
+    if (sc > score) { score = sc; best = p; }
+  }
+  if (best && score >= (stone ? 1.5 : 2)) return '/bracelets/' + encodeURIComponent(best.slug);
+  return stone ? '/stones/' + encodeURIComponent(stone.slug) : '/collection.html';
+}
 function crumbs(items) {
   return { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
     itemListElement: items.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) };
@@ -263,6 +284,12 @@ module.exports = (req, res) => {
   try { html = template(type); } catch (e) { res.statusCode = 500; return res.end('Template missing'); }
 
   const key = req.query[KEY[type]];
+  if (type === 'product' && key && !products.some((x) => x.slug === String(key))) {
+    res.statusCode = 301;
+    res.setHeader('Location', closestPage(String(key)));
+    res.setHeader('Cache-Control', 'public, s-maxage=86400');
+    return res.end();
+  }
   let status = 200;
   let head = '';
   let noscript = '';
