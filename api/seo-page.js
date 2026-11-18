@@ -186,7 +186,7 @@ function meta(type, key) {
     };
     return {
       title: `${plain(p.name)} — ${BRAND}`, description: clip(p.short || p.desc), canonical, image,
-      ogType: 'product', noindex: p.published === false, h1: plain(p.name),
+      ogType: 'product', noindex: p.published === false, h1: plain(p.name), lcp: rel((p.images || [])[0]),
       ld: [ld, crumbs([['Home', SITE + '/'], ['Collection', SITE + '/collection.html'], [plain(p.name), canonical]])],
     };
   }
@@ -205,6 +205,7 @@ function meta(type, key) {
       publisher: { '@type': 'Organization', name: BRAND, logo: { '@type': 'ImageObject', url: SITE + '/img/logo-ecj-header.png' } },
     };
     return { title: `${heading} — ${BRAND}`, description, canonical, image, ogType: 'article', h1: heading,
+      lcp: p.videoHero && p.video ? '' : rel(p.image),
       ld: [ld, crumbs([['Home', SITE + '/'], ['Journal', SITE + '/journal.html'], [heading, canonical]])] };
   }
   const s = stones.find((x) => x.slug === key);
@@ -220,7 +221,7 @@ function meta(type, key) {
     mainEntity: { '@type': 'ItemList', numberOfItems: items.length,
       itemListElement: items.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: urlFor('product', p.slug), name: plain(p.name) })) },
   };
-  return { title, description, canonical, image: abs(s.img), ogType: 'website', h1: `${name} Bracelets & Jewelry`,
+  return { title, description, canonical, image: abs(s.img), ogType: 'website', h1: `${name} Bracelets & Jewelry`, lcp: rel(s.img),
     ld: [page, crumbs([['Home', SITE + '/'], ['Compendium', SITE + '/compendium.html'], [name, canonical]])] };
 }
 
@@ -237,6 +238,8 @@ function tags(m) {
     m.image && `<meta property="og:image" content="${esc(m.image)}">`,
     `<meta name="twitter:card" content="${m.image ? 'summary_large_image' : 'summary'}">`,
     m.noindex && `<meta name="robots" content="noindex, follow">`,
+    // Main photo requested straight away instead of after the page has been drawn.
+    m.lcp && `<link rel="preload" as="image" href="${esc(m.lcp)}" fetchpriority="high">`,
     ...[].concat(m.ld || []).map((d) => `<script type="application/ld+json">${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`),
   ];
   return t.filter(Boolean).join('\n');
