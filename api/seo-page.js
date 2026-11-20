@@ -305,6 +305,10 @@ module.exports = (req, res) => {
   }
 
   html = parkTemplateUrls(html);
+  if (type === 'product' && key && status === 200) {
+    const p = products.find((x) => x.slug === String(key));
+    if (p) head += `\n<script>window.__ECJ_PRODUCT=${JSON.stringify(p).replace(/</g, '\\u003c')};</script>`;
+  }
   html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="/">' + (head ? '\n' + head : ''));
   if (noscript) html = html.replace('<body>', '<body>\n' + noscript);
   res.statusCode = status;
