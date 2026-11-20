@@ -307,12 +307,20 @@ class Component extends DCLogic {
       .then(rv => { if (rv && Array.isArray(rv.reviews)) this.setState({ reviews: rv }); })
       .catch(() => {});
     fetch('data/stones.json').then(r => r.json()).then(stones => this.setState({ stones })).catch(() => {});
+    // The server puts this product's own data in the page (window.__ECJ_PRODUCT), so the photo and
+    // details show at once instead of waiting for the whole catalogue; the catalogue still loads after.
+    const pre = window.__ECJ_PRODUCT;
+    if (pre && pre.slug === slug) {
+      const tag = (pre.tags || []).find(t => SIZE_TAG_RE.test(t));
+      this.setState({ products: [pre], size: tag ? tag.match(SIZE_TAG_RE)[2] + ' mm' : '' });
+    }
     fetch('data/products.json').then(r => r.json()).then(products => {
       const p = products.find(x => x.slug === slug);
+      if (pre && pre.slug === slug) { this.setState({ products }); return; }
       const sizeTag = p ? (p.tags || []).find(t => SIZE_TAG_RE.test(t)) : null;
       const size = sizeTag ? sizeTag.match(SIZE_TAG_RE)[2] + ' mm' : '';
       this.setState({ products, size });
-    }).catch(() => this.setState({ products: [] }));
+    }).catch(() => { if (!(pre && pre.slug === slug)) this.setState({ products: [] }); });
     this.syncChrome();
   }
   componentDidUpdate() {
