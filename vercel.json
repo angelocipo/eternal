@@ -101,6 +101,14 @@
     {
       "source": "/api/review-cron",
       "destination": "/api/reviews?cron=1"
+    },
+    {
+      "source": "/img/1journal/:path*",
+      "destination": "/img/journal/:path*"
+    },
+    {
+      "source": "/img/1social/:path*",
+      "destination": "/img/social/:path*"
     }
   ],
   "redirects": [
