@@ -210,7 +210,7 @@
     <div data-r="section" style="padding:80px 56px; max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:24px;">
       <div style="font-family:'Cormorant Garamond',Georgia,serif; font-size:32px; font-weight:500;">The Piece</div>
       <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
-        <video src="{{ video }}" controls="" playsInline="" muted="" loop="" preload="metadata" style="display:block; width:100%; max-width:720px; height:auto; border:1px solid #18233e; background:#070a11;"></video>
+        <video class="ecj-piecevideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="metadata" style="display:block; align-self:flex-start; width:auto; height:auto; max-width:min(100%,720px); max-height:640px; border:1px solid #18233e; background:#070a11;"></video>
       </sc-if>
       <div class="pd" style="font-size:15.5px;"><sc-for list="{{ descBlocks }}" as="b" hint-placeholder-count="2"><sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p class="pd-p"><sc-for list="{{ b.parts }}" as="sp" hint-placeholder-count="1"><sc-if value="{{ sp.isText }}" hint-placeholder-val="{{ true }}"><span>{{ sp.t }}</span></sc-if><sc-if value="{{ sp.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ sp.href }}" style="text-decoration:underline;">{{ sp.t }}</a></sc-if></sc-for></p></sc-if><sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><h3 class="pd-h">{{ b.t }}</h3></sc-if><sc-if value="{{ b.isSpec }}" hint-placeholder-val="{{ false }}"><dl class="pd-spec"><sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="3"><dt>{{ r.k }}</dt><dd>{{ r.v }}</dd></sc-for></dl></sc-if><sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}"><ul class="pd-ul"><sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li><sc-if value="{{ it.hasK }}" hint-placeholder-val="{{ false }}"><strong>{{ it.k }}</strong> </sc-if><span>{{ it.t }}</span></li></sc-for></ul></sc-if><sc-if value="{{ b.isLinks }}" hint-placeholder-val="{{ false }}"><div class="pd-links"><sc-for list="{{ b.items }}" as="lk" hint-placeholder-count="2"><a href="{{ lk.href }}">{{ lk.t }} &rarr;</a></sc-for></div></sc-if></sc-for></div>
     </div>
@@ -326,7 +326,7 @@ class Component extends DCLogic {
   componentDidUpdate() {
     this.syncChrome();
     // React does not set "muted" reliably and browsers only autoplay muted video: force it.
-    document.querySelectorAll('video.ecj-boxvideo').forEach(v => {
+    document.querySelectorAll('video.ecj-boxvideo, video.ecj-piecevideo').forEach(v => {
       if (!v.getAttribute('src')) return;
       v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
       if (v.paused) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }
