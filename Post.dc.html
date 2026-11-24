@@ -54,6 +54,10 @@ a{color:inherit;}
 
 @media(max-width:640px){.ech article,.ech-split,.ech-more,.ech > section,.ech > nav{padding-left:18px !important;padding-right:18px !important;}.ech-body p{font-size:15.5px;}}
 .ech img{max-width:100%;}
+.ech-sound{align-items:center;justify-content:center;gap:9px;margin:12px auto 0;font-family:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#cfd3da;background:rgba(14,21,36,.6);border:1px solid rgba(185,190,200,.4);padding:10px 18px;border-radius:2px;cursor:pointer;transition:border-color .25s,background .25s;}
+.ech-sound:hover{border-color:var(--gold);background:rgba(185,190,200,.08);}
+.ech-sound:focus-visible{outline:2px solid #cfd3da;outline-offset:3px;}
+.ech-sound svg{width:16px;height:16px;flex-shrink:0;}
 html,body{overflow-x:hidden;}
 </style>
 <script defer src="consent.js"></script>
@@ -92,9 +96,11 @@ html,body{overflow-x:hidden;}
       </sc-for>
       <img src="{{ image }}" alt="{{ title }}" style="{{ imgBodyStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
       <video class="ech-postvideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="auto" style="{{ videoBodyStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:480px;margin:16px 0 0;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#070a11;"></video>
+      <button type="button" class="ech-sound" onClick="{{ onSound }}" aria-pressed="{{ soundPressed }}" style="{{ soundBodyStyle }};margin-left:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" style="{{ soundWaveStyle }}"/><path d="M19 6a8.5 8.5 0 0 1 0 12" style="{{ soundWaveStyle }}"/><path d="M17 10l4 4M21 10l-4 4" style="{{ soundMuteStyle }}"/></svg><span>{{ soundLabel }}</span></button>
     </section>
     <figure class="ech-hero" style="{{ heroStyle }}">
       <video class="ech-postvideo" src="{{ video }}" autoPlay="" muted="" loop="" playsInline="" preload="auto" style="{{ videoHeroStyle }};width:auto;height:auto;max-width:min(100%,360px);max-height:560px;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#070a11;"></video>
+      <button type="button" class="ech-sound" onClick="{{ onSound }}" aria-pressed="{{ soundPressed }}" style="{{ soundHeroStyle }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" style="{{ soundWaveStyle }}"/><path d="M19 6a8.5 8.5 0 0 1 0 12" style="{{ soundWaveStyle }}"/><path d="M17 10l4 4M21 10l-4 4" style="{{ soundMuteStyle }}"/></svg><span>{{ soundLabel }}</span></button>
       <img src="{{ image }}" alt="{{ title }}" style="{{ imgHeroStyle }};width:auto;height:auto;max-width:100%;max-height:560px;margin:0 auto;border:1px solid rgba(185,190,200,.16);border-radius:4px;">
       <figcaption style="{{ heroNoteStyle }};font-size:12.5px;line-height:1.6;color:#757f93;font-style:italic;text-align:center;margin-top:10px;">{{ logoNote }}</figcaption>
     </figure>
@@ -154,7 +160,7 @@ html,body{overflow-x:hidden;}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { posts: [], slug: '' };
+  state = { posts: [], slug: '', soundOn: false };
 
   componentDidMount() {
     let slug = '';
@@ -173,14 +179,29 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this._key);
   }
   componentWillUnmount() { window.removeEventListener('keydown', this._key); }
-  // Post videos: small, muted, looping, autoplay. React does not set the muted
-  // attribute reliably, and browsers only autoplay muted video, so force it here.
+  // Post videos: small, looping, autoplay. Browsers only autoplay muted video, so they
+  // start muted; the "Sound on" button under the video turns the audio on (a click is
+  // what browsers require). Only the visible copy of the video is ever unmuted, so the
+  // hidden one never plays a second soundtrack. React does not set muted reliably: force it.
   componentDidUpdate() {
+    const on = this.state.soundOn;
     document.querySelectorAll('video.ech-postvideo').forEach(v => {
       if (!v.getAttribute('src')) return;
-      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
-      if (v.paused) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }
+      const m = !(on && v.offsetParent !== null);
+      v.muted = m; v.defaultMuted = m; v.loop = true; v.playsInline = true;
+      if (v.paused && v.offsetParent !== null) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }
     });
+  }
+  toggleSound() {
+    const on = !this.state.soundOn;
+    document.querySelectorAll('video.ech-postvideo').forEach(v => {
+      if (!v.getAttribute('src')) return;
+      const visible = v.offsetParent !== null;
+      v.muted = !(on && visible); v.defaultMuted = v.muted;
+      if (on && visible) { try { v.currentTime = 0; } catch (e) {} }
+      if (visible) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }
+    });
+    this.setState({ soundOn: on });
   }
 
   fmt(d) {
@@ -190,7 +211,7 @@ class Component extends DCLogic {
   renderVals() {
     const { posts, slug } = this.state;
     const p = posts.find(x => x.slug === slug) || posts[0];
-    if (!p) return { title: '', paras: [], gallery: [], more: [], videoBodyStyle: 'display:none', videoHeroStyle: 'display:none', imgBodyStyle: 'display:none', imgHeroStyle: 'display:none', heroStyle: 'display:none' };
+    if (!p) return { title: '', paras: [], gallery: [], more: [], videoBodyStyle: 'display:none', videoHeroStyle: 'display:none', imgBodyStyle: 'display:none', imgHeroStyle: 'display:none', heroStyle: 'display:none', soundHeroStyle: 'display:none', soundBodyStyle: 'display:none' };
     // Photos taken before the rebrand show the old "diAngelo" tag: say so under each of them.
     const oldLogo = p.oldLogo || [];
     const noteStyle = u => (oldLogo.indexOf(u) > -1 ? 'display:block' : 'display:none');
@@ -241,6 +262,14 @@ class Component extends DCLogic {
       // Optional post video (posts.json "video"): small, autoplay, muted, loop, under the text.
       video: p.video || '',
       videoStyle: p.video ? 'display:block' : 'display:none',
+      // Sound button under the video (the video starts muted; one click turns the audio on).
+      soundHeroStyle: p.videoHero && p.video ? 'display:flex' : 'display:none',
+      soundBodyStyle: p.video && !p.videoHero ? 'display:inline-flex' : 'display:none',
+      soundLabel: this.state.soundOn ? 'Sound off' : 'Sound on',
+      soundPressed: this.state.soundOn ? 'true' : 'false',
+      soundWaveStyle: this.state.soundOn ? '' : 'display:none',
+      soundMuteStyle: this.state.soundOn ? 'display:none' : '',
+      onSound: () => this.toggleSound(),
       more,
     };
   }
