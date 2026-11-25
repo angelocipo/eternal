@@ -9,6 +9,13 @@
 //   GET  /api/newsletter?admin=list&s=<sig>                → the owner's list (HTML table)
 //   GET  /api/newsletter?admin=list&s=<sig>&format=csv     → same list as a CSV download
 //   POST /api/newsletter  admin=delete&email=…&s=<sig>     → owner deletes one address
+//   GET  /api/newsletter?admin=preview&id=<issue>&s=<sig>  → the issue as it will look in the inbox
+//   POST /api/newsletter  admin=test&id=<issue>&s=<sig>    → sends the issue to the owner only
+//   POST /api/newsletter  admin=send&id=<issue>&s=<sig>    → sends the issue to every CONFIRMED subscriber
+//
+// Issues live in data/newsletters.json (one per week, images only, no video). Nothing is ever
+// sent automatically: the owner presses "Send to all" on the list page. Each issue can be sent
+// to the list only once (nl:issue:<id> in Redis records when and to how many).
 //
 // Buttons (not plain links) on confirm/unsubscribe pages: mail scanners open every link in an
 // email, and would otherwise confirm or unsubscribe people on their own.
@@ -23,6 +30,8 @@
 //   nl:rl:<ip>    signup attempts per hour (rate limit, expires)
 
 const crypto = require('crypto');
+let ISSUES = [];
+try { ISSUES = require('../data/newsletters.json'); } catch (e) { ISSUES = []; }
 
 const SITE = 'https://www.eternalcity.jewelry';
 const OWNER_EMAIL = process.env.OWNER_NOTIFICATION_EMAIL || 'info@eternalcity.jewelry';
@@ -48,7 +57,7 @@ async function redis(cmds) {
     return x.result;
   });
 }
-const K = { sub: (e) => 'nl:s:' + e, all: 'nl:all', rl: (ip) => 'nl:rl:' + ip };
+const K = { sub: (e) => 'nl:s:' + e, all: 'nl:all', rl: (ip) => 'nl:rl:' + ip, issue: (id) => 'nl:issue:' + id };
 
 // ---------------------------------------------------------------- Email (Resend)
 const VERIFIED_DOMAIN = 'eternalcity.jewelry';
@@ -58,11 +67,11 @@ function safeFrom() {
   if (addr.toLowerCase().endsWith('@' + VERIFIED_DOMAIN)) return raw;
   return `Eternal City Jewelry <info@${VERIFIED_DOMAIN}>`;
 }
-async function sendEmail({ to, subject, html }) {
+async function sendEmail({ to, subject, html, headers }) {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
-    body: JSON.stringify({ from: safeFrom(), to, subject, html }),
+    body: JSON.stringify({ from: safeFrom(), to, subject, html, ...(headers ? { headers } : {}) }),
   });
   const text = await r.text();
   if (!r.ok) throw new Error(`Resend send failed: ${r.status} ${text}`);
@@ -291,7 +300,93 @@ async function adminList(req, res, format) {
 <p><strong style="color:#eef0f4;">${confirmed}</strong> confirmed · ${subs.length - confirmed} waiting for confirmation</p>
 <a class="b" href="${adminLink('csv')}">Download CSV</a>
 <div style="overflow-x:auto;"><table><thead><tr><th>Email</th><th>Status</th><th>Lang</th><th>Signed up (UTC)</th><th>Confirmed (UTC)</th><th>Page</th><th></th></tr></thead><tbody>${rows || '<tr><td colspan="7" style="text-align:center;color:#a3abba;">No subscribers yet</td></tr>'}</tbody></table></div>
-<p style="font-size:12px;margin-top:22px;">Only confirmed addresses may receive the newsletter. Keep this link private.</p>`, 'en');
+<p style="font-size:12px;margin-top:22px;">Only confirmed addresses may receive the newsletter. Keep this link private.</p>
+${issuesTable(await issueStatus(ISSUES.map((x) => x.id)), s)}`, 'en');
+}
+
+
+// ---------------------------------------------------------------- newsletter issues
+function absUrl(u) { return /^https?:\/\//.test(u) ? u : SITE + '/' + String(u || '').replace(/^\/+/, ''); }
+function findIssue(id) { return ISSUES.find((x) => x.id === id) || null; }
+
+// Email HTML for one issue. email = the recipient (for the personal unsubscribe link) or null (preview).
+// Images only, JPG, never wider than they are (width = the file's own width, max 520).
+function issueHtml(issue, email) {
+  const unsub = email ? link('unsubscribe', email) : '#';
+  const items = (issue.items || []).map((it) => {
+    const w = Math.min(Number(it.imageW) || 520, 520);
+    const href = it.href ? absUrl(it.href) : '';
+    const img = it.image ? `<tr><td style="padding:0 0 18px;text-align:center;">${href ? `<a href="${esc(href)}">` : ''}<img src="${esc(absUrl(it.image))}" width="${w}" alt="${esc(it.title)}" style="display:block;margin:0 auto;width:100%;max-width:${w}px;height:auto;border:0;">${href ? '</a>' : ''}</td></tr>` : '';
+    return `<tr><td style="padding:30px 40px 6px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${img}
+<tr><td style="font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1.25;color:#1b1711;padding:0 0 8px;">${esc(it.title)}</td></tr>
+<tr><td style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#4a463e;padding:0 0 14px;">${esc(it.text)}</td></tr>
+${href ? `<tr><td style="padding:0 0 8px;"><a href="${esc(href)}" style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#0e1524;text-decoration:none;border-bottom:1px solid #d06f2b;padding-bottom:3px;">${esc(it.cta || 'Read more')} &rarr;</a></td></tr>` : ''}
+</table></td></tr>
+<tr><td style="padding:16px 40px 0;"><div style="height:1px;background:#e4ddd0;line-height:1px;font-size:1px;">&nbsp;</div></td></tr>`;
+  }).join('');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(issue.subject)}</title></head>
+<body style="margin:0;padding:0;background:#f4f1ea;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#f4f1ea;">${esc(issue.preheader || '')}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;padding:28px 10px;"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border:1px solid #e4ddd0;">
+<tr><td style="background:#0e1524;padding:28px;text-align:center;"><a href="${SITE}/"><img src="${SITE}/img/logo-ecj-stacked.png" width="150" alt="Eternal City Jewelry" style="display:block;margin:0 auto;width:150px;height:auto;border:0;"></a></td></tr>
+<tr><td style="padding:34px 40px 4px;font-family:Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.75;color:#1b1711;">${esc(issue.intro || '')}</td></tr>
+${items}
+<tr><td align="center" style="padding:30px 40px 34px;"><a href="${SITE}/collection.html" style="display:inline-block;background:#0e1524;color:#ffffff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:15px 30px;">Shop the collection</a></td></tr>
+<tr><td style="background:#0e1524;padding:22px 30px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;line-height:1.7;color:#a3abba;">
+Eternal City Jewelry &middot; Handmade in Rome, Italy<br>
+You receive this email because you subscribed at eternalcity.jewelry.<br>
+<a href="${esc(unsub)}" style="color:#cfd3da;">Unsubscribe</a> &middot; <a href="${SITE}/privacy-policy.html" style="color:#cfd3da;">Privacy</a>
+</td></tr>
+</table></td></tr></table></body></html>`;
+}
+
+async function issueStatus(ids) {
+  if (!ids.length) return {};
+  const vals = await redis(ids.map((id) => ['GET', K.issue(id)]));
+  const out = {};
+  ids.forEach((id, i) => { try { out[id] = vals[i] ? JSON.parse(vals[i]) : null; } catch (e) { out[id] = null; } });
+  return out;
+}
+
+async function sendIssueToAll(issue) {
+  // Claim the issue first: a second click (or two tabs) can never send it twice.
+  const [claimed] = await redis([['SET', K.issue(issue.id), JSON.stringify({ status: 'sending', at: Date.now() }), 'NX']]);
+  if (claimed !== 'OK') return { already: true };
+  const to = (await allSubs()).filter((s) => s.status === 'confirmed').map((s) => s.email);
+  let sent = 0;
+  const errors = [];
+  for (let i = 0; i < to.length; i += 100) {
+    const batch = to.slice(i, i + 100).map((email) => {
+      const u = link('unsubscribe', email);
+      return { from: safeFrom(), to: email, subject: issue.subject, html: issueHtml(issue, email),
+        headers: { 'List-Unsubscribe': `<${u}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } };
+    });
+    const r = await fetch('https://api.resend.com/emails/batch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+      body: JSON.stringify(batch),
+    });
+    if (r.ok) sent += batch.length;
+    else { const t = await r.text(); errors.push(r.status + ' ' + t.slice(0, 200)); console.error('Newsletter batch failed:', r.status, t); }
+  }
+  await redis([['SET', K.issue(issue.id), JSON.stringify({ status: errors.length ? 'partly sent' : 'sent', at: Date.now(), sent, total: to.length, errors })]]);
+  return { sent, total: to.length, errors };
+}
+
+function issuesTable(status, s) {
+  if (!ISSUES.length) return '';
+  const rows = ISSUES.slice().sort((a, b) => String(b.id).localeCompare(String(a.id))).map((is) => {
+    const st = status[is.id];
+    const done = st && st.status !== 'sending' ? `${esc(st.status)} ${esc(fmtDate(st.at))} UTC · ${esc(st.sent)}/${esc(st.total)}` : st ? 'sending…' : 'draft';
+    const prev = `${SITE}/api/newsletter?admin=preview&id=${encodeURIComponent(is.id)}&s=${s}`;
+    const form = (action, label, ask) => `<form method="post" action="/api/newsletter" style="display:inline;"${ask ? ` onsubmit="return confirm('${ask}')"` : ''}><input type="hidden" name="admin" value="${action}"><input type="hidden" name="id" value="${esc(is.id)}"><input type="hidden" name="s" value="${s}"><button type="submit">${label}</button></form>`;
+    return `<tr><td>${esc(is.id)}</td><td>${esc(is.subject)}</td><td>${done}</td><td style="white-space:nowrap;"><a href="${prev}" target="_blank" style="font-size:11px;">Preview</a> ${form('test', 'Test to me')} ${st ? '' : form('send', 'Send to all', 'Send this newsletter to every confirmed subscriber? This cannot be undone.')}</td></tr>`;
+  }).join('');
+  return `<h1 style="font-size:32px;margin-top:46px;">Newsletters</h1>
+<p>Preview, send yourself a test, then send to all. Each issue can be sent to the list once.</p>
+<div style="overflow-x:auto;"><table><thead><tr><th>Week</th><th>Subject</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 // ---------------------------------------------------------------- handler
@@ -305,6 +400,15 @@ module.exports = async (req, res) => {
       const lang = q.l === 'it' ? 'it' : 'en';
       if (q.confirm) return await confirm(req, res, normEmail(q.confirm), q.s, lang, false);
       if (q.unsubscribe) return await unsubscribe(req, res, normEmail(q.unsubscribe), q.s, lang, false);
+      if (q.admin === 'preview') {
+        if (!sigOk('owner', 'list', q.s)) return page(res, 403, 'Not allowed', '<h1>Not allowed</h1>', 'en');
+        const issue = findIssue(String(q.id || ''));
+        if (!issue) return page(res, 404, 'Not found', '<h1>Newsletter not found</h1>', 'en');
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+        return res.end(issueHtml(issue, null));
+      }
       if (q.admin === 'list') {
         if (!sigOk('owner', 'list', q.s)) return page(res, 403, 'Not allowed', '<h1>Not allowed</h1>', 'en');
         return await adminList(req, res, q.format);
@@ -326,6 +430,19 @@ module.exports = async (req, res) => {
       }
       if (body.confirm) return await confirm(req, res, normEmail(body.confirm), body.s, lang, true);
       if (body.unsubscribe) return await unsubscribe(req, res, normEmail(body.unsubscribe), body.s, lang, true);
+      if (body.admin === 'test' || body.admin === 'send') {
+        if (!sigOk('owner', 'list', body.s)) return page(res, 403, 'Not allowed', '<h1>Not allowed</h1>', 'en');
+        const issue = findIssue(String(body.id || ''));
+        if (!issue) return page(res, 404, 'Not found', '<h1>Newsletter not found</h1>', 'en');
+        const back = `<a class="b" href="${adminLink()}">Back to the list</a>`;
+        if (body.admin === 'test') {
+          await sendEmail({ to: OWNER_EMAIL, subject: '[TEST] ' + issue.subject, html: issueHtml(issue, OWNER_EMAIL) });
+          return page(res, 200, 'Test sent', `<h1>Test sent</h1><p>The test was sent to the owner notification address.</p>${back}`, 'en');
+        }
+        const r = await sendIssueToAll(issue);
+        if (r.already) return page(res, 409, 'Already sent', `<h1>Already sent</h1><p>This newsletter has already been sent (or is being sent).</p>${back}`, 'en');
+        return page(res, 200, 'Newsletter sent', `<h1>Newsletter sent</h1><p>Sent to <strong style="color:#eef0f4;">${r.sent}</strong> of ${r.total} confirmed subscribers.${r.errors.length ? ' Some batches failed: see the Vercel logs.' : ''}</p>${back}`, 'en');
+      }
       if (body.admin === 'delete') {
         if (!sigOk('owner', 'list', body.s)) return page(res, 403, 'Not allowed', '<h1>Not allowed</h1>', 'en');
         const email = normEmail(body.email);
