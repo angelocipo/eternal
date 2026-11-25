@@ -34,7 +34,7 @@
   ];
 
   var FOOTER = [
-    { href: 'index.html', en: 'Home', it: 'Home' },
+    { href: '/', en: 'Home', it: 'Home' },
     { href: 'compendium.html', en: 'Compendium', it: 'Compendio' },
     { href: 'journal.html', en: 'Journal', it: 'Diario' },
     { href: 'about.html', en: 'About', it: 'Chi siamo' },
@@ -92,7 +92,7 @@
 
     return maintHtml() + '<nav data-ecj-chrome="nav" style="position:sticky;top:0;z-index:30;background:' + NAVBG + ';backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid ' + LINE + '.16);">' +
       '<div style="max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">' +
-        '<a href="index.html" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:40px;width:auto;display:block;"></a>' +
+        '<a href="/" style="display:block;flex:0 0 auto;"><img src="' + LOGO + '" alt="Eternal City Jewelry" style="height:40px;width:auto;display:block;"></a>' +
         '<div style="display:flex;gap:22px;flex-wrap:wrap;font-size:11px;letter-spacing:.2em;text-transform:uppercase;">' + links + '</div>' +
         '<div style="display:flex;align-items:center;gap:16px;flex:0 0 auto;">' +
           '<button type="button" data-ecj-search aria-label="Search stones" title="Search stones" style="cursor:pointer;border:none;background:transparent;color:' + MUTED + ';padding:4px;line-height:0;">' +
