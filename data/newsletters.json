@@ -2,10 +2,26 @@
   {
     "id": "2026-w48",
     "date": "2026-11-25",
-    "subject": "New from Rome: our new box, teal tiger's eye and two new guides",
-    "preheader": "This week at the atelier: the Eternal City Jewelry box, new stones and guides to men's bracelets and stone meanings.",
-    "intro": "This week in our atelier in Rome: the new box every piece now travels in, a fresh arrival of teal blue tiger's eye, a new 6 mm bracelet and two new guides.",
+    "subject": "New from Rome: mother of pearl, our new box and teal tiger's eye",
+    "preheader": "This week at the atelier: a new mother of pearl bracelet, the Eternal City Jewelry box, new stones and two new guides.",
+    "intro": "This week in our atelier in Rome: a new bracelet in mother of pearl and hematite, the new box every piece now travels in, a fresh arrival of teal blue tiger's eye, a new 6 mm bracelet and two new guides.",
     "items": [
+      {
+        "title": "New: Mother of Pearl & Hematite bracelet",
+        "text": "4 mm cubes of natural mother of pearl alternated with thin hematite discs: white and graphite, soft and metallic. € 174. Read what mother of pearl is and what it has meant for centuries.",
+        "image": "img/1newsletter/2026-w48/mother-of-pearl-hematite-bracelet.jpg",
+        "imageW": 520,
+        "href": "/bracelets/mother-of-pearl-04mm-cube-hematite-bracelet",
+        "cta": "Shop the bracelet"
+      },
+      {
+        "title": "Mother of pearl: meaning and properties",
+        "text": "The light a shell makes for itself: how nacre forms, how it relates to pearls, its traditional meaning and how to care for it.",
+        "image": "",
+        "imageW": 0,
+        "href": "/journal/mother-of-pearl-meaning",
+        "cta": "Read the article"
+      },
       {
         "title": "Our new box",
         "text": "Every piece now arrives in the Eternal City Jewelry box, with its certificate. This is what you see when you open it.",
