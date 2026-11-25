@@ -133,7 +133,8 @@ function urlFor(type, key) {
 }
 
 function norm(s) {
-  return String(s || '').toLowerCase().replace(/bracelets?|necklaces?|jewelry|pendants?/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  return String(s || '').toLowerCase().replace(/bracelets?|necklaces?|jewelry|pendants?/g, '').replace(/[^a-z0-9]+/g, ' ').trim()
+    .split(' ').map((w) => (w.length > 3 ? w.replace(/s$/, '') : w)).join(' ');
 }
 // Same matching rule as category.dc.html, so the schema lists exactly the products shown.
 function stoneProducts(stone) {
@@ -142,7 +143,8 @@ function stoneProducts(stone) {
   const keys = [key, ...(stone.match || []).map(norm)];
   const otherKeys = new Set(stones.filter((x) => x !== stone).map((x) => norm(x.name)));
   return products.filter((p) => p.published !== false).filter((p) =>
-    [...(p.cats || []), ...(p.tags || [])].map(norm).some((h) => h && (keys.some((k) => h.includes(k)) || (key.includes(h) && !otherKeys.has(h)))));
+    [...(p.cats || []), ...(p.tags || [])].map(norm).filter((h) => !(stone.exclude || []).some((x) => h.includes(norm(x))))
+      .some((h) => h && (keys.some((k) => h.includes(k)) || (key.includes(h) && !otherKeys.has(h)))));
 }
 // Terms from selling-conditions.html: shipping from Italy to the EU, Switzerland, Norway and the UK, free from
 // € 50, otherwise € 8 flat; 30-day returns by mail, return shipping paid by the buyer.
