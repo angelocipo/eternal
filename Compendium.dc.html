@@ -520,6 +520,17 @@ img{max-width:100%;}
             <span class="ecj-mean">Intuition and new beginnings</span>
           </span>
         </a>
+        <a class="ecj-card" href="/stones/mother-of-pearl-jewelry" rel="noopener" data-find="mother of pearl calm, purity and protection nacre madreperla">
+          <span class="ecj-ph" style="background:#b9b4a8">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">mother-of-pearl</span>
+            <img src="img/stones/italian-jewelry-mother-of-pearl.webp" alt="Mother of Pearl">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Mother of Pearl</span>
+            <span class="ecj-mean">Calm, purity and protection</span>
+          </span>
+        </a>
         <a class="ecj-card" href="/stones/murano-venetian-glass-jewelry" rel="noopener" data-find="murano venetian glass italian glassblowing artistry">
           <span class="ecj-ph" style="background:#a8854f">
             <span class="ecj-phtag">photo</span>
@@ -866,7 +877,7 @@ class Component extends DCLogic {
     return {
       bodyRef: el => { this.body = el; },
       onSearch: e => this.apply(e.target.value || ''),
-      countLabel: (this.state.count == null ? 56 : this.state.count) + ' Stones',
+      countLabel: (this.state.count == null ? 57 : this.state.count) + ' Stones',
       emptyStyle: this.state.empty ? 'display:block' : 'display:none',
     };
   }
