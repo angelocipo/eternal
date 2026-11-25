@@ -215,7 +215,7 @@
     },
     {
       "source": "/handcrafted-mens-beaded-bracelets",
-      "destination": "/collection.html?type=bracelet",
+      "destination": "/journal/mens-beaded-bracelets",
       "permanent": true
     },
     {
@@ -225,22 +225,22 @@
     },
     {
       "source": "/handmade-mens-beaded-bracelets-from-rome",
-      "destination": "/collection.html?type=bracelet",
+      "destination": "/journal/mens-beaded-bracelets",
       "permanent": true
     },
     {
       "source": "/diangelo-jewelry-rome-handcrafted-mens-beaded-bracelets",
-      "destination": "/collection.html?type=bracelet",
+      "destination": "/journal/mens-beaded-bracelets",
       "permanent": true
     },
     {
       "source": "/mens-bracelets",
-      "destination": "/collection.html?type=bracelet",
+      "destination": "/journal/mens-beaded-bracelets",
       "permanent": true
     },
     {
       "source": "/bracciali-uomo-pietre-lussuose",
-      "destination": "/collection.html?type=bracelet",
+      "destination": "/journal/bracciali-uomo-pietre",
       "permanent": true
     },
     {
@@ -1666,7 +1666,7 @@
     },
     {
       "source": "/tag/gemstone-bracelet-meaning",
-      "destination": "/collection.html",
+      "destination": "/journal/gemstone-bracelet-meanings",
       "permanent": true
     },
     {

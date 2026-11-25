@@ -42,6 +42,12 @@ a{color:inherit;}
 /* Never enlarged beyond the file's own size: small photos stay sharp instead of being stretched. */
 .ech-gal img{width:auto;height:auto;max-width:100%;display:block;border:1px solid rgba(185,190,200,.16);border-radius:4px;}
 .ech-more a:hover{border-color:rgba(185,190,200,.55);}
+/* "links" in posts.json: a list of related products / stone pages under the article. */
+.ech-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.ech a.ech-link{display:flex;flex-direction:column;gap:4px;padding:14px 18px;border:1px solid rgba(185,190,200,.16);border-radius:4px;background:#131c30;transition:border-color .25s;}
+.ech a.ech-link:hover{border-color:rgba(185,190,200,.55);}
+.ech-linklab{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.2;color:#e6e9ee;}
+.ech-linknote{font-size:12.5px;line-height:1.5;color:#8f98a9;}
 .ech a.ech-arrow{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid rgba(185,190,200,.3);border-radius:50%;color:#cfd3da;font-size:17px;transition:border-color .25s,background .25s;}
 .ech a.ech-arrow:hover{border-color:var(--gold);background:rgba(185,190,200,.08);}
 .ech-pn{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
@@ -105,6 +111,18 @@ html,body{overflow-x:hidden;}
       <figcaption style="{{ heroNoteStyle }};font-size:12.5px;line-height:1.6;color:#757f93;font-style:italic;text-align:center;margin-top:10px;">{{ logoNote }}</figcaption>
     </figure>
   </div>
+
+  <section style="{{ linksStyle }};max-width:1000px;margin:0 auto;padding:30px 28px 10px;">
+    <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(25px,3vw,31px);color:#eceff3;margin:0 0 18px;">{{ linksTitle }}</h2>
+    <div class="ech-links">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="0">
+        <a class="ech-link" href="{{ l.href }}">
+          <span class="ech-linklab">{{ l.label }}</span>
+          <span class="ech-linknote" style="{{ l.noteStyle }}">{{ l.note }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
 
   <section style="{{ galStyle }};max-width:1000px;margin:0 auto;padding:20px 28px 10px;">
     <div class="ech-gal">
@@ -211,7 +229,7 @@ class Component extends DCLogic {
   renderVals() {
     const { posts, slug } = this.state;
     const p = posts.find(x => x.slug === slug) || posts[0];
-    if (!p) return { title: '', paras: [], gallery: [], more: [], videoBodyStyle: 'display:none', videoHeroStyle: 'display:none', imgBodyStyle: 'display:none', imgHeroStyle: 'display:none', heroStyle: 'display:none', soundHeroStyle: 'display:none', soundBodyStyle: 'display:none' };
+    if (!p) return { title: '', paras: [], gallery: [], more: [], links: [], linksStyle: 'display:none', videoBodyStyle: 'display:none', videoHeroStyle: 'display:none', imgBodyStyle: 'display:none', imgHeroStyle: 'display:none', heroStyle: 'display:none', soundHeroStyle: 'display:none', soundBodyStyle: 'display:none' };
     // Photos taken before the rebrand show the old "diAngelo" tag: say so under each of them.
     const oldLogo = p.oldLogo || [];
     const noteStyle = u => (oldLogo.indexOf(u) > -1 ? 'display:block' : 'display:none');
@@ -259,6 +277,10 @@ class Component extends DCLogic {
       }),
       gallery,
       galStyle: gallery.length ? '' : 'display:none',
+      // Optional "links" in posts.json: [{href, label, note}], shown as cards under the article.
+      links: (p.links || []).map(l => ({ href: l.href, label: l.label, note: l.note || '', noteStyle: l.note ? '' : 'display:none' })),
+      linksTitle: p.linksTitle || 'Read and shop',
+      linksStyle: (p.links || []).length ? '' : 'display:none',
       // Optional post video (posts.json "video"): small, autoplay, muted, loop, under the text.
       video: p.video || '',
       videoStyle: p.video ? 'display:block' : 'display:none',
