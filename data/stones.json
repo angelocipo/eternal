@@ -967,6 +967,48 @@
     ]
   },
   {
+    "slug": "mother-of-pearl-jewelry",
+    "name": "Mother of Pearl",
+    "meaning": "Calm, purity and protection",
+    "img": "img/stones/italian-jewelry-mother-of-pearl.webp",
+    "postSlug": null,
+    "external": false,
+    "title": "Mother of Pearl",
+    "sub": "Light from the sea. Mother of Pearl is the shell's own lining, layered until it glows.",
+    "intro": [
+      {
+        "label": "",
+        "text": "Mother of Pearl, or nacre, is the smooth, iridescent layer that lines the inside of certain shells, such as pearl oysters and freshwater mussels. The mollusc builds it in thin layers of aragonite crystals bound by an organic protein, the same material pearls are made of. Light passing through those layers gives it its soft, moving lustre."
+      },
+      {
+        "label": "Provenance",
+        "text": "Freshwater mussels farmed in China, and pearl oysters from the South Seas, Australia, the Philippines and French Polynesia."
+      },
+      {
+        "label": "Meaning",
+        "text": "Born in the sea and shaped slowly, Mother of Pearl has long been linked with calm, purity and protection, and with the moon and the tides. These are cultural beliefs rather than scientific properties."
+      },
+      {
+        "label": "Why wear Mother of Pearl?",
+        "text": "Because its light is quiet. Cut into small cubes and set between dark hematite, it gives a clean, graphic bracelet that works with a watch, with silver and on its own."
+      },
+      {
+        "label": "Care",
+        "text": "Mother of Pearl is a soft, organic material. Keep it away from perfume, lotions, chlorine and long contact with water, and wipe it with a soft dry cloth."
+      }
+    ],
+    "stats": [
+      {
+        "value": "3,5/10",
+        "label": "Mohs Hardness"
+      },
+      {
+        "value": "Nacre",
+        "label": "Organic, from shells"
+      }
+    ]
+  },
+  {
     "slug": "murano-venetian-glass-jewelry",
     "name": "Murano Venetian Glass",
     "meaning": "Italian glassblowing artistry",
@@ -1117,6 +1159,9 @@
         "value": "River Pearl",
         "label": "softer than stones, harder than chalk"
       }
+    ],
+    "exclude": [
+      "mother of pearl"
     ]
   },
   {
