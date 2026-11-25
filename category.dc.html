@@ -94,7 +94,7 @@
         <div data-r="grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
           <sc-for list="{{ products }}" as="item" hint-placeholder-count="0">
             <div style="display:flex; flex-direction:column; gap:12px;">
-              <a href="{{ item.href }}" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#131c30; display:block; text-decoration:none; border:1pt solid #eef0f4;">
+              <a href="{{ item.href }}" class="ecj-frame" style="cursor:pointer; position:relative; aspect-ratio:1; overflow:hidden; background:#131c30; display:block; text-decoration:none;">
                 <img src="{{ item.safePhoto }}" data-fallback="{{ item.fallback }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:cover;">
                 <sc-if value="{{ item.onSale }}" hint-placeholder-val="{{ false }}"><div style="position:absolute; top:10px; left:10px; background:#cfd3da; color:#0b111e; font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:2px;">Sale</div></sc-if>
               </a>

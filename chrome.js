@@ -348,6 +348,7 @@
     + '[data-ecj-chrome="nav"] a[data-en]:hover,[data-ecj-chrome="footer"] a:hover{color:' + ORANGE + ' !important;}'
     + '[data-ecj-newsletter] input[type=email]:focus{border-color:' + ORANGE + ' !important;}[data-ecj-newsletter] input::placeholder{color:#6f7889;}[data-ecj-newsletter] button:disabled{opacity:.6;cursor:default;}'
     + '[data-ecj-chrome="nav"] a[aria-current]{box-shadow:inset 0 -2px 0 ' + ORANGE + ';padding-bottom:5px;}'
+    + '.ecj-frame::after{content:"";position:absolute;inset:0;border:2px solid #fff;border-radius:inherit;pointer-events:none;z-index:2;}'
     + '::selection{background:' + ORANGE + ';color:#fff;}'
     + 'h1 em,h2 em{color:' + ORANGE + ';}'
     + 'a:focus-visible,button:focus-visible{outline:2px solid ' + ORANGE + ' !important;outline-offset:3px;}'
