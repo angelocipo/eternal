@@ -75,6 +75,19 @@ a{color:inherit;}
 .ech-stripit b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:16px;letter-spacing:.04em;color:#eef0f4;}
 .ech-stripit span{font-weight:400;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#8d96a8;}
 .ech-sec{max-width:1240px;margin:0 auto;padding:96px 28px;}
+/* Latest Collections: six tiles in a row, 3 per row on tablets, swipe sideways on phones. */
+.ech-latestsec{padding-bottom:24px;}
+.ech-latest{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px;}
+.ech a.ech-lt{display:flex;flex-direction:column;border:1px solid rgba(185,190,200,.16);border-radius:8px;overflow:hidden;background:#131c30;transition:transform .3s ease,border-color .3s ease;}
+.ech a.ech-lt:hover{transform:translateY(-4px);border-color:rgba(185,190,200,.55);}
+.ech-ltph{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:#0b111e;}
+.ech-ltph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.ech a.ech-lt:hover .ech-ltph img{transform:scale(1.05);}
+.ech-ltph .ech-tag{z-index:2;}
+.ech-ltname{display:block;text-align:center;padding:12px 10px 13px;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.2;color:#e6e9ee;}
+@media(max-width:1000px){.ech-latest{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:600px){.ech-latest{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;gap:12px;margin:0 -18px;padding:0 18px 6px;-webkit-overflow-scrolling:touch;}.ech a.ech-lt{flex:0 0 42%;scroll-snap-align:start;}.ech-ltname{font-size:17px;}}
+
 .ech-head{text-align:center;margin-bottom:54px;}
 .ech-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(34px,4.6vw,56px);color:#eceff3;margin:18px 0 0;line-height:1.02;}
 .ech-head h2 em{font-style:italic;color:var(--orange);}
@@ -221,6 +234,39 @@ html,body{overflow-x:hidden;}
       <div class="ech-stripit"><b>Worldwide Shipping</b><span>Insured delivery</span></div>
     </div>
   </div>
+
+  <section class="ech-sec ech-latestsec">
+    <div class="ech-head">
+      <p class="ech-eyebrow">Just in from the atelier</p>
+      <h2>Latest <em>Collections</em></h2>
+    </div>
+    <div class="ech-latest">
+      <a class="ech-lt" href="/bracelets/rainbow-blue-tigers-eye-06mm-bracelet">
+        <span class="ech-ltph"><span class="ech-tag">New</span><img src="img/rainbow-blue-tigers-eye-06mm-bracelet/italian-jewelry-rainbow-blue-tigers-eye-06mm-bracelet-1.webp" alt="Rainbow Tiger&#39;s Eye" loading="lazy"></span>
+        <span class="ech-ltname">Rainbow Tiger&#39;s Eye</span>
+      </a>
+      <a class="ech-lt" href="/stones/turquoise-jewelry">
+        <span class="ech-ltph"><img src="img/stones/italian-jewelry-turquoise.webp" alt="Turquoise" loading="lazy"></span>
+        <span class="ech-ltname">Turquoise</span>
+      </a>
+      <a class="ech-lt" href="/stones/raw-blue-diamonds">
+        <span class="ech-ltph"><img src="img/stones/italian-jewelry-diamonds.webp" alt="Raw Diamonds" loading="lazy"></span>
+        <span class="ech-ltname">Raw Diamonds</span>
+      </a>
+      <a class="ech-lt" href="/stones/green-jade">
+        <span class="ech-ltph"><img src="img/stones/italian-jewelry-green-jade.webp" alt="Jade" loading="lazy"></span>
+        <span class="ech-ltname">Jade</span>
+      </a>
+      <a class="ech-lt" href="/stones/murano-venetian-glass-jewelry">
+        <span class="ech-ltph"><img src="img/stones/italian-jewelry-murano-venetian-glass.webp" alt="Murano Gold" loading="lazy"></span>
+        <span class="ech-ltname">Murano Gold</span>
+      </a>
+      <a class="ech-lt" href="/stones/red-bamboo-jewelry">
+        <span class="ech-ltph"><span class="ech-tag">New</span><img src="img/stones/italian-jewelry-red-bamboo.webp" alt="Red Bamboo" loading="lazy"></span>
+        <span class="ech-ltname">Red Bamboo</span>
+      </a>
+    </div>
+  </section>
 
   <section class="ech-sec">
     <div class="ech-head">
