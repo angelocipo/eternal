@@ -77,7 +77,10 @@ function crawlBlock(type, key) {
     if (i > -1 && i < list.length - 1) links.push(['/journal/' + encodeURIComponent(list[i + 1].slug), list[i + 1].title]);
     links.push([p.stone ? '/collection.html?stone=' + encodeURIComponent(p.stone) : '/collection.html', 'Shop the collection']);
     links.push(['/journal.html', 'Journal'], ['/compendium.html', 'All stones']);
-    return imgTags(pics.slice(0, 5), p.title) + linkList(links);
+    // The post's own related links (products, stone pages) and its full text, for crawlers.
+    const own = (p.links || []).map((l) => [l.href, l.label]);
+    const body = (p.paras || []).map((t) => /^##\s/.test(String(t)) ? `<h2>${esc(String(t).replace(/^##\s+/, ''))}</h2>` : `<p>${esc(plain(t))}</p>`).join('');
+    return body + imgTags(pics.slice(0, 5), p.title) + linkList(own) + linkList(links);
   }
   const st = stones.find((x) => x.slug === key);
   if (!st) return '';
@@ -225,7 +228,10 @@ function meta(type, key) {
       author: { '@type': 'Organization', name: BRAND, url: SITE },
       publisher: { '@type': 'Organization', name: BRAND, logo: { '@type': 'ImageObject', url: SITE + '/img/logo-ecj-header.png' } },
     };
-    return { title: `${heading} — ${BRAND}`, description, canonical, image, ogType: 'article', h1: heading,
+    if (p.lang) ld.inLanguage = p.lang;
+    // "alt": {"en": slug, "it": slug} links translations of the same article (hreflang).
+    const alternates = p.alt ? Object.entries(p.alt).filter(([, s]) => posts.some((x) => x.slug === s)).map(([l, s]) => [l, urlFor('post', s)]) : [];
+    return { title: `${heading} — ${BRAND}`, description, canonical, image, ogType: 'article', h1: heading, lang: p.lang || 'en', alternates,
       lcp: p.videoHero && p.video ? '' : rel(p.image),
       ld: [ld, crumbs([['Home', SITE + '/'], ['Journal', SITE + '/journal.html'], [heading, canonical]])] };
   }
@@ -259,6 +265,9 @@ function tags(m) {
     m.image && `<meta property="og:image" content="${esc(m.image)}">`,
     `<meta name="twitter:card" content="${m.image ? 'summary_large_image' : 'summary'}">`,
     m.noindex && `<meta name="robots" content="noindex, follow">`,
+    ...(m.alternates || []).map(([l, u]) => `<link rel="alternate" hreflang="${esc(l)}" href="${esc(u)}">`),
+    (m.alternates || []).some(([l]) => l === 'en') && `<link rel="alternate" hreflang="x-default" href="${esc((m.alternates.find(([l]) => l === 'en') || [])[1])}">`,
+    m.lang && m.lang !== 'en' && `<meta property="og:locale" content="${m.lang === 'it' ? 'it_IT' : esc(m.lang)}">`,
     // Main photo requested straight away instead of after the page has been drawn.
     m.lcp && `<link rel="preload" as="image" href="${esc(m.lcp)}" fetchpriority="high">`,
     ...[].concat(m.ld || []).map((d) => `<script type="application/ld+json">${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`),
@@ -297,6 +306,7 @@ module.exports = (req, res) => {
     const m = meta(type, String(key));
     if (m) {
       head = tags(m);
+      if (m.lang && m.lang !== 'en') html = html.replace(/<html lang="en">/, `<html lang="${m.lang}">`);
       noscript = `<noscript><h1>${esc(m.h1 || m.title)}</h1><p>${esc(m.description)}</p>${crawlBlock(type, String(key))}</noscript>`;
     }
     else { status = 404; head = `<title>Not found — ${BRAND}</title>\n<meta name="robots" content="noindex">`; }
