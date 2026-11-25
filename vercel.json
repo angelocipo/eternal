@@ -290,8 +290,8 @@
     },
     {
       "source": "/newsletter",
-      "destination": "/",
-      "permanent": true
+      "destination": "/#newsletter",
+      "permanent": false
     },
     {
       "source": "/mailing-list",

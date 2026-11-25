@@ -121,9 +121,50 @@
       '<img src="img/logo-ecj-stacked.png" alt="Eternal City Jewelry" style="width:100%;max-width:200px;height:auto;display:block;margin:0 auto;">' +
       '<span aria-hidden="true" style="display:block;width:6px;height:6px;background:' + ORANGE + ';transform:rotate(45deg);margin:18px auto 0;"></span>' +
       '<div data-en="' + esc(TAGLINE.en) + '" data-it="' + esc(TAGLINE.it) + '" style="font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:' + GOLD + ';margin-top:16px;">' + esc(TAGLINE.en) + '</div>' +
+      newsletterHtml() +
       '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;">' + links + '</div>' +
     '</div>';
   }
+
+  // Newsletter signup (footer of every page). Sends to /api/newsletter, which emails a
+  // confirmation link: nobody is on the list until they click it (double opt-in).
+  function newsletterHtml() {
+    return '<form id="newsletter" data-ecj-newsletter novalidate style="max-width:460px;margin:34px auto 0;">' +
+      '<div data-en="Newsletter" data-it="Newsletter" style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:24px;color:#e6e9ee;">Newsletter</div>' +
+      '<div data-en="New pieces and journal stories from Rome, a few times a year." data-it="Nuovi gioielli e storie del diario da Roma, poche volte l\u2019anno." style="font-size:13px;color:' + MUTED + ';margin-top:6px;">New pieces and journal stories from Rome, a few times a year.</div>' +
+      '<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center;">' +
+        '<input type="email" name="email" required autocomplete="email" aria-label="Email" placeholder="Your email" data-en-placeholder="Your email" data-it-placeholder="La tua email" style="flex:1 1 220px;min-width:0;background:transparent;border:1px solid ' + LINE + '.32);border-radius:2px;color:#eef0f4;font-family:inherit;font-size:14px;padding:12px 14px;outline:none;">' +
+        '<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">' +
+        '<button type="submit" data-en="Subscribe" data-it="Iscriviti" style="flex:0 0 auto;cursor:pointer;border:none;background:' + GOLD + ';color:#0e1524;font-family:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:12px 22px;border-radius:2px;">Subscribe</button>' +
+      '</div>' +
+      '<div data-ecj-newsletter-msg role="status" aria-live="polite" style="font-size:13px;color:' + GOLD + ';margin-top:12px;min-height:1px;"></div>' +
+      '<div style="font-size:11.5px;color:#6f7889;margin-top:8px;line-height:1.6;"><span data-en="We will send a confirmation email. Unsubscribe at any time." data-it="Ti invieremo un\u2019email di conferma. Puoi disiscriverti quando vuoi.">We will send a confirmation email. Unsubscribe at any time.</span> <a href="privacy-policy.html" data-en="Privacy" data-it="Privacy" style="color:' + MUTED + ';">Privacy</a></div>' +
+    '</form>';
+  }
+  function nlMsg(form, en, it) {
+    var m = form.querySelector('[data-ecj-newsletter-msg]');
+    var it_ = typeof window.tsLang === 'function' && window.tsLang() === 'it';
+    if (m) m.textContent = it_ ? it : en;
+  }
+  document.addEventListener('submit', function (e) {
+    var form = e.target && e.target.closest ? e.target.closest('[data-ecj-newsletter]') : null;
+    if (!form) return;
+    e.preventDefault();
+    var email = (form.email.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { nlMsg(form, 'Please enter a valid email address.', 'Inserisci un indirizzo email valido.'); return; }
+    var btn = form.querySelector('button'); if (btn) btn.disabled = true;
+    nlMsg(form, 'Sending\u2026', 'Invio\u2026');
+    fetch('/api/newsletter', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, company: form.company.value, source: location.pathname, lang: (typeof window.tsLang === 'function' ? window.tsLang() : 'en') }),
+    }).then(function (r) { return r.json().then(function (d) { return { s: r.status, d: d }; }); }).then(function (x) {
+      if (x.d && x.d.ok) { form.email.value = ''; nlMsg(form, 'Almost done: check your inbox and click the link to confirm.', 'Quasi fatto: controlla la tua casella e clicca il link per confermare.'); }
+      else if (x.s === 429) nlMsg(form, 'Too many attempts. Please try again later.', 'Troppi tentativi. Riprova pi\u00f9 tardi.');
+      else if (x.d && x.d.error === 'invalid_email') nlMsg(form, 'Please enter a valid email address.', 'Inserisci un indirizzo email valido.');
+      else nlMsg(form, 'Something went wrong. Please try again later.', 'Qualcosa \u00e8 andato storto. Riprova pi\u00f9 tardi.');
+    }).catch(function () { nlMsg(form, 'Something went wrong. Please try again later.', 'Qualcosa \u00e8 andato storto. Riprova pi\u00f9 tardi.'); })
+      .then(function () { if (btn) btn.disabled = false; });
+  });
 
   // Stone search (magnifier in the menu): searches data/stones.json by name, meaning and
   // alternative names, and links to /stones/<slug>. With nothing typed it lists every stone.
@@ -187,6 +228,7 @@
   var CSS = '[data-ecj-chrome="nav"] [data-ecj-search]:hover,#ecj-search a:hover span span:first-child{color:' + ORANGE + ' !important;}'
     + '#ecj-search input::placeholder{color:' + MUTED + ';opacity:.7;}'
     + '[data-ecj-chrome="nav"] a[data-en]:hover,[data-ecj-chrome="footer"] a:hover{color:' + ORANGE + ' !important;}'
+    + '[data-ecj-newsletter] input[type=email]:focus{border-color:' + ORANGE + ' !important;}[data-ecj-newsletter] input::placeholder{color:#6f7889;}[data-ecj-newsletter] button:disabled{opacity:.6;cursor:default;}'
     + '[data-ecj-chrome="nav"] a[aria-current]{box-shadow:inset 0 -2px 0 ' + ORANGE + ';padding-bottom:5px;}'
     + '::selection{background:' + ORANGE + ';color:#fff;}'
     + 'h1 em,h2 em{color:' + ORANGE + ';}'
