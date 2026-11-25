@@ -1223,6 +1223,56 @@
     "stats": []
   },
   {
+    "slug": "red-bamboo-jewelry",
+    "name": "Red Bamboo",
+    "meaning": "Vitality, courage and protection",
+    "img": "img/stones/italian-jewelry-red-bamboo.webp",
+    "postSlug": null,
+    "external": false,
+    "title": "Red Bamboo",
+    "sub": "Ocean-born, worn with warmth. Red Bamboo is coral with a structure of its own.",
+    "match": [
+      "red bamboo",
+      "bamboo coral"
+    ],
+    "intro": [
+      {
+        "label": "",
+        "text": "Red Bamboo is bamboo coral, a deep-sea coral whose skeleton grows in segments, like the stem of a bamboo plant: hard, chalky sections joined by darker organic nodes. That is where the name comes from. In its natural state it is white to pale beige. The deep red you see in jewelry is almost always added by dyeing, which lets the colour settle into the coral's fine pores and gives each bead its slightly mottled, organic surface."
+      },
+      {
+        "label": "Not precious coral",
+        "text": "Red Bamboo is not the same as the precious red coral of the Mediterranean (Corallium). It is a different coral family, more porous and far more affordable, which is why it is the coral most often used for beads today. It gives the warmth of red coral without its rarity or price."
+      },
+      {
+        "label": "Provenance",
+        "text": "Deep waters of the western Pacific and Indian Ocean, mainly around Taiwan, the Philippines and Indonesia."
+      },
+      {
+        "label": "Meaning",
+        "text": "In coral tradition red stands for life force: vitality, courage and protection. Coral has been worn as a protective amulet for centuries, in Rome as elsewhere. These are cultural beliefs rather than scientific properties."
+      },
+      {
+        "label": "Why wear Red Bamboo?",
+        "text": "Because one warm accent changes a whole bracelet. Next to grey jasper, white howlite and green malachite it completes the colours of the Italian flag in our Italy bracelets."
+      },
+      {
+        "label": "Care",
+        "text": "Coral is soft and porous. Keep it away from perfume, lotions, chlorine and long contact with water, and wipe it with a soft dry cloth. Dyed colour can fade with strong sunlight over time."
+      }
+    ],
+    "stats": [
+      {
+        "value": "3–3,5/10",
+        "label": "Mohs Hardness"
+      },
+      {
+        "value": "Organic",
+        "label": "Marine coral"
+      }
+    ]
+  },
+  {
     "slug": "red-carnelian-jewelry",
     "name": "Red Carnelian",
     "meaning": "Vitality, courage and drive",
