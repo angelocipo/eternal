@@ -141,6 +141,78 @@
       '<div style="font-size:11.5px;color:#6f7889;margin-top:8px;line-height:1.6;"><span data-en="We will send a confirmation email. Unsubscribe at any time." data-it="Ti invieremo un\u2019email di conferma. Puoi disiscriverti quando vuoi.">We will send a confirmation email. Unsubscribe at any time.</span> <a href="privacy-policy.html" data-en="Privacy" data-it="Privacy" style="color:' + MUTED + ';">Privacy</a></div>' +
     '</form>';
   }
+
+  // Newsletter popup: appears shortly after the page opens and fades away by itself after
+  // 10 seconds (it stays while the visitor is typing in it). Shown at most once every 7 days,
+  // never again after subscribing, and never on checkout / thank-you / review pages.
+  var NL_KEY = 'ecj-nl-popup';
+  var NL_DELAY = 1500, NL_SHOW = 10000, NL_GAP = 7 * 24 * 3600 * 1000;
+  function nlPopupAllowed() {
+    if (/checkout|grazie|review|api\//.test(location.pathname)) return false;
+    try {
+      var v = localStorage.getItem(NL_KEY);
+      if (v === 'subscribed') return false;
+      if (v && Date.now() - Number(v) < NL_GAP) return false;
+    } catch (e) {}
+    return true;
+  }
+  function nlPopupHtml() {
+    return '<button type="button" data-ecj-nlpop-close aria-label="Close" style="position:absolute;top:8px;right:8px;cursor:pointer;border:none;background:transparent;color:' + MUTED + ';line-height:0;padding:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>' +
+      '<form data-ecj-newsletter novalidate>' +
+        '<div data-en="Newsletter" data-it="Newsletter" style="font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:' + ORANGE + ';">Newsletter</div>' +
+        '<div data-en="Stones with a soul, every week" data-it="Pietre con un’anima, ogni settimana" style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:24px;line-height:1.15;color:#eef0f4;margin-top:6px;">Stones with a soul, every week</div>' +
+        '<div data-en="New pieces and journal stories from Rome, once a week." data-it="Nuovi gioielli e storie del diario da Roma, una volta a settimana." style="font-size:12.5px;color:' + MUTED + ';margin-top:6px;line-height:1.5;">New pieces and journal stories from Rome, once a week.</div>' +
+        '<div style="display:flex;gap:8px;margin-top:14px;">' +
+          '<input type="email" name="email" required autocomplete="email" aria-label="Email" placeholder="Your email" data-en-placeholder="Your email" data-it-placeholder="La tua email" style="flex:1 1 auto;min-width:0;background:transparent;border:1px solid ' + LINE + '.32);border-radius:2px;color:#eef0f4;font-family:inherit;font-size:14px;padding:10px 12px;outline:none;">' +
+          '<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">' +
+          '<button type="submit" data-en="Subscribe" data-it="Iscriviti" style="flex:0 0 auto;cursor:pointer;border:none;background:' + GOLD + ';color:#0e1524;font-family:inherit;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:10px 14px;border-radius:2px;">Subscribe</button>' +
+        '</div>' +
+        '<div data-ecj-newsletter-msg role="status" aria-live="polite" style="font-size:12.5px;color:' + GOLD + ';margin-top:10px;min-height:1px;"></div>' +
+        '<div style="font-size:11px;color:#6f7889;margin-top:4px;line-height:1.5;"><span data-en="Confirmation by email. Unsubscribe at any time." data-it="Conferma via email. Puoi disiscriverti quando vuoi.">Confirmation by email. Unsubscribe at any time.</span> <a href="privacy-policy.html" data-en="Privacy" data-it="Privacy" style="color:' + MUTED + ';">Privacy</a></div>' +
+      '</form>' +
+      '<div data-ecj-nlpop-bar aria-hidden="true" style="position:absolute;left:0;bottom:0;height:2px;width:100%;background:' + ORANGE + ';transform-origin:left;"></div>';
+  }
+  function closeNlPopup(fast) {
+    var o = document.getElementById('ecj-nlpop');
+    if (!o || o.getAttribute('data-closing')) return;
+    o.setAttribute('data-closing', '1');
+    clearTimeout(o._t);
+    o.style.transition = 'opacity ' + (fast ? '.3s' : '1.2s') + ' ease, transform ' + (fast ? '.3s' : '1.2s') + ' ease';
+    o.style.opacity = '0';
+    o.style.transform = 'translateY(8px)';
+    setTimeout(function () { if (o.parentNode) o.parentNode.removeChild(o); }, fast ? 320 : 1250);
+  }
+  function openNlPopup() {
+    if (document.getElementById('ecj-nlpop') || !nlPopupAllowed()) return;
+    try { localStorage.setItem(NL_KEY, String(Date.now())); } catch (e) {}
+    var o = document.createElement('div');
+    o.id = 'ecj-nlpop';
+    o.setAttribute('role', 'dialog');
+    o.setAttribute('aria-label', 'Newsletter');
+    o.style.cssText = 'position:fixed;right:20px;bottom:20px;z-index:2147483001;width:340px;max-width:calc(100vw - 32px);box-sizing:border-box;' +
+      'background:' + NAVBG + ';border:1px solid ' + LINE + '.25);border-top:2px solid ' + ORANGE + ';padding:20px 20px 18px;box-shadow:0 18px 50px rgba(0,0,0,.45);' +
+      'font-family:Jost,\'Helvetica Neue\',Arial,sans-serif;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease;overflow:hidden;';
+    o.innerHTML = nlPopupHtml();
+    document.body.appendChild(o);
+    var bar = o.querySelector('[data-ecj-nlpop-bar]');
+    requestAnimationFrame(function () {
+      o.style.opacity = '1'; o.style.transform = 'none';
+      if (bar) { bar.style.transition = 'transform ' + NL_SHOW + 'ms linear'; bar.style.transform = 'scaleX(0)'; }
+    });
+    // 10-second timer; paused while the visitor is typing, restarted when they leave the field.
+    function arm() { clearTimeout(o._t); o._t = setTimeout(function () { closeNlPopup(false); }, NL_SHOW); }
+    arm();
+    o.addEventListener('focusin', function () { clearTimeout(o._t); if (bar) { bar.style.transition = 'none'; bar.style.opacity = '0'; } });
+    o.addEventListener('focusout', function () { setTimeout(function () { if (!o.contains(document.activeElement) && !o.getAttribute('data-done')) arm(); }, 50); });
+    o.addEventListener('click', function (e) { if (e.target.closest('[data-ecj-nlpop-close]')) closeNlPopup(true); });
+  }
+  // After a successful signup (popup or footer) the popup never shows again.
+  window.ecjNewsletterDone = function (form) {
+    try { localStorage.setItem(NL_KEY, 'subscribed'); } catch (e) {}
+    var o = document.getElementById('ecj-nlpop');
+    if (o && form && o.contains(form)) { o.setAttribute('data-done', '1'); clearTimeout(o._t); setTimeout(function () { closeNlPopup(false); }, 5000); }
+  };
+
   function nlMsg(form, en, it) {
     var m = form.querySelector('[data-ecj-newsletter-msg]');
     var it_ = typeof window.tsLang === 'function' && window.tsLang() === 'it';
@@ -158,7 +230,7 @@
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, company: form.company.value, source: location.pathname, lang: (typeof window.tsLang === 'function' ? window.tsLang() : 'en') }),
     }).then(function (r) { return r.json().then(function (d) { return { s: r.status, d: d }; }); }).then(function (x) {
-      if (x.d && x.d.ok) { form.email.value = ''; nlMsg(form, 'Almost done: check your inbox and click the link to confirm.', 'Quasi fatto: controlla la tua casella e clicca il link per confermare.'); }
+      if (x.d && x.d.ok) { form.email.value = ''; if (window.ecjNewsletterDone) window.ecjNewsletterDone(form); nlMsg(form, 'Almost done: check your inbox and click the link to confirm.', 'Quasi fatto: controlla la tua casella e clicca il link per confermare.'); }
       else if (x.s === 429) nlMsg(form, 'Too many attempts. Please try again later.', 'Troppi tentativi. Riprova pi\u00f9 tardi.');
       else if (x.d && x.d.error === 'invalid_email') nlMsg(form, 'Please enter a valid email address.', 'Inserisci un indirizzo email valido.');
       else nlMsg(form, 'Something went wrong. Please try again later.', 'Qualcosa \u00e8 andato storto. Riprova pi\u00f9 tardi.');
@@ -240,6 +312,8 @@
     + '[data-ecj-chrome="nav"] > div > div:nth-child(2){gap:12px !important;order:3;width:100%;justify-content:center;}'
     + '[data-ecj-chrome="nav"] > div > div:last-child{gap:10px !important;}'
     + '}'
+    + '#ecj-nlpop input[type=email]:focus{border-color:' + ORANGE + ' !important;}#ecj-nlpop input::placeholder{color:#6f7889;}'
+    + '@media(max-width:600px){#ecj-nlpop{left:16px !important;right:16px !important;width:auto !important;bottom:auto !important;top:12px !important;}}'
     + '@media(max-width:480px){'
     + '[data-ecj-chrome="nav"] > div{padding:8px 12px !important;}'
     + '[data-ecj-chrome="nav"] > div > div:nth-child(2){gap:9px !important;letter-spacing:.12em !important;}'
@@ -297,6 +371,7 @@
 
   function start() {
     fill();
+    setTimeout(openNlPopup, NL_DELAY);
     // Design Components stream their markup in, so the placeholders can appear late.
     new MutationObserver(fill).observe(document.body, { childList: true, subtree: true });
   }

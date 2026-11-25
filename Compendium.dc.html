@@ -634,6 +634,17 @@ img{max-width:100%;}
       <div class="ecj-group" id="ecj-R">
         <div class="ecj-ghead"><span>R</span><i></i></div>
         <div class="ecj-grid">
+        <a class="ecj-card" href="/stones/red-bamboo-jewelry" rel="noopener" data-find="red bamboo vitality, courage and protection coral">
+          <span class="ecj-ph" style="background:#a3392e">
+            <span class="ecj-phtag">photo</span>
+            <span class="ecj-phname">red-bamboo</span>
+            <img src="img/stones/italian-jewelry-red-bamboo.webp" alt="Red Bamboo">
+          </span>
+          <span class="ecj-meta">
+            <span class="ecj-name">Red Bamboo</span>
+            <span class="ecj-mean">Vitality, courage and protection</span>
+          </span>
+        </a>
         <a class="ecj-card" href="/stones/red-carnelian-jewelry" rel="noopener" data-find="red carnelian vitality, courage and drive">
           <span class="ecj-ph" style="background:#97473a">
             <span class="ecj-phtag">photo</span>
@@ -855,7 +866,7 @@ class Component extends DCLogic {
     return {
       bodyRef: el => { this.body = el; },
       onSearch: e => this.apply(e.target.value || ''),
-      countLabel: (this.state.count == null ? 55 : this.state.count) + ' Stones',
+      countLabel: (this.state.count == null ? 56 : this.state.count) + ' Stones',
       emptyStyle: this.state.empty ? 'display:block' : 'display:none',
     };
   }
