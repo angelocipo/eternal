@@ -57,7 +57,7 @@ html,body{overflow-x:hidden;}
 
   <div data-ecj-nav=""></div>
 
-  <div style="background:#cfd3da;color:#0e1524;text-align:center;padding:9px 16px;font-weight:500;font-size:12.5px;letter-spacing:.06em;">Free worldwide shipping on orders over &euro; 50.</div>
+  <div style="background:#cfd3da;color:#0e1524;text-align:center;padding:9px 16px;font-weight:500;font-size:12.5px;letter-spacing:.06em;">Free shipping in Europe on orders over &euro; 50.</div>
 
   <main class="co-wrap" style="padding-top:44px;padding-bottom:80px;">
     <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#a3abba;margin-bottom:20px;">
@@ -117,7 +117,7 @@ html,body{overflow-x:hidden;}
             <div><label class="co-label" for="inv-address">Address</label><input class="co-input" id="inv-address" value="{{ inv.address }}" onChange="{{ setInvAddress }}"></div>
             <div><label class="co-label" for="inv-city">City</label><input class="co-input" id="inv-city" value="{{ inv.city }}" onChange="{{ setInvCity }}"></div>
             <div><label class="co-label" for="inv-cap">Postal code</label><input class="co-input" id="inv-cap" value="{{ inv.cap }}" onChange="{{ setInvCap }}"></div>
-            <div><label class="co-label" for="inv-country">Country</label><input class="co-input" id="inv-country" value="{{ inv.country }}" onChange="{{ setInvCountry }}"></div>
+            <div><label class="co-label" for="inv-country">Country</label><select class="co-input" id="inv-country" value="{{ inv.country }}" onChange="{{ setInvCountry }}"><option value="">Choose your country</option><option value="AT">Austria</option><option value="BE">Belgium</option><option value="BG">Bulgaria</option><option value="HR">Croatia</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="EE">Estonia</option><option value="FI">Finland</option><option value="FR">France</option><option value="DE">Germany</option><option value="GR">Greece</option><option value="HU">Hungary</option><option value="IE">Ireland</option><option value="LV">Latvia</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MT">Malta</option><option value="NL">Netherlands</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="RO">Romania</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="ES">Spain</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="NO">Norway</option><option value="GB">United Kingdom</option></select></div>
           </div>
         </sc-if>
 
@@ -161,7 +161,7 @@ html,body{overflow-x:hidden;}
           <sc-if value="{{ freeByThreshold }}" hint-placeholder-val="{{ false }}">
             <p style="margin:10px 0 0;font-size:13px;font-weight:500;color:#cfd3da;">Free shipping applied &mdash; order over &euro; 50.</p>
           </sc-if>
-          <p style="margin:10px 0 0;font-size:13px;color:#757f93;">Shipped worldwide from Italy. Free shipping on orders over &euro; 50.</p>
+          <p style="margin:10px 0 0;font-size:13px;color:#757f93;">Shipped from Italy to the EU, Switzerland, Norway and the UK. Free shipping on orders over &euro; 50.</p>
         </div>
 
         <sc-if value="{{ shipDifferent }}" hint-placeholder-val="{{ false }}">
@@ -255,6 +255,7 @@ class Component extends DCLogic {
     const { invType, inv } = this.state;
     if (!inv.name || !inv.email) return 'Please enter name and email.';
     if (!inv.address || !inv.city || !inv.cap) return 'Please enter a complete billing address.';
+    if (invType === 'estero' && !inv.country) return 'Please choose your country. For now we ship to the EU, Switzerland, Norway and the UK.';
     if (invType === 'privato' && !inv.cf) return 'Please enter your Codice Fiscale.';
     if (invType === 'azienda' && (!inv.company || !inv.vat)) return 'Please enter Company name and VAT number.';
     if (invType === 'azienda' && !inv.pec && !inv.sdi) return 'Please enter PEC or SDI Code.';
