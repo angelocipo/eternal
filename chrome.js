@@ -131,7 +131,7 @@
   function newsletterHtml() {
     return '<form id="newsletter" data-ecj-newsletter novalidate style="max-width:460px;margin:34px auto 0;">' +
       '<div data-en="Newsletter" data-it="Newsletter" style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:24px;color:#e6e9ee;">Newsletter</div>' +
-      '<div data-en="New pieces and journal stories from Rome, a few times a year." data-it="Nuovi gioielli e storie del diario da Roma, poche volte l\u2019anno." style="font-size:13px;color:' + MUTED + ';margin-top:6px;">New pieces and journal stories from Rome, a few times a year.</div>' +
+      '<div data-en="New pieces and journal stories from Rome, once a week." data-it="Nuovi gioielli e storie del diario da Roma, una volta a settimana." style="font-size:13px;color:' + MUTED + ';margin-top:6px;">New pieces and journal stories from Rome, once a week.</div>' +
       '<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;justify-content:center;">' +
         '<input type="email" name="email" required autocomplete="email" aria-label="Email" placeholder="Your email" data-en-placeholder="Your email" data-it-placeholder="La tua email" style="flex:1 1 220px;min-width:0;background:transparent;border:1px solid ' + LINE + '.32);border-radius:2px;color:#eef0f4;font-family:inherit;font-size:14px;padding:12px 14px;outline:none;">' +
         '<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">' +
