@@ -1225,50 +1225,46 @@
   {
     "slug": "red-bamboo-jewelry",
     "name": "Red Bamboo",
-    "meaning": "Vitality, courage and protection",
+    "meaning": "Resilience, growth and good fortune",
     "img": "img/stones/italian-jewelry-red-bamboo.webp",
     "postSlug": null,
     "external": false,
     "title": "Red Bamboo",
-    "sub": "Ocean-born, worn with warmth. Red Bamboo is coral with a structure of its own.",
+    "sub": "Grown, not mined. Red Bamboo is a plant bead with the warmth of wood.",
     "match": [
       "red bamboo",
-      "bamboo coral"
+      "bamboo"
     ],
     "intro": [
       {
         "label": "",
-        "text": "Red Bamboo is bamboo coral, a deep-sea coral whose skeleton grows in segments, like the stem of a bamboo plant: hard, chalky sections joined by darker organic nodes. That is where the name comes from. In its natural state it is white to pale beige. The deep red you see in jewelry is almost always added by dyeing, which lets the colour settle into the coral's fine pores and gives each bead its slightly mottled, organic surface."
-      },
-      {
-        "label": "Not precious coral",
-        "text": "Red Bamboo is not the same as the precious red coral of the Mediterranean (Corallium). It is a different coral family, more porous and far more affordable, which is why it is the coral most often used for beads today. It gives the warmth of red coral without its rarity or price."
+        "text": "Red Bamboo beads are cut from the stems of the bamboo plant, turned into rounds and coloured a deep red. Bamboo is botanically a giant grass, but its stems are as hard and fibrous as wood, so the beads feel like wood: light on the wrist, warm to the touch, with a fine natural grain and a slightly textured surface. The red colour is added by dyeing."
       },
       {
         "label": "Provenance",
-        "text": "Deep waters of the western Pacific and Indian Ocean, mainly around Taiwan, the Philippines and Indonesia."
+        "text": "Bamboo grows across Asia; most bamboo beads come from China, Indonesia and India."
       },
       {
         "label": "Meaning",
-        "text": "In coral tradition red stands for life force: vitality, courage and protection. Coral has been worn as a protective amulet for centuries, in Rome as elsewhere. These are cultural beliefs rather than scientific properties."
+        "text": "In Asian tradition bamboo stands for resilience and flexibility: it bends in the wind and does not break, and it grows back quickly after it is cut. It is also a symbol of long life and good fortune. These are cultural beliefs rather than scientific properties."
       },
       {
         "label": "Why wear Red Bamboo?",
-        "text": "Because one warm accent changes a whole bracelet. Next to grey jasper, white howlite and green malachite it completes the colours of the Italian flag in our Italy bracelets."
+        "text": "Because one warm accent changes a whole bracelet. Next to grey jasper, white howlite and green malachite it completes the colours of the Italian flag in our Italy bracelets, and it adds almost no weight."
       },
       {
         "label": "Care",
-        "text": "Coral is soft and porous. Keep it away from perfume, lotions, chlorine and long contact with water, and wipe it with a soft dry cloth. Dyed colour can fade with strong sunlight over time."
+        "text": "Bamboo is a natural plant material. Keep it dry: take the bracelet off before swimming or showering, keep it away from perfume and lotions, and wipe it with a soft dry cloth. The dyed colour can fade with long exposure to strong sunlight."
       }
     ],
     "stats": [
       {
-        "value": "3–3,5/10",
-        "label": "Mohs Hardness"
+        "value": "Plant",
+        "label": "Natural material"
       },
       {
-        "value": "Organic",
-        "label": "Marine coral"
+        "value": "Light",
+        "label": "Weight on the wrist"
       }
     ]
   },
