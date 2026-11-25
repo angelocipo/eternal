@@ -144,13 +144,13 @@ function stoneProducts(stone) {
   return products.filter((p) => p.published !== false).filter((p) =>
     [...(p.cats || []), ...(p.tags || [])].map(norm).some((h) => h && (keys.some((k) => h.includes(k)) || (key.includes(h) && !otherKeys.has(h)))));
 }
-// Terms from selling-conditions.html: worldwide shipping from Italy, free from € 50, otherwise
-// € 8 flat; 30-day returns by mail, return shipping paid by the buyer.
-// Delivery times (Angelo): 3–5 working days to prepare, then 2–5 days in transit in Europe, 5–10 elsewhere.
+// Terms from selling-conditions.html: shipping from Italy to the EU, Switzerland, Norway and the UK, free from
+// € 50, otherwise € 8 flat; 30-day returns by mail, return shipping paid by the buyer.
+// Delivery times (Angelo): 3–5 working days to prepare, then 2–5 days in transit.
+// Same list as EU_COUNTRIES in api/create-checkout-session.js and checkout.dc.html.
 const SHIP_EU = ['IT','AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','LV','LT','LU','MT','NL',
   'PL','PT','RO','SK','SI','ES','SE','CH','NO','GB'];
-const SHIP_WORLD = ['US','CA','AU','NZ','JP'];
-const SHIP_TO = [...SHIP_EU, ...SHIP_WORLD];
+const SHIP_TO = SHIP_EU;
 const days = (min, max) => ({ '@type': 'QuantitativeValue', minValue: min, maxValue: max, unitCode: 'DAY' });
 function shipping(price) {
   const rate = { '@type': 'MonetaryAmount', value: Number(price) >= 50 ? '0' : '8', currency: 'EUR' };
@@ -158,7 +158,7 @@ function shipping(price) {
     shippingDestination: countries.map((c) => ({ '@type': 'DefinedRegion', addressCountry: c })),
     shippingOrigin: { '@type': 'DefinedRegion', addressCountry: 'IT' },
     deliveryTime: { '@type': 'ShippingDeliveryTime', handlingTime: days(3, 5), transitTime: days(tMin, tMax) } });
-  return [zone(SHIP_EU, 2, 5), zone(SHIP_WORLD, 5, 10)];
+  return [zone(SHIP_EU, 2, 5)];
 }
 const RETURNS = { '@type': 'MerchantReturnPolicy', applicableCountry: SHIP_TO,
   returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 30,

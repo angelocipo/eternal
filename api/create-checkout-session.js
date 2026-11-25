@@ -9,6 +9,9 @@ const Stripe = require('stripe');
 const JEWELRY = require('../data/products.json');
 const JEWELRY_FREE_SHIPPING_FROM = 50;
 const JEWELRY_SHIPPING_FEE = 8;
+// For now we ship only to the EU, Switzerland, Norway and the UK (same list as SHIP_EU in api/seo-page.js).
+const EU_COUNTRIES = ['IT','AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','LV','LT','LU','MT','NL',
+  'PL','PT','RO','SK','SI','ES','SE','CH','NO','GB'];
 
 // Lazy init so a missing key returns a clean JSON error instead of crashing the
 // function at module load (newer stripe throws in the constructor when key is empty).
@@ -33,6 +36,11 @@ module.exports = async (req, res) => {
   try {
     const { productId, customer, shipping, sender, shippingZone } = req.body || {};
     let { shippingFee } = req.body || {};
+    const country = String((customer && customer.country) || 'IT').trim().toUpperCase();
+    if (!EU_COUNTRIES.includes(country)) {
+      res.status(400).json({ error: 'For now we ship only to the European Union, Switzerland, Norway and the United Kingdom.' });
+      return;
+    }
     const jewel = Array.isArray(JEWELRY) ? JEWELRY.find((p) => p.slug === productId) : null;
     const product = jewel ? { type: 'jewelry' } : null;
     if (!product) {
@@ -109,7 +117,7 @@ module.exports = async (req, res) => {
     metadata.inv_address = c.address || '';
     metadata.inv_city = c.city || '';
     metadata.inv_cap = c.cap || '';
-    metadata.inv_country = c.country || 'IT';
+    metadata.inv_country = country;
 
     const sh = shipping || {};
     if (sh.sameAsBilling) {
