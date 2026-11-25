@@ -21,6 +21,52 @@
       var l = document.createElement('link'); l.rel = d[0]; if (d[1]) l.type = d[1]; l.href = d[2]; l.sizes = d[3]; h.appendChild(l);
     });
   })();
+
+  // ---- Preview links -----------------------------------------------------------------
+  // On the live site, Vercel turns clean addresses (/bracelets/<slug>, journal.html, …) into
+  // the .dc.html page files. In the Claude preview the files are opened directly, so those
+  // addresses lead nowhere. Only when the current address ends in .dc.html (never on the live
+  // site), links are rewritten to the page files, so you can click through the preview.
+  (function () {
+    if (!/\.dc\.html$/i.test(location.pathname)) return;
+    var PAGES = {
+      '': 'index.dc.html', 'index.html': 'index.dc.html', 'compendium.html': 'Compendium.dc.html',
+      'care-guide.html': 'Eternal-City-Care-Guide.dc.html', 'shop.html': 'Eternal-City-Shop.dc.html',
+      'size-guide.html': 'Eternal-City-Size-Guide.dc.html', 'journal.html': 'Journal.dc.html',
+      'lemurian.html': 'Lemurian-Category.dc.html', 'post.html': 'Post.dc.html', 'about.html': 'about.dc.html',
+      'category.html': 'category.dc.html', 'checkout.html': 'checkout.dc.html', 'collection.html': 'collection.dc.html',
+      'contact.html': 'contact.dc.html', 'thank-you.html': 'grazie.dc.html', 'privacy-policy.html': 'privacy-policy.dc.html',
+      'product.html': 'product.dc.html', 'selling-conditions.html': 'selling-conditions.dc.html', 'review.html': 'review.dc.html',
+    };
+    var DIRS = { bracelets: ['product.dc.html', 'slug'], journal: ['Post.dc.html', 'slug'], stones: ['category.dc.html', 'stone'] };
+    var base = location.pathname.replace(/[^/]*$/, ''); // folder of the page files
+    function map(href) {
+      if (!href || /^(#|mailto:|tel:|javascript:)/i.test(href)) return null;
+      var u;
+      try { u = new URL(href, location.href); } catch (e) { return null; }
+      var liveHost = /(^|\.)eternalcity\.jewelry$/i.test(u.hostname);
+      if (u.origin !== location.origin && !liveHost) return null; // other websites: leave alone
+      var path = u.pathname;
+      if (!liveHost && path.indexOf(base) === 0) path = path.slice(base.length); else path = path.replace(/^\//, '');
+      if (/\.dc\.html$/i.test(path)) return null; // already a page file
+      var m = path.match(/^(bracelets|journal|stones)\/([^/]+)\/?$/);
+      if (m) return base + DIRS[m[1]][0] + '?' + DIRS[m[1]][1] + '=' + m[2] + u.hash;
+      var key = path.replace(/\/$/, '');
+      if (Object.prototype.hasOwnProperty.call(PAGES, key)) return base + PAGES[key] + u.search + u.hash;
+      return null;
+    }
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || (a.target && a.target !== '_self')) return;
+      var to = map(a.getAttribute('href'));
+      if (!to) return;
+      e.preventDefault();
+      location.href = to;
+    }, true);
+    window.ecjPreviewHref = map;
+  })();
+
   var LOGO = 'img/logo-ecj-header.png';
   var CART_HREF = 'checkout.html';
 
@@ -285,7 +331,7 @@
     var input = o.querySelector('[data-ecj-search-input]');
     input.addEventListener('input', function () { searchResults(input.value); });
     input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { var a = o.querySelector('[data-ecj-search-results] a'); if (a) location.href = a.href; }
+      if (e.key === 'Enter') { var a = o.querySelector('[data-ecj-search-results] a'); if (a) location.href = (window.ecjPreviewHref && window.ecjPreviewHref(a.getAttribute('href'))) || a.href; }
     });
     o.addEventListener('click', function (e) { if (!e.target.closest('[data-ecj-search-panel]') || e.target.closest('[data-ecj-search-close]')) closeSearch(); });
     searchResults('');
