@@ -1,0 +1,51 @@
+[
+  {
+    "id": "2026-w48",
+    "date": "2026-11-25",
+    "subject": "New from Rome: our new box, teal tiger's eye and two new guides",
+    "preheader": "This week at the atelier: the Eternal City Jewelry box, new stones and guides to men's bracelets and stone meanings.",
+    "intro": "This week in our atelier in Rome: the new box every piece now travels in, a fresh arrival of teal blue tiger's eye, a new 6 mm bracelet and two new guides.",
+    "items": [
+      {
+        "title": "Our new box",
+        "text": "Every piece now arrives in the Eternal City Jewelry box, with its certificate. This is what you see when you open it.",
+        "image": "img/newsletter/2026-w48/eternal-city-jewelry-box.jpg",
+        "imageW": 520,
+        "href": "/journal/unboxing-eternal-city-jewelry",
+        "cta": "See the unboxing"
+      },
+      {
+        "title": "New arrival: teal blue tiger's eye",
+        "text": "Strands of 6 mm beads in deep sea-green and blue, with the moving light tiger's eye is known for. A first look before they become bracelets.",
+        "image": "img/newsletter/2026-w48/teal-blue-tigers-eye.jpg",
+        "imageW": 520,
+        "href": "/journal/teal-blue-tigers-eye-arrival",
+        "cta": "Read more"
+      },
+      {
+        "title": "Rainbow Blue Tiger's Eye 6 mm bracelet",
+        "text": "Our newest bracelet: shimmering blue tiger's eye, strung by hand in Rome. € 55.",
+        "image": "img/newsletter/2026-w48/rainbow-blue-tigers-eye-bracelet.jpg",
+        "imageW": 520,
+        "href": "/bracelets/rainbow-blue-tigers-eye-06mm-bracelet",
+        "cta": "Shop the bracelet"
+      },
+      {
+        "title": "Men's beaded bracelets: a guide",
+        "text": "Which stones men choose, 10 or 12 mm beads, natural stone with sterling silver, and how to find your size.",
+        "image": "img/newsletter/2026-w48/mens-bracelets-silver-beads.jpg",
+        "imageW": 520,
+        "href": "/journal/mens-beaded-bracelets",
+        "cta": "Read the guide"
+      },
+      {
+        "title": "What does your stone mean?",
+        "text": "30 stones grouped by intention: calm, confidence, love, protection and luck. Find the one that fits you.",
+        "image": "img/newsletter/2026-w48/labradorite-stone.jpg",
+        "imageW": 520,
+        "href": "/journal/gemstone-bracelet-meanings",
+        "cta": "Find your stone"
+      }
+    ]
+  }
+]
